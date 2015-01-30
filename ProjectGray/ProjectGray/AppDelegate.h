@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  TestPush
+//  ProjectGray
 //
-//  Created by Tim Wang on 2015-01-19.
+//  Created by Tim Wang on 2015-01-30.
 //  Copyright (c) 2015 Tim Wang. All rights reserved.
 //
 

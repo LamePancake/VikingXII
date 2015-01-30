@@ -1,19 +1,19 @@
 //
-//  ProjectGreyTests.m
-//  ProjectGreyTests
+//  ProjectGrayTests.m
+//  ProjectGrayTests
 //
-//  Created by Dan Russell on 2015-01-20.
-//  Copyright (c) 2015 lamepancake. All rights reserved.
+//  Created by Tim Wang on 2015-01-30.
+//  Copyright (c) 2015 Tim Wang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface ProjectGreyTests : XCTestCase
+@interface ProjectGrayTests : XCTestCase
 
 @end
 
-@implementation ProjectGreyTests
+@implementation ProjectGrayTests
 
 - (void)setUp {
     [super setUp];

@@ -1,9 +1,9 @@
 //
 //  GameViewController.m
-//  ProjectGrey
+//  ProjectGray
 //
-//  Created by Dan Russell on 2015-01-20.
-//  Copyright (c) 2015 lamepancake. All rights reserved.
+//  Created by Tim Wang on 2015-01-30.
+//  Copyright (c) 2015 Tim Wang. All rights reserved.
 //
 
 #import "GameViewController.h"
