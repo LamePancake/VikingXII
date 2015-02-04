@@ -16,6 +16,7 @@
 		A57298111A7C1F30001934F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A57298101A7C1F30001934F9 /* Images.xcassets */; };
 		A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57298121A7C1F30001934F9 /* LaunchScreen.xib */; };
 		A57298201A7C1F30001934F9 /* ProjectGrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */; };
+		A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A572982D1A7C37D6001934F9 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		A57298191A7C1F30001934F9 /* ProjectGrayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectGrayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A572981E1A7C1F30001934F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectGrayTests.m; sourceTree = "<group>"; };
+		A572982C1A7C37D6001934F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 				A572980A1A7C1F30001934F9 /* GameViewController.h */,
 				A572980B1A7C1F30001934F9 /* GameViewController.m */,
 				A572980D1A7C1F30001934F9 /* Main.storyboard */,
+				A572982C1A7C37D6001934F9 /* MainViewController.h */,
+				A572982D1A7C37D6001934F9 /* MainViewController.m */,
 				A57298101A7C1F30001934F9 /* Images.xcassets */,
 				A57298121A7C1F30001934F9 /* LaunchScreen.xib */,
 				A57297FF1A7C1F30001934F9 /* Supporting Files */,
@@ -230,6 +235,7 @@
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.m in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
+				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +428,7 @@
 				A57298251A7C1F30001934F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A57298261A7C1F30001934F9 /* Build configuration list for PBXNativeTarget "ProjectGrayTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +437,7 @@
 				A57298281A7C1F30001934F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
