@@ -76,6 +76,8 @@ GLfloat gCubeVertexData[216] =
     -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
 };
 
+
+
 @interface GameViewController () {
     GLuint _program;
     
