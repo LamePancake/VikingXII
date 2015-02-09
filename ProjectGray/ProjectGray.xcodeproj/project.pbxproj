@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		351B516C1A82C157003A9D40 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 351B516B1A82C157003A9D40 /* Camera.m */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
 		A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298041A7C1F30001934F9 /* AppDelegate.m */; };
 		A57298071A7C1F30001934F9 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A57298061A7C1F30001934F9 /* Shader.fsh */; };
@@ -31,8 +30,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		351B516A1A82C142003A9D40 /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		351B516B1A82C157003A9D40 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		A57297FC1A7C1F30001934F9 /* ProjectGray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectGray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57298001A7C1F30001934F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A57298011A7C1F30001934F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -103,8 +100,6 @@
 				A57298101A7C1F30001934F9 /* Images.xcassets */,
 				A57298121A7C1F30001934F9 /* LaunchScreen.xib */,
 				A57297FF1A7C1F30001934F9 /* Supporting Files */,
-				351B516A1A82C142003A9D40 /* Camera.h */,
-				351B516B1A82C157003A9D40 /* Camera.m */,
 			);
 			path = ProjectGray;
 			sourceTree = "<group>";
@@ -238,7 +233,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
-				351B516C1A82C157003A9D40 /* Camera.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.m in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
 				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
