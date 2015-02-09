@@ -7,8 +7,12 @@
 //
 
 #import "MainViewController.h"
+#import "SkirmishMode.h"
+#import "ConvoyMode.h"
 
 @interface MainViewController ()
+
+@property(strong, nonatomic) NSArray* modes;
 
 @end
 
@@ -16,13 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    _modes = @[ [ [ConvoyMode alloc] init], [ [SkirmishMode alloc] init]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
