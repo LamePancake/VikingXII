@@ -7,8 +7,11 @@
 //
 
 #import "MainViewController.h"
+#import "Settings.h"
 
 @interface MainViewController ()
+
+@property(strong, nonatomic) Settings* gameSettings;
 
 @end
 
@@ -16,12 +19,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Initialise the game settings object
+    _gameSettings = [[ Settings alloc] init];
+    [self updateModeText];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+/**
+ * @brief Switches the current mode to the next mode in the list.
+ * @param sender The button which triggered the event.
+ */
+- (IBAction)onModeScrollForward:(id)sender {
+
+    [_gameSettings switchToNextMode];
+    // Update the model & view
+    [self updateModeText];
+}
+
+/**
+ * @brief Switches the current mode to the previous on in the list.
+ * @param sender The button which triggered the event.
+ */
+- (IBAction)onModeScrollBack:(id)sender {
+    // Update the model & view
+    [_gameSettings switchToPrevMode];
+    [self updateModeText];
+}
+
+/**
+ * @brief Updates the current mode in the model and view.
+ */
+-(void)updateModeText {
+    NSString *modeTxt = [[_gameSettings currentMode] name];
+    [_curModeLabel setText: modeTxt];
 }
 
 /*

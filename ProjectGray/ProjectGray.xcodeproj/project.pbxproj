@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		A517EC891A8979F300E17D27 /* chicken.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC881A8979F300E17D27 /* chicken.obj */; };
 		A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC8C1A898D1F00E17D27 /* chicken_final.obj */; };
+		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
+		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
+		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
+		70C7183A1A89547E003E3B05 /* GameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718391A89547E003E3B05 /* GameMode.m */; };
 		A54B72FF1A893EDA00675047 /* OBJLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54B72FD1A893EDA00675047 /* OBJLoader.cpp */; };
 		A54B74021A8940DF00675047 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = A54B73011A8940DF00675047 /* CMakeLists.txt */; };
 		A54B74041A8940DF00675047 /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = A54B730C1A8940DF00675047 /* func_common.inl */; };
@@ -145,10 +149,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		A517EC881A8979F300E17D27 /* chicken.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken.obj; path = Models/chicken.obj; sourceTree = "<group>"; };
 		A517EC8C1A898D1F00E17D27 /* chicken_final.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken_final.obj; path = Models/chicken_final.obj; sourceTree = "<group>"; };
+		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		70C7182F1A89421B003E3B05 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		70C718301A8944B1003E3B05 /* GameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMode.h; sourceTree = "<group>"; };
+		70C718331A894635003E3B05 /* ConvoyMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvoyMode.m; sourceTree = "<group>"; };
+		70C718351A89485A003E3B05 /* ConvoyMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvoyMode.h; sourceTree = "<group>"; };
+		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
+		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
+		70C718391A89547E003E3B05 /* GameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMode.m; sourceTree = "<group>"; };
 		A54B72FD1A893EDA00675047 /* OBJLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJLoader.cpp; sourceTree = "<group>"; };
 		A54B72FE1A893EDA00675047 /* OBJLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJLoader.h; sourceTree = "<group>"; };
 		A54B73011A8940DF00675047 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -441,11 +453,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A517EC871A8979E600E17D27 /* Models */ = {
+		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				359216AC1A8952A300327F76 /* Camera.h */,
+				359216AD1A8952A300327F76 /* Camera.m */,
+				70C7182F1A89421B003E3B05 /* Settings.h */,
+				709DA0A11A89835A007D63C1 /* Settings.m */,
+				70C718331A894635003E3B05 /* ConvoyMode.m */,
+				70C718351A89485A003E3B05 /* ConvoyMode.h */,
+				70C718301A8944B1003E3B05 /* GameMode.h */,
+				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
+				70C718371A894BD5003E3B05 /* SkirmishMode.m */,
+				70C718391A89547E003E3B05 /* GameMode.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		709DA0A41A898ED6007D63C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A572980A1A7C1F30001934F9 /* GameViewController.h */,
+				A572980B1A7C1F30001934F9 /* GameViewController.m */,
+				A572982C1A7C37D6001934F9 /* MainViewController.h */,
+				A572982D1A7C37D6001934F9 /* MainViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		709DA0A51A898F0D007D63C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A57298031A7C1F30001934F9 /* AppDelegate.h */,
+				A57298041A7C1F30001934F9 /* AppDelegate.m */,
+				A572980D1A7C1F30001934F9 /* Main.storyboard */,
+				A57298121A7C1F30001934F9 /* LaunchScreen.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		709DA0A61A898F32007D63C1 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A57298061A7C1F30001934F9 /* Shader.fsh */,
+				A57298081A7C1F30001934F9 /* Shader.vsh */,
+				A57298101A7C1F30001934F9 /* Images.xcassets */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		A54B73001A8940DF00675047 /* glm */ = {
@@ -753,22 +807,12 @@
 		A57297FE1A7C1F30001934F9 /* ProjectGray */ = {
 			isa = PBXGroup;
 			children = (
-				A517EC871A8979E600E17D27 /* Models */,
-				359216AC1A8952A300327F76 /* Camera.h */,
 				A517EC8C1A898D1F00E17D27 /* chicken_final.obj */,
 				A517EC881A8979F300E17D27 /* chicken.obj */,
-				359216AD1A8952A300327F76 /* Camera.m */,
-				A57298031A7C1F30001934F9 /* AppDelegate.h */,
-				A57298041A7C1F30001934F9 /* AppDelegate.m */,
-				A57298061A7C1F30001934F9 /* Shader.fsh */,
-				A57298081A7C1F30001934F9 /* Shader.vsh */,
-				A572980A1A7C1F30001934F9 /* GameViewController.h */,
-				A572980B1A7C1F30001934F9 /* GameViewController.mm */,
-				A572980D1A7C1F30001934F9 /* Main.storyboard */,
-				A572982C1A7C37D6001934F9 /* MainViewController.h */,
-				A572982D1A7C37D6001934F9 /* MainViewController.m */,
-				A57298101A7C1F30001934F9 /* Images.xcassets */,
-				A57298121A7C1F30001934F9 /* LaunchScreen.xib */,
+				709DA0A31A898E76007D63C1 /* Models */,
+				709DA0A61A898F32007D63C1 /* Assets */,
+				709DA0A41A898ED6007D63C1 /* Controllers */,
+				709DA0A51A898F0D007D63C1 /* Views */,
 				A54B72FD1A893EDA00675047 /* OBJLoader.cpp */,
 				A54B72FE1A893EDA00675047 /* OBJLoader.h */,
 				A57297FF1A7C1F30001934F9 /* Supporting Files */,
@@ -779,6 +823,8 @@
 		A57297FF1A7C1F30001934F9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A54B72FD1A893EDA00675047 /* OBJLoader.cpp */,
+				A54B72FE1A893EDA00675047 /* OBJLoader.h */,
 				A54B73001A8940DF00675047 /* glm */,
 				A57298001A7C1F30001934F9 /* Info.plist */,
 				A57298011A7C1F30001934F9 /* main.m */,
@@ -1017,6 +1063,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
+				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
+				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
+				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54B740D1A8940DF00675047 /* glm.cpp in Sources */,
 				A54B72FF1A893EDA00675047 /* OBJLoader.cpp in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
