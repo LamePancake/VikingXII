@@ -25,7 +25,7 @@
         <!--Title-->
         <scene sceneID="7qv-TS-Uq2">
             <objects>
-                <viewController id="ggk-1W-3bd" sceneMemberID="viewController">
+                <viewController id="ggk-1W-3bd" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ROa-8D-cyV"/>
                         <viewControllerLayoutGuide type="bottom" id="4V4-x6-oJ9"/>
@@ -48,6 +48,9 @@
                                 <state key="normal" title="ᐅ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onModeScrollForward:" destination="ggk-1W-3bd" eventType="touchUpInside" id="rzK-E9-lYU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZU-5F-xga">
                                 <rect key="frame" x="222" y="295" width="30" height="30"/>
@@ -55,6 +58,9 @@
                                 <state key="normal" title="ᐊ">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onModeScrollBack:" destination="ggk-1W-3bd" eventType="touchUpInside" id="AWe-jc-KOA"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-Wc-9Ho">
                                 <rect key="frame" x="121" y="295" width="80" height="30"/>
@@ -70,7 +76,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CurrentMode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7H-UN-gZt">
-                                <rect key="frame" x="260" y="297" width="181" height="26"/>
+                                <rect key="frame" x="260" y="276" width="181" height="68"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -79,6 +85,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="NQE-BL-jQW"/>
+                    <connections>
+                        <outlet property="curModeLabel" destination="h7H-UN-gZt" id="lnH-88-Tuc"/>
+                        <outlet property="modeScrollBack" destination="9ZU-5F-xga" id="JbO-m9-T4G"/>
+                        <outlet property="modeScrollFwd" destination="CWw-AA-Bo3" id="6eS-Wm-qVf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bk9-LB-moE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

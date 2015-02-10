@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
 		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
 		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
 		70C7183A1A89547E003E3B05 /* GameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718391A89547E003E3B05 /* GameMode.m */; };
-		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		A54B72FF1A893EDA00675047 /* OBJLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54B72FD1A893EDA00675047 /* OBJLoader.cpp */; };
 		A54B74021A8940DF00675047 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = A54B73011A8940DF00675047 /* CMakeLists.txt */; };
 		A54B74041A8940DF00675047 /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = A54B730C1A8940DF00675047 /* func_common.inl */; };
@@ -146,6 +147,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		70C7182F1A89421B003E3B05 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		70C718301A8944B1003E3B05 /* GameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMode.h; sourceTree = "<group>"; };
 		70C718331A894635003E3B05 /* ConvoyMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvoyMode.m; sourceTree = "<group>"; };
@@ -153,8 +157,6 @@
 		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
 		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
 		70C718391A89547E003E3B05 /* GameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMode.m; sourceTree = "<group>"; };
-		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
-		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		A54B72FD1A893EDA00675047 /* OBJLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJLoader.cpp; sourceTree = "<group>"; };
 		A54B72FE1A893EDA00675047 /* OBJLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJLoader.h; sourceTree = "<group>"; };
 		A54B73011A8940DF00675047 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 				A572980B1A7C1F30001934F9 /* GameViewController.m */,
 				A572980D1A7C1F30001934F9 /* Main.storyboard */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
+				709DA0A11A89835A007D63C1 /* Settings.m */,
 				70C718331A894635003E3B05 /* ConvoyMode.m */,
 				70C718351A89485A003E3B05 /* ConvoyMode.h */,
 				A572982C1A7C37D6001934F9 /* MainViewController.h */,
@@ -1021,6 +1024,7 @@
 				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
+				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54B740D1A8940DF00675047 /* glm.cpp in Sources */,
 				A54B72FF1A893EDA00675047 /* OBJLoader.cpp in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,

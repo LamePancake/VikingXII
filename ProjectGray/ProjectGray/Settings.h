@@ -10,10 +10,21 @@
 #define ProjectGray_Settings_h
 
 #import "GameMode.h"
+#import "SkirmishMode.h"
+#import "ConvoyMode.h"
 
 @interface Settings : NSObject
 
-@property(strong, nonatomic) GameMode *currentMode;
+@property(strong, readonly, nonatomic) GameMode *currentMode;
+
+/// Switches the current mode to the next mode in the list.
+-(void)switchToNextMode;
+
+/// Switches the current mode to the previous mode in the list.
+-(void)switchToPrevMode;
+
+/// Returns the array of all GameModes.
+-(NSArray *)getModes;
 
 @end
 
