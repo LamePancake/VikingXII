@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		A517EC891A8979F300E17D27 /* chicken.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC881A8979F300E17D27 /* chicken.obj */; };
+		A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC8C1A898D1F00E17D27 /* chicken_final.obj */; };
 		A54B72FF1A893EDA00675047 /* OBJLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54B72FD1A893EDA00675047 /* OBJLoader.cpp */; };
 		A54B74021A8940DF00675047 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = A54B73011A8940DF00675047 /* CMakeLists.txt */; };
 		A54B74041A8940DF00675047 /* func_common.inl in Resources */ = {isa = PBXBuildFile; fileRef = A54B730C1A8940DF00675047 /* func_common.inl */; };
@@ -145,6 +147,8 @@
 /* Begin PBXFileReference section */
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		A517EC881A8979F300E17D27 /* chicken.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken.obj; path = Models/chicken.obj; sourceTree = "<group>"; };
+		A517EC8C1A898D1F00E17D27 /* chicken_final.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken_final.obj; path = Models/chicken_final.obj; sourceTree = "<group>"; };
 		A54B72FD1A893EDA00675047 /* OBJLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OBJLoader.cpp; sourceTree = "<group>"; };
 		A54B72FE1A893EDA00675047 /* OBJLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBJLoader.h; sourceTree = "<group>"; };
 		A54B73011A8940DF00675047 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -437,6 +441,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A517EC871A8979E600E17D27 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		A54B73001A8940DF00675047 /* glm */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,7 +753,10 @@
 		A57297FE1A7C1F30001934F9 /* ProjectGray */ = {
 			isa = PBXGroup;
 			children = (
+				A517EC871A8979E600E17D27 /* Models */,
 				359216AC1A8952A300327F76 /* Camera.h */,
+				A517EC8C1A898D1F00E17D27 /* chicken_final.obj */,
+				A517EC881A8979F300E17D27 /* chicken.obj */,
 				359216AD1A8952A300327F76 /* Camera.m */,
 				A57298031A7C1F30001934F9 /* AppDelegate.h */,
 				A57298041A7C1F30001934F9 /* AppDelegate.m */,
@@ -974,6 +988,7 @@
 				A54B74461A8940DF00675047 /* fast_exponential.inl in Resources */,
 				A54B74691A8940DF00675047 /* spline.inl in Resources */,
 				A54B74271A8940DF00675047 /* type_vec4_avx2.inl in Resources */,
+				A517EC891A8979F300E17D27 /* chicken.obj in Resources */,
 				A54B744E1A8940DF00675047 /* log_base.inl in Resources */,
 				A54B74431A8940DF00675047 /* euler_angles.inl in Resources */,
 				A54B74661A8940DF00675047 /* simd_mat4.inl in Resources */,
@@ -984,6 +999,7 @@
 				A54B740C1A8940DF00675047 /* func_vector_relational.inl in Resources */,
 				A54B742A1A8940DF00675047 /* constants.inl in Resources */,
 				A54B74641A8940DF00675047 /* rotate_vector.inl in Resources */,
+				A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

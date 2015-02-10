@@ -10,7 +10,8 @@
 #include <string>
 #include <cstring>
 #include <stdlib.h>
-
+#include <errno.h>
+#include <unistd.h>
 
 #include "OBJLoader.h"
 
@@ -30,6 +31,13 @@ bool loadOBJ(const char * path,
     
     FILE * file = fopen(path, "r");
     if( file == NULL ){
+        char cwd[1024];
+        if(getcwd(cwd, sizeof(cwd)) != NULL)
+            fprintf(stdout, "current working dir: %s\n", cwd);
+        else
+            perror("getcwd() error");
+        
+        char* errmsg = strerror(errno);
         printf("Impossible to open the file ! Are you in the right path ? \n");
         getchar();
         return false;
