@@ -7,15 +7,11 @@
 //
 
 #import "MainViewController.h"
-#import "SkirmishMode.h"
-#import "ConvoyMode.h"
 #import "Settings.h"
 
 @interface MainViewController ()
 
-@property(strong, nonatomic) NSArray* modes;
 @property(strong, nonatomic) Settings* gameSettings;
-@property int modeIdx;
 
 @end
 
