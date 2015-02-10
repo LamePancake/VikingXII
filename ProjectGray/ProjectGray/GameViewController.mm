@@ -10,8 +10,6 @@
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
 #include <vector>
-#include "glm.hpp"
-#include "OBJLoader.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -89,10 +87,6 @@ GLfloat gCubeVertexData[216] =
     GLuint _vertexArray;
     GLuint _vertexBuffer;
     Camera *_camera;
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec2> uvs;
-    std::vector<glm::vec3> normals;
-    bool res;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -113,14 +107,6 @@ GLfloat gCubeVertexData[216] =
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSBundle *b = [NSBundle mainBundle];
-    NSString *dir = [b resourcePath];
-    NSArray *parts = [NSArray arrayWithObjects:
-                      dir, @"chicken_final.obj", (void *)nil];
-    NSString *path = [NSString pathWithComponents:parts];
-    const char *cpath = [path fileSystemRepresentation];
-    res = loadOBJ(cpath, vertices, uvs, normals);
 
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
@@ -191,7 +177,7 @@ GLfloat gCubeVertexData[216] =
     //Load into VBO
     
   
-    /*glGenVertexArraysOES(1, &_vertexArray);
+    glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
     
     glGenBuffers(1, &_vertexBuffer);
@@ -204,88 +190,8 @@ GLfloat gCubeVertexData[216] =
     glEnableVertexAttribArray(GLKVertexAttribNormal);
     glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
     
-    glBindVertexArrayOES(0);*/
-    GLuint vertexbuffer;
-    
-    glGenVertexArraysOES(1, &_vertexArray);
-    glBindVertexArrayOES(_vertexArray);
-    
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-    
-    /*GLuint uvbuffer;
-    glGenBuffers(1, &uvbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);*/
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
-    /*glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));*/
-    
     glBindVertexArrayOES(0);
-    /*do{
-        
-        // Clear the screen
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        // Use our shader
-        glUseProgram(programID);
-        
-        // Compute the MVP matrix from keyboard and mouse input
-        computeMatricesFromInputs();
-        glm::mat4 ProjectionMatrix = getProjectionMatrix();
-        glm::mat4 ViewMatrix = getViewMatrix();
-        glm::mat4 ModelMatrix = glm::mat4(1.0);
-        glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-        
-        // Send our transformation to the currently bound shader,
-        // in the "MVP" uniform
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-        
-        // Bind our texture in Texture Unit 0
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, Texture);
-        // Set our "myTextureSampler" sampler to user Texture Unit 0
-        glUniform1i(TextureID, 0);
-        
-        // 1rst attribute buffer : vertices
-        glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-        glVertexAttribPointer(
-                              0,                  // attribute
-                              3,                  // size
-                              GL_FLOAT,           // type
-                              GL_FALSE,           // normalized?
-                              0,                  // stride
-                              (void*)0            // array buffer offset
-                              );
-        
-        // 2nd attribute buffer : UVs
-        glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-        glVertexAttribPointer(
-                              1,                                // attribute
-                              2,                                // size
-                              GL_FLOAT,                         // type
-                              GL_FALSE,                         // normalized?
-                              0,                                // stride
-                              (void*)0                          // array buffer offset
-                              );
-        
-        // Draw the triangle !
-        glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
-        
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        
-        // Swap buffers
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-        
-    }*/
-}
+    }
 
 - (void)tearDownGL
 {
