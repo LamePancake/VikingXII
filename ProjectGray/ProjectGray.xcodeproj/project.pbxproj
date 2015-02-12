@@ -66,6 +66,8 @@
 		A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectGrayTests.m; sourceTree = "<group>"; };
 		A572982C1A7C37D6001934F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		A5ADCA591A8C02BB00F58DF7 /* chicken_triag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chicken_triag.h; sourceTree = "<group>"; };
+		A5BAA5341A899AFB0010F63A /* chicken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chicken.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +91,11 @@
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A5BAA5341A899AFB0010F63A /* chicken.h */,
 				359216AC1A8952A300327F76 /* Camera.h */,
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
+				A5ADCA591A8C02BB00F58DF7 /* chicken_triag.h */,
 				709DA0A11A89835A007D63C1 /* Settings.m */,
 				70C718331A894635003E3B05 /* ConvoyMode.m */,
 				70C718351A89485A003E3B05 /* ConvoyMode.h */,
