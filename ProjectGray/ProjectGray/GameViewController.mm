@@ -11,6 +11,7 @@
 #import "Camera.h"
 #import "chicken.h"
 #import "chicken_triag.h"
+#include "HexCells.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -82,6 +83,7 @@ GLfloat gCubeVertexData[216] =
 
 @interface GameViewController () {
     GLuint _program;
+    GLuint _hexProgram;
     
     float _rotation;
     
@@ -90,6 +92,11 @@ GLfloat gCubeVertexData[216] =
     GLuint _normalArray;
     GLuint _normalBuffer;
     Camera *_camera;
+    
+    GLuint _vertexHexArray;
+    GLuint _vertexHexBuffer;
+    HexCells *hexCells;
+    GLfloat instanceVertices[19][16];
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -97,7 +104,7 @@ GLfloat gCubeVertexData[216] =
 
 - (void)setupGL;
 - (void)tearDownGL;
-- (void)createModel;
+//- (void)createModel;
 
 - (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
@@ -177,27 +184,90 @@ GLfloat gCubeVertexData[216] =
     
     glEnable(GL_DEPTH_TEST);
     
-    //Load into VBO
+    glGenVertexArraysOES(1, &_vertexHexArray);
+    glBindVertexArrayOES(_vertexHexArray);
     
-  
-    /*glGenVertexArraysOES(1, &_vertexArray);
-    glBindVertexArrayOES(_vertexArray);
     
-    glGenBuffers(1, &_vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexData), gCubeVertexData, GL_STATIC_DRAW);
+    // Hex stuff
+    GLfloat vertices[16];
+    
+    int centerX = 0;
+    int centerY = 0;
+    GLfloat size = 0.2;
+    GLfloat angle = 2 * M_PI / 6 * 1;
+    // top tri
+    vertices[0] = centerX;
+    vertices[1] = centerY;
+    vertices[2] = centerX + size * cos(angle);
+    vertices[3] = centerY + size * sin(angle);
+    angle = 2 * M_PI / 6 * 2;
+    vertices[4] = centerX + size * cos(angle);
+    vertices[5] = centerY + size * sin(angle);
+    // top left tri
+    angle = 2 * M_PI / 6 * 3;
+    vertices[6] = centerX + size * cos(angle);
+    vertices[7] = centerY + size * sin(angle);
+    // bottom left tri
+    angle = 2 * M_PI / 6 * 4;
+    vertices[8] = centerX + size * cos(angle);
+    vertices[9] = centerY + size * sin(angle);
+    // bottom tri
+    angle = 2 * M_PI / 6 * 5;
+    vertices[10] = centerX + size * cos(angle);
+    vertices[11] = centerY + size * sin(angle);
+    // bottom right tri
+    angle = 2 * M_PI / 6 * 6;
+    vertices[12] = centerX + size * cos(angle);
+    vertices[13] = centerY + size * sin(angle);
+    // bottom right tri
+    angle = 2 * M_PI / 6 * 7;
+    vertices[14] = centerX + size * cos(angle);
+    vertices[15] = centerY + size * sin(angle);
+    
+    GLuint elements[] = {
+        0, 1, 2,
+        0, 2, 3,
+        0, 3, 4,
+        0, 4, 5,
+        0, 5, 6,
+        0, 6, 7,
+        
+    };
+    
+    glGenBuffers(1, &_vertexHexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    // make ebo, element buffer
+    GLuint ebo;
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                 sizeof(elements), elements, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
     
-    glBindVertexArrayOES(0);*/
+    glBindVertexArrayOES(0);
     
-    // set input data to arrays
+    hexCells = [[HexCells alloc]initWithSize:2];
+    NSMutableArray *instPositions = hexCells.hexPositions;
+    
+    for (int i = 0; i < 19; ++i)
+    {
+        
+        for (int j = 0; j < 16; j += 2)
+        {
+            instanceVertices[i][j] = vertices[j] + [[instPositions objectAtIndex: i * 2] floatValue];
+            instanceVertices[i][j + 1] = vertices[j + 1] + [[instPositions objectAtIndex: i * 2 + 1] floatValue];
+        }
+    }
+    
+    // chicken stuff
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
-     
+    
+    
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(chicken_triagVerts), chicken_triagVerts, GL_STATIC_DRAW);
@@ -209,28 +279,6 @@ GLfloat gCubeVertexData[216] =
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
-    
-    //normal buffer
-    /*glGenVertexArraysOES(1, &_normalArray);
-    glBindVertexArrayOES(_normalArray);
-    
-    glGenBuffers(1, &_normalBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(chicken_triagNormals), chicken_triagNormals, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 12, 0);*/
-    
-    
-//    glGenVertexArraysOES(1, &_normalBuffer);
-    //glEnableVertexAttribArray(GLKVertexAttribNormal);
-    //glNormalPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_TRUE, 24, 0);
-    //glTexCoordPointer(2, GL_FLOAT, 0, chickenTexCoords);
-    
-    // draw data
-    //glDrawArrays(GL_TRIANGLES, 0, chickenNumVerts);
-    //glBindVertexArrayOES(_vertexArray);
-    //glBindVertexArrayOES(_normalArray);
     glBindVertexArrayOES(0);
 }
 
@@ -246,6 +294,10 @@ GLfloat gCubeVertexData[216] =
     if (_program) {
         glDeleteProgram(_program);
         _program = 0;
+    }
+    if (_hexProgram) {
+        glDeleteProgram(_hexProgram);
+        _hexProgram = 0;
     }
 }
 
@@ -291,6 +343,29 @@ GLfloat gCubeVertexData[216] =
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    // Hex stuff
+    glBindVertexArrayOES(_vertexHexArray);
+    glUseProgram(_hexProgram);
+    
+    GLKVector4 colour = ((Hex *)[hexCells hexAtQ:1 andR:-1]).colour;
+    for (int i = 0; i < 19; ++i)
+    {
+        //GLKVector4 colour = ((Hex *)[hexagons objectAtIndex: i]).colour;
+        
+        
+        GLint loc = glGetUniformLocation(_hexProgram, "color");
+        if (loc != -1)
+        {
+            glUniform4f(loc, colour.r, colour.g, colour.b, colour.a);
+        }
+        
+        glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[i]), instanceVertices[i], GL_STATIC_DRAW);
+        
+        glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
+    }
+    
+    // Chicken stuff
     glBindVertexArrayOES(_vertexArray);
     
     // Render the object with GLKit
@@ -305,6 +380,7 @@ GLfloat gCubeVertexData[216] =
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
     
     glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
+    
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -313,13 +389,21 @@ GLfloat gCubeVertexData[216] =
 {
     GLuint vertShader, fragShader;
     NSString *vertShaderPathname, *fragShaderPathname;
+    GLuint vertHexShader, fragHexShader;
+    NSString *vertHexShaderPathname, *fragHexShaderPathname;
     
     // Create shader program.
     _program = glCreateProgram();
+    _hexProgram = glCreateProgram();
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
+        NSLog(@"Failed to compile vertex shader");
+        return NO;
+    }
+    vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
+    if (![self compileShader:&vertHexShader type:GL_VERTEX_SHADER file:vertHexShaderPathname]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
@@ -330,17 +414,25 @@ GLfloat gCubeVertexData[216] =
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }
+    fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
+    if (![self compileShader:&fragHexShader type:GL_FRAGMENT_SHADER file:fragHexShaderPathname]) {
+        NSLog(@"Failed to compile fragment shader");
+        return NO;
+    }
     
     // Attach vertex shader to program.
     glAttachShader(_program, vertShader);
+    glAttachShader(_hexProgram, vertHexShader);
     
     // Attach fragment shader to program.
     glAttachShader(_program, fragShader);
+    glAttachShader(_hexProgram, fragHexShader);
     
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(_program, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
+    glBindAttribLocation(_hexProgram, GLKVertexAttribPosition, "position");
     
     // Link program.
     if (![self linkProgram:_program]) {
@@ -361,6 +453,24 @@ GLfloat gCubeVertexData[216] =
         
         return NO;
     }
+    if (![self linkProgram:_hexProgram]) {
+        NSLog(@"Failed to link program: %d", _hexProgram);
+        
+        if (vertHexShader) {
+            glDeleteShader(vertHexShader);
+            vertHexShader = 0;
+        }
+        if (fragHexShader) {
+            glDeleteShader(fragHexShader);
+            fragHexShader = 0;
+        }
+        if (_hexProgram) {
+            glDeleteProgram(_hexProgram);
+            _hexProgram = 0;
+        }
+        
+        return NO;
+    }
     
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
@@ -374,6 +484,15 @@ GLfloat gCubeVertexData[216] =
     if (fragShader) {
         glDetachShader(_program, fragShader);
         glDeleteShader(fragShader);
+    }
+    
+    if (vertHexShader) {
+        glDetachShader(_hexProgram, vertHexShader);
+        glDeleteShader(vertHexShader);
+    }
+    if (fragHexShader) {
+        glDetachShader(_hexProgram, fragHexShader);
+        glDeleteShader(fragHexShader);
     }
     
     return YES;

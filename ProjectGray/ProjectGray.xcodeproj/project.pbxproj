@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0D1A8D4D9200A54360 /* Hex.m */; };
+		3082EA101A8D697000A54360 /* HexShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA0F1A8D697000A54360 /* HexShader.fsh */; };
+		3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA111A8D698F00A54360 /* HexShader.vsh */; };
+		3082EA131A8D7D5200A54360 /* HexCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0C1A8D4D7C00A54360 /* HexCells.m */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
 		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
@@ -37,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3082EA0A1A8D4D4200A54360 /* HexCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HexCells.h; sourceTree = "<group>"; };
+		3082EA0B1A8D4D5200A54360 /* Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hex.h; sourceTree = "<group>"; };
+		3082EA0C1A8D4D7C00A54360 /* HexCells.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexCells.m; sourceTree = "<group>"; };
+		3082EA0D1A8D4D9200A54360 /* Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hex.m; sourceTree = "<group>"; };
+		3082EA0F1A8D697000A54360 /* HexShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HexShader.fsh; sourceTree = "<group>"; };
+		3082EA111A8D698F00A54360 /* HexShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HexShader.vsh; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
@@ -103,6 +113,10 @@
 				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
 				70C718371A894BD5003E3B05 /* SkirmishMode.m */,
 				70C718391A89547E003E3B05 /* GameMode.m */,
+				3082EA0A1A8D4D4200A54360 /* HexCells.h */,
+				3082EA0B1A8D4D5200A54360 /* Hex.h */,
+				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
+				3082EA0D1A8D4D9200A54360 /* Hex.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -135,6 +149,8 @@
 				A57298061A7C1F30001934F9 /* Shader.fsh */,
 				A57298081A7C1F30001934F9 /* Shader.vsh */,
 				A57298101A7C1F30001934F9 /* Images.xcassets */,
+				3082EA0F1A8D697000A54360 /* HexShader.fsh */,
+				3082EA111A8D698F00A54360 /* HexShader.vsh */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -277,10 +293,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
+				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
 				A517EC891A8979F300E17D27 /* chicken.obj in Resources */,
 				A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */,
@@ -301,9 +319,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
 				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
+				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
