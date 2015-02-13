@@ -9,8 +9,7 @@
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
-#import "chicken.h"
-#import "chicken_triag.h"
+#import "Models.h"
 #include "HexCells.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))

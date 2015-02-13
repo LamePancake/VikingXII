@@ -59,6 +59,7 @@
 		70C718391A89547E003E3B05 /* GameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMode.m; sourceTree = "<group>"; };
 		A517EC881A8979F300E17D27 /* chicken.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken.obj; path = Models/chicken.obj; sourceTree = "<group>"; };
 		A517EC8C1A898D1F00E17D27 /* chicken_final.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken_final.obj; path = Models/chicken_final.obj; sourceTree = "<group>"; };
+		A565CB881A8EB99800BBB4C9 /* Models.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
 		A57297FC1A7C1F30001934F9 /* ProjectGray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectGray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57298001A7C1F30001934F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A57298011A7C1F30001934F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
+				A565CB881A8EB99800BBB4C9 /* Models.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
