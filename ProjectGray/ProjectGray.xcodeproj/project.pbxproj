@@ -99,14 +99,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		701D5CFE1A8EDAC1009A22CC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A5ADCA591A8C02BB00F58DF7 /* chicken_triag.h */,
+				A5BAA5341A899AFB0010F63A /* chicken.h */,
+				A565CB881A8EB99800BBB4C9 /* Models.h */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		701D5D001A8EDB45009A22CC /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A57298061A7C1F30001934F9 /* Shader.fsh */,
+				A57298081A7C1F30001934F9 /* Shader.vsh */,
+				3082EA0F1A8D697000A54360 /* HexShader.fsh */,
+				3082EA111A8D698F00A54360 /* HexShader.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A5BAA5341A899AFB0010F63A /* chicken.h */,
 				359216AC1A8952A300327F76 /* Camera.h */,
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
-				A5ADCA591A8C02BB00F58DF7 /* chicken_triag.h */,
 				709DA0A11A89835A007D63C1 /* Settings.m */,
 				70C718331A894635003E3B05 /* ConvoyMode.m */,
 				70C718351A89485A003E3B05 /* ConvoyMode.h */,
@@ -118,7 +137,6 @@
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
-				A565CB881A8EB99800BBB4C9 /* Models.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -148,11 +166,9 @@
 		709DA0A61A898F32007D63C1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				A57298061A7C1F30001934F9 /* Shader.fsh */,
-				A57298081A7C1F30001934F9 /* Shader.vsh */,
+				701D5D001A8EDB45009A22CC /* Shaders */,
+				701D5CFE1A8EDAC1009A22CC /* Models */,
 				A57298101A7C1F30001934F9 /* Images.xcassets */,
-				3082EA0F1A8D697000A54360 /* HexShader.fsh */,
-				3082EA111A8D698F00A54360 /* HexShader.vsh */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
