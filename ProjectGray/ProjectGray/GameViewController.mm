@@ -101,6 +101,7 @@ GLfloat gCubeVertexData[216] =
     GLuint _vertexGUIArray;
     GLuint _vertexGUIBuffer;
     GLfloat guiVertices[24];
+    GLKTextureInfo *texture;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -271,7 +272,6 @@ GLfloat gCubeVertexData[216] =
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
     
-    
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(chicken_triagVerts), chicken_triagVerts, GL_STATIC_DRAW);
@@ -337,7 +337,7 @@ GLfloat gCubeVertexData[216] =
     glBindVertexArrayOES(0);
     
     NSError *error;
-    GLKTextureInfo *texture = [GLKTextureLoader textureWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"EndTurn" ofType:@"png"] options:Nil error:&error];
+    texture = [GLKTextureLoader textureWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"EndTurn" ofType:@"png"] options:Nil error:&error];
 
 }
 
@@ -414,9 +414,14 @@ GLfloat gCubeVertexData[216] =
     glBindVertexArrayOES(_vertexGUIArray);
     glUseProgram(_guiProgram);
     
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    GLint loc = glGetUniformLocation(_guiProgram, "tex");
+    glUniform1f(loc, 0);
+    
     GLKVector4 guiColour = GLKVector4Make(0, 1, 0, 1);
     
-    GLint loc = glGetUniformLocation(_guiProgram, "color");
+    loc = glGetUniformLocation(_guiProgram, "color");
     glUniform4f(loc, guiColour.r, guiColour.g, guiColour.b, guiColour.a);
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
