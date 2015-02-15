@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UIButton *modeScrollFwd;
-@property (weak, nonatomic) IBOutlet UIButton *modeScrollBack;
 @property (weak, nonatomic) IBOutlet UILabel *curModeLabel;
 
 @end

@@ -355,6 +355,7 @@ GLfloat gCubeVertexData[216] =
         GLint loc = glGetUniformLocation(_hexProgram, "color");
         if (loc != -1)
         {
+            
             glUniform4f(loc, colour.r, colour.g, colour.b, colour.a);
         }
         
