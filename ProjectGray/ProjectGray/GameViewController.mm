@@ -83,6 +83,7 @@ GLfloat gCubeVertexData[216] =
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
+    GLuint _guiProgram;
     
     float _rotation;
     
@@ -96,6 +97,10 @@ GLfloat gCubeVertexData[216] =
     GLuint _vertexHexBuffer;
     HexCells *hexCells;
     GLfloat instanceVertices[19][16];
+    
+    GLuint _vertexGUIArray;
+    GLuint _vertexGUIBuffer;
+    GLfloat guiVertices[24];
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -279,6 +284,61 @@ GLfloat gCubeVertexData[216] =
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
+    
+    //GUI Vertices
+    glGenVertexArraysOES(1, &_vertexGUIArray);
+    glBindVertexArrayOES(_vertexGUIArray);
+    
+    float guiSize = 0.3;
+    
+    //Bottom square
+    guiVertices[0] = -1 * guiSize; //x
+    guiVertices[1] = -1 * guiSize; //y
+    guiVertices[2] = 0;  //u
+    guiVertices[3] = 0; //v
+    
+    guiVertices[4] = 1 * guiSize;  //x
+    guiVertices[5] = -1 * guiSize; //y
+    guiVertices[6] = 1; //u
+    guiVertices[7] = 0;  //v
+    
+    guiVertices[8] = -1 * guiSize;  //x
+    guiVertices[9] = 1 * guiSize;   //y
+    guiVertices[10] = 0; //u
+    guiVertices[11] = 1;  //v
+    
+    //Top Face
+    guiVertices[12] = 1 * guiSize;  //x
+    guiVertices[13] = 1 * guiSize;  //y
+    guiVertices[14] = 1;  //u
+    guiVertices[15] = 1;  //v
+
+    
+    GLuint GUIelements[] = {
+        0, 1, 2,
+        2, 1, 3,
+    };
+    
+    glGenBuffers(1, &_vertexGUIBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
+    
+    GLuint guiEbo;
+    glGenBuffers(1, &guiEbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GUIelements), GUIelements, GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+    
+    //glEnableVertexAttribArray(GLKTextureAttribPosition);
+    //glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+    
+    glBindVertexArrayOES(0);
+    
+    NSError *error;
+    GLKTextureInfo *texture = [GLKTextureLoader textureWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"EndTurn" ofType:@"png"] options:Nil error:&error];
+
 }
 
 - (void)tearDownGL
@@ -288,6 +348,9 @@ GLfloat gCubeVertexData[216] =
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
     
+    glDeleteBuffers(1, &_vertexGUIBuffer);
+    glDeleteVertexArraysOES(1, &_vertexGUIArray);
+
     self.effect = nil;
     
     if (_program) {
@@ -297,6 +360,10 @@ GLfloat gCubeVertexData[216] =
     if (_hexProgram) {
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
+    }
+    if (_guiProgram) {
+        glDeleteProgram(_guiProgram);
+        _guiProgram = 0;
     }
 }
 
@@ -341,6 +408,22 @@ GLfloat gCubeVertexData[216] =
 {
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    
+    //gui stuff
+    glBindVertexArrayOES(_vertexGUIArray);
+    glUseProgram(_guiProgram);
+    
+    GLKVector4 guiColour = GLKVector4Make(0, 1, 0, 1);
+    
+    GLint loc = glGetUniformLocation(_guiProgram, "color");
+    glUniform4f(loc, guiColour.r, guiColour.g, guiColour.b, guiColour.a);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
+    
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
     
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
@@ -390,10 +473,13 @@ GLfloat gCubeVertexData[216] =
     NSString *vertShaderPathname, *fragShaderPathname;
     GLuint vertHexShader, fragHexShader;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
+    GLuint vertGUIShader, fragGUIShader;
+    NSString *vertGUIShaderPathname, *fragGUIShaderPathname;
     
     // Create shader program.
     _program = glCreateProgram();
     _hexProgram = glCreateProgram();
+    _guiProgram = glCreateProgram();
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
@@ -403,6 +489,11 @@ GLfloat gCubeVertexData[216] =
     }
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
     if (![self compileShader:&vertHexShader type:GL_VERTEX_SHADER file:vertHexShaderPathname]) {
+        NSLog(@"Failed to compile vertex shader");
+        return NO;
+    }
+    vertGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
+    if (![self compileShader:&vertGUIShader type:GL_VERTEX_SHADER file:vertGUIShaderPathname]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
@@ -418,20 +509,28 @@ GLfloat gCubeVertexData[216] =
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }
+    fragGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
+    if (![self compileShader:&fragGUIShader type:GL_FRAGMENT_SHADER file:fragGUIShaderPathname]) {
+        NSLog(@"Failed to compile fragment shader");
+        return NO;
+    }
     
     // Attach vertex shader to program.
     glAttachShader(_program, vertShader);
     glAttachShader(_hexProgram, vertHexShader);
+    glAttachShader(_guiProgram, vertGUIShader);
     
     // Attach fragment shader to program.
     glAttachShader(_program, fragShader);
     glAttachShader(_hexProgram, fragHexShader);
+    glAttachShader(_guiProgram, fragGUIShader);
     
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(_program, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
     glBindAttribLocation(_hexProgram, GLKVertexAttribPosition, "position");
+    glBindAttribLocation(_guiProgram, GLKVertexAttribPosition, "position");
     
     // Link program.
     if (![self linkProgram:_program]) {
@@ -470,7 +569,25 @@ GLfloat gCubeVertexData[216] =
         
         return NO;
     }
-    
+    if (![self linkProgram:_guiProgram]) {
+        NSLog(@"Failed to link program: %d", _guiProgram);
+        
+        if (vertGUIShader) {
+            glDeleteShader(vertGUIShader);
+            vertGUIShader = 0;
+        }
+        if (fragGUIShader) {
+            glDeleteShader(fragGUIShader);
+            fragGUIShader = 0;
+        }
+        if (_guiProgram) {
+            glDeleteProgram(_guiProgram);
+            _guiProgram = 0;
+        }
+        
+        return NO;
+    }
+
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
@@ -494,6 +611,15 @@ GLfloat gCubeVertexData[216] =
         glDeleteShader(fragHexShader);
     }
     
+    if (vertGUIShader) {
+        glDetachShader(_guiProgram, vertGUIShader);
+        glDeleteShader(vertGUIShader);
+    }
+    if (fragGUIShader) {
+        glDetachShader(_guiProgram, fragGUIShader);
+        glDeleteShader(fragGUIShader);
+    }
+
     return YES;
 }
 
