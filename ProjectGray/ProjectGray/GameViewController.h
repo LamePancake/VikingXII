@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-
+#import "Unit.h"
 
 @interface GameViewController : GLKViewController
 

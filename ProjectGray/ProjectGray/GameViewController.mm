@@ -9,10 +9,11 @@
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
-#import "Models.h"
+
 #include "HexCells.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
 
 // Uniform index.
 enum
@@ -98,6 +99,8 @@ GLfloat gCubeVertexData[216] =
     GLuint _vertexHexBuffer;
     HexCells *hexCells;
     GLfloat instanceVertices[19][16];
+    
+    Unit *testUnit;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -105,7 +108,6 @@ GLfloat gCubeVertexData[216] =
 
 - (void)setupGL;
 - (void)tearDownGL;
-//- (void)createModel;
 
 - (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
@@ -118,7 +120,7 @@ GLfloat gCubeVertexData[216] =
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
     
@@ -137,6 +139,9 @@ GLfloat gCubeVertexData[216] =
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    testUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+    [testUnit initShip:0 And:0];
     
     [self setupGL];
 }
@@ -275,7 +280,7 @@ GLfloat gCubeVertexData[216] =
     
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(chicken_triagVerts), chicken_triagVerts, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, testUnit.modelArrSize, testUnit.modelData, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -396,19 +401,13 @@ GLfloat gCubeVertexData[216] =
     
     // Chicken stuff
     glBindVertexArrayOES(_vertexArray);
-    
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
-    
-    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
-    
     // Render the object again with ES2
     glUseProgram(_program);
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
     
-    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
+    glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
     
 }
 
