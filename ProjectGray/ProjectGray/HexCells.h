@@ -15,8 +15,8 @@
 @interface HexCells : NSObject
 
 @property(nonatomic) int numberOfCells;
+@property(nonatomic) int N;
 @property(nonatomic, strong) NSMutableArray* hexPositions;
-@property(nonatomic, strong) NSMutableArray* hexagons;
 @property(nonatomic, strong) NSMutableArray* hexArray;
 
 - (id)initWithSize:(int)size_;

@@ -16,11 +16,14 @@
 
 @property int r;
 @property int q;
+@property int instanceVertexIndex;
 @property GLKVector4 colour;
 
-- (id) initWithAxialCoords:(int)q And:(int)r;
+- (id) initWithAxialCoords:(int)q And:(int)r WithIndex:(int)index;
 
-- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour;
+- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour WithIndex:(int)index;
+
+- (void) setColour:(GLKVector4)colour;
 
 @end
 

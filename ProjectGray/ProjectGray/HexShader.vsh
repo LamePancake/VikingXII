@@ -12,7 +12,7 @@ uniform vec4 color;
 
 varying lowp vec4 colorVarying;
 
-//uniform mat4 modelViewProjectionMatrix;
+uniform mat4 modelViewProjectionMatrix;
 //uniform mat3 normalMatrix;
 
 void main()
@@ -24,6 +24,5 @@ void main()
     //float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
     
     colorVarying = color;
-    //modelViewProjectionMatrix * position
-    gl_Position = vec4(position,0.0,1.0);
+    gl_Position = modelViewProjectionMatrix * vec4(position,0.0,1.0);
 }

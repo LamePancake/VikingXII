@@ -11,7 +11,6 @@
 
 @implementation HexCells
 {
-    int N;
 }
 
 - (id)initWithSize:(int)size_
@@ -19,8 +18,8 @@
     self = [super init];
     if (self)
     {
-        N = size_;
-        self.numberOfCells = [self calculateNumberOfCells:size_];
+        _N = size_;
+        _numberOfCells = [self calculateNumberOfCells:size_];
         [self generateCells:size_];
     }
     return self;
@@ -53,14 +52,14 @@
 
 - (void)insertHex:(Hex*)hex atQ:(int)q AndR:(int)r
 {
-    NSMutableArray *subArray = [self.hexArray objectAtIndex:q + N];
-    [subArray insertObject:hex atIndex:r + N + MIN(0, q)];
+    NSMutableArray *subArray = [_hexArray objectAtIndex:q + _N];
+    [subArray insertObject:hex atIndex:r + _N + MIN(0, q)];
 }
 
 - (Hex*)hexAtQ:(int)q andR:(int)r
 {
-    NSMutableArray *subArray = [self.hexArray objectAtIndex:q + N];
-    return (Hex*)[subArray objectAtIndex:r + N + MIN(0, q)];
+    NSMutableArray *subArray = [_hexArray objectAtIndex:q + _N];
+    return (Hex*)[subArray objectAtIndex:r + _N + MIN(0, q)];
 }
 
 - (void) generateCells:(int)size_
@@ -73,23 +72,23 @@
     float vert = height;
     
     int offset = 0;
+    int instanceVertexIndex = 0;
     
-    self.hexPositions = [[NSMutableArray alloc] initWithCapacity:self.numberOfCells * 2];
-    self.hexagons = [[NSMutableArray alloc] initWithCapacity:self.numberOfCells];
+    _hexPositions = [[NSMutableArray alloc] initWithCapacity:_numberOfCells * 2];
     
     //init hex multi-dem array
-    self.hexArray = [[NSMutableArray alloc] init];
+    _hexArray = [[NSMutableArray alloc] init];
     
-    int arraySize = N * 2 + 1;
+    int arraySize = _N * 2 + 1;
     
     for (int i = 0; i < arraySize; i++)
     {
         NSMutableArray *subArray = [[NSMutableArray alloc] init];
         for (int j = 0; j < arraySize; j++)
         {
-            [subArray addObject:[[Hex alloc] initWithAxialCoords:i And:j]];
+            [subArray addObject:[[Hex alloc] initWithAxialCoords:i And:j WithIndex:-1]];
         }
-        [self.hexArray addObject:subArray];
+        [_hexArray addObject:subArray];
     }
     
     // create hexagons, put them in the multi array
@@ -103,35 +102,37 @@
             
             if (r == -1 && q == 1)
             {
-                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 0, 1, 1)];
-            }
-            else if (r == 0 && q == 0)
-            {
-                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(1, 1, 1, 1)];
+                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 0, 1, 1) WithIndex:instanceVertexIndex];
             }
             else
             {
-                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1)];
+                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1) WithIndex:instanceVertexIndex];
             }
+            NSLog(@"At q:%d and r:%d, %d", q, r, hex.instanceVertexIndex);
             
             [self insertHex:hex atQ:q AndR:r];
-            [self.hexPositions addObject:[NSNumber numberWithFloat:horiz * q]];
-            [self.hexPositions addObject:[NSNumber numberWithFloat:(vert * 2) * r + (offset * vert)]];
+            [_hexPositions addObject:[NSNumber numberWithFloat:horiz * q]];
+            [_hexPositions addObject:[NSNumber numberWithFloat:(vert * 2) * r + (offset * vert)]];
             
-            //[self.hexagons addObject:[[Hex alloc] initWithAxialCoords:q And:r]];
+            ++instanceVertexIndex;
         }
     }
+    
+    
     // left side of hex
-    for (int q = -1; q >= -hexCount; --q)
+    for (int q = -hexCount; q <= -1; ++q)
     {
         offset = q;
-        for (int r = hexCount; r >= -hexCount - q; --r)
+        for (int r = -hexCount - q; r <= hexCount; ++r)
         {
-            Hex *hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1)];
+            Hex *hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1) WithIndex:instanceVertexIndex];
             
             [self insertHex:hex atQ:q AndR:r];
-            [self.hexPositions addObject:[NSNumber numberWithFloat:horiz * q]];
-            [self.hexPositions addObject:[NSNumber numberWithFloat:(vert * 2) * r + (offset * vert)]];
+            
+            [_hexPositions addObject:[NSNumber numberWithFloat:horiz * q]];
+            [_hexPositions addObject:[NSNumber numberWithFloat:(vert * 2) * r + (offset * vert)]];
+            
+            ++instanceVertexIndex;
         }
     }
 }
