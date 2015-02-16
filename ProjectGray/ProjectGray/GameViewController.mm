@@ -19,6 +19,8 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
+    UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
+    UNIFORM_HEX_COLOUR,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -262,6 +264,10 @@ GLfloat gCubeVertexData[216] =
         }
     }
     
+    
+    Hex *hex = ((Hex *)[hexCells hexAtQ:1 andR:0]);
+    [hex setColour:GLKVector4Make(0.6f, 0.43f, 0.8f, 1)];
+    
     // chicken stuff
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
@@ -346,23 +352,46 @@ GLfloat gCubeVertexData[216] =
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
     
-    GLKVector4 colour = ((Hex *)[hexCells hexAtQ:1 andR:-1]).colour;
-    for (int i = 0; i < 19; ++i)
+    glUniformMatrix4fv(uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+    
+    int hexCount = hexCells.N;
+    
+    for (int q = 0; q <= hexCount; ++q)
     {
-        //GLKVector4 colour = ((Hex *)[hexagons objectAtIndex: i]).colour;
-        
-        
-        GLint loc = glGetUniformLocation(_hexProgram, "color");
-        if (loc != -1)
+        for (int r = -hexCount; r <= hexCount - q; ++r)
         {
+            Hex *hex = ((Hex *)[hexCells hexAtQ:q andR:r]);
             
-            glUniform4f(loc, colour.r, colour.g, colour.b, colour.a);
+            GLKVector4 colour = hex.colour;
+            
+            glUniform4f(uniforms[UNIFORM_HEX_COLOUR], colour.r, colour.g, colour.b, colour.a);
+            
+            //NSLog(@"%d", hex.instanceVertexIndex);
+            
+            glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[hex.instanceVertexIndex]), instanceVertices[hex.instanceVertexIndex], GL_STATIC_DRAW);
+            
+            glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
         }
-        
-        glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[i]), instanceVertices[i], GL_STATIC_DRAW);
-        
-        glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
+    }
+    // left side of hex
+    for (int q = -1; q >= -hexCount; --q)
+    {
+        for (int r = hexCount; r >= -hexCount - q; --r)
+        {
+            Hex *hex = ((Hex *)[hexCells hexAtQ:q andR:r]);
+            
+            GLKVector4 colour = hex.colour;
+            
+            glUniform4f(uniforms[UNIFORM_HEX_COLOUR], colour.r, colour.g, colour.b, colour.a);
+            
+            //NSLog(@"%d", hex.instanceVertexIndex);
+            
+            glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[hex.instanceVertexIndex]), instanceVertices[hex.instanceVertexIndex], GL_STATIC_DRAW);
+            
+            glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
+        }
     }
     
     // Chicken stuff
@@ -475,6 +504,8 @@ GLfloat gCubeVertexData[216] =
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
+    uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
+    uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     
     // Release vertex and fragment shaders.
     if (vertShader) {
