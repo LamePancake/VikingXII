@@ -28,6 +28,9 @@
 		A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57298121A7C1F30001934F9 /* LaunchScreen.xib */; };
 		A57298201A7C1F30001934F9 /* ProjectGrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */; };
 		A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A572982D1A7C37D6001934F9 /* MainViewController.m */; };
+		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
+		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
+		F20C19601A917A2800D63661 /* GameObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195D1A917A2800D63661 /* GameObjectData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,12 @@
 		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		A5ADCA591A8C02BB00F58DF7 /* chicken_triag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chicken_triag.h; sourceTree = "<group>"; };
 		A5BAA5341A899AFB0010F63A /* chicken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chicken.h; sourceTree = "<group>"; };
+		F20C19581A917A2800D63661 /* APSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSystem.h; sourceTree = "<group>"; };
+		F20C19591A917A2800D63661 /* APSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSystem.m; sourceTree = "<group>"; };
+		F20C195A1A917A2800D63661 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		F20C195B1A917A2800D63661 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
+		F20C195C1A917A2800D63661 /* GameObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjectData.h; sourceTree = "<group>"; };
+		F20C195D1A917A2800D63661 /* GameObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObjectData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +205,7 @@
 			children = (
 				A517EC8C1A898D1F00E17D27 /* chicken_final.obj */,
 				A517EC881A8979F300E17D27 /* chicken.obj */,
+				F20C19571A917A1600D63661 /* Game Logic */,
 				709DA0A31A898E76007D63C1 /* Models */,
 				709DA0A61A898F32007D63C1 /* Assets */,
 				709DA0A41A898ED6007D63C1 /* Controllers */,
@@ -229,6 +239,19 @@
 				A572981E1A7C1F30001934F9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F20C19571A917A1600D63661 /* Game Logic */ = {
+			isa = PBXGroup;
+			children = (
+				F20C19581A917A2800D63661 /* APSystem.h */,
+				F20C19591A917A2800D63661 /* APSystem.m */,
+				F20C195A1A917A2800D63661 /* GameObject.h */,
+				F20C195B1A917A2800D63661 /* GameObject.m */,
+				F20C195C1A917A2800D63661 /* GameObjectData.h */,
+				F20C195D1A917A2800D63661 /* GameObjectData.m */,
+			);
+			name = "Game Logic";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,9 +360,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F20C19601A917A2800D63661 /* GameObjectData.m in Sources */,
+				F20C195F1A917A2800D63661 /* GameObject.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
 				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
+				F20C195E1A917A2800D63661 /* APSystem.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
