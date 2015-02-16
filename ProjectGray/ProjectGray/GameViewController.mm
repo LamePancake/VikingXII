@@ -345,10 +345,6 @@ GLfloat gCubeVertexData[216] =
     glBindTexture(GL_TEXTURE_2D, _texture);
     GLuint loc = glGetUniformLocation(_guiProgram, "texture");
     glUniform1i(loc, 0);
-    
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-
 }
 
 - (void)tearDownGL
@@ -421,6 +417,9 @@ GLfloat gCubeVertexData[216] =
     
     
     //gui stuff
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
     glBindVertexArrayOES(_vertexGUIArray);
     glUseProgram(_guiProgram);
         
@@ -428,9 +427,10 @@ GLfloat gCubeVertexData[216] =
     glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
+    glDisable(GL_BLEND);
+    
     // Hex stuff
-    /*glBindVertexArrayOES(_vertexHexArray);
+    glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
     
     GLKVector4 colour = ((Hex *)[hexCells hexAtQ:1 andR:-1]).colour;
@@ -465,7 +465,7 @@ GLfloat gCubeVertexData[216] =
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
     
-    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);*/
+    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
     
 }
 
