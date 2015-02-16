@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Trevor Ware. All rights reserved.
 //
 
-varying lowp vec4 colorVarying;
+varying lowp vec2 texCoordOut;
+uniform sampler2D texture;
 
 void main()
 {
-    gl_FragColor = colorVarying;
+    gl_FragColor = texture2D(texture, texCoordOut);
 }

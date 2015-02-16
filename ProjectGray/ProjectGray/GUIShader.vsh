@@ -7,12 +7,13 @@
 //
 
 attribute vec2 position;
-uniform vec4 color;
 
 varying lowp vec4 colorVarying;
+attribute vec2 texCoordIn;
+varying vec2 texCoordOut;
 
 void main()
 {
-    colorVarying = color;
+    texCoordOut = texCoordIn;
     gl_Position = vec4(position,0.0,1.0);
 }

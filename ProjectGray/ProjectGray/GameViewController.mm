@@ -19,7 +19,8 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
-    NUM_UNIFORMS
+    UNIFORM_TEXTURE,
+    NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
 
@@ -101,7 +102,9 @@ GLfloat gCubeVertexData[216] =
     GLuint _vertexGUIArray;
     GLuint _vertexGUIBuffer;
     GLfloat guiVertices[24];
-    GLKTextureInfo *texture;
+    GLuint guiElements[6];
+    GLuint _texture;
+    GLuint guiEbo;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -314,19 +317,20 @@ GLfloat gCubeVertexData[216] =
     guiVertices[15] = 1;  //v
 
     
-    GLuint GUIelements[] = {
-        0, 1, 2,
-        2, 1, 3,
-    };
+    guiElements[0] = 0;
+    guiElements[1] = 1;
+    guiElements[2] = 2;
+    guiElements[3] = 2;
+    guiElements[4] = 1;
+    guiElements[5] = 3;
     
     glGenBuffers(1, &_vertexGUIBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
     
-    GLuint guiEbo;
     glGenBuffers(1, &guiEbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GUIelements), GUIelements, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(guiElements), guiElements, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(0));
@@ -336,8 +340,14 @@ GLfloat gCubeVertexData[216] =
     
     glBindVertexArrayOES(0);
     
-    NSError *error;
-    texture = [GLKTextureLoader textureWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"EndTurn" ofType:@"png"] options:Nil error:&error];
+    _texture = [self setupTexture:@"item_powerup_fish.png"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    GLuint loc = glGetUniformLocation(_guiProgram, "texture");
+    glUniform1i(loc, 0);
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
 
 }
 
@@ -413,25 +423,14 @@ GLfloat gCubeVertexData[216] =
     //gui stuff
     glBindVertexArrayOES(_vertexGUIArray);
     glUseProgram(_guiProgram);
-    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    GLint loc = glGetUniformLocation(_guiProgram, "tex");
-    glUniform1f(loc, 0);
-    
-    GLKVector4 guiColour = GLKVector4Make(0, 1, 0, 1);
-    
-    loc = glGetUniformLocation(_guiProgram, "color");
-    glUniform4f(loc, guiColour.r, guiColour.g, guiColour.b, guiColour.a);
-    
+        
     glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
-    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-    
     // Hex stuff
-    glBindVertexArrayOES(_vertexHexArray);
+    /*glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
     
     GLKVector4 colour = ((Hex *)[hexCells hexAtQ:1 andR:-1]).colour;
@@ -466,7 +465,7 @@ GLfloat gCubeVertexData[216] =
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
     
-    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
+    glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);*/
     
 }
 
@@ -536,6 +535,7 @@ GLfloat gCubeVertexData[216] =
     glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
     glBindAttribLocation(_hexProgram, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_guiProgram, GLKVertexAttribPosition, "position");
+    glBindAttribLocation(_guiProgram, GLKVertexAttribTexCoord0, "texCoordIn");
     
     // Link program.
     if (![self linkProgram:_program]) {
@@ -687,7 +687,7 @@ GLfloat gCubeVertexData[216] =
     return YES;
 }
 
-- (BOOL)validateProgram:(GLuint)prog
+- (BOOL)ƒ:(GLuint)prog
 {
     GLint logLength, status;
     
@@ -706,6 +706,38 @@ GLfloat gCubeVertexData[216] =
     }
     
     return YES;
+}
+
+// Load in and set up texture image (adapted from Ray Wenderlich)
+- (GLuint)setupTexture:(NSString *)fileName
+{
+    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
+    if (!spriteImage) {
+        NSLog(@"Failed to load image %@", fileName);
+        exit(1);
+    }
+    
+    size_t width = CGImageGetWidth(spriteImage);
+    size_t height = CGImageGetHeight(spriteImage);
+    
+    GLubyte *spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
+    
+    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+    
+    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+    
+    CGContextRelease(spriteContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    
+    free(spriteData);
+    return texName;
 }
 
 @end
