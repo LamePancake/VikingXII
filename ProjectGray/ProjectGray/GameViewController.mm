@@ -20,9 +20,10 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
+    UNIFORM_TEXTURE,
+    NUM_UNIFORMS,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
-    NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
 
@@ -86,6 +87,7 @@ GLfloat gCubeVertexData[216] =
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
+    GLuint _guiProgram;
     
     float _rotation;
     
@@ -100,6 +102,12 @@ GLfloat gCubeVertexData[216] =
     HexCells *hexCells;
     GLfloat instanceVertices[19][16];
     
+    GLuint _vertexGUIArray;
+    GLuint _vertexGUIBuffer;
+    GLfloat guiVertices[24];
+    GLuint guiElements[6];
+    GLuint _texture;
+    GLuint guiEbo;
     Unit *testUnit;
 }
 
@@ -277,7 +285,6 @@ GLfloat gCubeVertexData[216] =
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
     
-    
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, testUnit.modelArrSize, testUnit.modelData, GL_STATIC_DRAW);
@@ -290,6 +297,64 @@ GLfloat gCubeVertexData[216] =
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
+    
+    //GUI Vertices
+    glGenVertexArraysOES(1, &_vertexGUIArray);
+    glBindVertexArrayOES(_vertexGUIArray);
+    
+    float guiSize = 0.3;
+    
+    //Bottom square
+    guiVertices[0] = -1 * guiSize; //x
+    guiVertices[1] = -1 * guiSize; //y
+    guiVertices[2] = 0;  //u
+    guiVertices[3] = 0; //v
+    
+    guiVertices[4] = 1 * guiSize;  //x
+    guiVertices[5] = -1 * guiSize; //y
+    guiVertices[6] = 1; //u
+    guiVertices[7] = 0;  //v
+    
+    guiVertices[8] = -1 * guiSize;  //x
+    guiVertices[9] = 1 * guiSize;   //y
+    guiVertices[10] = 0; //u
+    guiVertices[11] = 1;  //v
+    
+    //Top Face
+    guiVertices[12] = 1 * guiSize;  //x
+    guiVertices[13] = 1 * guiSize;  //y
+    guiVertices[14] = 1;  //u
+    guiVertices[15] = 1;  //v
+
+    
+    guiElements[0] = 0;
+    guiElements[1] = 1;
+    guiElements[2] = 2;
+    guiElements[3] = 2;
+    guiElements[4] = 1;
+    guiElements[5] = 3;
+    
+    glGenBuffers(1, &_vertexGUIBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &guiEbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(guiElements), guiElements, GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(0));
+    
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(8));
+    
+    glBindVertexArrayOES(0);
+    
+    _texture = [self setupTexture:@"item_powerup_fish.png"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    GLuint loc = glGetUniformLocation(_guiProgram, "texture");
+    glUniform1i(loc, 0);
 }
 
 - (void)tearDownGL
@@ -299,6 +364,9 @@ GLfloat gCubeVertexData[216] =
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
     
+    glDeleteBuffers(1, &_vertexGUIBuffer);
+    glDeleteVertexArraysOES(1, &_vertexGUIArray);
+
     self.effect = nil;
     
     if (_program) {
@@ -308,6 +376,10 @@ GLfloat gCubeVertexData[216] =
     if (_hexProgram) {
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
+    }
+    if (_guiProgram) {
+        glDeleteProgram(_guiProgram);
+        _guiProgram = 0;
     }
 }
 
@@ -352,6 +424,20 @@ GLfloat gCubeVertexData[216] =
 {
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    
+    //gui stuff
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
+    glBindVertexArrayOES(_vertexGUIArray);
+    glUseProgram(_guiProgram);
+        
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDisable(GL_BLEND);
     
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
@@ -419,10 +505,13 @@ GLfloat gCubeVertexData[216] =
     NSString *vertShaderPathname, *fragShaderPathname;
     GLuint vertHexShader, fragHexShader;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
+    GLuint vertGUIShader, fragGUIShader;
+    NSString *vertGUIShaderPathname, *fragGUIShaderPathname;
     
     // Create shader program.
     _program = glCreateProgram();
     _hexProgram = glCreateProgram();
+    _guiProgram = glCreateProgram();
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
@@ -432,6 +521,11 @@ GLfloat gCubeVertexData[216] =
     }
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
     if (![self compileShader:&vertHexShader type:GL_VERTEX_SHADER file:vertHexShaderPathname]) {
+        NSLog(@"Failed to compile vertex shader");
+        return NO;
+    }
+    vertGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
+    if (![self compileShader:&vertGUIShader type:GL_VERTEX_SHADER file:vertGUIShaderPathname]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
@@ -447,20 +541,29 @@ GLfloat gCubeVertexData[216] =
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }
+    fragGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
+    if (![self compileShader:&fragGUIShader type:GL_FRAGMENT_SHADER file:fragGUIShaderPathname]) {
+        NSLog(@"Failed to compile fragment shader");
+        return NO;
+    }
     
     // Attach vertex shader to program.
     glAttachShader(_program, vertShader);
     glAttachShader(_hexProgram, vertHexShader);
+    glAttachShader(_guiProgram, vertGUIShader);
     
     // Attach fragment shader to program.
     glAttachShader(_program, fragShader);
     glAttachShader(_hexProgram, fragHexShader);
+    glAttachShader(_guiProgram, fragGUIShader);
     
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(_program, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
     glBindAttribLocation(_hexProgram, GLKVertexAttribPosition, "position");
+    glBindAttribLocation(_guiProgram, GLKVertexAttribPosition, "position");
+    glBindAttribLocation(_guiProgram, GLKVertexAttribTexCoord0, "texCoordIn");
     
     // Link program.
     if (![self linkProgram:_program]) {
@@ -499,7 +602,25 @@ GLfloat gCubeVertexData[216] =
         
         return NO;
     }
-    
+    if (![self linkProgram:_guiProgram]) {
+        NSLog(@"Failed to link program: %d", _guiProgram);
+        
+        if (vertGUIShader) {
+            glDeleteShader(vertGUIShader);
+            vertGUIShader = 0;
+        }
+        if (fragGUIShader) {
+            glDeleteShader(fragGUIShader);
+            fragGUIShader = 0;
+        }
+        if (_guiProgram) {
+            glDeleteProgram(_guiProgram);
+            _guiProgram = 0;
+        }
+        
+        return NO;
+    }
+
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
@@ -525,6 +646,15 @@ GLfloat gCubeVertexData[216] =
         glDeleteShader(fragHexShader);
     }
     
+    if (vertGUIShader) {
+        glDetachShader(_guiProgram, vertGUIShader);
+        glDeleteShader(vertGUIShader);
+    }
+    if (fragGUIShader) {
+        glDetachShader(_guiProgram, fragGUIShader);
+        glDeleteShader(fragGUIShader);
+    }
+
     return YES;
 }
 
@@ -587,7 +717,7 @@ GLfloat gCubeVertexData[216] =
     return YES;
 }
 
-- (BOOL)validateProgram:(GLuint)prog
+- (BOOL)ƒ:(GLuint)prog
 {
     GLint logLength, status;
     
@@ -606,6 +736,38 @@ GLfloat gCubeVertexData[216] =
     }
     
     return YES;
+}
+
+// Load in and set up texture image (adapted from Ray Wenderlich)
+- (GLuint)setupTexture:(NSString *)fileName
+{
+    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
+    if (!spriteImage) {
+        NSLog(@"Failed to load image %@", fileName);
+        exit(1);
+    }
+    
+    size_t width = CGImageGetWidth(spriteImage);
+    size_t height = CGImageGetHeight(spriteImage);
+    
+    GLubyte *spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
+    
+    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+    
+    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+    
+    CGContextRelease(spriteContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    
+    free(spriteData);
+    return texName;
 }
 
 @end
