@@ -109,6 +109,8 @@ GLfloat gCubeVertexData[216] =
     GLuint _texture;
     GLuint guiEbo;
     Unit *testUnit;
+    
+    NSMutableArray *entityList;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -769,4 +771,8 @@ GLfloat gCubeVertexData[216] =
     return texName;
 }
 
+- (IBAction)SpawnShipBtnDown:(id)sender
+{
+    
+}
 @end

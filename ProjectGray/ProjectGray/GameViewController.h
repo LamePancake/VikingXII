@@ -11,5 +11,7 @@
 #import "Unit.h"
 
 @interface GameViewController : GLKViewController
+@property (weak, nonatomic) IBOutlet UIButton *SpawnShipBtn;
+- (IBAction)SpawnShipBtnDown:(id)sender;
 
 @end
