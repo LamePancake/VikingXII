@@ -308,23 +308,23 @@ GLfloat gCubeVertexData[216] =
     guiVertices[0] = -1 * guiSize; //x
     guiVertices[1] = -1 * guiSize; //y
     guiVertices[2] = 0;  //u
-    guiVertices[3] = 0; //v
+    guiVertices[3] = 1; //v
     
     guiVertices[4] = 1 * guiSize;  //x
     guiVertices[5] = -1 * guiSize; //y
     guiVertices[6] = 1; //u
-    guiVertices[7] = 0;  //v
+    guiVertices[7] = 1;  //v
     
     guiVertices[8] = -1 * guiSize;  //x
     guiVertices[9] = 1 * guiSize;   //y
     guiVertices[10] = 0; //u
-    guiVertices[11] = 1;  //v
+    guiVertices[11] = 0;  //v
     
     //Top Face
     guiVertices[12] = 1 * guiSize;  //x
     guiVertices[13] = 1 * guiSize;  //y
     guiVertices[14] = 1;  //u
-    guiVertices[15] = 1;  //v
+    guiVertices[15] = 0;  //v
 
     
     guiElements[0] = 0;
@@ -350,7 +350,7 @@ GLfloat gCubeVertexData[216] =
     
     glBindVertexArrayOES(0);
     
-    _texture = [self setupTexture:@"item_powerup_fish.png"];
+    _texture = [self setupTexture:@"EndTurn.png"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texture);
     GLuint loc = glGetUniformLocation(_guiProgram, "texture");
@@ -425,20 +425,6 @@ GLfloat gCubeVertexData[216] =
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    
-    //gui stuff
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-    
-    glBindVertexArrayOES(_vertexGUIArray);
-    glUseProgram(_guiProgram);
-        
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);
-    
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -494,6 +480,19 @@ GLfloat gCubeVertexData[216] =
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
     
     glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
+    
+    //gui stuff
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
+    glBindVertexArrayOES(_vertexGUIArray);
+    glUseProgram(_guiProgram);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDisable(GL_BLEND);
     
 }
 
