@@ -10,7 +10,7 @@
 
 @implementation Hex
 
-- (id) initWithAxialCoords:(int)q And:(int)r WithIndex:(int)index
+- (id) initWithAxialCoords:(int)q And:(int)r WithIndex:(int)index AndWorldPosition:(GLKVector2)world
 {
     self = [super init];
     if (self)
@@ -19,11 +19,12 @@
         self.q = q;
         self.colour = GLKVector4Make(1,0,1,1);
         self.instanceVertexIndex = index;
+        self.worldPosition = world;
     }
     return self;
 }
 
-- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour WithIndex:(int)index
+- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour WithIndex:(int)index AndWorldPosition:(GLKVector2)world
 {
     self = [super init];
     if (self)
@@ -32,13 +33,9 @@
         self.q = q;
         self.colour = colour;
         self.instanceVertexIndex = index;
+        self.worldPosition = world;
     }
     return self;
-}
-
-- (void) setColour:(GLKVector4)colour
-{
-    _colour = colour;
 }
 
 @end

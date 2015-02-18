@@ -34,6 +34,8 @@
 
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex;
 
+- (Hex*)closestHexToWorldPosition:(GLKVector2) position WithinHexagon:(BOOL)limit;
+
 @end
 
 #endif

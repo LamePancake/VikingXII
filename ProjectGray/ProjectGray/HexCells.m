@@ -84,39 +84,6 @@
     return [self hexAtQ:q andR:r];
 }
 
-/*
- function cube_to_hex(h): # axial
- var q = h.x
- var r = h.z
- return Hex(q, r)
- 
- function hex_to_cube(h): # axial
- var x = h.q
- var z = h.r
- var y = -x-z
- return Cube(x, y, z)
- */
-
-/*
- function cube_round(h):
- var rx = round(h.x)
- var ry = round(h.y)
- var rz = round(h.z)
- 
- var x_diff = abs(rx - h.x)
- var y_diff = abs(ry - h.y)
- var z_diff = abs(rz - h.z)
- 
- if x_diff > y_diff and x_diff > z_diff:
- rx = -ry-rz
- else if y_diff > z_diff:
- ry = -rx-rz
- else:
- rz = -rx-ry
- 
- return Cube(rx, ry, rz)
- */
-
 -(GLKVector3) roundCube:(GLKVector3) cube
 {
     float rx = roundf(cube.x);
@@ -182,7 +149,9 @@
         NSMutableArray *subArray = [[NSMutableArray alloc] init];
         for (int j = 0; j < arraySize; j++)
         {
-            [subArray addObject:[[Hex alloc] initWithAxialCoords:i And:j WithIndex:-1]];
+            [subArray addObject:[[Hex alloc] initWithAxialCoords:i And:j
+                                              WithIndex:-1
+                                              AndWorldPosition:GLKVector2Make(INT32_MAX, INT32_MAX)]];
         }
         [_hexArray addObject:subArray];
     }
@@ -196,14 +165,11 @@
         {
             Hex *hex; //= [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1)];
             
-            if (r == -1 && q == 1)
-            {
-                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 0, 1, 1) WithIndex:instanceVertexIndex];
-            }
-            else
-            {
-                hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1) WithIndex:instanceVertexIndex];
-            }
+            hex = [[Hex alloc] initWithAxialCoords:q And:r
+                                AndColour:GLKVector4Make(0, 1, 0, 1)
+                                WithIndex:instanceVertexIndex
+                                AndWorldPosition:GLKVector2Make(horiz * q, (vert * 2) * r + (offset * vert))];
+            
             NSLog(@"At q:%d and r:%d, %d", q, r, hex.instanceVertexIndex);
             
             [self insertHex:hex atQ:q AndR:r];
@@ -221,7 +187,10 @@
         offset = q;
         for (int r = -hexCount - q; r <= hexCount; ++r)
         {
-            Hex *hex = [[Hex alloc] initWithAxialCoords:q And:r AndColour:GLKVector4Make(0, 1, 0, 1) WithIndex:instanceVertexIndex];
+            Hex *hex = [[Hex alloc] initWithAxialCoords:q And:r
+                                    AndColour:GLKVector4Make(0, 1, 0, 1)
+                                    WithIndex:instanceVertexIndex
+                                    AndWorldPosition:GLKVector2Make(horiz * q, (vert * 2) * r + (offset * vert))];
             
             [self insertHex:hex atQ:q AndR:r];
             
@@ -231,6 +200,60 @@
             ++instanceVertexIndex;
         }
     }
+}
+
+- (Hex*) closestHexToWorldPosition:(GLKVector2)position WithinHexagon:(BOOL)limit
+{
+    
+    int hexCount = _N;
+    Hex *hex;
+    float shortestDistance = INT32_MAX;
+    float distance = INT32_MAX;
+    int closestQ = INT32_MAX;
+    int closestR = INT32_MAX;
+    
+    // right side of hex
+    for (int q = 0; q <= hexCount; ++q)
+    {
+        for (int r = -hexCount; r <= hexCount - q; ++r)
+        {
+            hex = [self hexAtQ:q andR:r];
+            
+            if ((distance = GLKVector2Distance(position, hex.worldPosition)) < shortestDistance)
+            {
+                shortestDistance = distance;
+                closestQ = q;
+                closestR = r;
+            }
+        }
+    }
+    
+    // left side of hex
+    for (int q = -hexCount; q <= -1; ++q)
+    {
+        for (int r = -hexCount - q; r <= hexCount; ++r)
+        {
+            hex = [self hexAtQ:q andR:r];
+            
+            if ((distance = GLKVector2Distance(position, hex.worldPosition)) < shortestDistance)
+            {
+                shortestDistance = distance;
+                closestQ = q;
+                closestR = r;
+            }
+        }
+    }
+    
+    if (limit && shortestDistance > size)
+    {
+        return nil;
+    }
+    else if (shortestDistance == INT32_MAX)
+    {
+        return nil;
+    }
+    
+    return [self hexAtQ:closestQ andR:closestR];
 }
 
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex {

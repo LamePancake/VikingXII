@@ -127,7 +127,7 @@ GLfloat gCubeVertexData[216] =
 - (BOOL)loadShaders;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
-- (BOOL)validateProgram:(GLuint)prog;
+//- (BOOL)validateProgram:(GLuint)prog;
 @end
 
 @implementation GameViewController
@@ -285,10 +285,6 @@ GLfloat gCubeVertexData[216] =
         }
     }
     
-    
-    Hex *hex = ((Hex *)[hexCells hexAtQ:1 andR:0]);
-    [hex setColour:GLKVector4Make(0.6f, 0.43f, 0.8f, 1)];
-    
     // chicken stuff
     glGenVertexArraysOES(1, &_vertexArray);
     glBindVertexArrayOES(_vertexArray);
@@ -428,7 +424,7 @@ GLfloat gCubeVertexData[216] =
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
-    [hexCells movableRange:2 from:[hexCells hexAtQ:0 andR:0]];//Just testing
+    [hexCells movableRange:0 from:[hexCells hexAtQ:0 andR:0]];//Just testing
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -781,7 +777,7 @@ GLfloat gCubeVertexData[216] =
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)width, (int)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
     
     free(spriteData);
     return texName;
