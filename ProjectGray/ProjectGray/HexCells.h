@@ -10,6 +10,7 @@
 #define ProjectGray_HexCells_h
 
 #import <Foundation/Foundation.h>
+#import "GLKit/GLKit.h"
 #import "Hex.h"
 
 @interface HexCells : NSObject
@@ -28,6 +29,8 @@
 - (void)insertHex:(Hex*)hex atQ:(int)q AndR:(int)r;
 
 - (Hex*)hexAtQ:(int)q andR:(int)r;
+
+- (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
 
 @end
 
