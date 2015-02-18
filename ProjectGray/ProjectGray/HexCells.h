@@ -32,6 +32,8 @@
 
 - (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
 
+-(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex;
+
 @end
 
 #endif

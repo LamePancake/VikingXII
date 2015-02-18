@@ -14,5 +14,8 @@
 @end
 
 @implementation GameObjectData
-//Currently no methods to implement - will add as need for functionality arises.
+-(id) initWithValues:(int)movePerAP {
+    moveSpeed = movePerAP;
+    return self;
+}
 @end

@@ -25,6 +25,8 @@
 
 - (void) setColour:(GLKVector4)colour;
 
+-(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex;
+
 @end
 
 #endif

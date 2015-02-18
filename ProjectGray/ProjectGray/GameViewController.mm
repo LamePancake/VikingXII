@@ -428,7 +428,7 @@ GLfloat gCubeVertexData[216] =
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
-    
+    [hexCells movableRange:2 from:[hexCells hexAtQ:0 andR:0]];//Just testing
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

@@ -8,7 +8,7 @@
 
 @interface GameObjectData : NSObject
 {
-
+    int moveSpeed;
 }
-
+-(id) initWithValues:(int)movePerAP;
 @end

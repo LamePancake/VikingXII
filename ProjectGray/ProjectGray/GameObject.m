@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "GameObject.h"
+#import "Hex.h"
+
 
 @interface GameObject ()
-    @property int position; //Placeholder variable for object's current position on a map
+    @property Hex* position; //Placeholder variable for object's current position on a map
     @property int objectType; //Placeholder for specific type of object
-    @property int data; //Placeholder for data unique to a type of object
+@property GameObject* data; //Placeholder for data unique to a type of object
     @property int apPool;//Placeholder for GameObject's current available actionpoints
 @end
 
