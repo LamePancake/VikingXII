@@ -13,6 +13,9 @@ varying lowp vec4 colorVarying;
 
 uniform mat4 modelViewProjectionMatrix;
 uniform mat3 normalMatrix;
+uniform mat4 projectimMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 translationMatrix;
 
 void main()
 {
@@ -24,5 +27,5 @@ void main()
                  
     colorVarying = diffuseColor * nDotVP;
     
-    gl_Position = modelViewProjectionMatrix * position;
+    gl_Position = translationMatrix * position;
 }

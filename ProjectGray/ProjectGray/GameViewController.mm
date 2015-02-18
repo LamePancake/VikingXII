@@ -20,6 +20,7 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
+    UNIFORM_TRANSLATION_MATRIX,
     UNIFORM_TEXTURE,
     NUM_UNIFORMS,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
@@ -109,6 +110,9 @@ GLfloat gCubeVertexData[216] =
     GLuint _texture;
     GLuint guiEbo;
     Unit *testUnit;
+    GLint vertLoc;
+    GLKMatrix4 _transMat;
+    GLKMatrix4 SteveJobsIsAFag;
     
     NSMutableArray *entityList;
 }
@@ -152,6 +156,7 @@ GLfloat gCubeVertexData[216] =
     
     testUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
     [testUnit initShip:0 And:0];
+    testUnit.position = GLKVector3Make(0, 0, 0);
     
     [self setupGL];
 }
@@ -290,6 +295,7 @@ GLfloat gCubeVertexData[216] =
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, testUnit.modelArrSize, testUnit.modelData, GL_STATIC_DRAW);
+    //vertLoc = glGetAttribLocation(_program, "position");
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -420,13 +426,15 @@ GLfloat gCubeVertexData[216] =
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
+    
+    
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -479,7 +487,13 @@ GLfloat gCubeVertexData[216] =
     glUseProgram(_program);
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _camera.normalMatrix.m);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z);
+    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+    
+    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z));
+    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+
     
     glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
     
@@ -625,6 +639,7 @@ GLfloat gCubeVertexData[216] =
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
+    uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     
