@@ -23,5 +23,5 @@ glDrawArrays(GL_TRIANGLES, 0, chicken_triagNumVerts);
 #ifndef CHICKENTRIAG_H
 #define CHICKENTRIAG_H
 extern unsigned int chicken_triagNumVerts;
-extern float *chicken_triagVerts;
+extern float chicken_triagVerts[];
 #endif

@@ -50,7 +50,7 @@
         _translationEnd = GLKVector2Make(0, 0);
         _scale = 1;
         _lastScale = 1;
-        _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+        _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f,-4.0f);
         _projectionMatrix = GLKMatrix4Identity;
         _normalMatrix = GLKMatrix3Identity;
         _width = width;

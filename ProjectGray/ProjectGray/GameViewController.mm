@@ -37,55 +37,6 @@ enum
     NUM_ATTRIBUTES
 };
 
-GLfloat gCubeVertexData[216] =
-{
-    // Data layout for each line below is:
-    // positionX, positionY, positionZ,     normalX, normalY, normalZ,
-    0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, -0.5f,          1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-    
-    0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,
-    
-    -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f,
-    
-    -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f,
-    
-    0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,
-    
-    0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
-};
-
-
-
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
@@ -412,6 +363,63 @@ GLfloat gCubeVertexData[216] =
     float y = translation.y/recognizer.view.frame.size.height * 5.0f;
     
     [_camera PanDidBegin:didBegin X:x Y:y];
+}
+
+/*!
+ * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and test it against the xy-plane to pick a hex cell.
+ */
+- (IBAction)doTap:(UITapGestureRecognizer *)sender {
+    
+    CGPoint screenTouch = [sender locationInView:self.view]; // The screen coordinates of the touch
+    GLKVector2 touchLocation;                                // The location of the touch in clip space
+    GLKVector4 near, far;                                    // The near and far points of the ray (in homogenous coordinates)
+    GLKVector4 rayDirection;                                 // The ray for checking intersections
+    GLKMatrix4 inverseMVP;                                   // The inverse of the model-view-projection matrix
+    
+    // Flip the y coordinate so that it goes from the bottom left corner (as OpenGL prefers)
+    screenTouch.y = [self.view bounds].size.height - screenTouch.y;
+    
+    // Convert the screen touches into devices coordinates (between [-1, 1])
+    screenTouch.x /= self.view.frame.size.width;
+    screenTouch.y /= self.view.frame.size.height;
+
+    screenTouch.x *= 2;
+    screenTouch.y *= 2;
+    
+    screenTouch.x -= 1;
+    screenTouch.y -= 1;
+    
+    touchLocation = GLKVector2Make(screenTouch.x, screenTouch.y);
+    
+    // Calculate the points where the ray intersects with the near and far clipping planes
+    near = GLKVector4Make(touchLocation.x, touchLocation.y, -1.0f, 1.0f);
+    far = GLKVector4Make(touchLocation.x, touchLocation.y, 1.0f, 1.0f);
+    
+    inverseMVP = GLKMatrix4Invert(_camera.modelViewProjectionMatrix, NULL);
+    near = GLKMatrix4MultiplyVector4(inverseMVP, near);
+    far = GLKMatrix4MultiplyVector4(inverseMVP, far);
+    
+    // Homogenous coordinates, so need to divide by w
+    near = GLKVector4DivideScalar(near, near.w);
+    far = GLKVector4DivideScalar(far, far.w);
+    
+    // Make vector from touched point to end of clipping plane
+    rayDirection = GLKVector4Normalize(GLKVector4Subtract(far, near));
+    
+    // Let vector v be the direction from near point to far point
+    // Solve for t (parametric equation)
+    // x = t(A) + xi; y = t(B) + yi; z = t(C) + zi
+    // We know that hexagons are rendered in the xy plane, so the plane's equation is z = 0
+    // The z-coordinate on our near to far vector: z = t * (k component of near to far vector) + zi
+    // Since z = 0, we can say that t(vk) + zi = 0
+    // Rearranged, we get t = -zi / vk
+    float t = -near.z / rayDirection.z;
+    
+    // Use t to determine how far we go in the x and y directions
+    GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
+    
+    Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
+    [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
