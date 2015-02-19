@@ -154,6 +154,7 @@
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F20C19571A917A1600D63661 /* Game Logic */,
 				359216AC1A8952A300327F76 /* Camera.h */,
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
@@ -230,7 +231,6 @@
 			children = (
 				A517EC8C1A898D1F00E17D27 /* chicken_final.obj */,
 				A517EC881A8979F300E17D27 /* chicken.obj */,
-				F20C19571A917A1600D63661 /* Game Logic */,
 				709DA0A31A898E76007D63C1 /* Models */,
 				709DA0A61A898F32007D63C1 /* Assets */,
 				709DA0A41A898ED6007D63C1 /* Controllers */,
