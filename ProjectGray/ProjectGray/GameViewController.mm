@@ -503,7 +503,7 @@ enum
     glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
     
     //gui stuff
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    /*glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable( GL_BLEND );
     
     glBindVertexArrayOES(_vertexGUIArray);
@@ -513,7 +513,7 @@ enum
     glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);
+    glDisable(GL_BLEND);*/
     
 }
 
@@ -789,10 +789,5 @@ enum
     
     free(spriteData);
     return texName;
-}
-
-- (IBAction)SpawnShipBtnDown:(id)sender
-{
-    
 }
 @end
