@@ -11,6 +11,6 @@
 
 
 extern unsigned int l_vikingNumVerts;
-extern float *l_vikingVerts;
+extern float l_vikingVerts[];
 
 #endif /* defined(__ProjectGray__l_vikingVertices__) */
