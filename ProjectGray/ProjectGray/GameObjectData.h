@@ -11,4 +11,5 @@
     int moveSpeed;
 }
 -(id) initWithValues:(int)movePerAP;
+-(int) getMoveSpeed;
 @end

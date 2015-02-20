@@ -10,5 +10,5 @@
 {
     @public NSString *uniqueID; // This should identify objects individually, regardless of type
 }
-//Currently no methods
+-(int)getRange:(int)range;
 @end

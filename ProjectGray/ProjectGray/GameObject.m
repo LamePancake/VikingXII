@@ -9,15 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "GameObject.h"
 #import "Hex.h"
-
+#import "GameObjectData.h"
 
 @interface GameObject ()
-    @property Hex* position; //Placeholder variable for object's current position on a map
+    @property Hex* position; //Variable for object's current position on a map
     @property int objectType; //Placeholder for specific type of object
-@property GameObject* data; //Placeholder for data unique to a type of object
-    @property int apPool;//Placeholder for GameObject's current available actionpoints
+    @property GameObjectData* data; //Data unique to a type of object
+    @property int apPool;//GameObject's current available actionpoints
 @end
 
 @implementation GameObject
-//Currently no methods to implement - will add as need for functionality arises.
+
+-(int) getRange:(int)range {
+    return [_data getMoveSpeed];
+}
+
 @end

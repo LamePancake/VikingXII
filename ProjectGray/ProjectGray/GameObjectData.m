@@ -14,8 +14,14 @@
 @end
 
 @implementation GameObjectData
+
 -(id) initWithValues:(int)movePerAP {
     moveSpeed = movePerAP;
     return self;
 }
+
+-(int) getMoveSpeed {
+    return moveSpeed;
+}
+
 @end
