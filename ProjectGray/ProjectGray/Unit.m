@@ -47,8 +47,8 @@
         //_modelData = &chicken_triagVerts;
         //_modelArrSize = 127488;
         //_numModelVerts = chicken_triagNumVerts;
-        _modelData = &l_vikingVerts;
-        _modelArrSize = 881568;
+        _modelData = l_vikingVerts;
+        _modelArrSize = 878592;
         _numModelVerts = l_vikingNumVerts;
     }
 }
@@ -60,7 +60,7 @@
         //_modelData = &chicken_triagVerts;
         //_modelArrSize = 127488;
         //_numModelVerts = chicken_triagNumVerts;
-        _modelData = &chicken_triagVerts;
+        _modelData = chicken_triagVerts;
         _modelArrSize = 127488;
         _numModelVerts = chicken_triagNumVerts;
     }

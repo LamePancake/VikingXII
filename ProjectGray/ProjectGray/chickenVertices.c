@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Tim Wang. All rights reserved.
 //
 
-unsigned int chicken_triagNumVerts = 3987;
+unsigned int chicken_triagNumVerts = 3984;
 
 float chicken_triagVerts [] = {
   // # Hierarchy (from self to top father)
