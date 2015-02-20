@@ -12,5 +12,6 @@
 
 @interface GameViewController : GLKViewController
 - (IBAction)endTurnPressed:(id)sender;
+- (IBAction)pausePressed:(id)sender;
 
 @end

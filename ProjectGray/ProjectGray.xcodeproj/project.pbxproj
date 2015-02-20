@@ -11,6 +11,8 @@
 		3082EA101A8D697000A54360 /* HexShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA0F1A8D697000A54360 /* HexShader.fsh */; };
 		3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA111A8D698F00A54360 /* HexShader.vsh */; };
 		3082EA131A8D7D5200A54360 /* HexCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0C1A8D4D7C00A54360 /* HexCells.m */; };
+		350A00091A97BB1100602053 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00071A97BB1100602053 /* Pause.png */; };
+		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -57,6 +59,8 @@
 		3082EA0D1A8D4D9200A54360 /* Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hex.m; sourceTree = "<group>"; };
 		3082EA0F1A8D697000A54360 /* HexShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HexShader.fsh; sourceTree = "<group>"; };
 		3082EA111A8D698F00A54360 /* HexShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = HexShader.vsh; sourceTree = "<group>"; };
+		350A00071A97BB1100602053 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
+		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
 		3514AA471A93C733002FB00C /* EndTurn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurn.png; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				350A00071A97BB1100602053 /* Pause.png */,
+				350A00081A97BB1100602053 /* PausePressed.png */,
 				35471A851A95421100D835E3 /* TrayPlayer.png */,
 				35471A831A9541FB00D835E3 /* EndTurnPressed.png */,
 				3514AA471A93C733002FB00C /* EndTurn.png */,
@@ -372,8 +378,10 @@
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
+				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
+				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
 				A517EC891A8979F300E17D27 /* chicken.obj in Resources */,

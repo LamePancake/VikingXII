@@ -797,4 +797,8 @@ enum
     
 }
 
+- (IBAction)pausePressed:(id)sender {
+    [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
+}
+
 @end
