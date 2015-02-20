@@ -23,9 +23,9 @@
 @property (nonatomic) float scale;
 //stats
 @property (nonatomic) int hull;
-@property (nonatomic) int range;
+@property (nonatomic) int attRange;
 @property (nonatomic) int damage;
-@property (nonatomic) int speed;
+@property (nonatomic) int moveRange;
 @property (nonatomic) int accuracy;
 //health
 @property (nonatomic) int engineHealth;

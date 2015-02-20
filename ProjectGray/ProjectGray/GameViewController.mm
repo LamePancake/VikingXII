@@ -44,10 +44,15 @@ enum
     
     float _rotation;
     
-    GLuint _vertexArray;
-    GLuint _vertexBuffer;
-    GLuint _normalArray;
-    GLuint _normalBuffer;
+    GLuint _vertexVikingArray;
+    GLuint _vertexVikingBuffer;
+    GLuint _normalVikingArray;
+    GLuint _normalVikingBuffer;
+    GLuint _vertexGrayArray;
+    GLuint _vertexGrayBuffer;
+    GLuint _normalGrayArray;
+    GLuint _normalGrayBuffer;
+
     Camera *_camera;
     
     GLuint _vertexHexArray;
@@ -63,10 +68,14 @@ enum
     GLuint guiEbo;
     Unit *testUnit;
     GLint vertLoc;
-    GLKMatrix4 _transMat;
+
     GLKMatrix4 SteveJobsIsAFag;
     
-    NSMutableArray *entityList;
+    //unit stuff
+    int vikingNum;
+    int grayNum;
+    NSMutableArray *vikingList;
+    NSMutableArray *grayList;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -106,9 +115,32 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    testUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
-    [testUnit initShip:0 And:0];
-    testUnit.position = GLKVector3Make(0, 0, 0);
+    //unit lists initialization
+    vikingNum = 2;
+    vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
+    for(int i = 0; i < vikingNum; i++)
+    {
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+        [tempUnit initShip:0 And:0];
+        tempUnit.position = GLKVector3Make(i , i , i );
+        
+        [vikingList insertObject:tempUnit atIndex:i];
+    }
+    
+    grayNum = 2;
+    grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
+    for(int i = 0; i < grayNum; i++)
+    {
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+        [tempUnit initShip:1 And:0];
+        tempUnit.position = GLKVector3Make(-i , -i , -i );
+        
+        [grayList insertObject:tempUnit atIndex:i];
+    }
+    
+    //testUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+    //[testUnit initShip:0 And:0];
+    //testUnit.position = GLKVector3Make(0, 0, 0);
     
     [self setupGL];
 }
@@ -236,13 +268,31 @@ enum
         }
     }
     
-    // chicken stuff
-    glGenVertexArraysOES(1, &_vertexArray);
-    glBindVertexArrayOES(_vertexArray);
+    // viking stuff
+    glGenVertexArraysOES(1, &_vertexVikingArray);
+    glBindVertexArrayOES(_vertexVikingArray);
     
-    glGenBuffers(1, &_vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, testUnit.modelArrSize, testUnit.modelData, GL_STATIC_DRAW);
+    glGenBuffers(1, &_vertexVikingBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer);
+    glBufferData(GL_ARRAY_BUFFER, ((Unit*)vikingList[0]).modelArrSize, ((Unit*)vikingList[0]).modelData, GL_STATIC_DRAW);
+    //vertLoc = glGetAttribLocation(_program, "position");
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // gray stuff
+    glGenVertexArraysOES(1, &_vertexGrayArray);
+    glBindVertexArrayOES(_vertexGrayArray);
+    
+    glGenBuffers(1, &_vertexGrayBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer);
+    glBufferData(GL_ARRAY_BUFFER, ((Unit*)grayList[0]).modelArrSize, ((Unit*)grayList[0]).modelData, GL_STATIC_DRAW);
     //vertLoc = glGetAttribLocation(_program, "position");
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
@@ -317,8 +367,8 @@ enum
 {
     [EAGLContext setCurrentContext:self.context];
     
-    glDeleteBuffers(1, &_vertexBuffer);
-    glDeleteVertexArraysOES(1, &_vertexArray);
+    glDeleteBuffers(1, &_vertexVikingBuffer);
+    glDeleteVertexArraysOES(1, &_vertexVikingArray);
     
     glDeleteBuffers(1, &_vertexGUIBuffer);
     glDeleteVertexArraysOES(1, &_vertexGUIArray);
@@ -486,21 +536,60 @@ enum
         }
     }
     
+    for(int i = 0; i < vikingNum; i++)
+    {
+        GLKMatrix4 _transMat;
+        // Chicken stuff
+        glBindVertexArrayOES(_vertexVikingArray);
+        // Render the object again with ES2
+        glUseProgram(_program);
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z);
+        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+        
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z));
+        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+        
+        
+        glDrawArrays(GL_TRIANGLES, 0, ((Unit*)vikingList[i]).numModelVerts);
+        
+    }
+    
+    for(int i = 0; i < grayNum; i++)
+    {
+        GLKMatrix4 _transMat;
+        // Chicken stuff
+        glBindVertexArrayOES(_vertexGrayArray);
+        // Render the object again with ES2
+        glUseProgram(_program);
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z);
+        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+        
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z));
+        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+        
+        glDrawArrays(GL_TRIANGLES, 0, ((Unit*)grayList[i]).numModelVerts);
+    }
     // Chicken stuff
-    glBindVertexArrayOES(_vertexArray);
+//    glBindVertexArrayOES(_vertexArray);
     // Render the object again with ES2
-    glUseProgram(_program);
+//    glUseProgram(_program);
     
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z);
-    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-    
-    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z));
-    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
-    glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+//    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+//    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z);
+//    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+//
+//    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z));
+//    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+//    glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
 
     
-    glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
+//    glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
     
     //gui stuff
     /*glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

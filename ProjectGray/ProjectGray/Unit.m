@@ -55,10 +55,14 @@
 
 - (void) initGrayClass:(int)shipClass
 {
-    if(shipClass == 0)
+    if(shipClass == 1)
     {
-        self.modelData = chicken_triagVerts;        
-        self.modelArrSize = chicken_triagNumVerts;
+        //_modelData = &chicken_triagVerts;
+        //_modelArrSize = 127488;
+        //_numModelVerts = chicken_triagNumVerts;
+        _modelData = &chicken_triagVerts;
+        _modelArrSize = 127488;
+        _numModelVerts = chicken_triagNumVerts;
     }
 }
 @end
