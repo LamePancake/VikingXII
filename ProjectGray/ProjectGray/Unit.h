@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
 #import "chicken_triag.h"
+#import "l_vikingVertices.h"
 
 @interface Unit : NSObject
 

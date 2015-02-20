@@ -762,6 +762,10 @@ enum
 // Load in and set up texture image (adapted from Ray Wenderlich)
 - (GLuint)setupTexture:(NSString *)fileName
 {
+
+
+
+
     CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
     if (!spriteImage) {
         NSLog(@"Failed to load image %@", fileName);

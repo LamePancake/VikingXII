@@ -23,6 +23,7 @@
 		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
 		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
 		70C7183A1A89547E003E3B05 /* GameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718391A89547E003E3B05 /* GameMode.m */; };
+		A50AC18B1A96C46C0086199A /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A50AC1891A96C46C0086199A /* l_vikingVertices.c */; };
 		A517EC891A8979F300E17D27 /* chicken.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC881A8979F300E17D27 /* chicken.obj */; };
 		A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC8C1A898D1F00E17D27 /* chicken_final.obj */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
@@ -76,6 +77,8 @@
 		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
 		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
 		70C718391A89547E003E3B05 /* GameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMode.m; sourceTree = "<group>"; };
+		A50AC1891A96C46C0086199A /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
+		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
 		A517EC881A8979F300E17D27 /* chicken.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken.obj; path = Models/chicken.obj; sourceTree = "<group>"; };
 		A517EC8C1A898D1F00E17D27 /* chicken_final.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken_final.obj; path = Models/chicken_final.obj; sourceTree = "<group>"; };
 		A565CB881A8EB99800BBB4C9 /* Models.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				A5BAA5341A899AFB0010F63A /* chicken.h */,
+				A50AC1891A96C46C0086199A /* l_vikingVertices.c */,
+				A50AC18A1A96C46C0086199A /* l_vikingVertices.h */,
 				A5FE71BC1A91893B008D9C1F /* chickenVertices.c */,
 				A5FE71BB1A91892C008D9C1F /* chicken_triag.h */,
 				A565CB881A8EB99800BBB4C9 /* Models.h */,
@@ -418,6 +423,7 @@
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
+				A50AC18B1A96C46C0086199A /* l_vikingVertices.c in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
 				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
 			);

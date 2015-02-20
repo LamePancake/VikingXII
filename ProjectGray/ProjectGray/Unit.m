@@ -44,9 +44,12 @@
 {
     if(shipClass == 0)
     {
-        _modelData = chicken_triagVerts; // extern float chicken_triagVerts[] (decays to pointer)
-        _modelArrSize = 127488;
-        _numModelVerts = 3984;
+        //_modelData = &chicken_triagVerts;
+        //_modelArrSize = 127488;
+        //_numModelVerts = chicken_triagNumVerts;
+        _modelData = &l_vikingVerts;
+        _modelArrSize = 881472;
+        _numModelVerts = l_vikingNumVerts;
     }
 }
 
