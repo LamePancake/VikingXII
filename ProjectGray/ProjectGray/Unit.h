@@ -20,6 +20,7 @@
 @property (nonatomic) int faction; //0 for vikings 1 for aliens
 @property (nonatomic) GLKVector3 position;
 @property (nonatomic) GLKVector3 rotation;
+@property (nonatomic) GLKVector2 hexLocation;
 @property (nonatomic) float scale;
 //stats
 @property (nonatomic) int hull;

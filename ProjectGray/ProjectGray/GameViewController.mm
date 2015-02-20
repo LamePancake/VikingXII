@@ -116,22 +116,22 @@ enum
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     //unit lists initialization
-    vikingNum = 2;
+    vikingNum = 3;
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
     for(int i = 0; i < vikingNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.3];
         [tempUnit initShip:0 And:0];
         tempUnit.position = GLKVector3Make(i , i , i );
         
         [vikingList insertObject:tempUnit atIndex:i];
     }
     
-    grayNum = 2;
+    grayNum = 3;
     grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
     for(int i = 0; i < grayNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.3];
         [tempUnit initShip:1 And:0];
         tempUnit.position = GLKVector3Make(-i , -i , -i );
         
@@ -361,6 +361,27 @@ enum
     glBindTexture(GL_TEXTURE_2D, _texture);
     GLuint loc = glGetUniformLocation(_guiProgram, "texture");
     glUniform1i(loc, 0);
+    
+    //Placing the units, Hardcoded for now
+    NSMutableArray *grayPos = [[NSMutableArray alloc] initWithCapacity:grayNum];
+    grayPos[0] = [hexCells hexAtQ:-1 andR:-1];
+    grayPos[1] = [hexCells hexAtQ:0 andR:-2];
+    grayPos[2] = [hexCells hexAtQ:1 andR:-2];
+    
+    NSMutableArray *vikingPos = [[NSMutableArray alloc] initWithCapacity:vikingNum];
+    vikingPos[0] = [hexCells hexAtQ:-1 andR:2];
+    vikingPos[1] = [hexCells hexAtQ:0 andR:2];
+    vikingPos[2] = [hexCells hexAtQ:1 andR:1];
+    
+    for(int i = 0; i < grayNum; i++)
+    {
+        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0);
+    }
+    
+    for(int i = 0; i < vikingNum; i++)
+    {
+        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0);
+    }
 }
 
 - (void)tearDownGL
@@ -409,8 +430,8 @@ enum
         didBegin = NO;
     
     CGPoint translation = [recognizer translationInView:recognizer.view];
-    float x = translation.x/recognizer.view.frame.size.width * 5.0f;
-    float y = translation.y/recognizer.view.frame.size.height * 5.0f;
+    float x = translation.x/recognizer.view.frame.size.width;
+    float y = translation.y/recognizer.view.frame.size.height;
     
     [_camera PanDidBegin:didBegin X:x Y:y];
 }
@@ -539,6 +560,7 @@ enum
     for(int i = 0; i < vikingNum; i++)
     {
         GLKMatrix4 _transMat;
+        GLKMatrix4 _scaleMat;
         // Chicken stuff
         glBindVertexArrayOES(_vertexVikingArray);
         // Render the object again with ES2
@@ -546,6 +568,8 @@ enum
         
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z);
+        _scaleMat = GLKMatrix4MakeScale(((Unit*)vikingList[i]).scale, ((Unit*)vikingList[i]).scale, ((Unit*)vikingList[i]).scale);
+        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
         GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z));
@@ -560,6 +584,7 @@ enum
     for(int i = 0; i < grayNum; i++)
     {
         GLKMatrix4 _transMat;
+        GLKMatrix4 _scaleMat;
         // Chicken stuff
         glBindVertexArrayOES(_vertexGrayArray);
         // Render the object again with ES2
@@ -567,6 +592,8 @@ enum
         
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z);
+        _scaleMat = GLKMatrix4MakeScale(((Unit*)grayList[i]).scale, ((Unit*)grayList[i]).scale, ((Unit*)grayList[i]).scale);
+        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
         GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z));
@@ -575,6 +602,7 @@ enum
         
         glDrawArrays(GL_TRIANGLES, 0, ((Unit*)grayList[i]).numModelVerts);
     }
+    
     // Chicken stuff
 //    glBindVertexArrayOES(_vertexArray);
     // Render the object again with ES2

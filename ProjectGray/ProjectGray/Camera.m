@@ -79,16 +79,19 @@
     
     _scale = _lastScale * scale;
     
-    if(_scale > 3)
-        _scale = 3;
-    else if(_scale < 0.1)
-        _scale = 0.1;
+    if(_scale > 6)
+        _scale = 6;
+    else if(_scale < 1)
+        _scale = 1;
 }
 
 -(void) PanDidBegin:(BOOL) begin X:(float)x Y:(float)y
 {
     if(begin)
         _translationStart = GLKVector2Make(0.0f, 0.0f);
+    
+    x = x * (1 / _scale) * 5.0;
+    y = y * (1 / _scale) * 5.0;
     
     float dx = _translationEnd.x + (x - _translationStart.x);
     float dy = _translationEnd.y - (y - _translationStart.y);
