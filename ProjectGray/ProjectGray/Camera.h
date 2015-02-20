@@ -21,7 +21,7 @@
 @property (nonatomic) GLKMatrix3 normalMatrix;
 
 -(id)initWithWidth:(float)width WithHeight:(float)height;
--(void) Update;
+-(void) UpdateWithWidth:(float) w AndHeight:(float) h;
 -(void) ZoomDidBegin:(BOOL) begin Scale:(float)scale;
 -(void) PanDidBegin:(BOOL) begin X:(float)x Y:(float)y;
 

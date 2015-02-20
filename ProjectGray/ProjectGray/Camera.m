@@ -60,8 +60,11 @@
 
 }
 
--(void)Update
+-(void)UpdateWithWidth:(float)w AndHeight:(float)h
 {
+    _width = w;
+    _height = h;
+    
     _modelViewMatrix = GLKMatrix4MakeTranslation(_translationEnd.x, _translationEnd.y, -4.0f/ _scale);
     
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), 0);

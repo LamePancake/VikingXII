@@ -497,7 +497,7 @@ enum
 
 - (void)update
 {
-    [_camera Update];
+    [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
     
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
     
