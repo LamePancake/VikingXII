@@ -66,7 +66,6 @@ enum
     GLuint guiElements[6];
     GLuint _texture;
     GLuint guiEbo;
-    Unit *testUnit;
     GLint vertLoc;
 
     GLKMatrix4 SteveJobsIsAFag;
@@ -76,6 +75,10 @@ enum
     int grayNum;
     NSMutableArray *vikingList;
     NSMutableArray *grayList;
+    int currentGrayUnit;
+    int currentVikingUnit;
+    
+    bool turn;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -138,9 +141,10 @@ enum
         [grayList insertObject:tempUnit atIndex:i];
     }
     
-    //testUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:1.0];
-    //[testUnit initShip:0 And:0];
-    //testUnit.position = GLKVector3Make(0, 0, 0);
+    currentGrayUnit = 0;
+    currentVikingUnit = 0;
+    
+    turn = YES;
     
     [self setupGL];
 }
@@ -491,6 +495,39 @@ enum
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
     [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
+    
+    bool occupied = NO;
+    for(int i = 0; i < grayNum; i++)
+    {
+        if(pickedTile.worldPosition.x == ((Unit*)grayList[i]).position.x
+           && pickedTile.worldPosition.y == ((Unit*)grayList[i]).position.y)
+        {
+            if(turn)
+                currentGrayUnit = i;
+            occupied = YES;
+            break;
+        }
+    }
+    
+    for(int i = 0; i < vikingNum; i++)
+    {
+        if(pickedTile.worldPosition.x == ((Unit*)vikingList[i]).position.x
+           && pickedTile.worldPosition.y == ((Unit*)vikingList[i]).position.y)
+        {
+            if(!turn)
+                currentVikingUnit = i;
+            occupied = YES;
+            break;
+        }
+    }
+    
+    if(!occupied)
+    {
+        if(turn)
+            ((Unit*)grayList[currentGrayUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
+        else
+            ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
+    }
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
@@ -879,10 +916,6 @@ enum
 // Load in and set up texture image (adapted from Ray Wenderlich)
 - (GLuint)setupTexture:(NSString *)fileName
 {
-
-
-
-
     CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
     if (!spriteImage) {
         NSLog(@"Failed to load image %@", fileName);
@@ -911,11 +944,11 @@ enum
     free(spriteData);
     return texName;
 }
+
 - (IBAction)endTurnPressed:(id)sender
 {
     [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
-    
-    
+    turn = !turn;
 }
 
 - (IBAction)pausePressed:(id)sender {
