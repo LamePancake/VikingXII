@@ -15,6 +15,17 @@
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mam-Bn-BEX">
+                                <rect key="frame" x="439" y="445" width="161" height="155"/>
+                                <state key="normal" title="Button" image="EndTurn.png" backgroundImage="EndTurnPressed.png">
+                                    <color key="titleShadowColor" red="0.5" green="0.0" blue="0.29864710795231897" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="endTurnPressed:" destination="BV1-FR-VrT" eventType="touchDown" id="IgB-Nd-iVz"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
@@ -133,4 +144,8 @@
             <point key="canvasLocation" x="-103" y="161"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="EndTurn.png" width="512" height="512"/>
+        <image name="EndTurnPressed.png" width="512" height="512"/>
+    </resources>
 </document>

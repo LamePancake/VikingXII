@@ -790,4 +790,11 @@ enum
     free(spriteData);
     return texName;
 }
+- (IBAction)endTurnPressed:(id)sender
+{
+    [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
+    
+    
+}
+
 @end

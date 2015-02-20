@@ -11,5 +11,6 @@
 #import "Unit.h"
 
 @interface GameViewController : GLKViewController
+- (IBAction)endTurnPressed:(id)sender;
 
 @end
