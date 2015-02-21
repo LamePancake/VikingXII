@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
 
-@interface Hex : NSObject
+@interface Hex : NSObject <NSCopying>
 
 @property int r;
 @property int q;

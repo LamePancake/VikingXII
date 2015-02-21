@@ -8,6 +8,7 @@
 
 
 #import "HexCells.h"
+#import "NSMutableArray+QueueAdditions.h"
 
 @implementation HexCells
 {
@@ -267,6 +268,141 @@
         }
     }
     return withinRange;
+}
+
+- (BOOL)inRange:(int)q :(int)r
+{
+    int arraySize = _N * 2 + 1;
+    int row = q + _N;
+    int column = r + _N + MIN(0, q);
+    
+    if (row >= arraySize || row < 0)
+    {
+        return false;
+    }
+    
+    if (column  >= arraySize || column  < 0)
+    {
+        return false;
+    }
+    
+    return true;
+}
+
+- (NSMutableArray*)neighbors:(Hex*)hex
+{
+    NSMutableArray* neighbors = [[NSMutableArray alloc] init];
+    Hex* neighbor;
+    
+    int q = hex.q;
+    int r = hex.r + 1;
+    
+    if ([self inRange:q :r])
+    {
+        Hex* neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r + 1
+    
+        if (neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    r = hex.r - 1;
+    if ([self inRange:q :r])
+    {
+        neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r - 1
+        
+        if (neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    q = hex.q + 1;
+    r = hex.r - 1;
+    if ([self inRange:q :r])
+    {
+        neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r - 1
+        
+        if ([self inRange:q :r] && neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    r = hex.r;
+    if ([self inRange:q :r])
+    {
+        neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r
+        
+        if (neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    q = hex.q - 1;
+    r = hex.r;
+    if ([self inRange:q :r])
+    {
+        neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r
+        
+        if (neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    r = hex.r + 1;
+    if ([self inRange:q :r])
+    {
+        neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r + r
+        
+        if (neighbor.instanceVertexIndex != -1)
+        {
+            [neighbors addObject:neighbor];
+        }
+    }
+    
+    return neighbors;
+}
+
+- (NSMutableArray*)makePathFrom:(int)q1 :(int)r1 To:(int)q2 :(int)r2
+{
+    Hex *start = [self hexAtQ:q1 andR:r1];
+    Hex *goal = [self hexAtQ:q2 andR:r2];
+    
+    NSMutableArray* frontierQueue = [[NSMutableArray alloc] init];
+    
+    [frontierQueue enqueue:start];
+    NSMutableDictionary* cameFrom = [[NSMutableDictionary alloc] init];
+    [cameFrom setObject:start forKey:[NSNumber numberWithInt:start.hash]];
+    Hex* current;
+    NSMutableArray* neighbors;
+    
+    while (!frontierQueue.empty) {
+        current = [frontierQueue dequeue];
+        neighbors = [self neighbors:current];
+        for (id next in neighbors)
+        {
+            if ([cameFrom objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] == nil)
+            {
+                [frontierQueue enqueue:next];
+                [cameFrom setObject:current forKey:[NSNumber numberWithInt:((Hex*)next).hash]];
+            }
+        }
+    }
+    
+    NSMutableArray* path = [[NSMutableArray alloc] init];
+    current = goal;
+    [path addObject:current];
+    
+    while (current != start) {
+        current = cameFrom[[NSNumber numberWithInt:(current).hash]];
+        [path addObject:current];
+    }
+    
+    return path;
 }
 
 @end

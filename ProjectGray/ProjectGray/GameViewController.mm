@@ -386,6 +386,13 @@ enum
     {
         ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0);
     }
+    
+    NSMutableArray *path = [hexCells makePathFrom:-2 :2 To:2 :-2];
+    
+    for (Hex *hex in path)
+    {
+        [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
+    }
 }
 
 - (void)tearDownGL

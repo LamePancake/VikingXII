@@ -38,4 +38,23 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    id copy = [[[self class] alloc] init];
+    
+    if (copy) {
+        // Copy NSObject subclasses
+        //[copy setWorldPosition:[[self.worldPosition copyWithZone:zone] autorelease]];
+        
+        // Set primitives
+        [copy setWorldPosition:self.worldPosition];
+        [copy setR:self.r];
+        [copy setQ:self.q];
+        [copy setInstanceVertexIndex:self.instanceVertexIndex];
+        [copy setColour:self.colour];
+    }
+    
+    return copy;
+}
+
 @end

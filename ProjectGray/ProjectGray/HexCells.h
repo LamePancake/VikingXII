@@ -32,7 +32,11 @@
 
 - (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
 
--(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex;
+- (NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex;
+
+- (NSMutableArray*)makePathFrom:(int)q1 :(int)r1 To:(int)q2 :(int)r2;
+
+- (NSMutableArray*)neighbors:(Hex*)hex;
 
 - (Hex*)closestHexToWorldPosition:(GLKVector2) position WithinHexagon:(BOOL)limit;
 

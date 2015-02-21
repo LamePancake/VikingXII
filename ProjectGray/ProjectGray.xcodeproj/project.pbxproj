@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3003CEF51A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m */; };
 		3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0D1A8D4D9200A54360 /* Hex.m */; };
 		3082EA101A8D697000A54360 /* HexShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA0F1A8D697000A54360 /* HexShader.fsh */; };
 		3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA111A8D698F00A54360 /* HexShader.vsh */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3003CEF41A97D4F700CDBF26 /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
+		3003CEF51A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 		3082EA0A1A8D4D4200A54360 /* HexCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HexCells.h; sourceTree = "<group>"; };
 		3082EA0B1A8D4D5200A54360 /* Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hex.h; sourceTree = "<group>"; };
 		3082EA0C1A8D4D7C00A54360 /* HexCells.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexCells.m; sourceTree = "<group>"; };
@@ -130,6 +133,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3003CEF01A97D40E00CDBF26 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3003CEF41A97D4F700CDBF26 /* NSMutableArray+QueueAdditions.h */,
+				3003CEF51A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +183,7 @@
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3003CEF01A97D40E00CDBF26 /* Utils */,
 				F20C19571A917A1600D63661 /* Game Logic */,
 				359216AC1A8952A300327F76 /* Camera.h */,
 				359216AD1A8952A300327F76 /* Camera.m */,
@@ -416,6 +429,7 @@
 				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
 				A5FE71BD1A91893B008D9C1F /* chickenVertices.c in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
+				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				F20C195E1A917A2800D63661 /* APSystem.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
