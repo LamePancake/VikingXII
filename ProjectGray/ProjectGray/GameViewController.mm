@@ -76,6 +76,8 @@ enum
     int currentVikingUnit;
     
     bool turn;
+    
+    GLuint _texture;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -352,12 +354,12 @@ enum
     
     for(int i = 0; i < grayNum; i++)
     {
-        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0.02);
+        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0.03);
     }
     
     for(int i = 0; i < vikingNum; i++)
     {
-        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0.02);
+        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0.03);
     }
     
     NSMutableArray *path = [hexCells makePathFrom:-2 :2 To:2 :-2];
@@ -366,6 +368,12 @@ enum
     {
         [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
     }
+    
+    _texture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    GLuint loc = glGetUniformLocation(_program, "texture");
+    glUniform1i(loc, 0);
 }
 
 - (void)tearDownGL
@@ -601,8 +609,13 @@ enum
         }
     }
     
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable( GL_BLEND );
+
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
+    
+    //glDisable(GL_BLEND);
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
@@ -645,7 +658,7 @@ enum
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
     
-    ShaderAttribute mainProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}};
+    ShaderAttribute mainProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     ShaderAttribute hexProgAttrs[] = {{GLKVertexAttribPosition, "position"}};
     
     if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname
@@ -664,38 +677,6 @@ enum
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     return YES;
-}
-
-// Load in and set up texture image (adapted from Ray Wenderlich)
-- (GLuint)setupTexture:(NSString *)fileName
-{
-    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
-    if (!spriteImage) {
-        NSLog(@"Failed to load image %@", fileName);
-        exit(1);
-    }
-    
-    size_t width = CGImageGetWidth(spriteImage);
-    size_t height = CGImageGetHeight(spriteImage);
-    
-    GLubyte *spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
-    
-    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
-    
-    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
-    
-    CGContextRelease(spriteContext);
-    
-    GLuint texName;
-    glGenTextures(1, &texName);
-    glBindTexture(GL_TEXTURE_2D, texName);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)width, (int)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
-    
-    free(spriteData);
-    return texName;
 }
 
 - (IBAction)endTurnPressed:(id)sender

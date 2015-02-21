@@ -73,4 +73,11 @@ typedef struct _ShaderAttribute {
 + (int)makeProgram:(GLuint *)program withVertShader: (NSString *)vertShaderPath andFragShader: (NSString *)fragShaderPath
      andAttributes: (ShaderAttribute *)attributes withNumberOfAttributes: (int) attrCount;
 
+/**
+ * @brief Loads in a texture
+ * @discussion Returns a int that represents the texture
+ * @param fileName        The path to the texture to load.
+ * @return An int that represents the texture.
+ */
++ (GLuint)setupTexture:(NSString *)fileName;
 @end

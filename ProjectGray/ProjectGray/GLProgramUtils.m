@@ -124,13 +124,9 @@
     
     // Bind attribute locations.
     // This needs to be done prior to linking
-    if(attrCount % 2) NSLog(@"Incorrect atribute format.");
-    
     for(int i = 0; i < attrCount; i += 2) {
         glBindAttribLocation(*program, attributes[i].attributeIndex, attributes[i].attributeName);
     }
-    glBindAttribLocation(*program, GLKVertexAttribPosition, "position");
-    glBindAttribLocation(*program, GLKVertexAttribNormal, "normal");
     
     // Link program.
     if (![GLProgramUtils linkProgram:*program]) {
@@ -163,6 +159,38 @@
     }
     
     return 0;
+}
+
+// Load in and set up texture image (adapted from Ray Wenderlich)
++ (GLuint)setupTexture:(NSString *)fileName
+{
+    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
+    if (!spriteImage) {
+        NSLog(@"Failed to load image %@", fileName);
+        exit(1);
+    }
+    
+    size_t width = CGImageGetWidth(spriteImage);
+    size_t height = CGImageGetHeight(spriteImage);
+    
+    GLubyte *spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
+    
+    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);
+    
+    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
+    
+    CGContextRelease(spriteContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)width, (int)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    
+    free(spriteData);
+    return texName;
 }
 
 @end

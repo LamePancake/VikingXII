@@ -20,6 +20,7 @@
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
+		352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */ = {isa = PBXBuildFile; fileRef = 352C72DD1A99397900A1B67A /* VikingDiff.png */; };
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
@@ -79,6 +80,7 @@
 		3514AA471A93C733002FB00C /* EndTurn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurn.png; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
+		352C72DD1A99397900A1B67A /* VikingDiff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingDiff.png; sourceTree = "<group>"; };
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -120,7 +122,6 @@
 		A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectGrayTests.m; sourceTree = "<group>"; };
 		A572982C1A7C37D6001934F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		A5BAA5341A899AFB0010F63A /* chicken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chicken.h; sourceTree = "<group>"; };
 		A5FE71BE1A9189A0008D9C1F /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		A5FE71BF1A9189A0008D9C1F /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
 		F20C19581A917A2800D63661 /* APSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSystem.h; sourceTree = "<group>"; };
@@ -183,6 +184,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				352C72DD1A99397900A1B67A /* VikingDiff.png */,
 				350A00071A97BB1100602053 /* Pause.png */,
 				350A00081A97BB1100602053 /* PausePressed.png */,
 				35471A851A95421100D835E3 /* TrayPlayer.png */,
@@ -195,7 +197,6 @@
 		701D5CFE1A8EDAC1009A22CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A5BAA5341A899AFB0010F63A /* chicken.h */,
 				A50AC18A1A96C46C0086199A /* l_vikingVertices.h */,
 				A54E61131A9935D2002A6A3B /* l_vikingVertices.c */,
 				A54E61111A9935A0002A6A3B /* h_vikingVertices.c */,
@@ -464,6 +465,7 @@
 				A517EC891A8979F300E17D27 /* chicken.obj in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */,
+				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
