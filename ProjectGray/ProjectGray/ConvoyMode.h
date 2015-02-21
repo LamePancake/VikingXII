@@ -10,9 +10,8 @@
 #define ProjectGray_ConvoyMode_h
 #import "GameMode.h"
 
-@interface ConvoyMode : GameMode
+@interface ConvoyMode : NSObject <GameMode>
 
 @end
-
 
 #endif

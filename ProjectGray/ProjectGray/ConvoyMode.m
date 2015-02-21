@@ -9,8 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "ConvoyMode.h"
 
+@interface ConvoyMode() {
+    NSString *_name;
+}
+@end
 
 @implementation ConvoyMode
+
+@synthesize name = _name;
 
 -(instancetype) init {
     self = [super init];
@@ -19,7 +25,7 @@
         return nil;
     }
     
-    [self setName:@"Convoy"];
+    _name = @"Convoy";
     
     return self;
 }

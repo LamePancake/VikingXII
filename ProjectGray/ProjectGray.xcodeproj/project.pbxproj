@@ -20,10 +20,12 @@
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
 		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
 		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
-		70C7183A1A89547E003E3B05 /* GameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718391A89547E003E3B05 /* GameMode.m */; };
+		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
+		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		A50AC18B1A96C46C0086199A /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A50AC1891A96C46C0086199A /* l_vikingVertices.c */; };
 		A517EC891A8979F300E17D27 /* chicken.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC881A8979F300E17D27 /* chicken.obj */; };
 		A517EC8D1A898D1F00E17D27 /* chicken_final.obj in Resources */ = {isa = PBXBuildFile; fileRef = A517EC8C1A898D1F00E17D27 /* chicken_final.obj */; };
@@ -74,6 +76,8 @@
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		706C83261A9864D900305C66 /* GLProgramUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgramUtils.h; sourceTree = "<group>"; };
+		706C83271A9864D900305C66 /* GLProgramUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgramUtils.m; sourceTree = "<group>"; };
 		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		70C7182F1A89421B003E3B05 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		70C718301A8944B1003E3B05 /* GameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMode.h; sourceTree = "<group>"; };
@@ -81,7 +85,11 @@
 		70C718351A89485A003E3B05 /* ConvoyMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvoyMode.h; sourceTree = "<group>"; };
 		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
 		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
-		70C718391A89547E003E3B05 /* GameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMode.m; sourceTree = "<group>"; };
+		70C761291A980EEE005F0311 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		70C7612C1A980F83005F0311 /* MovementTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementTask.h; sourceTree = "<group>"; };
+		70C7612D1A980F83005F0311 /* MovementTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementTask.m; sourceTree = "<group>"; };
+		70C7612F1A981F2B005F0311 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
+		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
 		A50AC1891A96C46C0086199A /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
 		A517EC881A8979F300E17D27 /* chicken.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chicken.obj; path = Models/chicken.obj; sourceTree = "<group>"; };
@@ -189,6 +197,7 @@
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				70C761281A980EB2005F0311 /* Tasks */,
 				3003CEF01A97D40E00CDBF26 /* Utils */,
 				F20C19571A917A1600D63661 /* Game Logic */,
 				359216AC1A8952A300327F76 /* Camera.h */,
@@ -200,7 +209,6 @@
 				70C718301A8944B1003E3B05 /* GameMode.h */,
 				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
 				70C718371A894BD5003E3B05 /* SkirmishMode.m */,
-				70C718391A89547E003E3B05 /* GameMode.m */,
 				3082EA0A1A8D4D4200A54360 /* HexCells.h */,
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
@@ -248,6 +256,18 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
+		70C761281A980EB2005F0311 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				70C761291A980EEE005F0311 /* Task.h */,
+				70C7612C1A980F83005F0311 /* MovementTask.h */,
+				70C7612D1A980F83005F0311 /* MovementTask.m */,
+				70C7612F1A981F2B005F0311 /* TaskManager.h */,
+				70C761301A981F2B005F0311 /* TaskManager.m */,
+			);
+			name = Tasks;
+			sourceTree = "<group>";
+		};
 		A57297F31A7C1F30001934F9 = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +303,8 @@
 		A57297FF1A7C1F30001934F9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				706C83261A9864D900305C66 /* GLProgramUtils.h */,
+				706C83271A9864D900305C66 /* GLProgramUtils.m */,
 				A57298001A7C1F30001934F9 /* Info.plist */,
 				A57298011A7C1F30001934F9 /* main.m */,
 			);
@@ -436,18 +458,20 @@
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
 				F20C195F1A917A2800D63661 /* GameObject.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
-				70C7183A1A89547E003E3B05 /* GameMode.m in Sources */,
 				A5FE71BD1A91893B008D9C1F /* chickenVertices.c in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				F20C195E1A917A2800D63661 /* APSystem.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
+				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
+				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
+				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,
 				A50AC18B1A96C46C0086199A /* l_vikingVertices.c in Sources */,
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,

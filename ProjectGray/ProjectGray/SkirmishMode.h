@@ -10,7 +10,6 @@
 #define ProjectGray_SkirmishMode_h
 #import "GameMode.h"
 
-@interface SkirmishMode : GameMode
-
+@interface SkirmishMode : NSObject <GameMode>
 @end
 #endif

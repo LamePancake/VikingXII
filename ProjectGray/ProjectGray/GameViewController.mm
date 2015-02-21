@@ -11,6 +11,7 @@
 #import "Camera.h"
 
 #include "HexCells.h"
+#include "GLProgramUtils.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -682,61 +683,30 @@ enum
 
 - (BOOL)loadShaders
 {
-    GLuint vertShader, fragShader;
     NSString *vertShaderPathname, *fragShaderPathname;
-    GLuint vertHexShader, fragHexShader;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
-    GLuint vertGUIShader, fragGUIShader;
     NSString *vertGUIShaderPathname, *fragGUIShaderPathname;
-    
-    // Create shader program.
-    _program = glCreateProgram();
-    _hexProgram = glCreateProgram();
-    _guiProgram = glCreateProgram();
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
-    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
-        return NO;
-    }
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
-    if (![self compileShader:&vertHexShader type:GL_VERTEX_SHADER file:vertHexShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
-        return NO;
-    }
     vertGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
-    if (![self compileShader:&vertGUIShader type:GL_VERTEX_SHADER file:vertGUIShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
-        return NO;
-    }
-    
+
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
-    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
-        return NO;
-    }
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
-    if (![self compileShader:&fragHexShader type:GL_FRAGMENT_SHADER file:fragHexShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
-        return NO;
-    }
     fragGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
-    if (![self compileShader:&fragGUIShader type:GL_FRAGMENT_SHADER file:fragGUIShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
+    
+    if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname]) return NO;
+    if([GLProgramUtils makeProgram: &_hexProgram withVertShader: vertHexShaderPathname andFragShader: fragHexShaderPathname]){
+        glDeleteProgram(_program);
         return NO;
     }
-    
-    // Attach vertex shader to program.
-    glAttachShader(_program, vertShader);
-    glAttachShader(_hexProgram, vertHexShader);
-    glAttachShader(_guiProgram, vertGUIShader);
-    
-    // Attach fragment shader to program.
-    glAttachShader(_program, fragShader);
-    glAttachShader(_hexProgram, fragHexShader);
-    glAttachShader(_guiProgram, fragGUIShader);
+    if([GLProgramUtils makeProgram: &_guiProgram withVertShader: vertGUIShaderPathname andFragShader: fragGUIShaderPathname]) {
+        glDeleteProgram(_program);
+        glDeleteProgram(_hexProgram);
+        return NO;
+    }
     
     // Bind attribute locations.
     // This needs to be done prior to linking.
@@ -746,177 +716,12 @@ enum
     glBindAttribLocation(_guiProgram, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_guiProgram, GLKVertexAttribTexCoord0, "texCoordIn");
     
-    // Link program.
-    if (![self linkProgram:_program]) {
-        NSLog(@"Failed to link program: %d", _program);
-        
-        if (vertShader) {
-            glDeleteShader(vertShader);
-            vertShader = 0;
-        }
-        if (fragShader) {
-            glDeleteShader(fragShader);
-            fragShader = 0;
-        }
-        if (_program) {
-            glDeleteProgram(_program);
-            _program = 0;
-        }
-        
-        return NO;
-    }
-    if (![self linkProgram:_hexProgram]) {
-        NSLog(@"Failed to link program: %d", _hexProgram);
-        
-        if (vertHexShader) {
-            glDeleteShader(vertHexShader);
-            vertHexShader = 0;
-        }
-        if (fragHexShader) {
-            glDeleteShader(fragHexShader);
-            fragHexShader = 0;
-        }
-        if (_hexProgram) {
-            glDeleteProgram(_hexProgram);
-            _hexProgram = 0;
-        }
-        
-        return NO;
-    }
-    if (![self linkProgram:_guiProgram]) {
-        NSLog(@"Failed to link program: %d", _guiProgram);
-        
-        if (vertGUIShader) {
-            glDeleteShader(vertGUIShader);
-            vertGUIShader = 0;
-        }
-        if (fragGUIShader) {
-            glDeleteShader(fragGUIShader);
-            fragGUIShader = 0;
-        }
-        if (_guiProgram) {
-            glDeleteProgram(_guiProgram);
-            _guiProgram = 0;
-        }
-        
-        return NO;
-    }
-
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
-    
-    // Release vertex and fragment shaders.
-    if (vertShader) {
-        glDetachShader(_program, vertShader);
-        glDeleteShader(vertShader);
-    }
-    if (fragShader) {
-        glDetachShader(_program, fragShader);
-        glDeleteShader(fragShader);
-    }
-    
-    if (vertHexShader) {
-        glDetachShader(_hexProgram, vertHexShader);
-        glDeleteShader(vertHexShader);
-    }
-    if (fragHexShader) {
-        glDetachShader(_hexProgram, fragHexShader);
-        glDeleteShader(fragHexShader);
-    }
-    
-    if (vertGUIShader) {
-        glDetachShader(_guiProgram, vertGUIShader);
-        glDeleteShader(vertGUIShader);
-    }
-    if (fragGUIShader) {
-        glDetachShader(_guiProgram, fragGUIShader);
-        glDeleteShader(fragGUIShader);
-    }
-
-    return YES;
-}
-
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
-{
-    GLint status;
-    const GLchar *source;
-    
-    source = (GLchar *)[[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil] UTF8String];
-    if (!source) {
-        NSLog(@"Failed to load vertex shader");
-        return NO;
-    }
-    
-    *shader = glCreateShader(type);
-    glShaderSource(*shader, 1, &source, NULL);
-    glCompileShader(*shader);
-    
-#if defined(DEBUG)
-    GLint logLength;
-    glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
-    if (logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(*shader, logLength, &logLength, log);
-        NSLog(@"Shader compile log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    glGetShaderiv(*shader, GL_COMPILE_STATUS, &status);
-    if (status == 0) {
-        glDeleteShader(*shader);
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (BOOL)linkProgram:(GLuint)prog
-{
-    GLint status;
-    glLinkProgram(prog);
-    
-#if defined(DEBUG)
-    GLint logLength;
-    glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
-    if (logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(prog, logLength, &logLength, log);
-        NSLog(@"Program link log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    glGetProgramiv(prog, GL_LINK_STATUS, &status);
-    if (status == 0) {
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (BOOL)ƒ:(GLuint)prog
-{
-    GLint logLength, status;
-    
-    glValidateProgram(prog);
-    glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
-    if (logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(prog, logLength, &logLength, log);
-        NSLog(@"Program validate log:\n%s", log);
-        free(log);
-    }
-    
-    glGetProgramiv(prog, GL_VALIDATE_STATUS, &status);
-    if (status == 0) {
-        return NO;
-    }
-    
     return YES;
 }
 

@@ -15,16 +15,17 @@
 
 @interface Settings : NSObject
 
-@property(strong, readonly, nonatomic) GameMode *currentMode;
+/// The currently selected game mode.
+@property(strong, readonly, nonatomic) id<GameMode> currentMode;
+
+/// The list of all game modes.
+@property (strong, readonly, nonatomic) NSArray* modes;
 
 /// Switches the current mode to the next mode in the list.
 -(void)switchToNextMode;
 
 /// Switches the current mode to the previous mode in the list.
 -(void)switchToPrevMode;
-
-/// Returns the array of all GameModes.
--(NSArray *)getModes;
 
 @end
 

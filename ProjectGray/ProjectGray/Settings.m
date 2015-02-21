@@ -11,9 +11,6 @@
 
 @interface Settings()
 
-/// The list of all game modes.
-@property NSArray* modes;
-
 /// The array index of the currently selected mode.
 @property int modeIdx;
 
@@ -45,7 +42,5 @@
     if(++_modeIdx == [_modes count]) _modeIdx = 0;
     _currentMode = _modes[_modeIdx];
 }
-
-
 
 @end
