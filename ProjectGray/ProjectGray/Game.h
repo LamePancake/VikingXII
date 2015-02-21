@@ -9,17 +9,33 @@
 #import "HexCells.h"
 #import "Unit.h"
 #import "UnitActions.h"
+#include "GameMode.h"
 
 @interface Game : NSObject
 
-@property (nonatomic) HexCells* map;
-@property (nonatomic) NSMutableArray* p1Units;
-@property (nonatomic) NSMutableArray* p2Units;
-@property (nonatomic) Faction p1Faction;
-@property (nonatomic) Faction p2Faction;
-@property (nonatomic) Unit* selectedUnit;
+/// The list of hex cells composing the map.
+@property (strong, nonatomic) HexCells* map;
 
--(Game*) initWithSize:(int)size;
+/// An array of Unit objects belonging to player 1.
+@property (strong, nonatomic) NSMutableArray* p1Units;
+/// An array of Unit objects belonging to player 2.
+@property (strong, nonatomic) NSMutableArray* p2Units;
+
+/// Player 1's faction (ALIENS or VIKINGS).
+@property (nonatomic) Faction p1Faction;
+/// Player 2's faction (ALIENS or VIKINGS).
+@property (nonatomic) Faction p2Faction;
+
+/// The faction who has the current turn.
+@property (readonly, nonatomic) Faction whoseTurn;
+
+/// The game mode object determining the win condition, etc.
+@property (strong, nonatomic) id<GameMode> mode;
+
+/// The currently selected unit, if any.
+@property (weak, nonatomic) Unit* selectedUnit;
+
+-(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
 /**
  * Gets the unit on the specified hex cell for the given player, if there is one.
@@ -41,4 +57,12 @@
  * @param moves   The array in which to store legal moves.
  */
 -(void)updateLegalActionsForUnit:(Unit*)unit;
+
+/**
+ * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
+ * attacks, schedules tasks, etc.
+ *
+ * @param tile The hex tile that was selected.
+ */
+-(void)selectTile: (Hex*)tile;
 @end

@@ -126,8 +126,6 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    game = [game initWithSize:2];
-    
     //unit lists initialization
     vikingNum = 3;
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
@@ -155,6 +153,10 @@ enum
     currentVikingUnit = 0;
     
     turn = YES;
+    
+    HexCells* map = [[HexCells alloc] initWithSize:5];
+    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
+    game = [game initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
     
     [self setupGL];
 }
@@ -465,9 +467,40 @@ enum
     GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
-    [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
+    Unit* onTile = [game getUnitOnHex:pickedTile forFaction:game.whoseTurn];
+    Unit* selected = [game selectedUnit];
     
+    /*
+     Model does the following:
+     
+     Is there a unit selected?
+     If so, did the player select the same cell as the one occupied by the currently selected unit?
+     If so, set the current selection to nil and tell the controller that the unit was unselected.
+     
+     If not, is there an enemy unit in that cell?
+     If so, can the currently selected unit attack that unit?
+     If so,
+     Do the damage calculations,
+     Apply them to the other unit,
+     Adjust remaining action points for the unit,
+     Tell the controller that this all happened.
+     If not, tell the controller that the player tried to do an invalid attack.
+     
+     If not, is there a friendly unit in that cell?
+     If so,
+     Set that unit to be the currently selected unit
+     Call Determine Actions for Unit and return the result to the controller.
+     
+     If not, can the currently selected unit move to that cell?
+     If yes, move the unit to that cell, subtract the appropriate number of action points, and tell the controller about the movement.
+     If not, tell the controller that the player tried to do an invalid move to that cell.
+     
+     
+     Function Determine Actions for Unit
+     Determine possible movement paths using unit's speed
+     */
     
+#if 0
     bool occupied = NO;
     for(int i = 0; i < grayNum; i++)
     {
@@ -500,6 +533,7 @@ enum
         else
             ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
     }
+#endif
     
     [[SoundManager sharedManager] playSound:@"sound1.caf" looping:NO];
 }
@@ -511,7 +545,6 @@ enum
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
     
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
-    
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
     [hexCells movableRange:2 from:[hexCells hexAtQ:1 andR:0]];//Just testing

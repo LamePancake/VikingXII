@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 #import "Unit.h"
+#import "ConvoyMode.h"
+#import "SkirmishMode.h"
 
 @interface GameViewController : GLKViewController
 - (IBAction)endTurnPressed:(id)sender;
