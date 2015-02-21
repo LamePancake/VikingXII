@@ -327,12 +327,12 @@ enum
     
     for(int i = 0; i < grayNum; i++)
     {
-        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0);
+        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0.02);
     }
     
     for(int i = 0; i < vikingNum; i++)
     {
-        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0);
+        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0.02);
     }
     
     NSMutableArray *path = [hexCells makePathFrom:-2 :2 To:2 :-2];
