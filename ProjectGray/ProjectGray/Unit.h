@@ -15,14 +15,36 @@
 #import "h_vikingVertices.h"
 #import "Hex.h"
 
+/**
+ * Indicates the ship's general class.
+ *
+ * Light units can move quickly, but they have little health and do not have a large attack range or damage.
+ * Medium units have both moderate move range and attack damage/range.
+ * Heavy units can't move far, but they can deal significant damage.
+ */
+typedef enum _ShipClass {
+    LIGHT,
+    MEDIUM,
+    HEAVY
+} ShipClass;
+
+/**
+ *
+ */
+typedef enum _Faction {
+    VIKINGS,
+    ALIENS
+} Faction;
+
 @interface Unit : NSObject
 
-@property (nonatomic) int shipClass; //0 for light 1 for medium 2 for heavy 3 for convoy
-@property (nonatomic) int faction; //0 for vikings 1 for aliens
+@property (nonatomic) int shipClass;
+@property (nonatomic) int faction;
 @property (nonatomic) GLKVector3 position;
 @property (nonatomic) GLKVector3 rotation;
 @property (nonatomic) Hex* hex;
 @property (nonatomic) float scale;
+
 //stats
 @property (nonatomic) int hull;//HP
 @property (nonatomic) int attRange;//How many hexes away can be attacked

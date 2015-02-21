@@ -14,32 +14,35 @@
 @end
 
 @implementation Game
--(void) legalActions:(Hex *)selectedHex currentPlayer:(BOOL)thisPlayer {
-    Unit *selectedUnit;
-    NSMutableArray *possibleMoves;
-    NSMutableArray *possibleAttacks;
-    //Look for appropriate Unit on selectedHex
-    if(thisPlayer) {
-        for(Unit* aUnit in _p1Units) {
-            if(selectedHex == aUnit.hex) {//I don't know if this comparison method actually works
-                selectedUnit = aUnit;
-                break;
-            }
-        }
-    }else {
-        for(Unit* aUnit in _p2Units) {
-            if(selectedHex == aUnit.hex) {//I don't know if this comparison method actually works
-                selectedUnit = aUnit;
-                break;
-            }
-        }
+
+-(Unit *) getUnitOnHex: (Hex *)hex forFaction: (Faction) faction {
+    
+    NSMutableArray* units = faction == _p1Faction ? _p1Units : _p2Units;
+    
+    for(Unit* aUnit in units) {
+        if(hex == aUnit.hex) return aUnit;
     }
-    //Check to see if there was a unit assigned.  If there was no unit on hex, this will be NULL
-    if(selectedUnit == NULL) {
-        return; //Shouldn't do anything at all
-    }else {//Shows legal range of movement
-        possibleMoves = [_map movableRange:selectedUnit.moveRange from:selectedHex];
-        possibleAttacks = [_map movableRange:selectedUnit.attRange from:selectedHex];
-    }
+    
+    return nil;
 }
+
+-(void) updateLegalActionsForUnit: (Unit *)unit {
+    
+}
+
+-(void) legalActionsForUnit:(Unit *)unit storeAttacksIn: (NSMutableArray *)attacks storeMovesIn: (NSMutableArray *)moves {
+    NSMutableArray* attackable = [_map movableRange:unit.attRange from:unit.hex];
+    NSUInteger numAttackable = [attackable count];
+    Faction enemyFaction = unit.faction;
+    
+    // Filter out any hex tiles with no enemy units from the attackable array
+    for(NSUInteger i = 0; i < numAttackable; i++) {
+        if(![self getUnitOnHex:attackable[i] forFaction:enemyFaction]) [attackable removeObjectAtIndex:i];
+    }
+        
+    [moves addObjectsFromArray:[_map movableRange:unit.moveRange from:unit.hex]];
+    [attacks addObjectsFromArray:[_map movableRange:unit.attRange from:unit.hex]];
+}
+
+
 @end

@@ -23,8 +23,8 @@
 /**
  * Updates the task with the time since the last frame.
  * @discussion The task will perform whatever function (animation, etc.) over the given time period.
- * @param delta The time interval since the last time (in milliseconds).
+ * @param delta The time interval since the last time (in seconds).
  */
--(void)updateWithDeltaTime: (double)delta;
+-(void)updateWithDeltaTime: (CFTimeInterval)delta;
 
 @end

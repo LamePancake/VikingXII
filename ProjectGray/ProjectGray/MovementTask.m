@@ -14,7 +14,7 @@
 const double speed = 1;
 
 // Float precision
-const double EPSILON = 0.001;
+const double MOVETASK_EPSILON = 0.001;
 
 @interface MovementTask()
 {
@@ -50,8 +50,8 @@ const double EPSILON = 0.001;
     return self;
 }
 
--(void) updateWithDeltaTime:(double)delta {
-    double travel = speed * (delta / 1000);
+-(void) updateWithDeltaTime:(CFTimeInterval)delta {
+    double travel = speed * delta;
     
     double xDist = travel * _cosTheta;
     double yDist = travel * _sinTheta;
@@ -60,11 +60,11 @@ const double EPSILON = 0.001;
     GLKVector3 newPos = GLKVector3Make(0, 0, 0);
     
     // Check that we won't pass the requested position
-    if(abs(currentPos.x + xDist) > abs(_destination.x + EPSILON)) {
+    if(abs(currentPos.x + xDist) > abs(_destination.x) + MOVETASK_EPSILON) {
         newPos.x = _destination.x;
         xDist = 0;
     }
-    if(abs(currentPos.y + yDist) > abs(_destination.y + EPSILON)) {
+    if(abs(currentPos.y + yDist) > abs(_destination.y) + MOVETASK_EPSILON) {
         newPos.y = _destination.y;
         yDist = 0;
     }
@@ -73,7 +73,7 @@ const double EPSILON = 0.001;
     newPos.y = currentPos.y + yDist;
     
     // Move the unit and update whether the task is over
-    if(newPos.y == _destination.y && newPos.x == _destination.x) _isFinished = YES;
+    if(abs(newPos.y - _destination.y) < MOVETASK_EPSILON && (newPos.x - _destination.x) < MOVETASK_EPSILON) _isFinished = YES;
     _unit.position = newPos;
 }
 @end

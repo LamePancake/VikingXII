@@ -65,7 +65,7 @@
  * @param x The x coordinate.
  * @param y The y coordinate.
  */
-- (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
+- (Hex*)hexFromScreenAtX:(int)x andY:(int)y;
 
 /**
  * Gets the hex cells surrounding @a selectedHex within @a range.

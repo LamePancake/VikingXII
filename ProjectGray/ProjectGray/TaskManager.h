@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Task.h"
+@import QuartzCore;
 
 @interface TaskManager : NSObject
 
@@ -20,6 +21,6 @@
 /**
  * Runs all current tasks with the specified delta time (in milliseconds).
  */
--(void)runTasksWithDeltaTime: (double)delta;
+-(void)runTasksWithDeltaTime: (CADisplayLink *)link;
 
 @end

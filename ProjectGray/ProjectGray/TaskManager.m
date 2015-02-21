@@ -13,6 +13,9 @@
 {
     NSMutableArray *_emptySlots;
     NSMutableArray* _taskList;
+    
+    CFTimeInterval _prevTime;
+    CFTimeInterval _curTime;
 }
 
 @end
@@ -24,22 +27,29 @@
     if(self = [super init]) {
         _taskList = [[NSMutableArray alloc] initWithCapacity:64]; // 64 is just for fun (apparently I'll only get 16 anyway)
         _emptySlots = [[NSMutableArray alloc] initWithCapacity:16];
+        
+        _prevTime = 0;
+        _curTime = 0;
     }
     
     return self;
 }
 
--(void)runTasksWithDeltaTime: (double)delta
+-(void)runTasksWithDeltaTime: (CADisplayLink *)link
 {
-    int numTasks = [_taskList count];
-    for(int i = 0; i < numTasks; i++)
+    _prevTime = _curTime;
+    _curTime = link.timestamp;
+    CFTimeInterval delta = _curTime - _prevTime;
+    
+    NSUInteger numTasks = [_taskList count];
+    for(NSUInteger i = 0; i < numTasks; i++)
     {
         id<Task> curTask = _taskList[i];
         
         // If there isn't a task at this slot, don't bother
         if(!curTask) continue;
         
-        [curTask updateWithDeltaTime:delta];
+        [curTask updateWithDeltaTime: delta];
         
         // Replace the current task with the next one in the list (if it exists)
         // Otherwise, add this slot to the list of empty slots
@@ -47,7 +57,7 @@
             id<Task>next = curTask.nextTask;
 
             if(next) _taskList[i] = next;
-            else [_emptySlots addObject: [[NSNumber alloc] initWithInt:i]];
+            else [_emptySlots addObject: [[NSNumber alloc] initWithUnsignedLong:i]];
         }
     }
 }

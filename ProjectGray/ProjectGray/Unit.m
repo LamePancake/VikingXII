@@ -30,11 +30,11 @@
 
 - (void) initFaction:(int)fac And:(int)shipClass
 {
-    if(fac == 0)
+    if(fac == VIKINGS)
     {
         [self initVikingClass:fac];
     }
-    else if(fac == 1)
+    else if(fac == ALIENS)
     {
         [self initGrayClass:fac];
     }
@@ -44,9 +44,6 @@
 {
     if(shipClass == 0)
     {
-        //_modelData = &chicken_triagVerts;
-        //_modelArrSize = 127488;
-        //_numModelVerts = chicken_triagNumVerts;
         _modelData = l_vikingVerts;
         _modelArrSize = 878592;
         _numModelVerts = l_vikingNumVerts;

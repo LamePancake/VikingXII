@@ -383,7 +383,7 @@ enum
 }
 
 /*!
- * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and test it against the xy-plane to pick a hex cell.
+ * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and intersect it against the xy-plane to pick a hex cell.
  */
 - (IBAction)doTap:(UITapGestureRecognizer *)sender {
     
@@ -420,7 +420,7 @@ enum
     near = GLKVector4DivideScalar(near, near.w);
     far = GLKVector4DivideScalar(far, far.w);
     
-    // Make vector from touched point to end of clipping plane
+    // Get direction from touched point to end of clipping plane
     rayDirection = GLKVector4Normalize(GLKVector4Subtract(far, near));
     
     // Let vector v be the direction from near point to far point
