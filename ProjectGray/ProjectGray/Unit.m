@@ -60,9 +60,9 @@
         //_modelData = &chicken_triagVerts;
         //_modelArrSize = 127488;
         //_numModelVerts = chicken_triagNumVerts;
-        _modelData = chicken_triagVerts;
-        _modelArrSize = 127488;
-        _numModelVerts = chicken_triagNumVerts;
+        _modelData = h_vikingVerts;
+        _modelArrSize = 1453824;
+        _numModelVerts = h_vikingNumVerts;
     }
 }
 @end
