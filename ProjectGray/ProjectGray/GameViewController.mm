@@ -309,64 +309,6 @@ enum
     
     glBindVertexArrayOES(0);
     
-    //GUI Vertices
-    glGenVertexArraysOES(1, &_vertexGUIArray);
-    glBindVertexArrayOES(_vertexGUIArray);
-    
-    float guiSize = 0.3;
-    
-    //Bottom square
-    guiVertices[0] = -1 * guiSize; //x
-    guiVertices[1] = -1 * guiSize; //y
-    guiVertices[2] = 0;  //u
-    guiVertices[3] = 1; //v
-    
-    guiVertices[4] = 1 * guiSize;  //x
-    guiVertices[5] = -1 * guiSize; //y
-    guiVertices[6] = 1; //u
-    guiVertices[7] = 1;  //v
-    
-    guiVertices[8] = -1 * guiSize;  //x
-    guiVertices[9] = 1 * guiSize;   //y
-    guiVertices[10] = 0; //u
-    guiVertices[11] = 0;  //v
-    
-    //Top Face
-    guiVertices[12] = 1 * guiSize;  //x
-    guiVertices[13] = 1 * guiSize;  //y
-    guiVertices[14] = 1;  //u
-    guiVertices[15] = 0;  //v
-
-    
-    guiElements[0] = 0;
-    guiElements[1] = 1;
-    guiElements[2] = 2;
-    guiElements[3] = 2;
-    guiElements[4] = 1;
-    guiElements[5] = 3;
-    
-    glGenBuffers(1, &_vertexGUIBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &guiEbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(guiElements), guiElements, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(0));
-    
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(8));
-    
-    glBindVertexArrayOES(0);
-    
-    _texture = [self setupTexture:@"EndTurn.png"];
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _texture);
-    GLuint loc = glGetUniformLocation(_guiProgram, "texture");
-    glUniform1i(loc, 0);
-    
     //Placing the units, Hardcoded for now
     NSMutableArray *grayPos = [[NSMutableArray alloc] initWithCapacity:grayNum];
     grayPos[0] = [hexCells hexAtQ:-1 andR:-1];
@@ -647,36 +589,6 @@ enum
         
         glDrawArrays(GL_TRIANGLES, 0, ((Unit*)grayList[i]).numModelVerts);
     }
-    
-    // Chicken stuff
-//    glBindVertexArrayOES(_vertexArray);
-    // Render the object again with ES2
-//    glUseProgram(_program);
-    
-//    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-//    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z);
-//    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-//
-//    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, testUnit.position.x, testUnit.position.y, testUnit.position.z));
-//    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
-//    glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-
-    
-//    glDrawArrays(GL_TRIANGLES, 0, testUnit.numModelVerts);
-    
-    //gui stuff
-    /*glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-    
-    glBindVertexArrayOES(_vertexGUIArray);
-    glUseProgram(_guiProgram);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGUIBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(guiVertices), guiVertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, guiEbo);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);*/
-    
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
