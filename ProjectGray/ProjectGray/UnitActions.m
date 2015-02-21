@@ -16,8 +16,10 @@
 @end
 
 @implementation UnitActions
-+(int)moveThis:(Unit *)mover toHex:(Hex *)hex{
-    return 1;
+//When these methods are called, they should do a move that is already legal
++(void)moveThis:(Unit *)mover toHex:(Hex *)hex{
+    //Call the Task system to animate.  Model should update immediately.
+    mover.hex = hex;
 }
 +(float)attackThis:(Unit*)attacker with:(Unit *)target {
     
@@ -55,10 +57,10 @@
     
     return damage;
 }
-+(int)refillAPFor:(Unit *)thisObject{
-    return 1;
++(void)refillAPFor:(Unit *)thisObject{
+
 }
-+(int)healThis:(Unit *)target byThis:(Unit *)healer{
-    return 1;
++(void)healThis:(Unit *)target byThis:(Unit *)healer{
+
 }
 @end

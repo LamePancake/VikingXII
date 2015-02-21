@@ -17,6 +17,9 @@
 @property (nonatomic) NSMutableArray* p2Units;
 @property (nonatomic) Faction p1Faction;
 @property (nonatomic) Faction p2Faction;
+@property (nonatomic) Unit* selectedUnit;
+
+-(Game*) initWithSize:(int)size;
 
 /**
  * Gets the unit on the specified hex cell for the given player, if there is one.
@@ -37,5 +40,5 @@
  * @param attacks The array in which to store legal attacks.
  * @param moves   The array in which to store legal moves.
  */
--(void)legalActionsForUnit:(Unit*)unit storeAttacksIn: (NSMutableArray *)attacks storeMovesIn: (NSMutableArray *)moves;
+-(void)updateLegalActionsForUnit:(Unit*)unit;
 @end

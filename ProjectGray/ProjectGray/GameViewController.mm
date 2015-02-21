@@ -9,6 +9,7 @@
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
+#import "Game.h"
 
 #include "HexCells.h"
 #include "GLProgramUtils.h"
@@ -64,6 +65,9 @@ enum
 
     GLKMatrix4 SteveJobsIsAFag;
     
+    //GameStuff
+    Game* game;
+    
     //unit stuff
     int vikingNum;
     int grayNum;
@@ -117,6 +121,8 @@ enum
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    game = [game initWithSize:2];
     
     //unit lists initialization
     vikingNum = 3;
@@ -437,6 +443,7 @@ enum
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
     [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
+    
     
     bool occupied = NO;
     for(int i = 0; i < grayNum; i++)
