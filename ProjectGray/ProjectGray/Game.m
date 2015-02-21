@@ -77,6 +77,8 @@
 }
 
 -(void)selectTile:(Hex *)tile {
+    if (!tile) return;
+
     /*
      Model does the following:
      
@@ -106,9 +108,8 @@
      Function Determine Actions for Unit
      Determine possible movement paths using unit's speed
      */
-    
+
     Unit* onTile = [self getUnitOnHex:tile forFaction:_whoseTurn];
-    
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it
@@ -131,7 +132,7 @@
     }
 
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(onTile.faction == _selectedUnit.faction)
+    if(onTile.faction == _whoseTurn)
     {
         _selectedUnit = onTile;
     }

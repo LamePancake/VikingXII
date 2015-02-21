@@ -126,10 +126,6 @@ enum
     
     //hexCells = [[HexCells alloc]initWithSize:5];
 
-    game = [[Game alloc] initWithSize:5];
-    hexCells = game.map;//Ideally we should just use game.map
-
-    
     //unit lists initialization
     vikingNum = 3;
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
@@ -158,6 +154,12 @@ enum
     
     turn = YES;
     
+    HexCells* map = [[HexCells alloc] initWithSize:5];
+    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
+    game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
+    game.selectedUnit = vikingList[0];
+    
+    hexCells = game.map;
     [self setupGL];
 }
 
@@ -453,8 +455,10 @@ enum
     GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
+    [game selectTile: pickedTile];
     [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
     
+#if 0
     bool occupied = NO;
     for(int i = 0; i < grayNum; i++)
     {
@@ -487,6 +491,7 @@ enum
         else
             ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
     }
+#endif
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
