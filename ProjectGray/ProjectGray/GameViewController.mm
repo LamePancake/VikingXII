@@ -82,9 +82,15 @@ enum
 - (void)tearDownGL;
 
 - (BOOL)loadShaders;
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
-- (BOOL)linkProgram:(GLuint)prog;
-//- (BOOL)validateProgram:(GLuint)prog;
+
+/**
+ * Draws all units in the given list with the vertex array and given program.
+ *
+ * @param units    The array of units to be drawn.
+ * @param vertices An identifier (created by OpenGL) for the vertex array for the particular unit.
+ * @param program  The OpenGL program to use.
+ */
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program;
 @end
 
 @implementation GameViewController
@@ -530,50 +536,32 @@ enum
         }
     }
     
-    for(int i = 0; i < vikingNum; i++)
-    {
-        GLKMatrix4 _transMat;
-        GLKMatrix4 _scaleMat;
-        // Chicken stuff
-        glBindVertexArrayOES(_vertexVikingArray);
-        // Render the object again with ES2
-        glUseProgram(_program);
-        
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z);
-        _scaleMat = GLKMatrix4MakeScale(((Unit*)vikingList[i]).scale, ((Unit*)vikingList[i]).scale, ((Unit*)vikingList[i]).scale);
-        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
-        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-        
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)vikingList[i]).position.x, ((Unit*)vikingList[i]).position.y, ((Unit*)vikingList[i]).position.z));
-        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
-        glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-        
-        
-        glDrawArrays(GL_TRIANGLES, 0, ((Unit*)vikingList[i]).numModelVerts);
-        
-    }
+    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
+    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
+}
+
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
+    NSUInteger numUnits = [units count];
     
-    for(int i = 0; i < grayNum; i++)
+    for(unsigned int i = 0; i < numUnits; i++)
     {
+        Unit* curUnit = (Unit *)units[i];
         GLKMatrix4 _transMat;
         GLKMatrix4 _scaleMat;
-        // Chicken stuff
-        glBindVertexArrayOES(_vertexGrayArray);
-        // Render the object again with ES2
-        glUseProgram(_program);
+        glBindVertexArrayOES(vertices);
+        glUseProgram(program);
         
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z);
-        _scaleMat = GLKMatrix4MakeScale(((Unit*)grayList[i]).scale, ((Unit*)grayList[i]).scale, ((Unit*)grayList[i]).scale);
+        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
+        _scaleMat = GLKMatrix4MakeScale(curUnit.scale, curUnit.scale, curUnit.scale);
         _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, ((Unit*)grayList[i]).position.x, ((Unit*)grayList[i]).position.y, ((Unit*)grayList[i]).position.z));
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z));
         glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
-        glDrawArrays(GL_TRIANGLES, 0, ((Unit*)grayList[i]).numModelVerts);
+        glDrawArrays(GL_TRIANGLES, 0, curUnit.numModelVerts);
     }
 }
 
