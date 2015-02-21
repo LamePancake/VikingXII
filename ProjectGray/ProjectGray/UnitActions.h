@@ -15,7 +15,7 @@
     
 }
 +(int)moveThis:(Unit*)mover toHex:(Hex*)hex; //GameObjectMovement
-+(int)attackThis:(Unit*)defender with:(Unit*)attacker;
++(float)attackThis:(Unit*)defender with:(Unit*)attacker;
 +(int)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(int)healThis:(Unit*)target byThis:(Unit*)healer;
 @end

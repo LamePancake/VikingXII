@@ -64,15 +64,9 @@
     NSMutableArray *subArray = [_hexArray objectAtIndex:q + _N];
     return (Hex*)[subArray objectAtIndex:r + _N + MIN(0, q)];
 }
-
+/*
 - (Hex*)hexFromPixelAtX:(int)x andY:(int)y
 {
-    /*
-     function pixel_to_hex(x, y):
-     q = x * 2/3 / size
-     r = (-x / 3 + sqrt(3)/3 * y) / size
-     return hex_round(Hex(q, r))
-     */
     
     float qf = x * 2/3 / size;
     float rf = (-x/3 + sqrt(3)/3 * y) / size;
@@ -83,7 +77,7 @@
     int r = axialCoord.y;
     
     return [self hexAtQ:q andR:r];
-}
+}*/
 
 -(GLKVector3) roundCube:(GLKVector3) cube
 {
@@ -111,14 +105,14 @@
     return GLKVector3Make(rx, ry, rz);
 }
 
-- (GLKVector2) cubeToAxial:(GLKVector3) cube
++ (GLKVector2) cubeToAxial:(GLKVector3) cube
 {
     float q = cube.x;
     float r = cube.z;
     return GLKVector2Make(q, r);
 }
 
-- (GLKVector3) axialToCube:(float)q :(float)r
++ (GLKVector3) axialToCube:(float)q :(float)r
 {
     float x = q;
     float z = r;
@@ -282,6 +276,16 @@
         }
     }
     return withinRange;
+}
+
++ (int)distance:(int)q1 :(int)r1 :(int)q2 :(int)r2
+{
+    GLKVector3 cube1 = [HexCells axialToCube:q1 :r1];
+    GLKVector3 cube2 = [HexCells axialToCube:q2 :r2];
+    
+    int xOrYMax = MAX(ABS(cube1.x - cube2.x), ABS(cube1.y - cube2.y));
+    
+    return MAX(xOrYMax, ABS(cube1.z - cube2.z));
 }
 
 - (BOOL)inRange:(int)q :(int)r

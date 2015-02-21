@@ -48,13 +48,15 @@ typedef enum _Faction {
 //stats
 @property (nonatomic) int hull;//HP
 @property (nonatomic) int attRange;//How many hexes away can be attacked
-@property (nonatomic) int damage;
+@property (nonatomic) int damage;//How much damage the ships weapons can deal
 @property (nonatomic) int moveRange;//How many hexes can be moved per AP
-@property (nonatomic) int accuracy;//Percentage to hit
+@property (nonatomic) float accuracy;//Percentage to hit
+@property (nonatomic) float critChance;//Percentage to get a critical
+@property (nonatomic) float critModifier;//a multiplier that get applied to damage if a crit happens
 @property (nonatomic) int actionPool;//AP count for current turn
 //health
 @property (nonatomic) int engineHealth;
-@property (nonatomic) int weaponHealth;
+@property (nonatomic) float weaponHealth;
 @property (nonatomic) int shipHealth;
 //assets
 @property (nonatomic) float *modelData;

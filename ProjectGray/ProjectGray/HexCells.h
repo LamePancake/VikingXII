@@ -65,7 +65,20 @@
  * @param x The x coordinate.
  * @param y The y coordinate.
  */
-- (Hex*)hexFromScreenAtX:(int)x andY:(int)y;
+//- (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
+
++ (GLKVector2) cubeToAxial:(GLKVector3) cube;
+
++ (GLKVector3) axialToCube:(float)q :(float)r;
+
+/**
+ * Gets the distance between two hex cells
+ * @param q1 first hex q coord
+ * @param r1 first hex r coord
+ * @param q2 second hex q coord
+ * @param r2 second hex r coord
+ */
++ (int)distance:(int)q1 :(int)r1 :(int)q2 :(int)r2;
 
 /**
  * Gets the hex cells surrounding @a selectedHex within @a range.

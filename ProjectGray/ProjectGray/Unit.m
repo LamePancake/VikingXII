@@ -19,6 +19,12 @@
         self.position = pos;
         self.rotation = rot;
         self.scale = scl;
+        self.critChance = 0.05f;
+        self.attRange = 3;
+        self.accuracy = 0.75f;
+        self.damage = 16;
+        self.weaponHealth = 1;
+        self.critModifier = 1.5f;
     }
     return self;
 }
