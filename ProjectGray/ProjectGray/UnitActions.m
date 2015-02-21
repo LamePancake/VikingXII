@@ -21,7 +21,7 @@
     //Call the Task system to animate.  Model should update immediately.
     mover.hex = hex;
 }
-+(float)attackThis:(Unit*)attacker with:(Unit *)target {
++(void)attackThis:(Unit*)attacker with:(Unit *)target {
     
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
     int close = 2;
@@ -30,7 +30,7 @@
     
     if (hexCellsApart > attacker.attRange)
     {
-        return 0; // not in range
+        return; // not in range
     }
     else if (hexCellsApart == close)
     {
@@ -44,7 +44,7 @@
     float hitRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if there's a hit
     if (hitRandom > accuracy)
     {
-        return 0; // miss!
+        return; // miss!
     }
     
     float damage = attacker.weaponHealth * attacker.damage; //percent of weapon health determines damage
@@ -55,7 +55,7 @@
         damage *= attacker.critModifier; //critical hit! booYa!
     }
     
-    return damage;
+    target.shipHealth -= damage;
 }
 +(void)refillAPFor:(Unit *)thisObject{
 
