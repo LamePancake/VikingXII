@@ -13,6 +13,7 @@
 #import "GLKit/GLKit.h"
 #import "chicken_triag.h"
 #import "l_vikingVertices.h"
+#import "Hex.h"
 
 @interface Unit : NSObject
 
@@ -20,14 +21,15 @@
 @property (nonatomic) int faction; //0 for vikings 1 for aliens
 @property (nonatomic) GLKVector3 position;
 @property (nonatomic) GLKVector3 rotation;
-@property (nonatomic) GLKVector2 hexLocation;
+@property (nonatomic) Hex* hex;
 @property (nonatomic) float scale;
 //stats
-@property (nonatomic) int hull;
-@property (nonatomic) int attRange;
+@property (nonatomic) int hull;//HP
+@property (nonatomic) int attRange;//How many hexes away can be attacked
 @property (nonatomic) int damage;
-@property (nonatomic) int moveRange;
-@property (nonatomic) int accuracy;
+@property (nonatomic) int moveRange;//How many hexes can be moved per AP
+@property (nonatomic) int accuracy;//Percentage to hit
+@property (nonatomic) int actionPool;//AP count for current turn
 //health
 @property (nonatomic) int engineHealth;
 @property (nonatomic) int weaponHealth;

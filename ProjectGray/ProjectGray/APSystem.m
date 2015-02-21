@@ -14,8 +14,7 @@
 @end
 
 @implementation APSystem
-+(int)moveThis:(GameObject *)mover thisDirection:(int)direction thisAmount:(int)magnitude {
-    
++(int)moveThis:(GameObject *)mover toHex:(Hex *)hex{
     return 1;
 }
 +(int)attackThis:(GameObject *)defender with:
