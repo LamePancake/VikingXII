@@ -129,7 +129,7 @@ enum
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
     for(int i = 0; i < vikingNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.002];
         [tempUnit initShip:0 And:0];
         tempUnit.position = GLKVector3Make(i , i , i );
         
@@ -140,7 +140,7 @@ enum
     grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
     for(int i = 0; i < grayNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.002];
         [tempUnit initShip:1 And:0];
         tempUnit.position = GLKVector3Make(-i , -i , -i );
         
@@ -564,7 +564,7 @@ enum
         _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z));
+        GLKMatrix3 tempNorm = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z)), 0);
         glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
