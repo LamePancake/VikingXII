@@ -482,7 +482,7 @@ enum
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
-    [hexCells movableRange:1 from:[hexCells hexAtQ:1 andR:0]];//Just testing
+    [hexCells movableRange:2 from:[hexCells hexAtQ:1 andR:0]];//Just testing
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
