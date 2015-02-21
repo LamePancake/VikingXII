@@ -58,7 +58,7 @@ enum
     GLuint _vertexHexArray;
     GLuint _vertexHexBuffer;
     HexCells *hexCells;
-    GLfloat instanceVertices[19][16];
+    GLfloat instanceVertices[91][16];
     
     GLint vertLoc;
 
@@ -259,10 +259,10 @@ enum
     
     glBindVertexArrayOES(0);
     
-    hexCells = [[HexCells alloc]initWithSize:2];
+    hexCells = [[HexCells alloc]initWithSize:5];
     NSMutableArray *instPositions = hexCells.hexPositions;
     
-    for (int i = 0; i < 19; ++i)
+    for (int i = 0; i < 91; ++i)
     {
         
         for (int j = 0; j < 16; j += 2)
