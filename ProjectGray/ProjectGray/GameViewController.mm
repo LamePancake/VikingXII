@@ -41,7 +41,6 @@ enum
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
-    GLuint _guiProgram;
     
     float _rotation;
     
@@ -61,12 +60,6 @@ enum
     HexCells *hexCells;
     GLfloat instanceVertices[19][16];
     
-    GLuint _vertexGUIArray;
-    GLuint _vertexGUIBuffer;
-    GLfloat guiVertices[24];
-    GLuint guiElements[6];
-    GLuint _texture;
-    GLuint guiEbo;
     GLint vertLoc;
 
     GLKMatrix4 SteveJobsIsAFag;
@@ -345,9 +338,6 @@ enum
     glDeleteBuffers(1, &_vertexVikingBuffer);
     glDeleteVertexArraysOES(1, &_vertexVikingArray);
     
-    glDeleteBuffers(1, &_vertexGUIBuffer);
-    glDeleteVertexArraysOES(1, &_vertexGUIArray);
-
     self.effect = nil;
     
     if (_program) {
@@ -357,10 +347,6 @@ enum
     if (_hexProgram) {
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
-    }
-    if (_guiProgram) {
-        glDeleteProgram(_guiProgram);
-        _guiProgram = 0;
     }
 }
 
@@ -597,26 +583,18 @@ enum
 {
     NSString *vertShaderPathname, *fragShaderPathname;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
-    NSString *vertGUIShaderPathname, *fragGUIShaderPathname;
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
-    vertGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
 
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
-    fragGUIShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
     
     if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname]) return NO;
     if([GLProgramUtils makeProgram: &_hexProgram withVertShader: vertHexShaderPathname andFragShader: fragHexShaderPathname]){
         glDeleteProgram(_program);
-        return NO;
-    }
-    if([GLProgramUtils makeProgram: &_guiProgram withVertShader: vertGUIShaderPathname andFragShader: fragGUIShaderPathname]) {
-        glDeleteProgram(_program);
-        glDeleteProgram(_hexProgram);
         return NO;
     }
     
@@ -625,8 +603,6 @@ enum
     glBindAttribLocation(_program, GLKVertexAttribPosition, "position");
     glBindAttribLocation(_program, GLKVertexAttribNormal, "normal");
     glBindAttribLocation(_hexProgram, GLKVertexAttribPosition, "position");
-    glBindAttribLocation(_guiProgram, GLKVertexAttribPosition, "position");
-    glBindAttribLocation(_guiProgram, GLKVertexAttribTexCoord0, "texCoordIn");
     
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
