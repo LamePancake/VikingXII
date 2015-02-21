@@ -27,8 +27,25 @@
         _selectedUnit = nil;
         _map = map;
     }
-    
     return self;
+}
+
+-(Game*) initWithSize:(int)size{
+    _map = [[HexCells alloc]initWithSize:size];
+    return self;
+}
+
+-(void) gameUpdate {
+    [self showActionsForSelected];
+}
+
+-(void) showActionsForSelected {
+    for (Hex *currentHex in _selectedUnit.movableHex) {
+        [currentHex setColour:GLKVector4Make(255.0f, 255.0f, 0.0f, 1.0f)];
+    }
+    for (Hex *currentHex in _selectedUnit.attackableHex) {
+        [currentHex setColour:GLKVector4Make(0.0f, 255.0f, 0.0f, 1.0f)];
+    }
 }
 
 -(Unit *) getUnitOnHex: (Hex *)hex forFaction: (Faction) faction {

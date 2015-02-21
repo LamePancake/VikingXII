@@ -37,6 +37,9 @@
 
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
+-(Game*) initWithSize:(int)size;
+
+-(void) gameUpdate;
 /**
  * Gets the unit on the specified hex cell for the given player, if there is one.
  *
@@ -65,4 +68,5 @@
  * @param tile The hex tile that was selected.
  */
 -(void)selectTile: (Hex*)tile;
+-(void) showActionsForSelected;
 @end

@@ -10,7 +10,6 @@
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
 #import "Game.h"
-#import "SoundManager.h"
 
 #include "HexCells.h"
 #include "GLProgramUtils.h"
@@ -63,6 +62,8 @@ enum
     GLfloat instanceVertices[91][16];
     
     GLint vertLoc;
+
+    GLKMatrix4 SteveJobsIsAFag;
     
     //GameStuff
     Game* game;
@@ -104,11 +105,6 @@ enum
 {
     [super viewDidLoad];
     
-    [SoundManager sharedManager].allowsBackgroundMusic = YES;
-    [[SoundManager sharedManager] prepareToPlay];
-    
-    [[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
-    
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
     
@@ -128,12 +124,18 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    //hexCells = [[HexCells alloc]initWithSize:5];
+
+    game = [[Game alloc] initWithSize:5];
+    hexCells = game.map;//Ideally we should just use game.map
+
+    
     //unit lists initialization
     vikingNum = 3;
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
     for(int i = 0; i < vikingNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.002];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
         [tempUnit initShip:0 And:0];
         tempUnit.position = GLKVector3Make(i , i , i );
         
@@ -144,7 +146,7 @@ enum
     grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
     for(int i = 0; i < grayNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:0.002];
+        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
         [tempUnit initShip:1 And:0];
         tempUnit.position = GLKVector3Make(-i , -i , -i );
         
@@ -155,10 +157,6 @@ enum
     currentVikingUnit = 0;
     
     turn = YES;
-    
-    HexCells* map = [[HexCells alloc] initWithSize:5];
-    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
-    game = [game initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
     
     [self setupGL];
 }
@@ -194,25 +192,6 @@ enum
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-/*
--(void) initHexCellsInstanceVertices:(int) numberOfHex :(int)verticesInHex
-{
-    instanceVertices = (float**)malloc(numberOfHex * sizeof(float*));
-    int i;
-    for(i = 0; i < numberOfHex; ++i)
-    {
-        instanceVertices[i] = (float*)malloc(verticesInHex * sizeof(float));
-    }
-}
-
--(void) destoryHexCellsInstanceVertices:(int)numberOfHex
-{
-    int i;
-    for(i = 0; i < numberOfHex; ++i)
-    {
-        free(instanceVertices[i]);
-    }
-}*/
 
 - (void)setupGL
 {
@@ -292,7 +271,6 @@ enum
     
     glBindVertexArrayOES(0);
     
-    hexCells = [[HexCells alloc]initWithSize:5];
     NSMutableArray *instPositions = hexCells.hexPositions;
     
     for (int i = 0; i < 91; ++i)
@@ -475,40 +453,8 @@ enum
     GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
-    Unit* onTile = [game getUnitOnHex:pickedTile forFaction:game.whoseTurn];
-    Unit* selected = [game selectedUnit];
+    [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
     
-    /*
-     Model does the following:
-     
-     Is there a unit selected?
-     If so, did the player select the same cell as the one occupied by the currently selected unit?
-     If so, set the current selection to nil and tell the controller that the unit was unselected.
-     
-     If not, is there an enemy unit in that cell?
-     If so, can the currently selected unit attack that unit?
-     If so,
-     Do the damage calculations,
-     Apply them to the other unit,
-     Adjust remaining action points for the unit,
-     Tell the controller that this all happened.
-     If not, tell the controller that the player tried to do an invalid attack.
-     
-     If not, is there a friendly unit in that cell?
-     If so,
-     Set that unit to be the currently selected unit
-     Call Determine Actions for Unit and return the result to the controller.
-     
-     If not, can the currently selected unit move to that cell?
-     If yes, move the unit to that cell, subtract the appropriate number of action points, and tell the controller about the movement.
-     If not, tell the controller that the player tried to do an invalid move to that cell.
-     
-     
-     Function Determine Actions for Unit
-     Determine possible movement paths using unit's speed
-     */
-    
-#if 0
     bool occupied = NO;
     for(int i = 0; i < grayNum; i++)
     {
@@ -541,9 +487,6 @@ enum
         else
             ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
     }
-#endif
-    
-    [[SoundManager sharedManager] playSound:@"sound1.caf" looping:NO];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
@@ -553,9 +496,11 @@ enum
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
     
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
+    
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
-    [hexCells movableRange:2 from:[hexCells hexAtQ:1 andR:0]];//Just testing
+    [game gameUpdate];
+    //[hexCells movableRange:2 from:[hexCells hexAtQ:1 andR:0]];//Just testing
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -635,7 +580,7 @@ enum
         _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
-        GLKMatrix3 tempNorm = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z)), 0);
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z));
         glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         

@@ -253,25 +253,14 @@
 
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex {
     NSMutableArray* withinRange;
-//    for(int dx = selectedHex.q -range; dx <= selectedHex.q + range; ++dx) {
-//        for(int dy = selectedHex.r - range; dy <= selectedHex.r + range; ++dy) {
-//            for(int dz = -range; dz <= range ; dz++) {
-//                if(dx+dy+dz == 0) {
-//                    GLKVector2 axCor = [self cubeToAxial:GLKVector3Make(dx, dy, dz)];
-//                    [[self hexAtQ:axCor.x andR:axCor.y] setColour:GLKVector4Make(1.0f, 0.0f, 0.2f, 1.0f)];
-//                    [withinRange addObject:[self hexAtQ:axCor.x andR:axCor.y]];
-//                }
-//            }
-//        }
-//    }
     for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx) {
         for (int dy = MAX(-range, -dx-range+selectedHex.q); dy <= MIN(range, -dx+range+selectedHex.q); ++dy) {
             //int dz = (-dx-dy);
                 //GLKVector2 axCor = [self cubeToAxial:GLKVector3Make(dx, dy, dz)];
             if([self inRange:dx :dy]) {
-            Hex* currentHex = [self hexAtQ:dx andR:dy];
-                [currentHex setColour:GLKVector4Make(1.0f, 0.0f, 0.2f, 1.0f)];
-                [withinRange addObject:[self hexAtQ:dx andR:dy]];
+                Hex* currentHex = [self hexAtQ:dx andR:dy];
+                //[currentHex setColour:GLKVector4Make(1.0f, 0.0f, 0.2f, 1.0f)];
+                [withinRange addObject:currentHex];
             }
         }
     }
