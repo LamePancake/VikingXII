@@ -184,6 +184,25 @@ enum
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+/*
+-(void) initHexCellsInstanceVertices:(int) numberOfHex :(int)verticesInHex
+{
+    instanceVertices = (float**)malloc(numberOfHex * sizeof(float*));
+    int i;
+    for(i = 0; i < numberOfHex; ++i)
+    {
+        instanceVertices[i] = (float*)malloc(verticesInHex * sizeof(float));
+    }
+}
+
+-(void) destoryHexCellsInstanceVertices:(int)numberOfHex
+{
+    int i;
+    for(i = 0; i < numberOfHex; ++i)
+    {
+        free(instanceVertices[i]);
+    }
+}*/
 
 - (void)setupGL
 {
