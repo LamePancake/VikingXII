@@ -98,7 +98,8 @@
     return YES;
 }
 
-+ (int)makeProgram:(GLuint *)program withVertShader: (NSString *)vertShaderPath andFragShader: (NSString *)fragShaderPath {
++ (int)makeProgram:(GLuint *)program withVertShader: (NSString *)vertShaderPath andFragShader: (NSString *)fragShaderPath
+     andAttributes: (ShaderAttribute *)attributes withNumberOfAttributes: (int) attrCount {
     GLuint vertShader, fragShader;
     
     // Create shader program.
@@ -122,7 +123,12 @@
     glAttachShader(*program, fragShader);
     
     // Bind attribute locations.
-    // This needs to be done prior to linking.
+    // This needs to be done prior to linking
+    if(attrCount % 2) NSLog(@"Incorrect atribute format.");
+    
+    for(int i = 0; i < attrCount; i += 2) {
+        glBindAttribLocation(*program, attributes[i].attributeIndex, attributes[i].attributeName);
+    }
     glBindAttribLocation(*program, GLKVertexAttribPosition, "position");
     glBindAttribLocation(*program, GLKVertexAttribNormal, "normal");
     

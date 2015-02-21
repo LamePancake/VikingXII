@@ -19,6 +19,14 @@ enum GL_PROG_UTILS_MAKEFAIL
     PROGRAM_LINK_FAIL = 3
 };
 
+/**
+ * Contains the OpenGL index indicating the type of attribute and its name within the vertex shader.
+ */
+typedef struct _ShaderAttribute {
+    GLuint attributeIndex;
+    const char *attributeName;
+} ShaderAttribute;
+
 @interface GLProgramUtils : NSObject
 
 /**
@@ -59,8 +67,10 @@ enum GL_PROG_UTILS_MAKEFAIL
  * @param program        Pointer to ta GLuint which will hold the program handle on successful compilation.
  * @param vertShaderPath Path to the vertex shader.
  * @param fragShaderPath Path to the fragment shader.
+ * @param attributes     An array of shader attribute structs ({
  * @return The creation step that failed or 0 on success.
  */
-+ (int)makeProgram:(GLuint *)program withVertShader: (NSString *)vertShaderPath andFragShader: (NSString *)fragShaderPath;
++ (int)makeProgram:(GLuint *)program withVertShader: (NSString *)vertShaderPath andFragShader: (NSString *)fragShaderPath
+     andAttributes: (ShaderAttribute *)attributes withNumberOfAttributes: (int) attrCount;
 
 @end
