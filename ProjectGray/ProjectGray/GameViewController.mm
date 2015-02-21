@@ -62,8 +62,6 @@ enum
     GLfloat instanceVertices[91][16];
     
     GLint vertLoc;
-
-    GLKMatrix4 SteveJobsIsAFag;
     
     //GameStuff
     Game* game;
