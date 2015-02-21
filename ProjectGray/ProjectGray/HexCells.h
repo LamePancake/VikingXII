@@ -67,8 +67,19 @@
  */
 //- (Hex*)hexFromPixelAtX:(int)x andY:(int)y;
 
+/**
+ * Converts cube coordinates to axial coordinates
+ * @param cube the cube coordinate
+ * @return the axial coordinate
+ */
 + (GLKVector2) cubeToAxial:(GLKVector3) cube;
 
+/**
+ * Converts axial coordinates to cube coordinates
+ * @param q axial Q coordinate
+ * @param r axial R coordinate
+ * @return the cube coordinate
+ */
 + (GLKVector3) axialToCube:(float)q :(float)r;
 
 /**
@@ -77,6 +88,7 @@
  * @param r1 first hex r coord
  * @param q2 second hex q coord
  * @param r2 second hex r coord
+ * @return the number of hexagons between these axial coordinates
  */
 + (int)distance:(int)q1 :(int)r1 :(int)q2 :(int)r2;
 
@@ -96,7 +108,7 @@
  * @param r1 The r coordinate of the starting position.
  * @param q2 The q coordinate of the destination.
  * @param r2 The r coordinate of the destination.
- * @return 
+ * @return an array of hex that form a path between these coordinates
  */
 - (NSMutableArray*)makePathFrom:(int)q1 :(int)r1 To:(int)q2 :(int)r2;
 
@@ -115,6 +127,7 @@
  * @param limit    Whether to limit the search to be within hexagons. If false, the method
  *                 method will return the closest hex cell to a world position even if the
  *                 location is not within the cell's bounds.
+ * @return returns the closest hex to the world position
  */
 - (Hex*)closestHexToWorldPosition:(GLKVector2) position WithinHexagon:(BOOL)limit;
 

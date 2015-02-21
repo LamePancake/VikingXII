@@ -15,7 +15,14 @@
     
 }
 +(void)moveThis:(Unit*)mover toHex:(Hex*)hex; //GameObjectMovement
-+(void)attackThis:(Unit*)defender with:(Unit*)attacker;
+
+/**
+ * Calculates the damage done on the target based on the attackers 
+ * stats/state and decrements it from the targets health.
+ * @param attacker is the unit who's currently attacking the target
+ * @param target is the unit being attacked by the attacker
+ */
++(void)attackThis:(Unit*)attacker with:(Unit*)target;
 +(void)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(void)healThis:(Unit*)target byThis:(Unit*)healer;
 @end
