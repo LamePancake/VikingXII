@@ -40,6 +40,7 @@
 }
 
 -(void) showActionsForSelected {
+    [self updateLegalActionsForUnit:_selectedUnit];
     for (Hex *currentHex in _selectedUnit.movableHex) {
         [currentHex setColour:GLKVector4Make(255.0f, 255.0f, 0.0f, 1.0f)];
     }
