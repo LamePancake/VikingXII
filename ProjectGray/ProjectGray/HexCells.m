@@ -10,6 +10,8 @@
 #import "HexCells.h"
 #import "NSMutableArray+QueueAdditions.h"
 
+const GLKVector4 DEFAULT_COLOUR = {0.73f, 0.23f, 0.4f, 0.5f};
+
 @implementation HexCells
 {
     float size;
@@ -251,15 +253,34 @@
     return [self hexAtQ:closestQ andR:closestR];
 }
 
+-(void)clearColours {
+    int hexCount = _N;
+    // right side of hex
+    for (int q = 0; q <= hexCount; ++q)
+    {
+        for (int r = -hexCount; r <= hexCount - q; ++r)
+        {
+            [self hexAtQ:q andR:r].colour = DEFAULT_COLOUR;
+        }
+    }
+    
+    // left side of hex
+    for (int q = -hexCount; q <= -1; ++q)
+    {
+        for (int r = -hexCount - q; r <= hexCount; ++r)
+        {
+            [self hexAtQ:q andR:r].colour = DEFAULT_COLOUR;
+        }
+    }
+}
+
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex {
     NSMutableArray* withinRange = [[NSMutableArray alloc] init];
+    
     for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx) {
-        for (int dy = MAX(-range, -dx-range+selectedHex.q); dy <= MIN(range, -dx+range+selectedHex.q); ++dy) {
-            //int dz = (-dx-dy);
-                //GLKVector2 axCor = [self cubeToAxial:GLKVector3Make(dx, dy, dz)];
+        for (int dy = MAX(-range, -dx-range+selectedHex.q+selectedHex.r); dy <= MIN(range, -dx+range+selectedHex.q+selectedHex.r); ++dy) {
             if([self inRange:dx :dy]) {
                 Hex* currentHex = [self hexAtQ:dx andR:dy];
-                //[currentHex setColour:GLKVector4Make(1.0f, 0.0f, 0.2f, 1.0f)];
                 [withinRange addObject:currentHex];
             }
         }
@@ -275,6 +296,10 @@
     int xOrYMax = MAX(ABS(cube1.x - cube2.x), ABS(cube1.y - cube2.y));
     
     return MAX(xOrYMax, ABS(cube1.z - cube2.z));
+}
+
++ (int)distanceFrom:(Hex *)start toHex:(Hex *)destination {
+    return [HexCells distance: start.q :start.r :destination.q :destination.r];
 }
 
 - (BOOL)inRange:(int)q :(int)r

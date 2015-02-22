@@ -93,6 +93,18 @@
 + (int)distance:(int)q1 :(int)r1 :(int)q2 :(int)r2;
 
 /**
+ * Determines the shortest distance (number of hex cells) between two hex cells.
+ * Note that this method does not perform pathfinding.
+ *
+ * @param start       The starting hex.
+ * @param destination The destination hex.
+ * @return The distance in number of tiles between the two hex cells.
+ */
++ (int)distanceFrom: (Hex*)start toHex: (Hex*)destination;
+
+- (void)clearColours;
+
+/**
  * Gets the hex cells surrounding @a selectedHex within @a range.
  * @param range The range around the specified cell.
  * @param selectedHex The hex cell around which to find the cells.

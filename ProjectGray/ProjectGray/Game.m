@@ -46,33 +46,13 @@
         _mode = mode;
         _selectedUnit = nil;
         _map = map;
-        
-        // Update the legal movements for the given units
-        for(id unit in _p1Units) [self updateLegalActionsForUnit: (Unit*)unit];
-        for(id unit in _p2Units) [self updateLegalActionsForUnit: (Unit*)unit];
     }
     return self;
 }
-
-
 
 -(Game*) initWithSize:(int)size{
     _map = [[HexCells alloc]initWithSize:size];
     return self;
-}
-
--(void) gameUpdate {
-    [self showActionsForSelected];
-}
-
--(void) showActionsForSelected {
-    [self updateLegalActionsForUnit:_selectedUnit];
-    for (Hex *currentHex in _selectedUnit.movableHex) {
-        [currentHex setColour:GLKVector4Make(255.0f, 255.0f, 0.0f, 1.0f)];
-    }
-    for (Hex *currentHex in _selectedUnit.attackableHex) {
-        [currentHex setColour:GLKVector4Make(0.0f, 255.0f, 0.0f, 1.0f)];
-    }
 }
 
 -(Unit *) getUnitOnHex: (Hex *)hex {
@@ -88,40 +68,11 @@
     return nil;
 }
 
--(void) updateLegalActionsForUnit:(Unit *)unit {
-    if(!unit) return;
-    
-    NSMutableArray* attackable = [_map movableRange:unit.attRange from:unit.hex];
-    NSMutableArray* movable = [_map movableRange:unit.moveRange from:unit.hex];
-    NSUInteger numAttackable = [attackable count];
-    NSUInteger numMovable = [movable count];
-    
-    Faction enemyFaction = unit.faction == ALIENS ? VIKINGS : ALIENS;
-    
-    // Filter out any hex tiles with no enemy units from the attackable array
-    for(NSUInteger i = 0; i < numAttackable; i++) {
-        Unit* unit = [self getUnitOnHex:attackable[i]];
-        
-        if(!unit || !(unit.faction == enemyFaction))
-            [attackable removeObjectAtIndex:i];
-    }
-    
-    // Filter out any tiles with obstacles in the movable array
-    for(NSUInteger i = 0; i < numMovable; i++) {
-        Unit* unit = [self getUnitOnHex:attackable[i]];
-        
-        if(!unit) [movable removeObjectAtIndex:i];
-    }
-    
-    [unit.movableHex addObjectsFromArray: movable];
-    [unit.attackableHex addObjectsFromArray:attackable];
-}
-
 -(void)selectTile:(Hex *)tile {
     if (!tile) return;
 
     Unit* onTile = [self getUnitOnHex:tile];
-    NSLog(@"Selected tile: q: %d, t: %d", tile.q, tile.r);
+    NSLog(@"Selected tile: q: %d, r: %d", tile.q, tile.r);
     NSLog(@"Unit on tile? %d", onTile != nil);
     if(_selectedUnit)
     {
@@ -131,12 +82,12 @@
             _selectedUnit = nil;
         }
         // Attack the enemy if possible
-        else if(onTile.faction != _selectedUnit.faction && [_selectedUnit.attackableHex containsObject:tile])
+        else if(onTile.faction != _selectedUnit.faction && [HexCells distanceFrom:onTile.hex toHex:_selectedUnit.hex])
         {
             // Unit actions attack enemy
         }
         // Move to another tile
-        else if(!onTile && [_selectedUnit.movableHex containsObject:tile])
+        else if(!onTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
         {
             // Unit actions move
             _selectedUnit.hex = tile;
@@ -145,11 +96,9 @@
     }
 
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(onTile.faction == _whoseTurn)
+    if(onTile && onTile.faction == _whoseTurn)
     {
         _selectedUnit = onTile;
     }
-    
-    [self updateLegalActionsForUnit: _selectedUnit];
 }
 @end

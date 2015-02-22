@@ -51,23 +51,10 @@
 -(Unit *)getUnitOnHex: (Hex *)hex;
 
 /**
- * @brief Given the specified unit, gets the legal attacks and moves and stores them in the provided arrays.
- * @discussion The attacks and moves arrays will have their contents over-written with a list of Hex*'s.
- *             The legal attacks and moves take into account the movement's attack range, movement range, and
- *             any intervening obstacles.
- *
- * @param unit    The unit for which to find the legal actions.
- * @param attacks The array in which to store legal attacks.
- * @param moves   The array in which to store legal moves.
- */
--(void)updateLegalActionsForUnit:(Unit*)unit;
-
-/**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
  * attacks, schedules tasks, etc.
  *
  * @param tile The hex tile that was selected.
  */
 -(void)selectTile: (Hex*)tile;
--(void) showActionsForSelected;
 @end

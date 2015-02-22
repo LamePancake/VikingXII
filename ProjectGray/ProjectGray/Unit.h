@@ -44,9 +44,6 @@ typedef enum _Faction {
 @property (nonatomic) GLKVector3 rotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
 @property (nonatomic) float scale;
-//Store legal movements and hexes that can be attacked
-@property (nonatomic) NSMutableArray* movableHex;
-@property (nonatomic) NSMutableArray* attackableHex;
 
 //stats
 @property (nonatomic) int hull;//HP
