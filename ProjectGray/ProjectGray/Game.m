@@ -21,6 +21,8 @@
         _p2Units = p2Units;
         
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
+        //for(id in _p1Units [self])
+        
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
         
         _mode = mode;
@@ -95,7 +97,8 @@
     if (!tile) return;
 
     Unit* onTile = [self getUnitOnHex:tile];
-    //NSLog(@"Selected unit's faction: %@", (onTile.faction == ))
+    NSLog(@"Selected tile: q: %d, t: %d", tile.q, tile.r);
+    NSLog(@"Unit on tile? %d", onTile != nil);
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it
