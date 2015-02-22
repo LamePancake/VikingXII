@@ -85,7 +85,8 @@ enum
     
     bool turn;
     
-    GLuint _texture;
+    GLuint _vikingTexture;
+    GLuint _grayTexture;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -340,13 +341,22 @@ enum
         [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
     }
     
-    _texture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _texture);
+    glBindTexture(GL_TEXTURE_2D, _vikingTexture);
     GLuint loc = glGetUniformLocation(_program, "texture");
     glUniform1i(loc, 0);
-    glEnable(_texture);
+    glEnable(_vikingTexture);
     
+    _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _grayTexture);
+    GLuint loc2 = glGetUniformLocation(_program, "texture");
+    glUniform1i(loc2, 0);
+    glEnable(_grayTexture);
+    
+    
+    //Background vertices
     /*glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
@@ -397,11 +407,11 @@ enum
     
     glBindVertexArrayOES(0);
     
-    _bgTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _bgTexture = [GLProgramUtils setupTexture:@"crate.jpg"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc, 0);
+    GLuint loc2 = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc2, 0);
     glEnable(_bgTexture);*/
 }
 
@@ -595,12 +605,18 @@ enum
     }
     
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _texture);
+    glBindTexture(GL_TEXTURE_2D, _vikingTexture);
     GLuint loc = glGetUniformLocation(_program, "texture");
     glUniform1i(loc, 0);
-    glEnable(_texture);
-    
+    glEnable(_vikingTexture);
+
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _grayTexture);
+    GLuint loc2 = glGetUniformLocation(_program, "texture");
+    glUniform1i(loc2, 0);
+    glEnable(_grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
     
@@ -609,15 +625,15 @@ enum
     
     glBindVertexArrayOES(_vertexBGArray);
     glUseProgram(_bgProgram);
-    
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc, 0);
+    GLuint loc2 = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc2, 0);
     glEnable(_bgTexture);
     
-    //glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glDisable(GL_BLEND);*/
