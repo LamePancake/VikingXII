@@ -225,9 +225,7 @@ enum
     
 
     
-    //glEnable(GL_DEPTH_TEST);
-    glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_NEVER);
+    glEnable(GL_DEPTH_TEST);
     
     glGenVertexArraysOES(1, &_vertexHexArray);
     glBindVertexArrayOES(_vertexHexArray);
@@ -368,28 +366,32 @@ enum
     glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
-    float guiScale = 1;
+    float guiScale = 0.2;
     //Bottom square
     bgVertices[0] = -1 * guiScale;//x
     bgVertices[1] = -1 * guiScale; //y
-    bgVertices[2] = 0;  //u
-    bgVertices[3] = 1; //v
+    bgVertices[2] = -2; //z
+    bgVertices[3] = 0;  //u
+    bgVertices[4] = 1; //v
     
-    bgVertices[4] = 1 * guiScale;  //x
-    bgVertices[5] = -1 * guiScale; //y
-    bgVertices[6] = 1; //u
-    bgVertices[7] = 1;  //v
+    bgVertices[5] = 1 * guiScale;  //x
+    bgVertices[6] = -1 * guiScale; //y
+    bgVertices[7] = -2; //z
+    bgVertices[8] = 1; //u
+    bgVertices[9] = 1;  //v
     
-    bgVertices[8] = -1 * guiScale;  //x
-    bgVertices[9] = 1 * guiScale;   //y
-    bgVertices[10] = 0; //u
-    bgVertices[11] = 0;  //v
+    bgVertices[10] = -1 * guiScale;  //x
+    bgVertices[11] = 1 * guiScale;   //y
+    bgVertices[12] = -2; //z
+    bgVertices[13] = 0; //u
+    bgVertices[14] = 0;  //v
     
     //Top Face
-    bgVertices[12] = 1 * guiScale;  //x
-    bgVertices[13] = 1 * guiScale;  //y
-    bgVertices[14] = 1;  //u
-    bgVertices[15] = 0;  //v
+    bgVertices[15] = 1 * guiScale;  //x
+    bgVertices[16] = 1 * guiScale;  //y
+    bgVertices[17] = -2; //z
+    bgVertices[18] = 1;  //u
+    bgVertices[19] = 0;  //v
     
     
     bgElements[0] = 0;
@@ -408,10 +410,10 @@ enum
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(bgElements), bgElements, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(0));
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 20, BUFFER_OFFSET(0));
     
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(8));
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 20, BUFFER_OFFSET(12));
     
     glBindVertexArrayOES(0);
     
@@ -566,25 +568,6 @@ enum
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    //bg stuff
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-    
-    glBindVertexArrayOES(_vertexBGArray);
-    glUseProgram(_bgProgram);
-    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc3, 0);
-    glEnable(_bgTexture);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);
-    
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -646,7 +629,24 @@ enum
     glEnable(_grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
+    //bg stuff
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
+    glBindVertexArrayOES(_vertexBGArray);
+    glUseProgram(_bgProgram);
 
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _bgTexture);
+    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc3, 0);
+    glEnable(_bgTexture);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
