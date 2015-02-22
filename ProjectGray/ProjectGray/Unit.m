@@ -20,13 +20,21 @@
         self.rotation = rot;
         self.scale = scl;
         self.critChance = 0.05f;
-        self.attRange = 3;
+        self.attRange = 1;
         self.accuracy = 0.75f;
         self.damage = 16;
         self.weaponHealth = 1;
         self.critModifier = 1.5f;
         self.hex = hex;
+        self.moveRange = 2;
     }
+    return self;
+}
+
+- (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex *)startAt
+{
+    [self initFaction:faction And:shipClass];
+    _hex = startAt;
     return self;
 }
 

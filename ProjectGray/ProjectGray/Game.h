@@ -37,6 +37,8 @@
 
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
+-(instancetype) initFull;
+
 -(Game*) initWithSize:(int)size;
 
 -(void) gameUpdate;

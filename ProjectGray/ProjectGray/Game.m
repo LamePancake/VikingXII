@@ -8,12 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "Game.h"
+#import "SkirmishMode.h"
 
 @interface Game ()
 
 @end
 
 @implementation Game
+
+-(instancetype) initFull {
+    _map = [[HexCells alloc] initWithSize:5];
+    NSMutableArray* vikingUnits;
+    for(int i = 0; i < 3; ++i) {
+        [vikingUnits addObject:[[Unit alloc] initShipWithFaction:VIKINGS andShipClass:LIGHT andHex:[_map hexAtQ:i andR:0]]];
+    }
+    _p1Units = vikingUnits;
+    NSMutableArray* alienUnits;
+    for(int i = 0; i < 3; ++i) {
+        [alienUnits addObject:[[Unit alloc] initShipWithFaction:ALIENS andShipClass:LIGHT andHex:[_map hexAtQ:0 andR:i]]];
+    }
+    _p2Units = alienUnits;
+    _p1Faction = VIKINGS;
+    _p2Faction = ALIENS;
+    _mode = [[SkirmishMode alloc] init];
+    _selectedUnit = nil;
+    return self;
+}
 
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
     if(self = [super init]) {
@@ -33,6 +53,8 @@
     }
     return self;
 }
+
+
 
 -(Game*) initWithSize:(int)size{
     _map = [[HexCells alloc]initWithSize:size];

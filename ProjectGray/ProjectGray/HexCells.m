@@ -252,7 +252,7 @@
 }
 
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex {
-    NSMutableArray* withinRange;
+    NSMutableArray* withinRange = [[NSMutableArray alloc] init];
     for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx) {
         for (int dy = MAX(-range, -dx-range+selectedHex.q); dy <= MIN(range, -dx+range+selectedHex.q); ++dy) {
             //int dz = (-dx-dy);

@@ -129,41 +129,43 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    HexCells* map = [[HexCells alloc] initWithSize:5];
-
-    //unit lists initialization
-    vikingNum = 3;
-    vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
-    for(int i = 0; i < vikingNum; i++)
-    {
-        Hex* temp = [map hexAtQ:0 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
-        
-        [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
-        [vikingList addObject:tempUnit];
-    }
-    
-    grayNum = 3;
-    grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
-    for(int i = 0; i < grayNum; i++)
-    {
-        Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
-        
-        [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
-        [grayList insertObject:tempUnit atIndex:i];
-    }
-    
-    currentGrayUnit = 0;
-    currentVikingUnit = 0;
-    
-    turn = YES;
-    
-    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
-    game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
-
+//    HexCells* map = [[HexCells alloc] initWithSize:5];
+//
+//    //unit lists initialization
+//    vikingNum = 3;
+//    vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
+//    for(int i = 0; i < vikingNum; i++)
+//    {
+//        Hex* temp = [map hexAtQ:0 andR:i];
+//        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
+//                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
+//        
+//        [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
+//        [vikingList addObject:tempUnit];
+//    }
+//    
+//    grayNum = 3;
+//    grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
+//    for(int i = 0; i < grayNum; i++)
+//    {
+//        Hex* temp = [map hexAtQ:-2 andR:i];
+//        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
+//                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
+//        
+//        [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
+//        [grayList insertObject:tempUnit atIndex:i];
+//    }
+//    
+//    currentGrayUnit = 0;
+//    currentVikingUnit = 0;
+//    
+//    turn = YES;
+//    
+//    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
+//    game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
+//    game.selectedUnit = vikingList[0];
+//    game.selectedUnit.hex = [game.map hexAtQ:0 andR:0];
+    game =  [[Game alloc] initFull];
     hexCells = game.map;
     [self setupGL];
 }
