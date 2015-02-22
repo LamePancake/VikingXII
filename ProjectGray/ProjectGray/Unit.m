@@ -20,7 +20,7 @@
         self.rotation = rot;
         self.scale = scl;
         self.critChance = 0.05f;
-        self.attRange = 1;
+        self.attRange = 5;
         self.accuracy = 0.75f;
         self.damage = 16;
         self.weaponHealth = 1;

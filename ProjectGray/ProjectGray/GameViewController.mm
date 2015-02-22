@@ -513,41 +513,7 @@ enum
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
     [game selectTile: pickedTile];
     [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
-    
-#if 0
-    bool occupied = NO;
-    for(int i = 0; i < grayNum; i++)
-    {
-        if(pickedTile.worldPosition.x == ((Unit*)grayList[i]).position.x
-           && pickedTile.worldPosition.y == ((Unit*)grayList[i]).position.y)
-        {
-            if(turn)
-                currentGrayUnit = i;
-            occupied = YES;
-            break;
-        }
-    }
-    
-    for(int i = 0; i < vikingNum; i++)
-    {
-        if(pickedTile.worldPosition.x == ((Unit*)vikingList[i]).position.x
-           && pickedTile.worldPosition.y == ((Unit*)vikingList[i]).position.y)
-        {
-            if(!turn)
-                currentVikingUnit = i;
-            occupied = YES;
-            break;
-        }
-    }
-    
-    if(!occupied)
-    {
-        if(turn)
-            ((Unit*)grayList[currentGrayUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
-        else
-            ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
-    }
-#endif
+
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 

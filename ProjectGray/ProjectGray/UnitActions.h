@@ -22,7 +22,7 @@
  * @param attacker is the unit who's currently attacking the target
  * @param target is the unit being attacked by the attacker
  */
-+(void)attackThis:(Unit*)attacker with:(Unit*)target;
++(void)attackThis:(Unit*)target with:(Unit*)attacker;
 +(void)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(void)healThis:(Unit*)target byThis:(Unit*)healer;
 @end

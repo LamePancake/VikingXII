@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "UnitActions.h"
 #import "HexCells.h"
+#import "SoundManager.h"
 
 @interface UnitActions ()
 
@@ -21,7 +22,7 @@
     //Call the Task system to animate.  Model should update immediately.
     mover.hex = hex;
 }
-+(void)attackThis:(Unit*)attacker with:(Unit *)target {
++(void)attackThis:(Unit*)target with:(Unit *)attacker {
     
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
     int close = 2;
@@ -56,6 +57,9 @@
     }
     
     target.shipHealth -= damage;
+    [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
+
+    NSLog(@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth);
 }
 +(void)refillAPFor:(Unit *)thisObject{
 

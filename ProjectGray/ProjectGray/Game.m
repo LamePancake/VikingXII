@@ -72,8 +72,6 @@
     if (!tile) return;
 
     Unit* onTile = [self getUnitOnHex:tile];
-    NSLog(@"Selected tile: q: %d, r: %d", tile.q, tile.r);
-    NSLog(@"Unit on tile? %d", onTile != nil);
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it
@@ -84,7 +82,7 @@
         // Attack the enemy if possible
         else if(onTile.faction != _selectedUnit.faction && [HexCells distanceFrom:onTile.hex toHex:_selectedUnit.hex])
         {
-            // Unit actions attack enemy
+            [UnitActions attackThis:onTile with:_selectedUnit];
         }
         // Move to another tile
         else if(!onTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
