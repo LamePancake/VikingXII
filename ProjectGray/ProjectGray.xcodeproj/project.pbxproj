@@ -50,6 +50,7 @@
 		A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57298121A7C1F30001934F9 /* LaunchScreen.xib */; };
 		A57298201A7C1F30001934F9 /* ProjectGrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */; };
 		A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A572982D1A7C37D6001934F9 /* MainViewController.m */; };
+		A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A57DA1D71A9A677000B02654 /* Spaaaace.jpg */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
 		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
 		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
@@ -134,6 +135,7 @@
 		A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectGrayTests.m; sourceTree = "<group>"; };
 		A572982C1A7C37D6001934F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		A57DA1D71A9A677000B02654 /* Spaaaace.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Spaaaace.jpg; sourceTree = "<group>"; };
 		A5FE71BE1A9189A0008D9C1F /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		A5FE71BF1A9189A0008D9C1F /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
 		F20C19581A917A2800D63661 /* APSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSystem.h; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				A57DA1D71A9A677000B02654 /* Spaaaace.jpg */,
 				352C72DD1A99397900A1B67A /* VikingDiff.png */,
 				350A00071A97BB1100602053 /* Pause.png */,
 				350A00081A97BB1100602053 /* PausePressed.png */,
@@ -479,6 +482,7 @@
 				30D658381A99629C00DE1F63 /* cannon1.aiff in Resources */,
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
+				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,

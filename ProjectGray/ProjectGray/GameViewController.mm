@@ -112,6 +112,10 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //bg image
+    /*UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaaaace.jpg"]];
+    [self.view addSubview:bgView];
+    [self.view sendSubviewToBack: bgView];*/
     
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
@@ -219,7 +223,11 @@ enum
     self.effect.light0.enabled = GL_TRUE;
     self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
     
-    glEnable(GL_DEPTH_TEST);
+
+    
+    //glEnable(GL_DEPTH_TEST);
+    glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_NEVER);
     
     glGenVertexArraysOES(1, &_vertexHexArray);
     glBindVertexArrayOES(_vertexHexArray);
@@ -357,10 +365,10 @@ enum
     
     
     //Background vertices
-    /*glGenVertexArraysOES(1, &_vertexBGArray);
+    glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
-    float guiScale = 0.2;
+    float guiScale = 1;
     //Bottom square
     bgVertices[0] = -1 * guiScale;//x
     bgVertices[1] = -1 * guiScale; //y
@@ -407,12 +415,12 @@ enum
     
     glBindVertexArrayOES(0);
     
-    _bgTexture = [GLProgramUtils setupTexture:@"crate.jpg"];
+    _bgTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc2 = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc2, 0);
-    glEnable(_bgTexture);*/
+    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc3, 0);
+    glEnable(_bgTexture);
 }
 
 - (void)tearDownGL
@@ -558,6 +566,25 @@ enum
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    //bg stuff
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
+    glBindVertexArrayOES(_vertexBGArray);
+    glUseProgram(_bgProgram);
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _bgTexture);
+    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc3, 0);
+    glEnable(_bgTexture);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDisable(GL_BLEND);
+    
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -619,24 +646,7 @@ enum
     glEnable(_grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
-    
-    /*glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-    
-    glBindVertexArrayOES(_vertexBGArray);
-    glUseProgram(_bgProgram);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc2 = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc2, 0);
-    glEnable(_bgTexture);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);*/
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
@@ -707,6 +717,7 @@ enum
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
+    
     return YES;
 }
 
