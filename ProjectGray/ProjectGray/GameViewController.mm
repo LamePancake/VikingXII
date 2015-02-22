@@ -147,7 +147,7 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
-        tempUnit.moveRange = 1;
+        tempUnit.moveRange = 3;
         [vikingList addObject:tempUnit];
     }
     
@@ -160,7 +160,7 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
-        tempUnit.moveRange = 1;
+        tempUnit.moveRange = 3;
         [grayList insertObject:tempUnit atIndex:i];
     }
     
@@ -566,6 +566,14 @@ enum
     movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
     for(Hex* hex in movableRange) {
         [hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
+    }
+    
+    if(game.whoseTurn == VIKINGS) {
+        for(Unit* unit in game.p2Units) {
+            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                [unit.hex setColour:GLKVector4Make(0.46f, 0.30f, 0.46f, 0.5f)];
+            }
+        }
     }
 }
 
