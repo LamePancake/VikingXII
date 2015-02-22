@@ -149,7 +149,7 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
-        tempUnit.moveRange = 2;
+        tempUnit.moveRange = 1;
         [vikingList addObject:tempUnit];
     }
     
@@ -162,7 +162,7 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
-        tempUnit.moveRange = 2;
+        tempUnit.moveRange = 1;
         [grayList insertObject:tempUnit atIndex:i];
     }
     

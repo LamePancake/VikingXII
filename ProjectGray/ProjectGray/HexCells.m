@@ -278,7 +278,7 @@ const GLKVector4 DEFAULT_COLOUR = {0.73f, 0.23f, 0.4f, 0.5f};
     NSMutableArray* withinRange = [[NSMutableArray alloc] init];
     
     for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx) {
-        for (int dy = MAX(-range, -dx-range+selectedHex.q+selectedHex.r); dy <= MIN(range, -dx+range+selectedHex.q+selectedHex.r); ++dy) {
+        for (int dy = MAX(-range+selectedHex.r, -dx-range+selectedHex.q+selectedHex.r); dy <= MIN(range+selectedHex.r, -dx+range+selectedHex.q+selectedHex.r); ++dy) {
             if([self inRange:dx :dy]) {
                 Hex* currentHex = [self hexAtQ:dx andR:dy];
                 [withinRange addObject:currentHex];
