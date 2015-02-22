@@ -10,6 +10,7 @@
 #import <OpenGLES/ES2/glext.h>
 #import "Camera.h"
 #import "Game.h"
+#import "SoundManager.h"
 
 #include "HexCells.h"
 #include "GLProgramUtils.h"
@@ -104,6 +105,10 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [SoundManager sharedManager].allowsBackgroundMusic = YES;
+    [[SoundManager sharedManager] prepareToPlay];
+    [[SoundManager sharedManager] playMusic:@"cello-loop.wav" looping:YES];
     
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
@@ -471,6 +476,7 @@ enum
             ((Unit*)vikingList[currentVikingUnit]).position = GLKVector3Make(pickedTile.worldPosition.x, pickedTile.worldPosition.y, 0);
     }
 #endif
+    [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
