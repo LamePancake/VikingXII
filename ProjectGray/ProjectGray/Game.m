@@ -49,11 +49,13 @@
     }
 }
 
--(Unit *) getUnitOnHex: (Hex *)hex forFaction: (Faction) faction {
+-(Unit *) getUnitOnHex: (Hex *)hex {
     
-    NSMutableArray* units = faction == _p1Faction ? _p1Units : _p2Units;
-    
-    for(Unit* aUnit in units) {
+    // Search both sets of units
+    for(Unit* aUnit in _p1Units) {
+        if(hex == aUnit.hex) return aUnit;
+    }
+    for(Unit* aUnit in _p2Units) {
         if(hex == aUnit.hex) return aUnit;
     }
     
@@ -64,52 +66,36 @@
     if(!unit) return;
     
     NSMutableArray* attackable = [_map movableRange:unit.attRange from:unit.hex];
+    NSMutableArray* movable = [_map movableRange:unit.moveRange from:unit.hex];
     NSUInteger numAttackable = [attackable count];
+    NSUInteger numMovable = [movable count];
+    
     Faction enemyFaction = unit.faction == ALIENS ? VIKINGS : ALIENS;
     
     // Filter out any hex tiles with no enemy units from the attackable array
     for(NSUInteger i = 0; i < numAttackable; i++) {
-        if(![self getUnitOnHex:attackable[i] forFaction:enemyFaction]) [attackable removeObjectAtIndex:i];
-    }
+        Unit* unit = [self getUnitOnHex:attackable[i]];
         
-    [unit.movableHex addObjectsFromArray:[_map movableRange:unit.moveRange from:unit.hex]];
+        if(!unit || !(unit.faction == enemyFaction))
+            [attackable removeObjectAtIndex:i];
+    }
+    
+    // Filter out any tiles with obstacles in the movable array
+    for(NSUInteger i = 0; i < numMovable; i++) {
+        Unit* unit = [self getUnitOnHex:attackable[i]];
+        
+        if(!unit) [movable removeObjectAtIndex:i];
+    }
+    
+    [unit.movableHex addObjectsFromArray: movable];
     [unit.attackableHex addObjectsFromArray:attackable];
 }
 
 -(void)selectTile:(Hex *)tile {
     if (!tile) return;
 
-    /*
-     Model does the following:
-     
-     Is there a unit selected?
-     If so, did the player select the same cell as the one occupied by the currently selected unit?
-     If so, set the current selection to nil and tell the controller that the unit was unselected.
-     
-     If not, is there an enemy unit in that cell?
-     If so, can the currently selected unit attack that unit?
-     If so,
-     Do the damage calculations,
-     Apply them to the other unit,
-     Adjust remaining action points for the unit,
-     Tell the controller that this all happened.
-     If not, tell the controller that the player tried to do an invalid attack.
-     
-     Is there a friendly unit in that cell?
-     If so,
-     Set that unit to be the currently selected unit
-     Call Determine Actions for Unit and return the result to the controller.
-     
-     If not, can the currently selected unit move to that cell?
-     If yes, move the unit to that cell, subtract the appropriate number of action points, and tell the controller about the movement.
-     If not, tell the controller that the player tried to do an invalid move to that cell.
-     
-     
-     Function Determine Actions for Unit
-     Determine possible movement paths using unit's speed
-     */
-
-    Unit* onTile = [self getUnitOnHex:tile forFaction:_whoseTurn];
+    Unit* onTile = [self getUnitOnHex:tile];
+    //NSLog(@"Selected unit's faction: %@", (onTile.faction == ))
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it

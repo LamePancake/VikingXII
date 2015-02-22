@@ -66,7 +66,7 @@ typedef enum _Faction {
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 
-- (instancetype) initWithCoords:(GLKVector3)pos And:(GLKVector3)rot And:(float)scl;
-- (void) initShip:(int)faction And:(int)shipClass;
+- (instancetype) initWithPosition:(GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex: (Hex *)hex;
+- (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass;
 @end
 #endif

@@ -124,28 +124,30 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    //hexCells = [[HexCells alloc]initWithSize:5];
+    HexCells* map = [[HexCells alloc] initWithSize:5];
 
     //unit lists initialization
     vikingNum = 3;
     vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
     for(int i = 0; i < vikingNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
-        [tempUnit initShip:0 And:0];
-        tempUnit.position = GLKVector3Make(i , i , i );
+        Hex* temp = [map hexAtQ:0 andR:i];
+        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
+                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
         
-        [vikingList insertObject:tempUnit atIndex:i];
+        [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
+        [vikingList addObject:tempUnit];
     }
     
     grayNum = 3;
     grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
     for(int i = 0; i < grayNum; i++)
     {
-        Unit *tempUnit = [[Unit alloc] initWithCoords:GLKVector3Make(0, 0, 0) And:GLKVector3Make(0, 0, 0) And:-0.002];
-        [tempUnit initShip:1 And:0];
-        tempUnit.position = GLKVector3Make(-i , -i , -i );
+        Hex* temp = [map hexAtQ:-2 andR:i];
+        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
+                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
         
+        [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
         [grayList insertObject:tempUnit atIndex:i];
     }
     
@@ -154,11 +156,9 @@ enum
     
     turn = YES;
     
-    HexCells* map = [[HexCells alloc] initWithSize:5];
     id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
     game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
-    game.selectedUnit = vikingList[0];
-    
+
     hexCells = game.map;
     [self setupGL];
 }
@@ -320,27 +320,6 @@ enum
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
-    
-    //Placing the units, Hardcoded for now
-    NSMutableArray *grayPos = [[NSMutableArray alloc] initWithCapacity:grayNum];
-    grayPos[0] = [hexCells hexAtQ:-1 andR:-1];
-    grayPos[1] = [hexCells hexAtQ:0 andR:-2];
-    grayPos[2] = [hexCells hexAtQ:1 andR:-2];
-    
-    NSMutableArray *vikingPos = [[NSMutableArray alloc] initWithCapacity:vikingNum];
-    vikingPos[0] = [hexCells hexAtQ:-1 andR:2];
-    vikingPos[1] = [hexCells hexAtQ:0 andR:2];
-    vikingPos[2] = [hexCells hexAtQ:1 andR:1];
-    
-    for(int i = 0; i < grayNum; i++)
-    {
-        ((Unit*)grayList[i]).position = GLKVector3Make(((Hex*)grayPos[i]).worldPosition.x, ((Hex*)grayPos[i]).worldPosition.y, 0.03);
-    }
-    
-    for(int i = 0; i < vikingNum; i++)
-    {
-        ((Unit*)vikingList[i]).position = GLKVector3Make(((Hex*)vikingPos[i]).worldPosition.x, ((Hex*)vikingPos[i]).worldPosition.y, 0.03);
-    }
     
     NSMutableArray *path = [hexCells makePathFrom:-2 :2 To:2 :-2];
     

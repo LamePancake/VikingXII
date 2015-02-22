@@ -11,7 +11,7 @@
 
 @implementation Unit
 
-- (instancetype) initWithCoords:(GLKVector3)pos And:(GLKVector3)rot And:(float)scl
+- (instancetype) initWithPosition: (GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex:(Hex *)hex
 {
     self = [super init];
     
@@ -25,17 +25,19 @@
         self.damage = 16;
         self.weaponHealth = 1;
         self.critModifier = 1.5f;
+        self.hex = hex;
     }
     return self;
 }
 
-- (void) initShip:(int)faction And:(int)shipClass
+- (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass
 {
     [self initFaction:faction And:shipClass];
 }
 
 - (void) initFaction:(int)fac And:(int)shipClass
 {
+    _faction = fac;
     if(fac == VIKINGS)
     {
         [self initVikingClass:fac];

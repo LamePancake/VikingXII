@@ -41,13 +41,12 @@
 
 -(void) gameUpdate;
 /**
- * Gets the unit on the specified hex cell for the given player, if there is one.
+ * Gets the unit on the specified hex cell, if there is one.
  *
- * @param hex    The hex cell to check.
- * @param player The player whose units are to be searched.
+ * @param hex The hex cell to check.
  * @return The unit for @a player on @a hex if there is one or nil.
  */
--(Unit *)getUnitOnHex: (Hex *)hex forFaction: (Faction)faction;
+-(Unit *)getUnitOnHex: (Hex *)hex;
 
 /**
  * @brief Given the specified unit, gets the legal attacks and moves and stores them in the provided arrays.
