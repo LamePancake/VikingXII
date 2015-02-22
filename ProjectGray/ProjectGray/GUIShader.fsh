@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Trevor Ware. All rights reserved.
 //
 
-varying lowp vec2 texCoordOut;
+varying highp vec2 texCoordOut;
 uniform sampler2D texture;
 
 void main()

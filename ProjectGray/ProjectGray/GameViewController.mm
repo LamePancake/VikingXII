@@ -71,8 +71,6 @@ enum
     GLuint bgEbo;
     
     GLint vertLoc;
-
-    GLKMatrix4 SteveJobsIsAFag;
     
     //GameStuff
     Game* game;
@@ -325,7 +323,6 @@ enum
     glGenBuffers(1, &_vertexGrayBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer);
     glBufferData(GL_ARRAY_BUFFER, ((Unit*)grayList[0]).modelArrSize, ((Unit*)grayList[0]).modelData, GL_STATIC_DRAW);
-    //vertLoc = glGetAttribLocation(_program, "position");
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -350,28 +347,29 @@ enum
     glUniform1i(loc, 0);
     glEnable(_texture);
     
-    glGenVertexArraysOES(1, &_vertexBGArray);
+    /*glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
+    float guiScale = 0.2;
     //Bottom square
-    bgVertices[0] = -1; //x
-    bgVertices[1] = -1; //y
+    bgVertices[0] = -1 * guiScale;//x
+    bgVertices[1] = -1 * guiScale; //y
     bgVertices[2] = 0;  //u
     bgVertices[3] = 1; //v
     
-    bgVertices[4] = 1;  //x
-    bgVertices[5] = -1; //y
+    bgVertices[4] = 1 * guiScale;  //x
+    bgVertices[5] = -1 * guiScale; //y
     bgVertices[6] = 1; //u
     bgVertices[7] = 1;  //v
     
-    bgVertices[8] = -1;  //x
-    bgVertices[9] = 1;   //y
+    bgVertices[8] = -1 * guiScale;  //x
+    bgVertices[9] = 1 * guiScale;   //y
     bgVertices[10] = 0; //u
     bgVertices[11] = 0;  //v
     
     //Top Face
-    bgVertices[12] = 1;  //x
-    bgVertices[13] = 1;  //y
+    bgVertices[12] = 1 * guiScale;  //x
+    bgVertices[13] = 1 * guiScale;  //y
     bgVertices[14] = 1;  //u
     bgVertices[15] = 0;  //v
     
@@ -399,11 +397,12 @@ enum
     
     glBindVertexArrayOES(0);
     
-    _bgTexture = [GLProgramUtils setupTexture:@"PausePressed.png"];
+    _bgTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    loc = glGetUniformLocation(_bgProgram, "texture");
+    GLuint loc = glGetUniformLocation(_bgProgram, "texture");
     glUniform1i(loc, 0);
+    glEnable(_bgTexture);*/
 }
 
 - (void)tearDownGL
@@ -630,7 +629,8 @@ enum
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    /*glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable( GL_BLEND );
     
     glBindVertexArrayOES(_vertexBGArray);
@@ -638,14 +638,15 @@ enum
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    loc = glGetUniformLocation(_bgProgram, "texture");
+    GLuint loc = glGetUniformLocation(_bgProgram, "texture");
     glUniform1i(loc, 0);
+    glEnable(_bgTexture);
     
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    //glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);
+    glDisable(GL_BLEND);*/
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
