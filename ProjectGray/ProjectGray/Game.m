@@ -21,13 +21,15 @@
         _p2Units = p2Units;
         
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
-        //for(id in _p1Units [self])
-        
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
         
         _mode = mode;
         _selectedUnit = nil;
         _map = map;
+        
+        // Update the legal movements for the given units
+        for(id unit in _p1Units) [self updateLegalActionsForUnit: (Unit*)unit];
+        for(id unit in _p2Units) [self updateLegalActionsForUnit: (Unit*)unit];
     }
     return self;
 }
