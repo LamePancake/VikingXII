@@ -91,7 +91,7 @@
         {
             // Unit actions move
             _selectedUnit.hex = tile;
-            _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, 0);
+            _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, 0.02);
         }
     }
 

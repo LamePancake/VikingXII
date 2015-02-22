@@ -43,6 +43,7 @@ enum
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
+    GLuint _bgProgram;
     
     float _rotation;
     
@@ -61,6 +62,13 @@ enum
     GLuint _vertexHexBuffer;
     HexCells *hexCells;
     GLfloat instanceVertices[91][16];
+    
+    GLuint _vertexBGArray;
+    GLuint _vertexBGBuffer;
+    GLfloat bgVertices[24];
+    GLuint bgElements[6];
+    GLuint _bgTexture;
+    GLuint bgEbo;
     
     GLint vertLoc;
 
@@ -137,8 +145,8 @@ enum
     for(int i = 0; i < vikingNum; i++)
     {
         Hex* temp = [map hexAtQ:0 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
+        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+                                            andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
         tempUnit.moveRange = 2;
@@ -150,8 +158,8 @@ enum
     for(int i = 0; i < grayNum; i++)
     {
         Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:-0.002 andHex:temp];
+        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+                                            andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
         tempUnit.moveRange = 2;
@@ -340,6 +348,62 @@ enum
     glBindTexture(GL_TEXTURE_2D, _texture);
     GLuint loc = glGetUniformLocation(_program, "texture");
     glUniform1i(loc, 0);
+    glEnable(_texture);
+    
+    glGenVertexArraysOES(1, &_vertexBGArray);
+    glBindVertexArrayOES(_vertexBGArray);
+    
+    //Bottom square
+    bgVertices[0] = -1; //x
+    bgVertices[1] = -1; //y
+    bgVertices[2] = 0;  //u
+    bgVertices[3] = 1; //v
+    
+    bgVertices[4] = 1;  //x
+    bgVertices[5] = -1; //y
+    bgVertices[6] = 1; //u
+    bgVertices[7] = 1;  //v
+    
+    bgVertices[8] = -1;  //x
+    bgVertices[9] = 1;   //y
+    bgVertices[10] = 0; //u
+    bgVertices[11] = 0;  //v
+    
+    //Top Face
+    bgVertices[12] = 1;  //x
+    bgVertices[13] = 1;  //y
+    bgVertices[14] = 1;  //u
+    bgVertices[15] = 0;  //v
+    
+    
+    bgElements[0] = 0;
+    bgElements[1] = 1;
+    bgElements[2] = 2;
+    bgElements[3] = 2;
+    bgElements[4] = 1;
+    bgElements[5] = 3;
+    
+    glGenBuffers(1, &_vertexBGBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &bgEbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(bgElements), bgElements, GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(0));
+    
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(8));
+    
+    glBindVertexArrayOES(0);
+    
+    _bgTexture = [GLProgramUtils setupTexture:@"PausePressed.png"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _bgTexture);
+    loc = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc, 0);
 }
 
 - (void)tearDownGL
@@ -348,6 +412,9 @@ enum
     
     glDeleteBuffers(1, &_vertexVikingBuffer);
     glDeleteVertexArraysOES(1, &_vertexVikingArray);
+    
+    glDeleteBuffers(1, &_vertexBGBuffer);
+    glDeleteVertexArraysOES(1, &_vertexBGArray);
     
     self.effect = nil;
     
@@ -358,6 +425,10 @@ enum
     if (_hexProgram) {
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
+    }
+    if (_bgProgram) {
+        glDeleteProgram(_bgProgram);
+        _bgProgram = 0;
     }
 }
 
@@ -503,7 +574,7 @@ enum
 {
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -550,13 +621,31 @@ enum
         }
     }
     
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //glEnable( GL_BLEND );
-
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    GLuint loc = glGetUniformLocation(_program, "texture");
+    glUniform1i(loc, 0);
+    glEnable(_texture);
+    
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
-    //glDisable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
+    glBindVertexArrayOES(_vertexBGArray);
+    glUseProgram(_bgProgram);
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _bgTexture);
+    loc = glGetUniformLocation(_bgProgram, "texture");
+    glUniform1i(loc, 0);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDisable(GL_BLEND);
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
@@ -590,24 +679,34 @@ enum
 {
     NSString *vertShaderPathname, *fragShaderPathname;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
+    NSString *vertBGShaderPathname, *fragBGShaderPathname;
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
+    vertBGShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
 
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
+    fragBGShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
     
     ShaderAttribute mainProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     ShaderAttribute hexProgAttrs[] = {{GLKVertexAttribPosition, "position"}};
+    ShaderAttribute bgProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     
     if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname
-               andAttributes: mainProgAttrs withNumberOfAttributes:2])
+               andAttributes: mainProgAttrs withNumberOfAttributes:3])
         return NO;
     if([GLProgramUtils makeProgram: &_hexProgram withVertShader: vertHexShaderPathname andFragShader: fragHexShaderPathname
                      andAttributes: hexProgAttrs withNumberOfAttributes:1]){
         glDeleteProgram(_program);
+        return NO;
+    }
+    if([GLProgramUtils makeProgram: &_bgProgram withVertShader: vertBGShaderPathname andFragShader: fragBGShaderPathname
+                     andAttributes: bgProgAttrs withNumberOfAttributes:2]){
+        glDeleteProgram(_program);
+        glDeleteProgram(_hexProgram);
         return NO;
     }
     
