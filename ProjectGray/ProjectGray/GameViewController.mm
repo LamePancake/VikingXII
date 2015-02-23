@@ -420,7 +420,7 @@ enum
     
     glBindVertexArrayOES(0);
     
-    _bgTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
     GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
