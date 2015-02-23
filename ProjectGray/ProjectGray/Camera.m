@@ -82,8 +82,8 @@
     
     _scale = _lastScale * scale;
     
-    if(_scale > 13)
-        _scale = 13;
+    if(_scale > 10)
+        _scale = 10;
     else if(_scale < 1)
         _scale = 1;
 }

@@ -11,9 +11,10 @@ attribute vec2 position;
 varying lowp vec4 colorVarying;
 attribute vec2 texCoordIn;
 varying vec2 texCoordOut;
+uniform mat4 modelViewProjectionMatrix;
 
 void main()
 {
     texCoordOut = texCoordIn;
-    gl_Position = vec4(position, 0, 1);
+    gl_Position = modelViewProjectionMatrix * vec4(position, -1, 1);
 }

@@ -25,7 +25,7 @@ enum
     UNIFORM_NORMAL_MATRIX,
     UNIFORM_TRANSLATION_MATRIX,
     UNIFORM_TEXTURE,
-    
+    UNIFORM_BG_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
     NUM_UNIFORMS,
@@ -366,7 +366,7 @@ enum
     glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
-    float guiScale = 0.2;
+    float guiScale = 10;
     //Bottom square
     bgVertices[0] = -1 * guiScale;//x
     bgVertices[1] = -1 * guiScale; //y
@@ -630,11 +630,13 @@ enum
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
     //bg stuff
+    
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable( GL_BLEND );
     
     glBindVertexArrayOES(_vertexBGArray);
     glUseProgram(_bgProgram);
+    glUniformMatrix4fv(uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
@@ -717,6 +719,8 @@ enum
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
+    uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_bgProgram, "modelViewProjectionMatrix");
+
     
     return YES;
 }
