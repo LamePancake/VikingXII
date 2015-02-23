@@ -518,6 +518,12 @@ enum
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    glBindTexture(GL_TEXTURE_2D, _bgTexture);
+    [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_program];
+    
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
+    
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);
     glUseProgram(_hexProgram);
@@ -559,6 +565,7 @@ enum
             glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0);
         }
     }
+    glDisable(GL_BLEND);
     
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
@@ -567,9 +574,6 @@ enum
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
-    
-    glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_program];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program

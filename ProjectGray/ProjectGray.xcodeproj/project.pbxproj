@@ -26,6 +26,7 @@
 		350A00091A97BB1100602053 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00071A97BB1100602053 /* Pause.png */; };
 		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
 		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
+		35117B831A9BF284007E56CD /* Stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 35117B821A9BF284007E56CD /* Stats.png */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -95,6 +96,7 @@
 		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
 		35117B7F1A9BF011007E56CD /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
 		35117B801A9BF087007E56CD /* background.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = background.c; sourceTree = "<group>"; };
+		35117B821A9BF284007E56CD /* Stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stats.png; sourceTree = "<group>"; };
 		3514AA471A93C733002FB00C /* EndTurn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurn.png; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				35117B821A9BF284007E56CD /* Stats.png */,
 				A57DA1D71A9A677000B02654 /* Spaaaace.jpg */,
 				352C72DD1A99397900A1B67A /* VikingDiff.png */,
 				350A00071A97BB1100602053 /* Pause.png */,
@@ -481,6 +484,7 @@
 				30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */,
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
+				35117B831A9BF284007E56CD /* Stats.png in Resources */,
 				3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */,
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
 				3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */,
