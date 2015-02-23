@@ -18,7 +18,7 @@
  * @param unit        The unit to be moved.
  * @param destination The destination hex cell.
  */
--(instancetype) initWithUnit: (Unit *)unit andDestination: (Hex *)destination;
+-(instancetype) initWithUnit: (Unit *)unit fromInitial: (Hex*) toDestination: (Hex *)destination;
 
 /**
  * Initialises a task to move the given unit from its current position to the destination and
@@ -27,6 +27,6 @@
  * @param destination The destination hex cell.
  * @param next        The next task to be executed.
  */
--(instancetype) initWithUnit: (Unit *)unit andDestination: (Hex *)destination andNextTask: (id<Task>)next;
+-(instancetype) initWithUnit: (Unit *)unit fromInitial:(Hex*)initCell toDestination:(Hex *)destination andNextTask: (id<Task>)next;
 
 @end

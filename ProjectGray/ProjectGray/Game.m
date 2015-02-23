@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Game.h"
 #import "SkirmishMode.h"
+#import "TaskManager.h"
+#import "MovementTask.h"
 
 @interface Game ()
+{
+    TaskManager *_taskManager;
+}
 
 @end
 
@@ -32,6 +37,7 @@
     _p2Faction = ALIENS;
     _mode = [[SkirmishMode alloc] init];
     _selectedUnit = nil;
+    _taskManager = [[TaskManager alloc] init];
     return self;
 }
 
@@ -88,8 +94,27 @@
         else if(!onTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
         {
             // Unit actions move
-            _selectedUnit.hex = tile;
-            _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, 0.02);
+            //_selectedUnit.hex = tile;
+            //_selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, 0.02);
+            NSMutableArray *path = [_map makePathFrom:_selectedUnit.hex.q :_selectedUnit.hex.r To:tile.q :tile.r];
+            
+            MovementTask *prevMovement = nil;
+            Hex *prevHex = nil;
+            for (Hex* cell in path)
+            {
+                MovementTask *moveTask;
+                if (prevMovement && prevHex)
+                {
+                    moveTask = [[MovementTask alloc] initWithUnit:_selectedUnit fromInitial:prevHex toDestination:cell andNextTask:prevMovement];
+                }
+                else
+                {
+                    moveTask = [[MovementTask alloc] initWithUnit:_selectedUnit fromInitial:_selectedUnit.hex toDestination:cell andNextTask:nil];
+                }
+                prevMovement = moveTask;
+                prevHex = cell;
+                [_taskManager addTask:moveTask];
+            }
         }
     }
 
