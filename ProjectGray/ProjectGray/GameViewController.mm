@@ -353,15 +353,10 @@ enum
     }
     
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
-    
     
     //Background vertices
     glGenVertexArraysOES(1, &_vertexBGArray);
@@ -419,10 +414,7 @@ enum
     glBindVertexArrayOES(0);
     
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    glUniform1i(uniforms[UNIFORM_BG_TEXTURE], 0);
-    glEnable(_bgTexture);
 }
 
 - (void)tearDownGL
