@@ -489,7 +489,7 @@ enum
     
     if(game.selectedUnit)
     {
-        NSString *stats = [NSString stringWithFormat:@"CURRENT UNIT\rHull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Change: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
+        NSString *stats = [NSString stringWithFormat:@"\r\rHull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Change: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
         _statsLabel.text = stats;
     }
     else
