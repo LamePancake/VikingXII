@@ -16,4 +16,6 @@
 - (IBAction)endTurnPressed:(id)sender;
 - (IBAction)pausePressed:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UILabel *statsLabel;
+
 @end

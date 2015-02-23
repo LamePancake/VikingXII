@@ -178,6 +178,9 @@ enum
     game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
 
     hexCells = game.map;
+
+     _statsLabel.numberOfLines = 12;
+    
     [self setupGL];
 }
 
@@ -546,6 +549,16 @@ enum
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
+    
+    if(game.selectedUnit)
+    {
+        NSString *stats = [NSString stringWithFormat:@"CURRENT UNIT\rHull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Change: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
+        _statsLabel.text = stats;
+    }
+    else
+    {
+        _statsLabel.text = @"";
+    }
     
     [game.map clearColours];
     NSMutableArray* movableRange;
