@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Trevor Ware. All rights reserved.
 //
 
-attribute vec2 position;
+attribute vec3 position;
 
 varying lowp vec4 colorVarying;
 attribute vec2 texCoordIn;
@@ -16,5 +16,5 @@ uniform mat4 modelViewProjectionMatrix;
 void main()
 {
     texCoordOut = texCoordIn;
-    gl_Position = modelViewProjectionMatrix * vec4(position, -1, 1);
+    gl_Position = modelViewProjectionMatrix * vec4(position, 1);
 }

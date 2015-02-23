@@ -28,6 +28,8 @@ enum
     UNIFORM_BG_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
+    UNIFORM_UNIT_TEXTURE,
+    UNIFORM_BG_TEXTURE,
     NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -353,16 +355,12 @@ enum
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    GLuint loc = glGetUniformLocation(_program, "texture");
-    glUniform1i(loc, 0);
-    glEnable(_vikingTexture);
+    glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    GLuint loc2 = glGetUniformLocation(_program, "texture");
-    glUniform1i(loc2, 0);
-    glEnable(_grayTexture);
+    glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     
     //Background vertices
@@ -423,8 +421,7 @@ enum
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc3, 0);
+    glUniform1i(uniforms[UNIFORM_BG_TEXTURE], 0);
     glEnable(_bgTexture);
 }
 
@@ -628,40 +625,26 @@ enum
     }
     
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    GLuint loc = glGetUniformLocation(_program, "texture");
-    glUniform1i(loc, 0);
-    glEnable(_vikingTexture);
-
-    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
+    glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
-    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _vikingTexture);
+    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    GLuint loc2 = glGetUniformLocation(_program, "texture");
-    glUniform1i(loc2, 0);
-    glEnable(_grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
     //bg stuff
-    
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
-    
     glBindVertexArrayOES(_vertexBGArray);
     glUseProgram(_bgProgram);
     glUniformMatrix4fv(uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    GLuint loc3 = glGetUniformLocation(_bgProgram, "texture");
-    glUniform1i(loc3, 0);
-    glEnable(_bgTexture);
+    glUniform1i(uniforms[UNIFORM_BG_TEXTURE], 0);
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDisable(GL_BLEND);
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
@@ -733,8 +716,9 @@ enum
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_bgProgram, "modelViewProjectionMatrix");
+    uniforms[UNIFORM_UNIT_TEXTURE] = glGetUniformLocation(_program, "texture");
+    uniforms[UNIFORM_BG_TEXTURE] = glGetUniformLocation(_bgProgram, "texture");
 
-    
     return YES;
 }
 
