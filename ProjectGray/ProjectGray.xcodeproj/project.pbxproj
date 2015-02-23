@@ -25,6 +25,7 @@
 		30D6583F1A99629C00DE1F63 /* select.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30D658371A99629C00DE1F63 /* select.wav */; };
 		350A00091A97BB1100602053 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00071A97BB1100602053 /* Pause.png */; };
 		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
+		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -92,6 +93,8 @@
 		30D658371A99629C00DE1F63 /* select.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = select.wav; sourceTree = "<group>"; };
 		350A00071A97BB1100602053 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
+		35117B7F1A9BF011007E56CD /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
+		35117B801A9BF087007E56CD /* background.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = background.c; sourceTree = "<group>"; };
 		3514AA471A93C733002FB00C /* EndTurn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurn.png; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
@@ -224,6 +227,8 @@
 				A54E61131A9935D2002A6A3B /* l_vikingVertices.c */,
 				A54E61111A9935A0002A6A3B /* h_vikingVertices.c */,
 				35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */,
+				35117B7F1A9BF011007E56CD /* background.h */,
+				35117B801A9BF087007E56CD /* background.c */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,
 				A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */,
+				35117B811A9BF087007E56CD /* background.c in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
 				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
 			);

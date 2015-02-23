@@ -11,7 +11,7 @@
 #import "Camera.h"
 #import "Game.h"
 #import "SoundManager.h"
-
+#import "background.h"
 #include "HexCells.h"
 #include "GLProgramUtils.h"
 
@@ -25,11 +25,9 @@ enum
     UNIFORM_NORMAL_MATRIX,
     UNIFORM_TRANSLATION_MATRIX,
     UNIFORM_TEXTURE,
-    UNIFORM_BG_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
     UNIFORM_UNIT_TEXTURE,
-    UNIFORM_BG_TEXTURE,
     NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -45,7 +43,6 @@ enum
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
-    GLuint _bgProgram;
     
     float _rotation;
     
@@ -67,12 +64,7 @@ enum
     
     GLuint _vertexBGArray;
     GLuint _vertexBGBuffer;
-    GLfloat bgVertices[24];
-    GLuint bgElements[6];
     GLuint _bgTexture;
-    GLuint bgEbo;
-    
-    GLint vertLoc;
     
     //GameStuff
     Game* game;
@@ -228,8 +220,6 @@ enum
     self.effect.light0.enabled = GL_TRUE;
     self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
     
-
-    
     glEnable(GL_DEPTH_TEST);
     
     glGenVertexArraysOES(1, &_vertexHexArray);
@@ -362,54 +352,16 @@ enum
     glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
     
-    float guiScale = 10;
-    //Bottom square
-    bgVertices[0] = -1 * guiScale;//x
-    bgVertices[1] = -1 * guiScale; //y
-    bgVertices[2] = -2; //z
-    bgVertices[3] = 0;  //u
-    bgVertices[4] = 1; //v
-    
-    bgVertices[5] = 1 * guiScale;  //x
-    bgVertices[6] = -1 * guiScale; //y
-    bgVertices[7] = -2; //z
-    bgVertices[8] = 1; //u
-    bgVertices[9] = 1;  //v
-    
-    bgVertices[10] = -1 * guiScale;  //x
-    bgVertices[11] = 1 * guiScale;   //y
-    bgVertices[12] = -2; //z
-    bgVertices[13] = 0; //u
-    bgVertices[14] = 0;  //v
-    
-    //Top Face
-    bgVertices[15] = 1 * guiScale;  //x
-    bgVertices[16] = 1 * guiScale;  //y
-    bgVertices[17] = -2; //z
-    bgVertices[18] = 1;  //u
-    bgVertices[19] = 0;  //v
-    
-    
-    bgElements[0] = 0;
-    bgElements[1] = 1;
-    bgElements[2] = 2;
-    bgElements[3] = 2;
-    bgElements[4] = 1;
-    bgElements[5] = 3;
-    
     glGenBuffers(1, &_vertexBGBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &bgEbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(bgElements), bgElements, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, bgNumVerts * sizeof(float) * 8, bgVerts, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 20, BUFFER_OFFSET(0));
-    
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 20, BUFFER_OFFSET(12));
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
     
@@ -436,10 +388,6 @@ enum
     if (_hexProgram) {
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
-    }
-    if (_bgProgram) {
-        glDeleteProgram(_bgProgram);
-        _bgProgram = 0;
     }
 }
 
@@ -588,8 +536,6 @@ enum
             
             glUniform4f(uniforms[UNIFORM_HEX_COLOUR], colour.r, colour.g, colour.b, colour.a);
             
-            //NSLog(@"%d", hex.instanceVertexIndex);
-            
             glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
             glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[hex.instanceVertexIndex]), instanceVertices[hex.instanceVertexIndex], GL_STATIC_DRAW);
             
@@ -607,8 +553,6 @@ enum
             
             glUniform4f(uniforms[UNIFORM_HEX_COLOUR], colour.r, colour.g, colour.b, colour.a);
             
-            //NSLog(@"%d", hex.instanceVertexIndex);
-            
             glBindBuffer(GL_ARRAY_BUFFER, _vertexHexBuffer);
             glBufferData(GL_ARRAY_BUFFER, sizeof(instanceVertices[hex.instanceVertexIndex]), instanceVertices[hex.instanceVertexIndex], GL_STATIC_DRAW);
             
@@ -624,19 +568,29 @@ enum
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
     
-    //bg stuff
-    glBindVertexArrayOES(_vertexBGArray);
-    glUseProgram(_bgProgram);
-    glUniformMatrix4fv(uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    glUniform1i(uniforms[UNIFORM_BG_TEXTURE], 0);
+    [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_program];
+}
+
+- (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
+{
+    GLKMatrix4 _transMat;
+    GLKMatrix4 _scaleMat;
+    glBindVertexArrayOES(vertices);
+    glUseProgram(program);
     
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(bgVertices), bgVertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bgEbo);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -5);
+    _scaleMat = GLKMatrix4MakeScale(4, 4, 4);
+    _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+    
+    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -5));
+    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+    
+    glDrawArrays(GL_TRIANGLES, 0, numVerts);
+
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
@@ -670,21 +624,17 @@ enum
 {
     NSString *vertShaderPathname, *fragShaderPathname;
     NSString *vertHexShaderPathname, *fragHexShaderPathname;
-    NSString *vertBGShaderPathname, *fragBGShaderPathname;
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
-    vertBGShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"vsh"];
 
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
-    fragBGShaderPathname = [[NSBundle mainBundle] pathForResource:@"GUIShader" ofType:@"fsh"];
     
     ShaderAttribute mainProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     ShaderAttribute hexProgAttrs[] = {{GLKVertexAttribPosition, "position"}};
-    ShaderAttribute bgProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     
     if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname
                andAttributes: mainProgAttrs withNumberOfAttributes:3])
@@ -694,12 +644,6 @@ enum
         glDeleteProgram(_program);
         return NO;
     }
-    if([GLProgramUtils makeProgram: &_bgProgram withVertShader: vertBGShaderPathname andFragShader: fragBGShaderPathname
-                     andAttributes: bgProgAttrs withNumberOfAttributes:2]){
-        glDeleteProgram(_program);
-        glDeleteProgram(_hexProgram);
-        return NO;
-    }
     
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
@@ -707,9 +651,7 @@ enum
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
-    uniforms[UNIFORM_BG_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_bgProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_UNIT_TEXTURE] = glGetUniformLocation(_program, "texture");
-    uniforms[UNIFORM_BG_TEXTURE] = glGetUniformLocation(_bgProgram, "texture");
 
     return YES;
 }
