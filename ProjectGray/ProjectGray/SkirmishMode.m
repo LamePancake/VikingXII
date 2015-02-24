@@ -29,10 +29,32 @@
 
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
 {
-    if(p1Units.count == 0)
-        return 2;
-    else if(p2Units.count == 0)
+    int vikingsAlive = 0;
+    for(int i = 0; i < p1Units.count; i++)
+    {
+        if(((Unit*)p1Units[i]).active)
+        {
+            vikingsAlive++;
+            break;
+        }
+    }
+    
+    int graysAlive = 0;
+    for(int i = 0; i < p2Units.count; i++)
+    {
+        if(((Unit*)p2Units[i]).active)
+        {
+            graysAlive++;
+            break;
+        }
+    }
+    
+    if(vikingsAlive != 0 && graysAlive != 0)
+        return 0;
+    else if(vikingsAlive != 0 && graysAlive == 0)
         return 1;
+    else if(vikingsAlive == 0 && graysAlive != 0)
+        return 2;
     return 0;
 }
 
