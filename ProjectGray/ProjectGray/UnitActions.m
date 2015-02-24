@@ -22,10 +22,19 @@ static NSMutableArray* currentPath;
 @implementation UnitActions
 
 //When these methods are called, they should do a move that is already legal
-+ (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map{
-    
++ (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
+{
     //Call the Task system to animate.  Model should update immediately.
     NSMutableArray *path = [map makePathFrom: mover.hex.q :mover.hex.r To:hex.q :hex.r];
+    NSUInteger requiredAP = [path count] - 1;
+    
+    if (requiredAP > [mover moveRange])
+    {
+        NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.actionPool);
+        return;
+    }
+    
+    mover.actionPool -= requiredAP;
     mover.hex = hex;
     
     currentPath = path;
@@ -47,6 +56,14 @@ static NSMutableArray* currentPath;
 + (void)attackThis:(Unit*)target with:(Unit *)attacker {
     
     [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
+    
+    if (![attacker ableToAttack])
+    {
+        NSLog(@"Not enough action points! needed: %d, in pool: %d", attacker.attAPRequirement, attacker.actionPool);
+        return;
+    }
+    
+    attacker.actionPool -= attacker.attAPRequirement;
     
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
     int close = 2;

@@ -120,6 +120,21 @@ static Game* _game = nil;
 -(void)switchTurn {
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
+    
+    if (_whoseTurn == _p2Faction)
+    {
+        for (Unit *unit in _p2Units)
+        {
+            [unit resetAP];
+        }
+    }
+    else
+    {
+        for (Unit *unit in _p1Units)
+        {
+            [unit resetAP];
+        }
+    }
 }
 
 -(int)checkForWin

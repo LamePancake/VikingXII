@@ -35,9 +35,10 @@ typedef enum _Faction {
 //stats
 @property ShipStats shipStats;
 @property (nonatomic) int hull;//HP
+@property (nonatomic) int attAPRequirement;
 @property (nonatomic) int attRange;//How many hexes away can be attacked
 @property (nonatomic) int damage;//How much damage the ships weapon3s can deal
-@property (nonatomic) int moveRange;//How many hexes can be moved per AP
+@property (nonatomic) int movesPerActionPoint;//How many hexes can be moved per AP
 @property (nonatomic) float accuracy;//Percentage to hit
 @property (nonatomic) float critChance;//Percentage to get a critical
 @property (nonatomic) float critModifier;//a multiplier that get applied to damage if a crit happens
@@ -58,5 +59,7 @@ typedef enum _Faction {
 - (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex*)startAt;
 - (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass;
 - (void) resetAP;
+- (BOOL) ableToAttack;
+- (int) moveRange;
 @end
 #endif

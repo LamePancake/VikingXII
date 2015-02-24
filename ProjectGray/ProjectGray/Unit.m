@@ -23,13 +23,14 @@
         self.rotation = rot;
         self.scale = scl;
         self.critChance = 0.05f;
-        self.attRange = 5;
+        self.attRange = 3;
         self.accuracy = 0.75f;
         self.damage = 16;
         self.weaponHealth = 1;
         self.critModifier = 1.5f;
         self.hex = hex;
-        self.moveRange = 2;
+        self.movesPerActionPoint = 1;
+        self.attAPRequirement = 2;
         self.actionsPerRound = 3;
         self.actionPool = _actionsPerRound;
         self.active = true;
@@ -99,5 +100,14 @@
 
 -(void)resetAP {
     _actionPool = _actionsPerRound;
+}
+- (BOOL) ableToAttack
+{
+    return (_attAPRequirement <= _actionPool);
+}
+
+-(int) moveRange
+{
+    return (_actionPool * _movesPerActionPoint);
 }
 @end

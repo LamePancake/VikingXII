@@ -139,7 +139,6 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
-        tempUnit.moveRange = 3;
         [vikingList addObject:tempUnit];
     }
     
@@ -152,7 +151,6 @@ enum
                                             andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
         
         [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
-        tempUnit.moveRange = 3;
         [grayList insertObject:tempUnit atIndex:i];
     }
     
@@ -501,23 +499,33 @@ enum
     if (game.selectedUnit != nil)
     {
         NSMutableArray* movableRange;
-        movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
-        for(Hex* hex in movableRange) {
+        movableRange = [game.map movableRange:([game.selectedUnit moveRange]) from:game.selectedUnit.hex];
+        for(Hex* hex in movableRange)
+        {
             [hex setColour:MOVEABLE_COLOUR];
         }
         
-        if(game.whoseTurn == VIKINGS) {
-            for(Unit* unit in game.p2Units) {
-                if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                    [unit.hex setColour:ATTACKABLE_COLOUR];
+        if(game.whoseTurn == VIKINGS)
+        {
+            if ([game.selectedUnit ableToAttack])
+            {
+                for(Unit* unit in game.p2Units)
+                {
+                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                        [unit.hex setColour:ATTACKABLE_COLOUR];
+                    }
                 }
             }
         }
         else if (game.whoseTurn == ALIENS)
         {
-            for(Unit* unit in game.p1Units) {
-                if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                    [unit.hex setColour:ATTACKABLE_COLOUR];
+            if ([game.selectedUnit ableToAttack])
+            {
+                for(Unit* unit in game.p1Units)
+                {
+                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                        [unit.hex setColour:ATTACKABLE_COLOUR];
+                    }
                 }
             }
         }
