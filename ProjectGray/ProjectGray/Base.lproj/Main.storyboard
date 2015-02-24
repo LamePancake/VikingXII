@@ -67,8 +67,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20P-zN-uWy">
-                                <rect key="frame" x="104" y="45" width="218" height="59"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <rect key="frame" x="104" y="45" width="218" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -118,16 +118,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MainMenuResized.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-3A-Nk5">
-                                <rect key="frame" x="-51" y="-28" width="690" height="1535"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Spaaaace.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="BQ0-qG-FW5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="605"/>
                             </imageView>
-                            <button opaque="NO" contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2L-ii-DJd">
-                                <rect key="frame" x="266" y="413" width="68" height="48"/>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2L-ii-DJd">
+                                <rect key="frame" x="266" y="332" width="68" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Stats"/>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tj3-g2-dYI">
-                                <rect key="frame" x="130" y="359" width="341" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tj3-g2-dYI">
+                                <rect key="frame" x="130" y="278" width="341" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZU-5F-xga">
                                         <rect key="frame" x="91" y="-2" width="30" height="48"/>
@@ -180,8 +180,8 @@
                                     <constraint firstAttribute="centerY" secondItem="HmL-Wc-9Ho" secondAttribute="centerY" id="oEA-X4-P9E"/>
                                 </constraints>
                             </view>
-                            <button contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fZ-Kl-Lqo">
-                                <rect key="frame" x="225" y="301" width="150" height="48"/>
+                            <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fZ-Kl-Lqo">
+                                <rect key="frame" x="225" y="220" width="150" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
@@ -194,9 +194,15 @@
                             <constraint firstAttribute="centerX" secondItem="9fZ-Kl-Lqo" secondAttribute="centerX" id="2fJ-YB-xPG"/>
                             <constraint firstItem="tj3-g2-dYI" firstAttribute="top" secondItem="9fZ-Kl-Lqo" secondAttribute="bottom" constant="10" id="AX0-nZ-12M"/>
                             <constraint firstItem="b2L-ii-DJd" firstAttribute="top" secondItem="tj3-g2-dYI" secondAttribute="bottom" constant="10" id="IVK-tW-dGp"/>
+                            <constraint firstAttribute="trailing" secondItem="BQ0-qG-FW5" secondAttribute="trailing" id="Mm2-px-M4s"/>
+                            <constraint firstItem="BQ0-qG-FW5" firstAttribute="height" relation="greaterThanOrEqual" secondItem="8O7-WS-Nhr" secondAttribute="height" id="T0b-FS-5kT"/>
                             <constraint firstAttribute="centerY" secondItem="tj3-g2-dYI" secondAttribute="centerY" id="VVE-PS-zvJ"/>
                             <constraint firstAttribute="centerX" secondItem="b2L-ii-DJd" secondAttribute="centerX" id="Wjm-Yd-7xn"/>
+                            <constraint firstItem="BQ0-qG-FW5" firstAttribute="leading" secondItem="8O7-WS-Nhr" secondAttribute="leading" id="foM-kN-Ctb"/>
+                            <constraint firstItem="BQ0-qG-FW5" firstAttribute="top" secondItem="8O7-WS-Nhr" secondAttribute="top" id="inl-zs-oTc"/>
                             <constraint firstAttribute="centerX" secondItem="tj3-g2-dYI" secondAttribute="centerX" id="nGF-x7-zLe"/>
+                            <constraint firstAttribute="bottom" secondItem="BQ0-qG-FW5" secondAttribute="bottom" id="qke-c9-KoB"/>
+                            <constraint firstItem="BQ0-qG-FW5" firstAttribute="width" secondItem="8O7-WS-Nhr" secondAttribute="width" id="sLg-PG-OpQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="NQE-BL-jQW"/>
@@ -206,14 +212,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bk9-LB-moE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-103" y="161"/>
+            <point key="canvasLocation" x="-109" y="206"/>
         </scene>
     </scenes>
     <resources>
         <image name="EndTurn.png" width="512" height="512"/>
         <image name="EndTurnPressed.png" width="512" height="512"/>
-        <image name="MainMenuResized.png" width="2524" height="2524"/>
         <image name="Pause.png" width="512" height="512"/>
+        <image name="Spaaaace.jpg" width="4096" height="4096"/>
         <image name="Stats.png" width="819" height="1024"/>
     </resources>
 </document>
