@@ -46,6 +46,8 @@ static NSMutableArray* currentPath;
 
 + (void)attackThis:(Unit*)target with:(Unit *)attacker {
     
+    [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
+    
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
     int close = 2;
     int bordering = 1;
@@ -79,7 +81,6 @@ static NSMutableArray* currentPath;
     }
     
     target.shipHealth -= damage;
-    [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
 
     NSLog(@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth);
 }

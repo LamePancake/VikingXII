@@ -483,14 +483,7 @@ enum
     NSMutableArray* movableRange;
     movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
     for(Hex* hex in movableRange) {
-        [hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
-    }
-    
-    
-    // TODO: Remove this
-    NSMutableArray* path = [UnitActions getCurrentPath];
-    for(Hex* h in path) {
-        [h setColour:GLKVector4Make(1, 1, 1, 1)];
+        [hex setColour:MOVEABLE_COLOUR];
     }
 
     if(game.whoseTurn == VIKINGS) {

@@ -64,22 +64,15 @@ const double MOVETASK_EPSILON = 0.001;
     newPos.y = currentPos.y + yDist;
     
     // Check that we won't pass the requested position
-    if(abs(newPos.x) > abs(_destination.x)) {
+    
+    double length = GLKVector2Length(GLKVector2Make(_destination.x - newPos.x, _destination.y - newPos.y));
+    
+    if(length <= 0.03f) {
+        _isFinished = YES;
         newPos.x = _destination.x;
-    }
-    if(abs(newPos.y) > abs(_destination.y)) {
         newPos.y = _destination.y;
     }
-   
     
-    //TODO: Remove this later
-    newPos.x = _destination.x;
-    newPos.y = _destination.y;
-    
-    // Move the unit and update whether the task is over
-    if(newPos.y == _destination.y && newPos.x == _destination.x){
-        _isFinished = YES;
-    }
     _unit.position = newPos;
 }
 
