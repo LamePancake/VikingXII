@@ -335,13 +335,6 @@ enum
     
     glBindVertexArrayOES(0);
     
-    NSMutableArray *path = [hexCells makePathFrom:-2 :2 To:2 :-2];
-    
-    for (Hex *hex in path)
-    {
-        [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
-    }
-    
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
     
@@ -495,17 +488,17 @@ enum
         _statsLabel.text = @"";
     }
     
-    [game.map clearColours];
+    //[game.map clearColours];
     NSMutableArray* movableRange;
     movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
     for(Hex* hex in movableRange) {
-        [hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
+        //[hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
     }
     
     if(game.whoseTurn == VIKINGS) {
         for(Unit* unit in game.p2Units) {
             if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                [unit.hex setColour:ATTACKABLE_COLOUR];
+                //[unit.hex setColour:ATTACKABLE_COLOUR];
             }
         }
     }

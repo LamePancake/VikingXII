@@ -31,6 +31,11 @@
     
     NSUInteger count = [path count];
     
+    for (Hex *hex in path)
+    {
+        [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
+    }
+    
     for (NSUInteger i = count; i > 0; i--)
     {
         MovementTask *moveTask = [[MovementTask alloc] initWithUnit:mover fromInitial:path[i - 1] toDestination:nextHex andNextTask:nextMove];

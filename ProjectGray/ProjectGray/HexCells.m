@@ -427,12 +427,13 @@ const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.8f};
     
     NSMutableArray* path = [[NSMutableArray alloc] init];
     current = goal;
+    [path addObject:current];
     
-    do
+    while (current != start)
     {
-        [path addObject:current];
         current = cameFrom[[NSNumber numberWithInt:(current).hash]];
-    } while (current != start);
+        [path addObject:current];
+    }
     
     return path;
 }
