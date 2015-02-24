@@ -34,6 +34,7 @@
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
 		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
 		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
@@ -57,7 +58,6 @@
 		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
 		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
 		F20C19601A917A2800D63661 /* GameObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195D1A917A2800D63661 /* GameObjectData.m */; };
-		F219C9B11A9C01A500B9C4EA /* UnitStats.m in Sources */ = {isa = PBXBuildFile; fileRef = F219C9B01A9C01A500B9C4EA /* UnitStats.m */; };
 		F29BB5051A9811A70000745E /* UnitActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5041A9811A70000745E /* UnitActions.m */; };
 		F29BB5081A98151D0000745E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5071A98151D0000745E /* Game.m */; };
 /* End PBXBuildFile section */
@@ -107,6 +107,7 @@
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
+		701E580C1A9C41050023A55A /* UnitStats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UnitStats.c; sourceTree = "<group>"; };
 		706C83261A9864D900305C66 /* GLProgramUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgramUtils.h; sourceTree = "<group>"; };
 		706C83271A9864D900305C66 /* GLProgramUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgramUtils.m; sourceTree = "<group>"; };
 		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
@@ -151,7 +152,6 @@
 		F20C195C1A917A2800D63661 /* GameObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjectData.h; sourceTree = "<group>"; };
 		F20C195D1A917A2800D63661 /* GameObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObjectData.m; sourceTree = "<group>"; };
 		F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitStats.h; sourceTree = "<group>"; };
-		F219C9B01A9C01A500B9C4EA /* UnitStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitStats.m; sourceTree = "<group>"; };
 		F29BB5031A9811940000745E /* UnitActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitActions.h; sourceTree = "<group>"; };
 		F29BB5041A9811A70000745E /* UnitActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitActions.m; sourceTree = "<group>"; };
 		F29BB5061A98150E0000745E /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 				F29BB5031A9811940000745E /* UnitActions.h */,
 				F29BB5041A9811A70000745E /* UnitActions.m */,
 				F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */,
-				F219C9B01A9C01A500B9C4EA /* UnitStats.m */,
+				701E580C1A9C41050023A55A /* UnitStats.c */,
 				F29BB5061A98150E0000745E /* Game.h */,
 				F29BB5071A98151D0000745E /* Game.m */,
 			);
@@ -528,7 +528,6 @@
 				F20C19601A917A2800D63661 /* GameObjectData.m in Sources */,
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
 				F20C195F1A917A2800D63661 /* GameObject.m in Sources */,
-				F219C9B11A9C01A500B9C4EA /* UnitStats.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
@@ -536,6 +535,7 @@
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
+				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,

@@ -29,4 +29,5 @@
 +(void)attackThis:(Unit*)target with:(Unit*)attacker;
 +(void)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(void)healThis:(Unit*)target byThis:(Unit*)healer;
++(NSMutableArray*)getCurrentPath;
 @end

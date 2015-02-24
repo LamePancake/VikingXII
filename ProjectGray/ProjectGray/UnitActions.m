@@ -13,6 +13,8 @@
 #import "SoundManager.h"
 #import "Game.h"
 
+static NSMutableArray* currentPath;
+
 @interface UnitActions ()
 
 @end
@@ -26,22 +28,18 @@
     NSMutableArray *path = [map makePathFrom: mover.hex.q :mover.hex.r To:hex.q :hex.r];
     mover.hex = hex;
     
+    currentPath = path;
+    
+    // The path is arranged from goal->start
+    // We want to want to add goal->goal - 1, goal - 1 -> goal - 2, ... goal - n -> start
+    // Should end up with [path count - 1] iterations of our loop
     MovementTask *nextMove = nil;
-    Hex *nextHex = nil;
+    NSUInteger count = [path count] - 1;
     
-    NSUInteger count = [path count];
-    
-    for (Hex *hex in path)
+    for (NSUInteger i = 0; i < count; i++)
     {
-        [hex setColour:GLKVector4Make(0.3f, 0.5f, 0.8f, 1.0)];
-    }
-    
-    for (NSUInteger i = count; i > 0; i--)
-    {
-        MovementTask *moveTask = [[MovementTask alloc] initWithUnit:mover fromInitial:path[i - 1] toDestination:nextHex andNextTask:nextMove];
-        
-        nextMove = moveTask;
-        nextHex = path[i - 1];
+        // The right-hand part gets evaluated first, so no worries there
+        nextMove = [[MovementTask alloc] initWithUnit:mover fromInitial:path[i + 1] toDestination:path[i] andNextTask:nextMove];
     }
     [[Game taskManager] addTask:nextMove];
 }
@@ -92,5 +90,9 @@
 
 + (void)healThis:(Unit *)target byThis:(Unit *)healer {
 
+}
+
++ (NSMutableArray *)getCurrentPath {
+    return currentPath;
 }
 @end

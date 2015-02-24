@@ -77,8 +77,6 @@ enum
     int currentGrayUnit;
     int currentVikingUnit;
     
-    bool turn;
-    
     GLuint _vikingTexture;
     GLuint _grayTexture;
 }
@@ -106,10 +104,6 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //bg image
-    /*UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaaaace.jpg"]];
-    [self.view addSubview:bgView];
-    [self.view sendSubviewToBack: bgView];*/
     
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
@@ -165,8 +159,6 @@ enum
     
     currentGrayUnit = 0;
     currentVikingUnit = 0;
-    
-    turn = YES;
     
     id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
     game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
@@ -480,7 +472,7 @@ enum
     
     if(game.selectedUnit)
     {
-        NSString *stats = [NSString stringWithFormat:@"\r\rHull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Change: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
+        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Chance: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
         _statsLabel.text = stats;
     }
     else
@@ -488,17 +480,24 @@ enum
         _statsLabel.text = @"";
     }
     
-    //[game.map clearColours];
+    [game.map clearColours];
     NSMutableArray* movableRange;
     movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
     for(Hex* hex in movableRange) {
-        //[hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
+        [hex setColour:GLKVector4Make(1, 1, 0.5f, 0.5f)];
     }
     
+    
+    // TODO: Remove this
+    NSMutableArray* path = [UnitActions getCurrentPath];
+    for(Hex* h in path) {
+        [h setColour:GLKVector4Make(1, 1, 1, 1)];
+    }
+
     if(game.whoseTurn == VIKINGS) {
         for(Unit* unit in game.p2Units) {
             if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                //[unit.hex setColour:ATTACKABLE_COLOUR];
+                [unit.hex setColour:ATTACKABLE_COLOUR];
             }
         }
     }
@@ -656,7 +655,7 @@ enum
 - (IBAction)endTurnPressed:(id)sender
 {
     [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
-    turn = !turn;
+    [game switchTurn];
 }
 
 - (IBAction)pausePressed:(id)sender {

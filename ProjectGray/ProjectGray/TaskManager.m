@@ -11,7 +11,6 @@
 
 @interface TaskManager()
 {
-    NSMutableArray *_emptySlots;
     NSMutableArray* _taskList;
     
     CFTimeInterval _prevTime;
@@ -26,8 +25,6 @@
     
     if(self = [super init]) {
         _taskList = [[NSMutableArray alloc] initWithCapacity:64]; // 64 is just for fun (apparently I'll only get 16 anyway)
-        _emptySlots = [[NSMutableArray alloc] initWithCapacity:16];
-        
         _prevTime = 0;
         _curTime = 0;
     }
@@ -85,20 +82,12 @@
             id<Task>next = curTask.nextTask;
             
             if(next) _taskList[i] = next;
-            else [_emptySlots addObject: [[NSNumber alloc] initWithUnsignedLong:i]];
+            else [_taskList removeObjectAtIndex: i];
         }
     }
 }
 
 -(void) addTask: (id<Task>) task {
-    
-    // Try to add it to a previously empty slot first; don't want to bloat the array
-    if([_emptySlots count] != 0) {
-        NSNumber* slot = [_emptySlots lastObject];
-        _taskList[[slot intValue]] = task;
-        [_taskList removeLastObject];
-    } else {
-        [_taskList addObject: task];
-    }
+    [_taskList addObject: task];
 }
 @end

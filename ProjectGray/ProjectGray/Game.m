@@ -117,10 +117,18 @@ static Game* _game = nil;
     }
 }
 
-+ (TaskManager *) taskManager {
+-(void)switchTurn {
+    _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
+    _selectedUnit = nil;
+}
+
++(TaskManager *) taskManager {
     return _game ? _game.taskManager : nil;
+}
+
 -(void) gameUpdate {
-}//Nothing as of yet
+    return;
+}
 
 -(void) endRound {
     for(Unit* currentUnit in _p1Units) {

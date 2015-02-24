@@ -17,19 +17,6 @@
 #import "UnitStats.h"
 
 /**
- * Indicates the ship's general class.
- *
- * Light units can move quickly, but they have little health and do not have a large attack range or damage.
- * Medium units have both moderate move range and attack damage/range.
- * Heavy units can't move far, but they can deal significant damage.
- */
-typedef enum _ShipClass {
-    LIGHT,
-    MEDIUM,
-    HEAVY
-} ShipClass;
-
-/**
  *
  */
 typedef enum _Faction {
@@ -46,7 +33,7 @@ typedef enum _Faction {
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
 @property (nonatomic) float scale;
 //stats
-@property struct shipType shipStats;
+@property ShipStats shipStats;
 @property (nonatomic) int hull;//HP
 @property (nonatomic) int attRange;//How many hexes away can be attacked
 @property (nonatomic) int damage;//How much damage the ships weapon3s can deal
@@ -64,7 +51,7 @@ typedef enum _Faction {
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 
--(instancetype) initWithValues:(int)shipType faction:(int)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex stats:(UnitStats*)shipStats;
+-(instancetype) initWithValues:(int)shipType faction:(int)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex fromBaseClass:(ShipClass)baseClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts;
 
 - (instancetype) initWithPosition:(GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex: (Hex *)hex;
 - (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex*)startAt;

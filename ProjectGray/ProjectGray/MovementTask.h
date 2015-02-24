@@ -28,5 +28,4 @@
  * @param next        The next task to be executed.
  */
 -(instancetype) initWithUnit: (Unit *)unit fromInitial:(Hex*)initCell toDestination:(Hex *)destination andNextTask: (id<Task>)next;
-
 @end
