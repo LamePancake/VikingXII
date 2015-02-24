@@ -616,22 +616,25 @@ enum
     for(unsigned int i = 0; i < numUnits; i++)
     {
         Unit* curUnit = (Unit *)units[i];
-        GLKMatrix4 _transMat;
-        GLKMatrix4 _scaleMat;
-        glBindVertexArrayOES(vertices);
-        glUseProgram(program);
-        
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
-        _scaleMat = GLKMatrix4MakeScale(curUnit.scale, curUnit.scale, curUnit.scale);
-        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
-        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-        
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z));
-        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
-        glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-        
-        glDrawArrays(GL_TRIANGLES, 0, curUnit.numModelVerts);
+        if(curUnit.active)
+        {
+            GLKMatrix4 _transMat;
+            GLKMatrix4 _scaleMat;
+            glBindVertexArrayOES(vertices);
+            glUseProgram(program);
+            
+            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+            _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
+            _scaleMat = GLKMatrix4MakeScale(curUnit.scale, curUnit.scale, curUnit.scale);
+            _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+            _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+            
+            GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z));
+            glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+            glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+            
+            glDrawArrays(GL_TRIANGLES, 0, curUnit.numModelVerts);
+        }
     }
 }
 

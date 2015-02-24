@@ -81,6 +81,10 @@ static NSMutableArray* currentPath;
     }
     
     target.shipHealth -= damage;
+    if(target.shipHealth <= 0)
+    {
+        target.active = false;
+    }
 
     NSLog(@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth);
 }

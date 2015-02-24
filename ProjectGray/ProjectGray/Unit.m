@@ -32,6 +32,7 @@
         self.moveRange = 2;
         self.actionsPerRound = 3;
         self.actionPool = _actionsPerRound;
+        self.active = true;
     }
     return self;
 }
