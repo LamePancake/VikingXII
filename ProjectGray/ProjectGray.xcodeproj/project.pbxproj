@@ -54,6 +54,10 @@
 		A57298201A7C1F30001934F9 /* ProjectGrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A572981F1A7C1F30001934F9 /* ProjectGrayTests.m */; };
 		A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A572982D1A7C37D6001934F9 /* MainViewController.m */; };
 		A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A57DA1D71A9A677000B02654 /* Spaaaace.jpg */; };
+		A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12F9E1A9CFB34007A8C63 /* Title.png */; };
+		A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA01A9CFB44007A8C63 /* MainMenu.png */; };
+		A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */; };
+		A5E12FA51A9D08B4007A8C63 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA41A9D08B4007A8C63 /* white.png */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
 		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
 		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
@@ -143,6 +147,10 @@
 		A572982C1A7C37D6001934F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A572982D1A7C37D6001934F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		A57DA1D71A9A677000B02654 /* Spaaaace.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Spaaaace.jpg; sourceTree = "<group>"; };
+		A5E12F9E1A9CFB34007A8C63 /* Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Title.png; sourceTree = "<group>"; };
+		A5E12FA01A9CFB44007A8C63 /* MainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenu.png; sourceTree = "<group>"; };
+		A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenuResized.png; sourceTree = "<group>"; };
+		A5E12FA41A9D08B4007A8C63 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		A5FE71BE1A9189A0008D9C1F /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		A5FE71BF1A9189A0008D9C1F /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
 		F20C19581A917A2800D63661 /* APSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSystem.h; sourceTree = "<group>"; };
@@ -215,13 +223,17 @@
 			isa = PBXGroup;
 			children = (
 				35117B821A9BF284007E56CD /* Stats.png */,
+				A5E12FA01A9CFB44007A8C63 /* MainMenu.png */,
 				A57DA1D71A9A677000B02654 /* Spaaaace.jpg */,
+				A5E12F9E1A9CFB34007A8C63 /* Title.png */,
 				352C72DD1A99397900A1B67A /* VikingDiff.png */,
 				350A00071A97BB1100602053 /* Pause.png */,
 				350A00081A97BB1100602053 /* PausePressed.png */,
 				35471A851A95421100D835E3 /* TrayPlayer.png */,
 				35471A831A9541FB00D835E3 /* EndTurnPressed.png */,
 				3514AA471A93C733002FB00C /* EndTurn.png */,
+				A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */,
+				A5E12FA41A9D08B4007A8C63 /* white.png */,
 			);
 			name = Textures;
 			sourceTree = "<group>";
@@ -487,6 +499,7 @@
 				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
 				30D6583B1A99629C00DE1F63 /* cannon4.aiff in Resources */,
 				30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */,
+				A5E12FA51A9D08B4007A8C63 /* white.png in Resources */,
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
@@ -498,6 +511,7 @@
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
+				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
@@ -505,8 +519,10 @@
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
+				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
+				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

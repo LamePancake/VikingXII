@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -111,16 +111,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fZ-Kl-Lqo">
-                                <rect key="frame" x="225" y="220" width="150" height="48"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MainMenuResized.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ykd-3A-Nk5">
+                                <rect key="frame" x="-51" y="-28" width="690" height="1535"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2L-ii-DJd">
+                                <rect key="frame" x="266" y="413" width="68" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Start Game"/>
-                                <connections>
-                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="ToGameMode" modalTransitionStyle="flipHorizontal" id="adW-14-5cZ"/>
-                                </connections>
+                                <state key="normal" title="Stats"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tj3-g2-dYI">
-                                <rect key="frame" x="130" y="278" width="341" height="44"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tj3-g2-dYI">
+                                <rect key="frame" x="130" y="359" width="341" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZU-5F-xga">
                                         <rect key="frame" x="91" y="-2" width="30" height="48"/>
@@ -138,16 +138,6 @@
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CurrentMode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7H-UN-gZt">
-                                        <rect key="frame" x="129" y="4" width="174" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="174" id="K5b-mv-6Vp"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="181" id="Zpe-RS-c6N"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWw-AA-Bo3">
                                         <rect key="frame" x="311" y="-2" width="30" height="48"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -158,6 +148,16 @@
                                             <action selector="onModeScrollForward:" destination="ggk-1W-3bd" eventType="touchUpInside" id="brS-6d-OOA"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CurrentMode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7H-UN-gZt">
+                                        <rect key="frame" x="129" y="4" width="174" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="174" id="K5b-mv-6Vp"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="181" id="Zpe-RS-c6N"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -173,12 +173,13 @@
                                     <constraint firstAttribute="centerY" secondItem="HmL-Wc-9Ho" secondAttribute="centerY" id="oEA-X4-P9E"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2L-ii-DJd">
-                                <rect key="frame" x="266" y="332" width="68" height="48"/>
+                            <button contentMode="center" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fZ-Kl-Lqo">
+                                <rect key="frame" x="225" y="301" width="150" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Stats">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="Start Game"/>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="ToGameMode" modalTransitionStyle="flipHorizontal" id="adW-14-5cZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -204,6 +205,7 @@
     <resources>
         <image name="EndTurn.png" width="512" height="512"/>
         <image name="EndTurnPressed.png" width="512" height="512"/>
+        <image name="MainMenuResized.png" width="2524" height="2524"/>
         <image name="Pause.png" width="512" height="512"/>
         <image name="Stats.png" width="819" height="1024"/>
     </resources>
