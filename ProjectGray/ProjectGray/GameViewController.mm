@@ -575,12 +575,12 @@ enum
     glUseProgram(program);
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -5);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -10);
     _scaleMat = GLKMatrix4MakeScale(4, 4, 4);
     _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
     _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
     
-    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -5));
+    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -10));
     glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
     glUniformMatrix4fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
