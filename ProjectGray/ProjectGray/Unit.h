@@ -14,6 +14,7 @@
 #import "l_vikingVertices.h"
 #import "h_vikingVertices.h"
 #import "Hex.h"
+#import "UnitStats.h"
 
 /**
  * Indicates the ship's general class.
@@ -44,11 +45,11 @@ typedef enum _Faction {
 @property (nonatomic) GLKVector3 rotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
 @property (nonatomic) float scale;
-
 //stats
+@property struct shipType shipStats;
 @property (nonatomic) int hull;//HP
 @property (nonatomic) int attRange;//How many hexes away can be attacked
-@property (nonatomic) int damage;//How much damage the ships weapons can deal
+@property (nonatomic) int damage;//How much damage the ships weapon3s can deal
 @property (nonatomic) int moveRange;//How many hexes can be moved per AP
 @property (nonatomic) float accuracy;//Percentage to hit
 @property (nonatomic) float critChance;//Percentage to get a critical
@@ -63,9 +64,11 @@ typedef enum _Faction {
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 
+-(instancetype) initWithValues:(int)shipType faction:(int)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex stats:(UnitStats*)shipStats;
+
 - (instancetype) initWithPosition:(GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex: (Hex *)hex;
 - (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex*)startAt;
 - (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass;
-
+- (void) resetAP;
 @end
 #endif

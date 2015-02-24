@@ -12,6 +12,7 @@
 #include "GameMode.h"
 #import "TaskManager.h"
 
+
 @interface Game : NSObject
 
 /// The list of hex cells composing the map.
@@ -36,13 +37,24 @@
 /// The currently selected unit, if any.
 @property (weak, nonatomic) Unit* selectedUnit;
 
+@property (nonatomic) int currentRound;
+
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
 -(instancetype) initFull;
 
 -(Game*) initWithSize:(int)size;
 
--(void) gameUpdate;
+-(void) gameUpdate;//Doesn't really do anything right now
+
+/**
+ * Ends current round
+ * Increments round counter, refills AP pools for units
+ * , does the routine work needed to start a new round.
+ * @return nothing
+ */
+-(void) endRound;
+
 /**
  * Gets the unit on the specified hex cell, if there is one.
  *

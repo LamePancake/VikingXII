@@ -57,6 +57,7 @@
 		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
 		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
 		F20C19601A917A2800D63661 /* GameObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195D1A917A2800D63661 /* GameObjectData.m */; };
+		F219C9B11A9C01A500B9C4EA /* UnitStats.m in Sources */ = {isa = PBXBuildFile; fileRef = F219C9B01A9C01A500B9C4EA /* UnitStats.m */; };
 		F29BB5051A9811A70000745E /* UnitActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5041A9811A70000745E /* UnitActions.m */; };
 		F29BB5081A98151D0000745E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5071A98151D0000745E /* Game.m */; };
 /* End PBXBuildFile section */
@@ -149,6 +150,8 @@
 		F20C195B1A917A2800D63661 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		F20C195C1A917A2800D63661 /* GameObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjectData.h; sourceTree = "<group>"; };
 		F20C195D1A917A2800D63661 /* GameObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObjectData.m; sourceTree = "<group>"; };
+		F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitStats.h; sourceTree = "<group>"; };
+		F219C9B01A9C01A500B9C4EA /* UnitStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitStats.m; sourceTree = "<group>"; };
 		F29BB5031A9811940000745E /* UnitActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitActions.h; sourceTree = "<group>"; };
 		F29BB5041A9811A70000745E /* UnitActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitActions.m; sourceTree = "<group>"; };
 		F29BB5061A98150E0000745E /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				A5FE71BF1A9189A0008D9C1F /* Unit.m */,
 				F29BB5031A9811940000745E /* UnitActions.h */,
 				F29BB5041A9811A70000745E /* UnitActions.m */,
+				F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */,
+				F219C9B01A9C01A500B9C4EA /* UnitStats.m */,
 				F29BB5061A98150E0000745E /* Game.h */,
 				F29BB5071A98151D0000745E /* Game.m */,
 			);
@@ -523,6 +528,7 @@
 				F20C19601A917A2800D63661 /* GameObjectData.m in Sources */,
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
 				F20C195F1A917A2800D63661 /* GameObject.m in Sources */,
+				F219C9B11A9C01A500B9C4EA /* UnitStats.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,

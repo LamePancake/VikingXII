@@ -40,11 +40,7 @@ static Game* _game = nil;
     _mode = [[SkirmishMode alloc] init];
     _selectedUnit = nil;
     _taskManager = [[TaskManager alloc] init];
-    
-    //_dispLink = [CADisplayLink displayLinkWithTarget:_taskManager selector:@selector(runTasksWithDeltaTime:)];
-    
-    // The task manager will be told to run its tasks every 1/60th of a second
-    //[_dispLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    _currentRound = 1;
     return self;
 }
 
@@ -63,6 +59,7 @@ static Game* _game = nil;
         _map = map;
         _taskManager = [[TaskManager alloc] init];
         _game = self;
+        _currentRound = 1;
     }
     return self;
 }
@@ -122,6 +119,17 @@ static Game* _game = nil;
 
 + (TaskManager *) taskManager {
     return _game ? _game.taskManager : nil;
+-(void) gameUpdate {
+}//Nothing as of yet
+
+-(void) endRound {
+    for(Unit* currentUnit in _p1Units) {
+        [currentUnit resetAP];
+    }
+    for(Unit* currentUnit in _p2Units) {
+        [currentUnit resetAP];
+    }
+    ++_currentRound;
 }
 
 @end
