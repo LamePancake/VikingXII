@@ -13,6 +13,10 @@
 #import "GLKit/GLKit.h"
 #import "Hex.h"
 
+extern const GLKVector4 DEFAULT_COLOUR;
+extern const GLKVector4 ATTACKABLE_COLOUR;
+extern const GLKVector4 MOVEABLE_COLOUR;
+
 @interface HexCells : NSObject
 
 @property(nonatomic) int numberOfCells;

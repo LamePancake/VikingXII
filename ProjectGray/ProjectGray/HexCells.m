@@ -10,7 +10,9 @@
 #import "HexCells.h"
 #import "NSMutableArray+QueueAdditions.h"
 
-const GLKVector4 DEFAULT_COLOUR = {0.73f, 0.23f, 0.4f, 0.5f};
+const GLKVector4 DEFAULT_COLOUR = {0.12f, 0.12f, 0.16f, 0.6f};
+const GLKVector4 ATTACKABLE_COLOUR = {0.73f, 0.23f, 0.4f, 0.8f};
+const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.8f};
 
 @implementation HexCells
 {
@@ -166,8 +168,6 @@ const GLKVector4 DEFAULT_COLOUR = {0.73f, 0.23f, 0.4f, 0.5f};
                                 AndColour:GLKVector4Make(0, 1, 0, 1)
                                 WithIndex:instanceVertexIndex
                                 AndWorldPosition:GLKVector2Make(horiz * q, (vert * 2) * r + (offset * vert))];
-            
-            NSLog(@"At q:%d and r:%d, %d", q, r, hex.instanceVertexIndex);
             
             [self insertHex:hex atQ:q AndR:r];
             [_hexPositions addObject:[NSNumber numberWithFloat:horiz * q]];

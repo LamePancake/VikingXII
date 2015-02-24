@@ -113,7 +113,7 @@ enum
     
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
-    [[SoundManager sharedManager] playMusic:@"cello-loop.wav" looping:YES];
+    [[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
     
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
@@ -505,7 +505,7 @@ enum
     if(game.whoseTurn == VIKINGS) {
         for(Unit* unit in game.p2Units) {
             if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                [unit.hex setColour:GLKVector4Make(0.46f, 0.30f, 0.46f, 0.5f)];
+                [unit.hex setColour:ATTACKABLE_COLOUR];
             }
         }
     }
