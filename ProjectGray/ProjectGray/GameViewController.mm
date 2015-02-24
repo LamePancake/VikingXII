@@ -480,16 +480,27 @@ enum
     }
     
     [game.map clearColours];
-    NSMutableArray* movableRange;
-    movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
-    for(Hex* hex in movableRange) {
-        [hex setColour:MOVEABLE_COLOUR];
-    }
-
-    if(game.whoseTurn == VIKINGS) {
-        for(Unit* unit in game.p2Units) {
-            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
-                [unit.hex setColour:ATTACKABLE_COLOUR];
+    if (game.selectedUnit != nil)
+    {
+        NSMutableArray* movableRange;
+        movableRange = [game.map movableRange:game.selectedUnit.moveRange from:game.selectedUnit.hex];
+        for(Hex* hex in movableRange) {
+            [hex setColour:MOVEABLE_COLOUR];
+        }
+        
+        if(game.whoseTurn == VIKINGS) {
+            for(Unit* unit in game.p2Units) {
+                if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                    [unit.hex setColour:ATTACKABLE_COLOUR];
+                }
+            }
+        }
+        else if (game.whoseTurn == ALIENS)
+        {
+            for(Unit* unit in game.p1Units) {
+                if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                    [unit.hex setColour:ATTACKABLE_COLOUR];
+                }
             }
         }
     }

@@ -98,7 +98,7 @@ static Game* _game = nil;
             _selectedUnit = nil;
         }
         // Attack the enemy if possible
-        else if(unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.attRange)
+        else if(unitOnTile != nil && unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.attRange)
         {
             [UnitActions attackThis:unitOnTile with:_selectedUnit];
         }
