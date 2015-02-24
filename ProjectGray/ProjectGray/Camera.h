@@ -20,7 +20,7 @@
 @property (nonatomic) GLKMatrix4 modelViewProjectionMatrix;
 @property (nonatomic) GLKMatrix3 normalMatrix;
 
--(id)initWithWidth:(float)width WithHeight:(float)height;
+-(id)initWithWidth:(float)width WithHeight:(float)height WithRadius:(float) radius;
 -(void) UpdateWithWidth:(float) w AndHeight:(float) h;
 -(void) ZoomDidBegin:(BOOL) begin Scale:(float)scale;
 -(void) PanDidBegin:(BOOL) begin X:(float)x Y:(float)y;

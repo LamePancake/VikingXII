@@ -117,7 +117,6 @@ enum
     fingerDrag.minimumNumberOfTouches = 1;
     [self.view addGestureRecognizer:fingerDrag];
     
-    _camera = [[Camera alloc] initWithWidth:self.view.bounds.size.width WithHeight: self.view.bounds.size.height];
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
     if (!self.context) {
@@ -165,7 +164,7 @@ enum
 
     hexCells = game.map;
 
-     _statsLabel.numberOfLines = 12;
+     _camera = [[Camera alloc] initWithWidth:self.view.bounds.size.width WithHeight: self.view.bounds.size.height WithRadius:hexCells.N];
     
     [self setupGL];
 }

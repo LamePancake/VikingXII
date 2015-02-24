@@ -18,6 +18,8 @@
     
     float _width;
     float _height;
+    
+    float _radius;
 }
 
 
@@ -41,7 +43,7 @@
     return self;
 }
 
--(id)initWithWidth:(float)width WithHeight:(float)height
+-(id)initWithWidth:(float)width WithHeight:(float)height WithRadius:(float)radius
 {
     self = [super init];
     if (self)
@@ -55,6 +57,7 @@
         _normalMatrix = GLKMatrix3Identity;
         _width = width;
         _height = height;
+        _radius = radius/3;
     }
     return self;
 
@@ -101,6 +104,18 @@
     
     _translationEnd = GLKVector2Make(dx, dy);
     _translationStart = GLKVector2Make(x, y);
+    
+    if(_translationEnd.x <= -_radius)
+        _translationEnd.x = -_radius;
+    
+    if(_translationEnd.x >= _radius)
+        _translationEnd.x = _radius;
+    
+    if(_translationEnd.y <= -_radius)
+        _translationEnd.y = -_radius;
+    
+    if(_translationEnd.y >= _radius)
+        _translationEnd.y = _radius;
 }
 
 @end
