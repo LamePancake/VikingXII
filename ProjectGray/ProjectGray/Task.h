@@ -25,6 +25,6 @@
  * @discussion The task will perform whatever function (animation, etc.) over the given time period.
  * @param delta The time interval since the last time (in seconds).
  */
--(void)updateWithDeltaTime: (CFTimeInterval)delta;
+-(void)updateWithDeltaTime: (NSTimeInterval)delta;
 
 @end

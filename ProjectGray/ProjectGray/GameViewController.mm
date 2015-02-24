@@ -472,8 +472,6 @@ enum
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
     [game selectTile: pickedTile];
-    [pickedTile setColour:GLKVector4Make(0, 0, 1, 1)];
-
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -511,6 +509,8 @@ enum
             }
         }
     }
+    
+    [[Game taskManager] runTasksWithCurrentTime: [NSDate timeIntervalSinceReferenceDate]];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

@@ -10,6 +10,7 @@
 #import "Unit.h"
 #import "UnitActions.h"
 #include "GameMode.h"
+#import "TaskManager.h"
 
 @interface Game : NSObject
 
@@ -57,4 +58,9 @@
  * @param tile The hex tile that was selected.
  */
 -(void)selectTile: (Hex*)tile;
+
+/**
+ * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.
+ */
++(TaskManager *)taskManager;
 @end

@@ -34,7 +34,7 @@ const double MOVETASK_EPSILON = 0.001;
 @synthesize isFinished = _isFinished;
 @synthesize nextTask = _next;
 
--(instancetype) initWithUnit: (Unit *)unit fromInitial: (Hex*) toDestination: (Hex *)destination {
+-(instancetype) initWithUnit: (Unit *)unit fromInitial: (Hex*)initialHex toDestination: (Hex *)destination {
     return [self initWithUnit: unit fromInitial:nil toDestination: destination andNextTask: nil];
 }
 
@@ -55,7 +55,7 @@ const double MOVETASK_EPSILON = 0.001;
     return self;
 }
 
--(void) updateWithDeltaTime:(CFTimeInterval)delta {
+-(void) updateWithDeltaTime:(NSTimeInterval)delta {
     double travel = speed * delta;
     
     double xDist = travel * _directionX;

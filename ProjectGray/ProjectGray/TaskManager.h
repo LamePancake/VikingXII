@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Task.h"
-@import QuartzCore;
+//@import QuartzCore;
 
 @interface TaskManager : NSObject
 
@@ -16,11 +16,17 @@
  * Adds a task to the task list.
  * @param task The task to add.
  */
--(void)addTask: (id<Task>) task;
+- (void)addTask: (id<Task>) task;
 
 /**
  * Runs all current tasks with the specified delta time (in milliseconds).
  */
--(void)runTasksWithDeltaTime: (CADisplayLink *)link;
+//-(void)runTasksWithDeltaTime: (CADisplayLink *)link;
 
+/**
+ * Updates the tasks with the given time interval.
+ *
+ * @param time The current system timestamp (in seconds).
+ */
+-(void)runTasksWithCurrentTime: (NSTimeInterval) time;
 @end

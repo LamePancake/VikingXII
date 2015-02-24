@@ -8,13 +8,17 @@
 
 #import "Unit.h"
 #import "Hex.h"
+#import "HexCells.h"
+#import "Task.h"
+#import "MovementTask.h"
+
 //Anything that gets passed to APSystem should already be "legal"
 //
 @interface UnitActions : NSObject
 {
     
 }
-+(void)moveThis:(Unit*)mover toHex:(Hex*)hex; //GameObjectMovement
++(void)moveThis:(Unit*)mover toHex:(Hex*)hex onMap: (HexCells*)map; //GameObjectMovement
 
 /**
  * Calculates the damage done on the target based on the attackers 

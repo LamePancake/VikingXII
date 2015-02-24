@@ -12,10 +12,12 @@
 #import "TaskManager.h"
 #import "MovementTask.h"
 
+static Game* _game = nil;
+
 @interface Game ()
-{
-    TaskManager *_taskManager;
-}
+
+@property (strong, nonatomic) TaskManager* taskManager;
+@property (strong, nonatomic) CADisplayLink* dispLink;
 
 @end
 
@@ -38,11 +40,18 @@
     _mode = [[SkirmishMode alloc] init];
     _selectedUnit = nil;
     _taskManager = [[TaskManager alloc] init];
+    
+    //_dispLink = [CADisplayLink displayLinkWithTarget:_taskManager selector:@selector(runTasksWithDeltaTime:)];
+    
+    // The task manager will be told to run its tasks every 1/60th of a second
+    //[_dispLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     return self;
 }
 
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
-    if(self = [super init]) {
+    if(_game) return nil;
+    
+    if((self = [super init])) {
         _p1Units = p1Units;
         _p2Units = p2Units;
         
@@ -52,8 +61,14 @@
         _mode = mode;
         _selectedUnit = nil;
         _map = map;
+        _taskManager = [[TaskManager alloc] init];
+        _game = self;
     }
     return self;
+}
+
+-(void)dealloc {
+    [_dispLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 -(Game*) initWithSize:(int)size{
@@ -77,51 +92,36 @@
 -(void)selectTile:(Hex *)tile {
     if (!tile) return;
 
-    Unit* onTile = [self getUnitOnHex:tile];
+    Unit* unitOnTile = [self getUnitOnHex:tile];
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it
-        if(_selectedUnit == onTile)
+        if(_selectedUnit == unitOnTile)
         {
             _selectedUnit = nil;
         }
         // Attack the enemy if possible
-        else if(onTile.faction != _selectedUnit.faction && [HexCells distanceFrom:onTile.hex toHex:_selectedUnit.hex])
+        else if(unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.attRange)
         {
-            [UnitActions attackThis:onTile with:_selectedUnit];
+            [UnitActions attackThis:unitOnTile with:_selectedUnit];
         }
         // Move to another tile
-        else if(!onTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
+        else if(!unitOnTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
         {
             // Unit actions move
-            //_selectedUnit.hex = tile;
-            //_selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, 0.02);
-            NSMutableArray *path = [_map makePathFrom:_selectedUnit.hex.q :_selectedUnit.hex.r To:tile.q :tile.r];
-            
-            MovementTask *prevMovement = nil;
-            Hex *prevHex = nil;
-            for (Hex* cell in path)
-            {
-                MovementTask *moveTask;
-                if (prevMovement && prevHex)
-                {
-                    moveTask = [[MovementTask alloc] initWithUnit:_selectedUnit fromInitial:prevHex toDestination:cell andNextTask:prevMovement];
-                }
-                else
-                {
-                    moveTask = [[MovementTask alloc] initWithUnit:_selectedUnit fromInitial:_selectedUnit.hex toDestination:cell andNextTask:nil];
-                }
-                prevMovement = moveTask;
-                prevHex = cell;
-                [_taskManager addTask:moveTask];
-            }
+            [UnitActions moveThis:_selectedUnit toHex:tile onMap:_map];
         }
     }
 
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(onTile && onTile.faction == _whoseTurn)
+    if(unitOnTile && unitOnTile.faction == _whoseTurn)
     {
-        _selectedUnit = onTile;
+        _selectedUnit = unitOnTile;
     }
 }
+
++ (TaskManager *) taskManager {
+    return _game ? _game.taskManager : nil;
+}
+
 @end

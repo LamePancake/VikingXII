@@ -427,12 +427,12 @@ const GLKVector4 DEFAULT_COLOUR = {0.73f, 0.23f, 0.4f, 0.5f};
     
     NSMutableArray* path = [[NSMutableArray alloc] init];
     current = goal;
-    [path addObject:current];
     
-    while (current != start) {
-        current = cameFrom[[NSNumber numberWithInt:(current).hash]];
+    do
+    {
         [path addObject:current];
-    }
+        current = cameFrom[[NSNumber numberWithInt:(current).hash]];
+    } while (current != start);
     
     return path;
 }
