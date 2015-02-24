@@ -469,6 +469,24 @@ enum
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
+    switch([game checkForWin])
+    {
+        case 1:
+        {
+            _winLabel.text = @"Vikings Win!!";
+            break;
+        }
+        case 2:
+        {
+            _winLabel.text = @"Grays Win!!";
+            break;
+        }
+        default:
+        {
+            _winLabel.text = @"";
+        }
+    }
+    
     if(game.selectedUnit)
     {
         NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Chance: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];

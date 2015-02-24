@@ -66,6 +66,11 @@
 -(void)switchTurn;
 
 /**
+ * Checks to see if a faction won.
+ */
+-(int)checkForWin;
+
+/**
  * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.
  */
 +(TaskManager *)taskManager;

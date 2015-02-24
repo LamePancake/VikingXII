@@ -17,5 +17,6 @@
 - (IBAction)pausePressed:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel *statsLabel;
+@property (strong, nonatomic) IBOutlet UILabel *winLabel;
 
 @end

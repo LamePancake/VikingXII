@@ -27,7 +27,12 @@
     return self;
 }
 
--(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units {
+-(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
+{
+    if(p1Units.count == 0)
+        return 2;
+    else if(p2Units.count == 0)
+        return 1;
     return 0;
 }
 

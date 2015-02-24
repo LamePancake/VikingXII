@@ -122,6 +122,11 @@ static Game* _game = nil;
     _selectedUnit = nil;
 }
 
+-(int)checkForWin
+{
+    return [_mode checkForWinWithPlayerOneUnits: _p1Units andPlayerTwoUnits:_p2Units];
+}
+
 +(TaskManager *) taskManager {
     return _game ? _game.taskManager : nil;
 }
