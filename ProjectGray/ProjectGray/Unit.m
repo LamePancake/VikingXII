@@ -39,7 +39,7 @@
     return self;
 }
 
-- (instancetype) initWithValues:(int)shipType faction:(int)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex *)onHex fromBaseClass:(ShipClass)baseClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts{
+- (instancetype) initWithValues:(int)shipType faction:(Faction)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex *)onHex withWeightClass:(ShipClass)weightClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts{
     self = [super init];
     
     _shipClass = shipType;
@@ -47,7 +47,7 @@
     _position = atPos;
     _rotation = shipRot;
     _hex = onHex;
-    _shipStats = shipBaseStats[baseClass];
+    _shipStats = factionShipStats[factionType][weightClass];
     _modelData = modData;
     _modelArrSize = modArraySize;
     _numModelVerts = numVerts;

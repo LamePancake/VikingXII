@@ -16,14 +16,6 @@
 #import "Hex.h"
 #import "UnitStats.h"
 
-/**
- *
- */
-typedef enum _Faction {
-    VIKINGS,
-    ALIENS
-} Faction;
-
 @interface Unit : NSObject
 
 @property (nonatomic) int shipClass;
@@ -53,7 +45,7 @@ typedef enum _Faction {
 @property (nonatomic) unsigned int numModelVerts;
 @property (nonatomic) bool active;
 
--(instancetype) initWithValues:(int)shipType faction:(int)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex fromBaseClass:(ShipClass)baseClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts;
+-(instancetype) initWithValues:(int)shipType faction:(Faction)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex withWeightClass:(ShipClass)weightClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts;
 
 - (instancetype) initWithPosition:(GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex: (Hex *)hex;
 - (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex*)startAt;
