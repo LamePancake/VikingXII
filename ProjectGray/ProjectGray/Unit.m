@@ -27,7 +27,7 @@
         self.accuracy = 0.75f;
         self.damage = 16;
         self.weaponHealth = 1;
-        self.shipHealth = 100;
+        self.shipHealth = 40;
         self.critModifier = 1.5f;
         self.hex = hex;
         self.movesPerActionPoint = 1;

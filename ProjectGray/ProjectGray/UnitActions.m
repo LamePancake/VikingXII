@@ -53,13 +53,14 @@ static NSMutableArray* currentPath;
     [[Game taskManager] addTask:nextMove];
 }
 
-+ (void)attackThis:(Unit*)target with:(Unit *)attacker {
-    
++ (void)attackThis:(Unit*)target with:(Unit *)attacker
+{
     [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
     
     if (![attacker ableToAttack])
     {
-        NSLog(@"Not enough action points! needed: %d, in pool: %d", attacker.attAPRequirement, attacker.actionPool);
+        NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.attAPRequirement, attacker.actionPool];
+        [self setAttackInfo:info];
         return;
     }
     
@@ -102,8 +103,9 @@ static NSMutableArray* currentPath;
     {
         target.active = false;
     }
-
-    NSLog(@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth);
+    
+    NSString *info = [NSString stringWithFormat:@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth];
+    [self setAttackInfo:info];
 }
 
 + (void)refillAPFor:(Unit *)thisObject {
@@ -117,4 +119,15 @@ static NSMutableArray* currentPath;
 + (NSMutableArray *)getCurrentPath {
     return currentPath;
 }
+
++ (void) setAttackInfo:(NSString*)info
+{
+    attackInfo = info;
+}
+
++(NSString*) getAttackInfo
+{
+    return attackInfo;
+}
+
 @end

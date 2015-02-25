@@ -18,5 +18,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *statsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *winLabel;
+@property (strong, nonatomic) IBOutlet UILabel *attackLabel;
 
 @end

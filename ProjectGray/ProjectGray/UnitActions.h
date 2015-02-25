@@ -12,11 +12,12 @@
 #import "Task.h"
 #import "MovementTask.h"
 
+static NSString *attackInfo;
+
 //Anything that gets passed to APSystem should already be "legal"
 //
 @interface UnitActions : NSObject
 {
-    
 }
 +(void)moveThis:(Unit*)mover toHex:(Hex*)hex onMap: (HexCells*)map; //GameObjectMovement
 
@@ -30,4 +31,6 @@
 +(void)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(void)healThis:(Unit*)target byThis:(Unit*)healer;
 +(NSMutableArray*)getCurrentPath;
++(NSString*) getAttackInfo;
++ (void) setAttackInfo:(NSString*)info;
 @end
