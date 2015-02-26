@@ -9,11 +9,32 @@
 #import "Unit.h"
 
 @interface Unit ()
+{
+    ShipStats _shipStats;
+}
+
     @property int actionsPerRound; //How much AP this unit should have each round
 @end
 
 @implementation Unit
 
+<<<<<<< .mine
+-(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex {
+    if((self = [super init])) {
+        _position = atPos;
+        _rotation = shipRot;
+        _scale = scl;
+        _shipClass = shipClass;
+        _faction = faction;
+        _position = atPos;
+        _rotation = shipRot;
+        _hex = hex;
+        _shipStats = factionShipStats[faction][shipClass];
+        _modelData = shipModels[faction][shipClass];
+        _modelArrSize = shipVertexCounts[faction][shipClass] * VERTEX_SIZE;
+        _numModelVerts = shipVertexCounts[faction][shipClass];
+        _active = true;
+=======
 - (instancetype) initWithPosition: (GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex:(Hex *)hex
 {
     self = [super init];
@@ -35,80 +56,25 @@
         self.actionsPerRound = 3;
         self.actionPool = _actionsPerRound;
         self.active = true;
+>>>>>>> .r200
     }
     return self;
 }
 
-- (instancetype) initWithValues:(int)shipType faction:(Faction)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex *)onHex withWeightClass:(ShipClass)weightClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts{
-    self = [super init];
-    
-    _shipClass = shipType;
-    _faction = factionType;
-    _position = atPos;
-    _rotation = shipRot;
-    _hex = onHex;
-    _shipStats = factionShipStats[factionType][weightClass];
-    _modelData = modData;
-    _modelArrSize = modArraySize;
-    _numModelVerts = numVerts;
-    return self;
-}
-
-- (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex *)startAt
-{
-    [self initFaction:faction And:shipClass];
-    _hex = startAt;
-    return self;
-}
-
-- (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass
-{
-    [self initFaction:faction And:shipClass];
-}
-
-- (void) initFaction:(int)fac And:(int)shipClass
-{
-    _faction = fac;
-    if(fac == VIKINGS)
-    {
-        [self initVikingClass:fac];
-    }
-    else if(fac == ALIENS)
-    {
-        [self initGrayClass:fac];
-    }
-}
-
-- (void) initVikingClass:(int)shipClass
-{
-    if(shipClass == 0)
-    {
-        _modelData = l_vikingVerts;
-        _modelArrSize = 878592;
-        _numModelVerts = l_vikingNumVerts;
-    }
-}
-
-- (void) initGrayClass:(int)shipClass
-{
-    if(shipClass == 1)
-    {
-        _modelData = h_vikingVerts;
-        _modelArrSize = 1453824;
-        _numModelVerts = h_vikingNumVerts;
-    }
+-(ShipStats *) stats {
+    return &_shipStats;
 }
 
 -(void)resetAP {
-    _actionPool = _actionsPerRound;
+    _shipStats.actionPool = factionShipStats[_faction][_shipClass].actionPool;
 }
 - (BOOL) ableToAttack
 {
-    return (_attAPRequirement <= _actionPool);
+    return (_shipStats.actionPointsPerAttack <= _shipStats.actionPool);
 }
 
 -(int) moveRange
 {
-    return (_actionPool * _movesPerActionPoint);
+    return (_shipStats.actionPool / _shipStats.movesPerActionPoint);
 }
 @end

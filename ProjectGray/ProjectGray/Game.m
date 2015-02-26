@@ -22,28 +22,6 @@ static Game* _game = nil;
 @end
 
 @implementation Game
-
--(instancetype) initFull {
-    _map = [[HexCells alloc] initWithSize:5];
-    NSMutableArray* vikingUnits;
-    for(int i = 0; i < 3; ++i) {
-        [vikingUnits addObject:[[Unit alloc] initShipWithFaction:VIKINGS andShipClass:LIGHT andHex:[_map hexAtQ:i andR:0]]];
-    }
-    _p1Units = vikingUnits;
-    NSMutableArray* alienUnits;
-    for(int i = 0; i < 3; ++i) {
-        [alienUnits addObject:[[Unit alloc] initShipWithFaction:ALIENS andShipClass:LIGHT andHex:[_map hexAtQ:0 andR:i]]];
-    }
-    _p2Units = alienUnits;
-    _p1Faction = VIKINGS;
-    _p2Faction = ALIENS;
-    _mode = [[SkirmishMode alloc] init];
-    _selectedUnit = nil;
-    _taskManager = [[TaskManager alloc] init];
-    _currentRound = 1;
-    return self;
-}
-
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
     if(_game) return nil;
     
@@ -66,11 +44,6 @@ static Game* _game = nil;
 
 -(void)dealloc {
     [_dispLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-}
-
--(Game*) initWithSize:(int)size{
-    _map = [[HexCells alloc]initWithSize:size];
-    return self;
 }
 
 -(Unit *) getUnitOnHex: (Hex *)hex {
@@ -98,7 +71,7 @@ static Game* _game = nil;
             _selectedUnit = nil;
         }
         // Attack the enemy if possible
-        else if(unitOnTile != nil && unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.attRange)
+        else if(unitOnTile != nil && unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
         {
             [UnitActions attackThis:unitOnTile with:_selectedUnit];
         }

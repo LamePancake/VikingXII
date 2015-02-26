@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
+#import "shipmodel.h"
 #import "l_vikingVertices.h"
 #import "h_vikingVertices.h"
 #import "Hex.h"
@@ -24,34 +25,19 @@
 @property (nonatomic) GLKVector3 rotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
 @property (nonatomic) float scale;
+
 //stats
-@property ShipStats shipStats;
-@property (nonatomic) int hull;//HP
-@property (nonatomic) int attAPRequirement;
-@property (nonatomic) int attRange;//How many hexes away can be attacked
-@property (nonatomic) int damage;//How much damage the ships weapon3s can deal
-@property (nonatomic) int movesPerActionPoint;//How many hexes can be moved per AP
-@property (nonatomic) float accuracy;//Percentage to hit
-@property (nonatomic) float critChance;//Percentage to get a critical
-@property (nonatomic) float critModifier;//a multiplier that get applied to damage if a crit happens
-@property (nonatomic) int actionPool;//AP count for current turn
-//health
-@property (nonatomic) int engineHealth;
-@property (nonatomic) float weaponHealth;
-@property (nonatomic) int shipHealth;
+@property (readonly) ShipStats* stats;      // Gets a pointer to the ship's stats struct. Note: stats can be set using the pointer, but the pointer itself cannot be redirected.
+
 //assets
-@property (nonatomic) float *modelData;
+@property (nonatomic) const float *modelData;
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 @property (nonatomic) bool active;
 
--(instancetype) initWithValues:(int)shipType faction:(Faction)factionType position:(GLKVector3)atPos rotation:(GLKVector3)shipRot hex:(Hex*)onHex withWeightClass:(ShipClass)weightClass model:(float*)modData modelArray:(unsigned int)modArraySize vertices:(unsigned int)numVerts;
-
-- (instancetype) initWithPosition:(GLKVector3)pos andRotation:(GLKVector3)rot andScale:(float)scl andHex: (Hex *)hex;
-- (instancetype) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass andHex:(Hex*)startAt;
-- (void) initShipWithFaction:(Faction)faction andShipClass:(ShipClass)shipClass;
-- (void) resetAP;
-- (BOOL) ableToAttack;
-- (int) moveRange;
+-(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex;
+-(void) resetAP;
+-(BOOL) ableToAttack;
+-(int) moveRange;
 @end
 #endif

@@ -135,10 +135,8 @@ enum
     for(int i = 0; i < vikingNum; i++)
     {
         Hex* temp = [map hexAtQ:0 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
-        
-        [tempUnit initShipWithFaction:VIKINGS andShipClass:LIGHT];
+        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:LIGHT atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+                                          withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [vikingList addObject:tempUnit];
     }
     
@@ -147,10 +145,8 @@ enum
     for(int i = 0; i < grayNum; i++)
     {
         Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit *tempUnit = [[Unit alloc] initWithPosition:GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
-                                            andRotation:GLKVector3Make(0, 0, 0) andScale:0.002 andHex:temp];
-        
-        [tempUnit initShipWithFaction:ALIENS andShipClass:LIGHT];
+        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:LIGHT atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+                                          withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [grayList insertObject:tempUnit atIndex:i];
     }
     
@@ -489,7 +485,19 @@ enum
     
     if(game.selectedUnit)
     {
-        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Chance: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d", game.selectedUnit.hull, game.selectedUnit.attRange, game.selectedUnit.damage, game.selectedUnit.moveRange, game.selectedUnit.accuracy, game.selectedUnit.critChance, game.selectedUnit.critModifier, game.selectedUnit.actionPool, game.selectedUnit.engineHealth, game.selectedUnit.weaponHealth, game.selectedUnit.shipHealth];
+        Unit* seld = game.selectedUnit;
+        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Chance: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d",
+                           seld.stats->hull,
+                           seld.stats->attackRange,
+                           seld.stats->damage,
+                           seld.moveRange,
+                           seld.stats->accuracy,
+                           seld.stats->critChance,
+                           seld.stats->critModifier,
+                           seld.stats->actionPool,
+                           seld.stats->engineHealth,
+                           seld.stats->weaponHealth,
+                           seld.stats->shipHealth];
         _statsLabel.text = stats;
     }
     else
@@ -513,7 +521,7 @@ enum
             {
                 for(Unit* unit in game.p2Units)
                 {
-                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
                         [unit.hex setColour:ATTACKABLE_COLOUR];
                     }
                 }
@@ -525,7 +533,7 @@ enum
             {
                 for(Unit* unit in game.p1Units)
                 {
-                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.attRange) {
+                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
                         [unit.hex setColour:ATTACKABLE_COLOUR];
                     }
                 }

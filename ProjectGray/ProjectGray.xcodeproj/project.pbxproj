@@ -42,6 +42,7 @@
 		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
+		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
 		A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61111A9935A0002A6A3B /* h_vikingVertices.c */; };
 		A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61131A9935D2002A6A3B /* l_vikingVertices.c */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
@@ -128,6 +129,8 @@
 		70C7612D1A980F83005F0311 /* MovementTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementTask.m; sourceTree = "<group>"; };
 		70C7612F1A981F2B005F0311 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
 		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
+		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
+		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
 		A54E61111A9935A0002A6A3B /* h_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h_vikingVertices.c; sourceTree = "<group>"; };
 		A54E61131A9935D2002A6A3B /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */,
 				35117B7F1A9BF011007E56CD /* background.h */,
 				35117B801A9BF087007E56CD /* background.c */,
+				70CA7DB91A9E7B5700DC1655 /* shipmodel.h */,
+				70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -562,6 +567,7 @@
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
+				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
 				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,

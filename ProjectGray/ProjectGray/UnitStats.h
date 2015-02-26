@@ -30,21 +30,23 @@ typedef enum _ShipClass {
 } ShipClass;
 
 typedef struct _ShipStats {
-    //stats
-    int hull;
-    int attRange;
-    int damage;
-    int moveRange;
+    // Ranges & action point limitations
+    int attackRange;
+    int actionPointsPerAttack;
+    int movesPerActionPoint;
+    int actionPool;
+    
+    // Attack modifiers
     float accuracy;
     float critChance;
     float critModifier;
-    int actionsPerTurn;
-    //health
+    int damage;
+    
+    // Health
+    int hull;
     int engineHealth;
     float weaponHealth;
     int shipHealth;
-    //assets
-    //None for now
 } ShipStats;
 
 extern const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES];

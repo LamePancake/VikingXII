@@ -7,95 +7,102 @@
 //
 
 #include "UnitStats.h"
+
 const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
     // VIKINGS
     {
         // Light ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Actions points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10          // Ship health
+            100         // Ship health
         },
         // Medium ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Action points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10,         // Ship health
+            100         // Ship health
         },
         // Heavy ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Actions points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10          // Ship health
-        }
+            100         // Ship health
+        },
     },
     // ALIENS
     {
         // Light ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Actions points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10          // Ship health
+            100         // Ship health
         },
         // Medium ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Action points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10,         // Ship health
+            100         // Ship health
         },
         // Heavy ship base stats
         {
-            10,         // Hull
             2,          // Attack range
-            2,          // Damage modifier
-            2,          // Movement range
-            100.0f,     // Accuracy
-            25.0f,      // Critical hit chance
+            2,          // Action points per attack
+            1,          // Moves (tiles) per action point
+            3,          // Action point pool (number at the beginning of each turn)
+            0.75f,      // Accuracy
+            0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            3,          // Actions points per turn
+            2,          // Damage modifier
+            10,         // Hull
             5,          // Engine health
             5.0f,       // Weapon health
-            10          // Ship health
-        }
+            100         // Ship health
+        },
     }
 };

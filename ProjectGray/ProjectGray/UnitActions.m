@@ -30,11 +30,11 @@ static NSMutableArray* currentPath;
     
     if (requiredAP > [mover moveRange])
     {
-        NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.actionPool);
+        NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.stats->actionPool);
         return;
     }
     
-    mover.actionPool -= requiredAP;
+    mover.stats->actionPool -= requiredAP;
     mover.hex = hex;
     
     currentPath = path;
@@ -59,19 +59,19 @@ static NSMutableArray* currentPath;
     
     if (![attacker ableToAttack])
     {
-        NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.attAPRequirement, attacker.actionPool];
-        [self setAttackInfo:info];
+        NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.stats->actionPointsPerAttack, attacker.stats->actionPool];
+        [UniActions setAttackInfo:info]
         return;
     }
     
-    attacker.actionPool -= attacker.attAPRequirement;
+    attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
     
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
     int close = 2;
     int bordering = 1;
-    float accuracy = attacker.accuracy;
+    float accuracy = attacker.stats->accuracy;
     
-    if (hexCellsApart > attacker.attRange)
+    if (hexCellsApart > attacker.stats->attackRange)
     {
         return; // not in range
     }
@@ -90,22 +90,22 @@ static NSMutableArray* currentPath;
         return; // miss!
     }
     
-    float damage = attacker.weaponHealth * attacker.damage; //percent of weapon health determines damage
+    float damage = attacker.stats->weaponHealth * attacker.stats->damage; //percent of weapon health determines damage
     float critRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if the hit is critical
     
-    if (critRandom <= attacker.critChance)
+    if (critRandom <= attacker.stats->critChance)
     {
-        damage *= attacker.critModifier; //critical hit! booYa!
+        damage *= attacker.stats->critModifier; //critical hit! booYa!
     }
     
-    target.shipHealth -= damage;
-    if(target.shipHealth <= 0)
+    target.stats->shipHealth -= damage;
+    if(target.stats->shipHealth <= 0)
     {
         target.active = false;
     }
-    
-    NSString *info = [NSString stringWithFormat:@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.shipHealth];
-    [self setAttackInfo:info];
+
+    NSString *info = [NSString stringWithFormat:@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.stats->shipHealth];
+    [UnitActions setAttackInfo:info];
 }
 
 + (void)refillAPFor:(Unit *)thisObject {
