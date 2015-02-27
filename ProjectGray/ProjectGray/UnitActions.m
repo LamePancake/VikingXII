@@ -60,7 +60,7 @@ static NSMutableArray* currentPath;
     if (![attacker ableToAttack])
     {
         NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.stats->actionPointsPerAttack, attacker.stats->actionPool];
-        [UniActions setAttackInfo:info]
+        [UnitActions setAttackInfo:info];
         return;
     }
     
