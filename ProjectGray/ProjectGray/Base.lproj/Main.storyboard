@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -39,12 +39,12 @@
                                     <constraint firstAttribute="height" constant="50" id="4Jw-7n-rrV"/>
                                     <constraint firstAttribute="width" constant="50" id="MJE-gP-cMl"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="Pause.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button" image="Pause.png" backgroundImage="PausePressed.png">
+                                    <color key="titleShadowColor" red="0.5" green="0.0" blue="0.29864710799999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pausePressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="7af-UP-NFl"/>
-                                    <segue destination="ggk-1W-3bd" kind="presentation" id="OEf-ba-wRy"/>
+                                    <action selector="pausePresssed:" destination="BV1-FR-VrT" eventType="touchDown" id="KZG-X8-hPa"/>
+                                    <segue destination="ggk-1W-3bd" kind="presentation" id="Vm1-OV-LKd"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stats.png" translatesAutoresizingMaskIntoConstraints="NO" id="jea-WI-af3">
@@ -240,6 +240,7 @@
         <image name="EndTurn.png" width="512" height="512"/>
         <image name="EndTurnPressed.png" width="512" height="512"/>
         <image name="Pause.png" width="512" height="512"/>
+        <image name="PausePressed.png" width="512" height="512"/>
         <image name="Spaaaace.jpg" width="4096" height="4096"/>
         <image name="Stats.png" width="819" height="1024"/>
         <image name="Title_resized.png" width="1536" height="1536"/>

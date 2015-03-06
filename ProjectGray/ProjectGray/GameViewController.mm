@@ -705,7 +705,8 @@ enum
     [game switchTurn];
 }
 
-- (IBAction)pausePressed:(id)sender {
+- (IBAction)pausePresssed:(id)sender
+{
     [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
 }
 

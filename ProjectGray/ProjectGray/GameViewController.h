@@ -14,7 +14,7 @@
 
 @interface GameViewController : GLKViewController
 - (IBAction)endTurnPressed:(id)sender;
-- (IBAction)pausePressed:(id)sender;
+- (IBAction)pausePresssed:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel *statsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *winLabel;
