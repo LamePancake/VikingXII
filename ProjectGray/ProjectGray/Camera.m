@@ -21,8 +21,6 @@
     
     float _radius;
 }
-
-
 @end
 
 @implementation Camera
@@ -36,7 +34,9 @@
         _translationEnd = GLKVector2Make(0, 0);
         _scale = 1;
         _lastScale = 1;
-        _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+        _modelViewMatrix = GLKMatrix4Identity;
+        _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, -30 * M_PI / 180, 1.0, 0.0, 0.0);
+        _modelViewMatrix = GLKMatrix4Translate(_modelViewMatrix, 0.0f, 2.5, -4.0f);
         _projectionMatrix = GLKMatrix4Identity;
         _normalMatrix = GLKMatrix3Identity;
     }
@@ -52,7 +52,9 @@
         _translationEnd = GLKVector2Make(0, 0);
         _scale = 1;
         _lastScale = 1;
-        _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f,-4.0f);
+        _modelViewMatrix = GLKMatrix4Identity;
+        _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, -30 * M_PI / 180, 1.0, 0.0, 0.0);
+        _modelViewMatrix = GLKMatrix4Translate(_modelViewMatrix, 0.0f, 2.5, -4.0f);
         _projectionMatrix = GLKMatrix4Identity;
         _normalMatrix = GLKMatrix3Identity;
         _width = width;
@@ -68,12 +70,15 @@
     _width = w;
     _height = h;
     
-    _modelViewMatrix = GLKMatrix4MakeTranslation(_translationEnd.x, _translationEnd.y, -4.0f/ _scale);
-    
+    _modelViewMatrix = GLKMatrix4Identity;
+    _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, -30 * M_PI / 180, 1.0f, 0.0f, 0.0f);
+    _modelViewMatrix = GLKMatrix4Translate(_modelViewMatrix, 0.0f, 2.5f, 0.0f);
+    _modelViewMatrix = GLKMatrix4Translate(_modelViewMatrix, _translationEnd.x, _translationEnd.y, -4.0f/ _scale);
+       
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), 0);
     
     float aspect = fabsf(_width / _height);
-    _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+    _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(55.0f), aspect, 0.1f, 100.0f);
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
 }
@@ -85,10 +90,7 @@
     
     _scale = _lastScale * scale;
     
-    if(_scale > 10)
-        _scale = 10;
-    else if(_scale < 1)
-        _scale = 1;
+    [self KeepInBounds];
 }
 
 -(void) PanDidBegin:(BOOL) begin X:(float)x Y:(float)y
@@ -105,17 +107,27 @@
     _translationEnd = GLKVector2Make(dx, dy);
     _translationStart = GLKVector2Make(x, y);
     
-    if(_translationEnd.x <= -_radius)
-        _translationEnd.x = -_radius;
+    [self KeepInBounds];
+}
+
+-(void) KeepInBounds
+{
+    if(_scale > 10)
+        _scale = 10;
+    else if(_scale < 1)
+        _scale = 1;
+
+    if(_translationEnd.x <= -_radius * _scale * 0.75)
+        _translationEnd.x = -_radius * _scale * 0.75;
     
-    if(_translationEnd.x >= _radius)
-        _translationEnd.x = _radius;
+    if(_translationEnd.x >= _radius * _scale * 0.75)
+        _translationEnd.x = _radius * _scale * 0.75;
     
-    if(_translationEnd.y <= -_radius)
-        _translationEnd.y = -_radius;
+    if(_translationEnd.y <= -_radius * _scale * 0.75)
+        _translationEnd.y = -_radius * _scale * 0.75;
     
-    if(_translationEnd.y >= _radius)
-        _translationEnd.y = _radius;
+    if(_translationEnd.y >= _radius * _scale * 0.75)
+        _translationEnd.y = _radius * _scale * 0.75;
 }
 
 @end
