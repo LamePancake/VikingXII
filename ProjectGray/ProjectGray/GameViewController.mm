@@ -79,6 +79,8 @@ enum
     
     GLuint _vikingTexture;
     GLuint _grayTexture;
+    GLuint _vikingBrokenTexture;
+    GLuint _grayBrokenTexture;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -322,12 +324,6 @@ enum
     
     glBindVertexArrayOES(0);
     
-    _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
-    glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    
-    _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
-    glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    
     //Background vertices
     glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
@@ -345,8 +341,11 @@ enum
     
     glBindVertexArrayOES(0);
     
+    _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _vikingBrokenTexture = [GLProgramUtils setupTexture:@"Pause.png"];
+    _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
-    glBindTexture(GL_TEXTURE_2D, _bgTexture);
 }
 
 - (void)tearDownGL
@@ -604,9 +603,13 @@ enum
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program];
+    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:YES];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program];
+    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program andIsAlive:YES];
+    glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
+    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:NO];
+    glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
+    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program andIsAlive:NO];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -630,13 +633,13 @@ enum
 
 }
 
-- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program {
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive {
     NSUInteger numUnits = [units count];
-    
+
     for(unsigned int i = 0; i < numUnits; i++)
     {
         Unit* curUnit = (Unit *)units[i];
-        if(curUnit.active)
+        if(curUnit.active == isAlive)
         {
             GLKMatrix4 _transMat;
             GLKMatrix4 _scaleMat;
