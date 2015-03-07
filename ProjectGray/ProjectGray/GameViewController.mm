@@ -355,8 +355,23 @@ enum
     glDeleteBuffers(1, &_vertexVikingBuffer);
     glDeleteVertexArraysOES(1, &_vertexVikingArray);
     
-    glDeleteBuffers(1, &_vertexBGBuffer);
+    glDeleteBuffers(1, &_normalVikingBuffer);
+    glDeleteVertexArraysOES(1, &_normalVikingArray);
+    
+    glDeleteBuffers(1, &_vertexGrayBuffer);
+    glDeleteVertexArraysOES(1, &_vertexGrayArray);
+    
+    glDeleteBuffers(1, &_normalVikingBuffer);
+    glDeleteVertexArraysOES(1, &_normalVikingArray);
+    
+    glDeleteBuffers(1, &_vertexHexBuffer);
     glDeleteVertexArraysOES(1, &_vertexBGArray);
+    
+    _camera = nil;
+    game = nil;
+    
+    glDeleteBuffers(1, &_vertexBGBuffer);
+    glDeleteVertexArraysOES(1, &_vertexHexArray);
     
     self.effect = nil;
     
