@@ -24,6 +24,12 @@ static NSMutableArray* currentPath;
 //When these methods are called, they should do a move that is already legal
 + (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
 {
+    if(!mover.active)
+    {
+        NSLog(@"Unit is dead!");
+        return;
+    }
+    
     //Call the Task system to animate.  Model should update immediately.
     NSMutableArray *path = [map makePathFrom: mover.hex.q :mover.hex.r To:hex.q :hex.r];
     NSUInteger requiredAP = [path count] - 1;
@@ -55,6 +61,18 @@ static NSMutableArray* currentPath;
 
 + (void)attackThis:(Unit*)target with:(Unit *)attacker
 {
+    if(!target.active)
+    {
+        NSLog(@"Target is dead!");
+        return;
+    }
+    
+    if(!attacker.active)
+    {
+        NSLog(@"attacker is dead!");
+        return;
+    }
+    
     [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
     
     if (![attacker ableToAttack])

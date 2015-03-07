@@ -537,8 +537,11 @@ enum
             {
                 for(Unit* unit in game.p2Units)
                 {
-                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
-                        [unit.hex setColour:ATTACKABLE_COLOUR];
+                    if(unit.active)
+                    {
+                        if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                            [unit.hex setColour:ATTACKABLE_COLOUR];
+                        }
                     }
                 }
             }
@@ -549,8 +552,11 @@ enum
             {
                 for(Unit* unit in game.p1Units)
                 {
-                    if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
-                        [unit.hex setColour:ATTACKABLE_COLOUR];
+                    if(unit.active)
+                    {
+                        if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                            [unit.hex setColour:ATTACKABLE_COLOUR];
+                        }
                     }
                 }
             }

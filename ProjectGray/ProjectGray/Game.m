@@ -63,6 +63,12 @@ static Game* _game = nil;
     if (!tile) return;
 
     Unit* unitOnTile = [self getUnitOnHex:tile];
+    if(unitOnTile != nil && !unitOnTile.active)
+    {
+        NSLog(@"Unit is dead!");
+        return;
+    }
+    
     if(_selectedUnit)
     {
         // If they tapped the tile that the selected unit was on, unselected it
