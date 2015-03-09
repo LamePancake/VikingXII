@@ -8,25 +8,15 @@
 
 #import "SkirmishMode.h"
 
-@interface SkirmishMode() {
-    NSString *_name;
-}
-@end
-
 @implementation SkirmishMode
 
-@synthesize name = _name;
 
 - (instancetype) init {
-    self = [super init];
-    
-    if(!self)
-        return nil;
-    
-    _name = @"Skirmish";
-    return self;
+    return [super init];
 }
 
+
+//TODO: Change returned value to a faction instead
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
 {
     int vikingsAlive = 0;
@@ -56,6 +46,11 @@
     else if(vikingsAlive == 0 && graysAlive != 0)
         return 2;
     return 0;
+}
+
++ (NSString *)getName
+{
+    return @"Skirmish";
 }
 
 @end

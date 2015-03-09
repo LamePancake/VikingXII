@@ -16,7 +16,7 @@
 @interface Settings : NSObject
 
 /// The currently selected game mode.
-@property(strong, readonly, nonatomic) id<GameMode> currentMode;
+@property(strong, readonly, nonatomic) Class currentMode;
 
 /// The list of all game modes.
 @property (strong, readonly, nonatomic) NSArray* modes;

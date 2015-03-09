@@ -10,6 +10,7 @@
 #import <GLKit/GLKit.h>
 #import "Unit.h"
 #import "ConvoyMode.h"
+#import "Settings.h"
 #import "SkirmishMode.h"
 
 @interface GameViewController : GLKViewController
@@ -19,5 +20,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *statsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *winLabel;
 @property (strong, nonatomic) IBOutlet UILabel *attackLabel;
+
+@property (strong, nonatomic) Settings* settings;
 
 @end

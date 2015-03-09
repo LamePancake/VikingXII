@@ -24,8 +24,8 @@
     if(self) {
         
         // Initialise the modes list and set the current mode
-        _modes = @[ [[ConvoyMode alloc] init],
-                    [[SkirmishMode alloc] init]];
+        _modes = @[ [ConvoyMode class],
+                    [SkirmishMode class]];
         _modeIdx = 0;
         _currentMode = _modes[0];
     }

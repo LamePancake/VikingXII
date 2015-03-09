@@ -155,8 +155,10 @@ enum
     currentGrayUnit = 0;
     currentVikingUnit = 0;
     
-    id<GameMode> skirmishMode = [[SkirmishMode alloc] init];
-    game = [[Game alloc] initWithMode:skirmishMode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
+    // _settings.currentMode is a class
+    id<GameMode> mode = [[_settings.currentMode alloc] init];
+    
+    game = [[Game alloc] initWithMode: mode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
 
     hexCells = game.map;
 
@@ -576,7 +578,7 @@ enum
     [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_program];
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable( GL_BLEND );
+    glEnable(GL_BLEND);
     
     // Hex stuff
     glBindVertexArrayOES(_vertexHexArray);

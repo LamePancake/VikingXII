@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "GameViewController.h"
 #import "Settings.h"
 
 @interface MainViewController ()
@@ -55,18 +56,24 @@
  * @brief Updates the current mode in the model and view.
  */
 -(void)updateModeText {
-    NSString *modeTxt = [[_gameSettings currentMode] name];
+    NSString *modeTxt = [[_gameSettings currentMode] getName];
     [_curModeLabel setText: modeTxt];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([[segue identifier] isEqualToString:@"ToGameMode"])
+    {
+    
+        // Pass the settings object to the game view controller for further use
+        GameViewController* gameVC = [segue destinationViewController];
+        gameVC.settings = _gameSettings;
+    }
 }
-*/
+
 
 @end

@@ -18,11 +18,6 @@
 @protocol GameMode
 
 /**
- * The mode's name.
- */
-@property(strong, nonatomic) NSString *name;
-
-/**
  * Checks whether the win condition for the mode has been satisfied.
  *
  * @param playerOne The array of player one's units.
@@ -30,6 +25,11 @@
  * @return 0 if neither player has one, or the wining player (1 or 2).
  */
 - (int) checkForWinWithPlayerOneUnits: (NSMutableArray*)p1Units andPlayerTwoUnits: (NSMutableArray*)p2Units;
+
+/**
+ * Gets the game mode's name.
+ */
++ (NSString *)getName;
 
 @end
 
