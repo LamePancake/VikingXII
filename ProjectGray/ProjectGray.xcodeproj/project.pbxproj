@@ -33,6 +33,7 @@
 		352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */ = {isa = PBXBuildFile; fileRef = 352C72DD1A99397900A1B67A /* VikingDiff.png */; };
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
+		355F09D61AAE2A1200006127 /* GrayDiff.png in Resources */ = {isa = PBXBuildFile; fileRef = 355F09D51AAE2A1200006127 /* GrayDiff.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
 		704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */ = {isa = PBXBuildFile; fileRef = 704455D71A9D523D00A9B2B3 /* Title_resized.png */; };
@@ -110,6 +111,7 @@
 		352C72DD1A99397900A1B67A /* VikingDiff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingDiff.png; sourceTree = "<group>"; };
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
+		355F09D51AAE2A1200006127 /* GrayDiff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayDiff.png; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				355F09D51AAE2A1200006127 /* GrayDiff.png */,
 				704455D71A9D523D00A9B2B3 /* Title_resized.png */,
 				35117B821A9BF284007E56CD /* Stats.png */,
 				A5E12FA01A9CFB44007A8C63 /* MainMenu.png */,
@@ -511,6 +514,7 @@
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
+				355F09D61AAE2A1200006127 /* GrayDiff.png in Resources */,
 				3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */,
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
 				3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */,

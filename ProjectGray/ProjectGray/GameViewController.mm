@@ -137,7 +137,7 @@ enum
     for(int i = 0; i < vikingNum; i++)
     {
         Hex* temp = [map hexAtQ:0 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:LIGHT atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:MEDIUM atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
                                           withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [vikingList addObject:tempUnit];
     }
@@ -147,7 +147,7 @@ enum
     for(int i = 0; i < grayNum; i++)
     {
         Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:LIGHT atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.02)
+        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:HEAVY atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
                                           withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [grayList insertObject:tempUnit atIndex:i];
     }
@@ -345,7 +345,7 @@ enum
     glBindVertexArrayOES(0);
     
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
-    _grayTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
+    _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
     _vikingBrokenTexture = [GLProgramUtils setupTexture:@"Pause.png"];
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
