@@ -34,6 +34,12 @@
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
 		355F09D61AAE2A1200006127 /* GrayDiff.png in Resources */ = {isa = PBXBuildFile; fileRef = 355F09D51AAE2A1200006127 /* GrayDiff.png */; };
+		355F09E31AAE453100006127 /* grayVertsHeavy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09D81AAE453100006127 /* grayVertsHeavy.txt */; };
+		355F09E41AAE453100006127 /* grayVertsLight.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09D91AAE453100006127 /* grayVertsLight.txt */; };
+		355F09E51AAE453100006127 /* grayVertsMedium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09DA1AAE453100006127 /* grayVertsMedium.txt */; };
+		355F09E91AAE453100006127 /* vikingVertsHeavy.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09E01AAE453100006127 /* vikingVertsHeavy.txt */; };
+		355F09EA1AAE453100006127 /* vikingVertsLight.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09E11AAE453100006127 /* vikingVertsLight.txt */; };
+		355F09EB1AAE453100006127 /* vikingVertsMedium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09E21AAE453100006127 /* vikingVertsMedium.txt */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
 		704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */ = {isa = PBXBuildFile; fileRef = 704455D71A9D523D00A9B2B3 /* Title_resized.png */; };
@@ -112,6 +118,12 @@
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
 		355F09D51AAE2A1200006127 /* GrayDiff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayDiff.png; sourceTree = "<group>"; };
+		355F09D81AAE453100006127 /* grayVertsHeavy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grayVertsHeavy.txt; sourceTree = "<group>"; };
+		355F09D91AAE453100006127 /* grayVertsLight.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grayVertsLight.txt; sourceTree = "<group>"; };
+		355F09DA1AAE453100006127 /* grayVertsMedium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grayVertsMedium.txt; sourceTree = "<group>"; };
+		355F09E01AAE453100006127 /* vikingVertsHeavy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vikingVertsHeavy.txt; sourceTree = "<group>"; };
+		355F09E11AAE453100006127 /* vikingVertsLight.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vikingVertsLight.txt; sourceTree = "<group>"; };
+		355F09E21AAE453100006127 /* vikingVertsMedium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vikingVertsMedium.txt; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
@@ -250,6 +262,12 @@
 		701D5CFE1A8EDAC1009A22CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				355F09D81AAE453100006127 /* grayVertsHeavy.txt */,
+				355F09D91AAE453100006127 /* grayVertsLight.txt */,
+				355F09DA1AAE453100006127 /* grayVertsMedium.txt */,
+				355F09E01AAE453100006127 /* vikingVertsHeavy.txt */,
+				355F09E11AAE453100006127 /* vikingVertsLight.txt */,
+				355F09E21AAE453100006127 /* vikingVertsMedium.txt */,
 				A50AC18A1A96C46C0086199A /* l_vikingVertices.h */,
 				A54E61131A9935D2002A6A3B /* l_vikingVertices.c */,
 				A54E61111A9935A0002A6A3B /* h_vikingVertices.c */,
@@ -514,6 +532,7 @@
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
+				355F09E91AAE453100006127 /* vikingVertsHeavy.txt in Resources */,
 				355F09D61AAE2A1200006127 /* GrayDiff.png in Resources */,
 				3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */,
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
@@ -525,18 +544,23 @@
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
+				355F09E51AAE453100006127 /* grayVertsMedium.txt in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
+				355F09E31AAE453100006127 /* grayVertsHeavy.txt in Resources */,
+				355F09EB1AAE453100006127 /* vikingVertsMedium.txt in Resources */,
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
+				355F09E41AAE453100006127 /* grayVertsLight.txt in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
+				355F09EA1AAE453100006127 /* vikingVertsLight.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
