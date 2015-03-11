@@ -46,14 +46,14 @@ enum
     
     float _rotation;
     
-    GLuint _vertexVikingArray;
-    GLuint _vertexVikingBuffer;
-    GLuint _normalVikingArray;
-    GLuint _normalVikingBuffer;
-    GLuint _vertexGrayArray;
-    GLuint _vertexGrayBuffer;
-    GLuint _normalGrayArray;
-    GLuint _normalGrayBuffer;
+    GLuint _vertexVikingArray[3];
+    GLuint _vertexVikingBuffer[3];
+    GLuint _normalVikingArray[3];
+    GLuint _normalVikingBuffer[3];
+    GLuint _vertexGrayArray[3];
+    GLuint _vertexGrayBuffer[3];
+    GLuint _normalGrayArray[3];
+    GLuint _normalGrayBuffer[3];
 
     Camera *_camera;
     
@@ -98,7 +98,7 @@ enum
  * @param vertices An identifier (created by OpenGL) for the vertex array for the particular unit.
  * @param program  The OpenGL program to use.
  */
-- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program;
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive;
 @end
 
 @implementation GameViewController
@@ -137,7 +137,7 @@ enum
     for(int i = 0; i < vikingNum; i++)
     {
         Hex* temp = [map hexAtQ:0 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:MEDIUM atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
+        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:((ShipClass)((int)LIGHT + i)) atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
                                           withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [vikingList addObject:tempUnit];
     }
@@ -147,7 +147,7 @@ enum
     for(int i = 0; i < grayNum; i++)
     {
         Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:HEAVY atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
+        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:((ShipClass)((int)LIGHT + i)) atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
                                           withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
         [grayList insertObject:tempUnit atIndex:i];
     }
@@ -293,13 +293,46 @@ enum
     }
     
     // viking stuff
-    glGenVertexArraysOES(1, &_vertexVikingArray);
-    glBindVertexArrayOES(_vertexVikingArray);
+    glGenVertexArraysOES(1, &_vertexVikingArray[LIGHT]);
+    glBindVertexArrayOES(_vertexVikingArray[LIGHT]);
     
-    glGenBuffers(1, &_vertexVikingBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer);
-    glBufferData(GL_ARRAY_BUFFER, ((Unit*)vikingList[0]).modelArrSize, ((Unit*)vikingList[0]).modelData, GL_STATIC_DRAW);
-    //vertLoc = glGetAttribLocation(_program, "position");
+    glGenBuffers(1, &_vertexVikingBuffer[LIGHT]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[LIGHT]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][LIGHT] * sizeof(float) * 8, shipModels[VIKINGS][LIGHT], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Viking Medium
+    glGenVertexArraysOES(1, &_vertexVikingArray[MEDIUM]);
+    glBindVertexArrayOES(_vertexVikingArray[MEDIUM]);
+    
+    glGenBuffers(1, &_vertexVikingBuffer[MEDIUM]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[MEDIUM]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][MEDIUM] * sizeof(float) * 8, shipModels[VIKINGS][MEDIUM], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+
+    // Viking Heavy
+    glGenVertexArraysOES(1, &_vertexVikingArray[HEAVY]);
+    glBindVertexArrayOES(_vertexVikingArray[HEAVY]);
+    
+    glGenBuffers(1, &_vertexVikingBuffer[HEAVY]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[HEAVY]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][HEAVY] * sizeof(float) * 8, shipModels[VIKINGS][HEAVY], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -311,12 +344,46 @@ enum
     glBindVertexArrayOES(0);
     
     // gray stuff
-    glGenVertexArraysOES(1, &_vertexGrayArray);
-    glBindVertexArrayOES(_vertexGrayArray);
+    glGenVertexArraysOES(1, &_vertexGrayArray[LIGHT]);
+    glBindVertexArrayOES(_vertexGrayArray[LIGHT]);
     
-    glGenBuffers(1, &_vertexGrayBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer);
-    glBufferData(GL_ARRAY_BUFFER, ((Unit*)grayList[0]).modelArrSize, ((Unit*)grayList[0]).modelData, GL_STATIC_DRAW);
+    glGenBuffers(1, &_vertexGrayBuffer[LIGHT]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[LIGHT]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][LIGHT] * sizeof(float) * 8, shipModels[ALIENS][LIGHT], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // gray Medium
+    glGenVertexArraysOES(1, &_vertexGrayArray[MEDIUM]);
+    glBindVertexArrayOES(_vertexGrayArray[MEDIUM]);
+    
+    glGenBuffers(1, &_vertexGrayBuffer[MEDIUM]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[MEDIUM]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][MEDIUM] * sizeof(float) * 8, shipModels[ALIENS][MEDIUM], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+
+    // gray Heavy
+    glGenVertexArraysOES(1, &_vertexGrayArray[HEAVY]);
+    glBindVertexArrayOES(_vertexGrayArray[HEAVY]);
+    
+    glGenBuffers(1, &_vertexGrayBuffer[HEAVY]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[HEAVY]);
+    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][HEAVY] * sizeof(float) * 8, shipModels[ALIENS][HEAVY], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -355,17 +422,41 @@ enum
 {
     [EAGLContext setCurrentContext:self.context];
     
-    glDeleteBuffers(1, &_vertexVikingBuffer);
-    glDeleteVertexArraysOES(1, &_vertexVikingArray);
+    glDeleteBuffers(1, &_vertexVikingBuffer[LIGHT]);
+    glDeleteVertexArraysOES(1, &_vertexVikingArray[LIGHT]);
     
-    glDeleteBuffers(1, &_normalVikingBuffer);
-    glDeleteVertexArraysOES(1, &_normalVikingArray);
+    glDeleteBuffers(1, &_normalVikingBuffer[LIGHT]);
+    glDeleteVertexArraysOES(1, &_normalVikingArray[LIGHT]);
     
-    glDeleteBuffers(1, &_vertexGrayBuffer);
-    glDeleteVertexArraysOES(1, &_vertexGrayArray);
+    glDeleteBuffers(1, &_vertexGrayBuffer[LIGHT]);
+    glDeleteVertexArraysOES(1, &_vertexGrayArray[LIGHT]);
     
-    glDeleteBuffers(1, &_normalVikingBuffer);
-    glDeleteVertexArraysOES(1, &_normalVikingArray);
+    glDeleteBuffers(1, &_normalGrayBuffer[LIGHT]);
+    glDeleteVertexArraysOES(1, &_normalGrayArray[LIGHT]);
+    
+    glDeleteBuffers(1, &_vertexVikingBuffer[MEDIUM]);
+    glDeleteVertexArraysOES(1, &_vertexVikingArray[MEDIUM]);
+    
+    glDeleteBuffers(1, &_normalVikingBuffer[MEDIUM]);
+    glDeleteVertexArraysOES(1, &_normalVikingArray[MEDIUM]);
+    
+    glDeleteBuffers(1, &_vertexGrayBuffer[MEDIUM]);
+    glDeleteVertexArraysOES(1, &_vertexGrayArray[MEDIUM]);
+    
+    glDeleteBuffers(1, &_normalGrayBuffer[MEDIUM]);
+    glDeleteVertexArraysOES(1, &_normalGrayArray[MEDIUM]);
+
+    glDeleteBuffers(1, &_vertexVikingBuffer[HEAVY]);
+    glDeleteVertexArraysOES(1, &_vertexVikingArray[HEAVY]);
+    
+    glDeleteBuffers(1, &_normalVikingBuffer[HEAVY]);
+    glDeleteVertexArraysOES(1, &_normalVikingArray[HEAVY]);
+    
+    glDeleteBuffers(1, &_vertexGrayBuffer[HEAVY]);
+    glDeleteVertexArraysOES(1, &_vertexGrayArray[HEAVY]);
+    
+    glDeleteBuffers(1, &_normalGrayBuffer[HEAVY]);
+    glDeleteVertexArraysOES(1, &_normalGrayArray[HEAVY]);
     
     glDeleteBuffers(1, &_vertexHexBuffer);
     glDeleteVertexArraysOES(1, &_vertexBGArray);
@@ -630,6 +721,7 @@ enum
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:YES];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
     [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program andIsAlive:YES];
+    
     glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
     [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:NO];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
@@ -662,7 +754,7 @@ enum
 
 }
 
-- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive {
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive {
     NSUInteger numUnits = [units count];
 
     for(unsigned int i = 0; i < numUnits; i++)
@@ -672,7 +764,7 @@ enum
         {
             GLKMatrix4 _transMat;
             GLKMatrix4 _scaleMat;
-            glBindVertexArrayOES(vertices);
+            glBindVertexArrayOES(vertices[curUnit.shipClass]);
             glUseProgram(program);
             
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
@@ -690,7 +782,7 @@ enum
             glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
             
-            glDrawArrays(GL_TRIANGLES, 0, curUnit.numModelVerts);
+            glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
         }
     }
 }
