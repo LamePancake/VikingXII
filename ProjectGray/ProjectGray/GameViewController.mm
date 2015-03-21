@@ -828,12 +828,52 @@ enum
 - (IBAction)endTurnPressed:(id)sender
 {
     [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateNormal];
+        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+        
+        [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
+    }];
+    
     [game switchTurn];
+    
+    if([game whoseTurn] == VIKINGS)
+    {
+        [_turnMarker setImage:[UIImage imageNamed:@"vikingsturn.png"]];
+    }
+    else if([game whoseTurn] == ALIENS)
+    {
+        [_turnMarker setImage:[UIImage imageNamed:@"graysturn.png"]];
+    }
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UIView*)_turnMarker).transform = CGAffineTransformMakeScale(1.5,1.5);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIView*)_turnMarker).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+    }];
 }
 
 - (IBAction)pausePresssed:(id)sender
 {
     [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateNormal];
+        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+        
+        [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
+    }];
 }
 
 @end

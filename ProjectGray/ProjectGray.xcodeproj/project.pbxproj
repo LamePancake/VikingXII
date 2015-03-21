@@ -42,6 +42,8 @@
 		355F09EA1AAE453100006127 /* vikingVertsLight.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09E11AAE453100006127 /* vikingVertsLight.txt */; };
 		355F09EB1AAE453100006127 /* vikingVertsMedium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 355F09E21AAE453100006127 /* vikingVertsMedium.txt */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
+		35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0A91ABDF18400E902F3 /* vikingsturn.png */; };
+		35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0AA1ABDF18400E902F3 /* graysturn.png */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
 		704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */ = {isa = PBXBuildFile; fileRef = 704455D71A9D523D00A9B2B3 /* Title_resized.png */; };
 		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
@@ -129,6 +131,8 @@
 		355F09E21AAE453100006127 /* vikingVertsMedium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vikingVertsMedium.txt; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		35B2F0A91ABDF18400E902F3 /* vikingsturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vikingsturn.png; sourceTree = "<group>"; };
+		35B2F0AA1ABDF18400E902F3 /* graysturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graysturn.png; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
 		701E580C1A9C41050023A55A /* UnitStats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UnitStats.c; sourceTree = "<group>"; };
 		704455D71A9D523D00A9B2B3 /* Title_resized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Title_resized.png; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				35B2F0A91ABDF18400E902F3 /* vikingsturn.png */,
+				35B2F0AA1ABDF18400E902F3 /* graysturn.png */,
 				355F09D51AAE2A1200006127 /* GrayDiff.png */,
 				704455D71A9D523D00A9B2B3 /* Title_resized.png */,
 				35117B821A9BF284007E56CD /* Stats.png */,
@@ -549,6 +555,7 @@
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
+				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				355F09E51AAE453100006127 /* grayVertsMedium.txt in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
@@ -559,6 +566,7 @@
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
+				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
 				355F09E41AAE453100006127 /* grayVertsLight.txt in Resources */,
