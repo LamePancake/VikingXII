@@ -12,6 +12,7 @@
 #import "ConvoyMode.h"
 #import "Settings.h"
 #import "SkirmishMode.h"
+#import "factionmodel.h"
 
 @interface GameViewController : GLKViewController
 - (IBAction)endTurnPressed:(id)sender;

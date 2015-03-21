@@ -54,6 +54,14 @@ enum
     GLuint _vertexGrayBuffer[3];
     GLuint _normalGrayArray[3];
     GLuint _normalGrayBuffer[3];
+    GLuint _vertexVikingItemArray[3];
+    GLuint _vertexVikingItemBuffer[3];
+    GLuint _normalVikingItemArray[3];
+    GLuint _normalVikingItemBuffer[3];
+    GLuint _vertexGrayItemArray[3];
+    GLuint _vertexGrayItemBuffer[3];
+    GLuint _normalGrayItemArray[3];
+    GLuint _normalGrayItemBuffer[3];
 
     Camera *_camera;
     
@@ -64,7 +72,6 @@ enum
     
     GLuint _vertexBGArray;
     GLuint _vertexBGBuffer;
-    GLuint _bgTexture;
     
     //GameStuff
     Game* game;
@@ -81,6 +88,8 @@ enum
     GLuint _grayTexture;
     GLuint _vikingBrokenTexture;
     GLuint _grayBrokenTexture;
+    GLuint _bgTexture;
+    GLuint _itemTexture;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -394,6 +403,10 @@ enum
     
     glBindVertexArrayOES(0);
     
+    // set up items
+    [self setupItems];
+    
+    
     //Background vertices
     glGenVertexArraysOES(1, &_vertexBGArray);
     glBindVertexArrayOES(_vertexBGArray);
@@ -416,6 +429,78 @@ enum
     _vikingBrokenTexture = [GLProgramUtils setupTexture:@"Pause.png"];
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
+    _itemTexture = [GLProgramUtils setupTexture:@"factionitem.png"];
+}
+
+- (void)setupItems
+{
+    // Item: cannonball
+    glGenVertexArraysOES(1, &_vertexVikingItemArray[PROJECTILE]);
+    glBindVertexArrayOES(_vertexVikingItemArray[PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexVikingItemBuffer[PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Item: laser
+    glGenVertexArraysOES(1, &_vertexGrayItemArray[PROJECTILE]);
+    glBindVertexArrayOES(_vertexGrayItemArray[PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexGrayItemBuffer[PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Item: Viking Flag
+    glGenVertexArraysOES(1, &_vertexVikingItemArray[FLAG]);
+    glBindVertexArrayOES(_vertexVikingItemArray[FLAG]);
+    
+    glGenBuffers(1, &_vertexVikingItemBuffer[FLAG]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[FLAG]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][FLAG] * sizeof(float) * 8, factionModels[VIKINGS][FLAG], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Item: Gray Flag
+    glGenVertexArraysOES(1, &_vertexGrayItemArray[FLAG]);
+    glBindVertexArrayOES(_vertexGrayItemArray[FLAG]);
+    
+    glGenBuffers(1, &_vertexGrayItemBuffer[FLAG]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[FLAG]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][FLAG] * sizeof(float) * 8, factionModels[ALIENS][FLAG], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
 }
 
 - (void)tearDownGL

@@ -53,6 +53,13 @@
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
+		A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AD1ABDF1BB00D1925A /* asteroid.txt */; };
+		A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AE1ABDF1BB00D1925A /* cannonball.txt */; };
+		A50862B31ABDF1BB00D1925A /* flag.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AF1ABDF1BB00D1925A /* flag.txt */; };
+		A50862B41ABDF1BB00D1925A /* laser.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862B01ABDF1BB00D1925A /* laser.txt */; };
+		A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = A50862BB1ABDFCC800D1925A /* factionmodel.c */; };
+		A50862BF1ABE072800D1925A /* environment.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BD1ABE072800D1925A /* environment.png */; };
+		A50862C01ABE072800D1925A /* factionitem.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BE1ABE072800D1925A /* factionitem.png */; };
 		A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61111A9935A0002A6A3B /* h_vikingVertices.c */; };
 		A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61131A9935D2002A6A3B /* l_vikingVertices.c */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
@@ -152,6 +159,15 @@
 		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
 		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
 		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
+		A50862AD1ABDF1BB00D1925A /* asteroid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = asteroid.txt; sourceTree = "<group>"; };
+		A50862AE1ABDF1BB00D1925A /* cannonball.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cannonball.txt; sourceTree = "<group>"; };
+		A50862AF1ABDF1BB00D1925A /* flag.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.txt; sourceTree = "<group>"; };
+		A50862B01ABDF1BB00D1925A /* laser.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = laser.txt; sourceTree = "<group>"; };
+		A50862B51ABDF20600D1925A /* factionmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = factionmodel.h; sourceTree = "<group>"; };
+		A50862B81ABDF52400D1925A /* ItemStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemStats.h; sourceTree = "<group>"; };
+		A50862BB1ABDFCC800D1925A /* factionmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = factionmodel.c; sourceTree = "<group>"; };
+		A50862BD1ABE072800D1925A /* environment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = environment.png; sourceTree = "<group>"; };
+		A50862BE1ABE072800D1925A /* factionitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factionitem.png; sourceTree = "<group>"; };
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
 		A54E61111A9935A0002A6A3B /* h_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h_vikingVertices.c; sourceTree = "<group>"; };
 		A54E61131A9935D2002A6A3B /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
@@ -255,6 +271,8 @@
 				355F09D51AAE2A1200006127 /* GrayDiff.png */,
 				704455D71A9D523D00A9B2B3 /* Title_resized.png */,
 				35117B821A9BF284007E56CD /* Stats.png */,
+				A50862BD1ABE072800D1925A /* environment.png */,
+				A50862BE1ABE072800D1925A /* factionitem.png */,
 				A5E12FA01A9CFB44007A8C63 /* MainMenu.png */,
 				A57DA1D71A9A677000B02654 /* Spaaaace.jpg */,
 				A5E12F9E1A9CFB34007A8C63 /* Title.png */,
@@ -273,6 +291,10 @@
 		701D5CFE1A8EDAC1009A22CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A50862AD1ABDF1BB00D1925A /* asteroid.txt */,
+				A50862AE1ABDF1BB00D1925A /* cannonball.txt */,
+				A50862AF1ABDF1BB00D1925A /* flag.txt */,
+				A50862B01ABDF1BB00D1925A /* laser.txt */,
 				355F09D81AAE453100006127 /* grayVertsHeavy.txt */,
 				355F09D91AAE453100006127 /* grayVertsLight.txt */,
 				355F09DA1AAE453100006127 /* grayVertsMedium.txt */,
@@ -287,6 +309,8 @@
 				35117B801A9BF087007E56CD /* background.c */,
 				70CA7DB91A9E7B5700DC1655 /* shipmodel.h */,
 				70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */,
+				A50862B51ABDF20600D1925A /* factionmodel.h */,
+				A50862BB1ABDFCC800D1925A /* factionmodel.c */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -330,6 +354,7 @@
 				F29BB5041A9811A70000745E /* UnitActions.m */,
 				F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */,
 				701E580C1A9C41050023A55A /* UnitStats.c */,
+				A50862B81ABDF52400D1925A /* ItemStats.h */,
 				F29BB5061A98150E0000745E /* Game.h */,
 				F29BB5071A98151D0000745E /* Game.m */,
 			);
@@ -541,6 +566,7 @@
 				30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */,
 				A5E12FA51A9D08B4007A8C63 /* white.png in Resources */,
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
+				A50862C01ABE072800D1925A /* factionitem.png in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
 				355F09E91AAE453100006127 /* vikingVertsHeavy.txt in Resources */,
@@ -554,6 +580,8 @@
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
+				A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */,
+				A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				355F09E51AAE453100006127 /* grayVertsMedium.txt in Resources */,
@@ -565,8 +593,10 @@
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
+				A50862B41ABDF1BB00D1925A /* laser.txt in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
+				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
 				355F09E41AAE453100006127 /* grayVertsLight.txt in Resources */,
@@ -574,6 +604,7 @@
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
 				355F09EA1AAE453100006127 /* vikingVertsLight.txt in Resources */,
+				A50862BF1ABE072800D1925A /* environment.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +638,7 @@
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
+				A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */,
 				303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
 				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
