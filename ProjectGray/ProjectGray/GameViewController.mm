@@ -595,23 +595,21 @@ enum
     
     if(game.selectedUnit)
     {
+        _statsBackground.hidden = NO;
         Unit* seld = game.selectedUnit;
-        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rCritical Chance: %.2f\rCritical Modifier: %.2f\rAction Points: %d\rEngine Health: %d\rWeapon Health: %.2f\rShip Health: %d",
+        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rAction Points: %d\rShip Health: %d",
                            seld.stats->hull,
                            seld.stats->attackRange,
                            seld.stats->damage,
                            seld.moveRange,
                            seld.stats->accuracy,
-                           seld.stats->critChance,
-                           seld.stats->critModifier,
                            seld.stats->actionPool,
-                           seld.stats->engineHealth,
-                           seld.stats->weaponHealth,
                            seld.stats->shipHealth];
         _statsLabel.text = stats;
     }
     else
     {
+        _statsBackground.hidden = YES;
         _statsLabel.text = @"";
     }
     
@@ -655,6 +653,7 @@ enum
                 }
             }
         }
+        [game.selectedUnit.hex setColour:SELECTED_COLOUR];
     }
     
     [[Game taskManager] runTasksWithCurrentTime: [NSDate timeIntervalSinceReferenceDate]];

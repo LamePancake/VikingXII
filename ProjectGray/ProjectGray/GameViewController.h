@@ -24,4 +24,5 @@
 @property (strong, nonatomic) Settings* settings;
 
 @property (strong, nonatomic) IBOutlet UIImageView *turnMarker;
+@property (strong, nonatomic) IBOutlet UIImageView *statsBackground;
 @end

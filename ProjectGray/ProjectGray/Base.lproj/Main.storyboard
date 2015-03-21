@@ -21,6 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stats.png" translatesAutoresizingMaskIntoConstraints="NO" id="jea-WI-af3">
+                                <rect key="frame" x="344" y="20" width="240" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jea-WI-af3" secondAttribute="height" multiplier="819:1024" id="pkX-Tr-SGk"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mam-Bn-BEX">
                                 <rect key="frame" x="444" y="440" width="150" height="150"/>
                                 <constraints>
@@ -74,12 +80,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stats.png" translatesAutoresizingMaskIntoConstraints="NO" id="jea-WI-af3">
-                                <rect key="frame" x="344" y="20" width="240" height="300"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="jea-WI-af3" secondAttribute="height" multiplier="819:1024" id="pkX-Tr-SGk"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="vikingsturn.png" translatesAutoresizingMaskIntoConstraints="NO" id="WyU-sd-vxG">
                                 <rect key="frame" x="120" y="-13" width="216" height="95"/>
                                 <constraints>
@@ -110,6 +110,7 @@
                     </view>
                     <connections>
                         <outlet property="attackLabel" destination="5E5-nm-V9Q" id="NA4-zh-z2H"/>
+                        <outlet property="statsBackground" destination="jea-WI-af3" id="U7E-iG-Ir4"/>
                         <outlet property="statsLabel" destination="dSk-ba-NOp" id="3Xt-lG-kZD"/>
                         <outlet property="turnMarker" destination="WyU-sd-vxG" id="X3q-xi-NHJ"/>
                         <outlet property="winLabel" destination="20P-zN-uWy" id="SwU-cl-K1J"/>

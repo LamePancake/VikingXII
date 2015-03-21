@@ -22,7 +22,7 @@
 
 - (id) initWithAxialCoords:(int)q And:(int)r WithIndex:(int)index AndWorldPosition:(GLKVector2)world;
 
-- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour WithIndex:(int)index AndWorldPosition:(GLKVector2)world;;
+- (id) initWithAxialCoords:(int)q And:(int)r AndColour:(GLKVector4)colour WithIndex:(int)index AndWorldPosition:(GLKVector2)world;
 
 
 @end
