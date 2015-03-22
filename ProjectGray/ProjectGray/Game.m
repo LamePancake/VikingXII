@@ -92,7 +92,7 @@ static Game* _game = nil;
         return;
     }
     
-    if(_selectedUnit)
+    if(_selectedUnit && _selectedUnit.taskAvailable)
     {
         // If they tapped the tile that the selected unit was on, unselected it
         if(_selectedUnit == unitOnTile)

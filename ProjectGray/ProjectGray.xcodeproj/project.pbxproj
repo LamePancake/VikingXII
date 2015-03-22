@@ -78,9 +78,7 @@
 		A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */; };
 		A5E12FA51A9D08B4007A8C63 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA41A9D08B4007A8C63 /* white.png */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
-		F20C195E1A917A2800D63661 /* APSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C19591A917A2800D63661 /* APSystem.m */; };
-		F20C195F1A917A2800D63661 /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195B1A917A2800D63661 /* GameObject.m */; };
-		F20C19601A917A2800D63661 /* GameObjectData.m in Sources */ = {isa = PBXBuildFile; fileRef = F20C195D1A917A2800D63661 /* GameObjectData.m */; };
+		F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F211F5A81ABE1F8A00B16426 /* RotationTask.m */; };
 		F29BB5051A9811A70000745E /* UnitActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5041A9811A70000745E /* UnitActions.m */; };
 		F29BB5081A98151D0000745E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5071A98151D0000745E /* Game.m */; };
 /* End PBXBuildFile section */
@@ -195,12 +193,9 @@
 		A5E12FA41A9D08B4007A8C63 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		A5FE71BE1A9189A0008D9C1F /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		A5FE71BF1A9189A0008D9C1F /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
-		F20C19581A917A2800D63661 /* APSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSystem.h; sourceTree = "<group>"; };
-		F20C19591A917A2800D63661 /* APSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSystem.m; sourceTree = "<group>"; };
-		F20C195A1A917A2800D63661 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
-		F20C195B1A917A2800D63661 /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
-		F20C195C1A917A2800D63661 /* GameObjectData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjectData.h; sourceTree = "<group>"; };
-		F20C195D1A917A2800D63661 /* GameObjectData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObjectData.m; sourceTree = "<group>"; };
+		F211F5A61ABE1B3100B16426 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		F211F5A71ABE1F7300B16426 /* RotationTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationTask.h; sourceTree = "<group>"; };
+		F211F5A81ABE1F8A00B16426 /* RotationTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationTask.m; sourceTree = "<group>"; };
 		F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitStats.h; sourceTree = "<group>"; };
 		F29BB5031A9811940000745E /* UnitActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitActions.h; sourceTree = "<group>"; };
 		F29BB5041A9811A70000745E /* UnitActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitActions.m; sourceTree = "<group>"; };
@@ -334,7 +329,6 @@
 				301F0A1F1A993B4900C552B2 /* Audio */,
 				70C761281A980EB2005F0311 /* Tasks */,
 				3003CEF01A97D40E00CDBF26 /* Utils */,
-				F20C19571A917A1600D63661 /* Game Logic */,
 				359216AC1A8952A300327F76 /* Camera.h */,
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
@@ -357,6 +351,7 @@
 				A50862B81ABDF52400D1925A /* ItemStats.h */,
 				F29BB5061A98150E0000745E /* Game.h */,
 				F29BB5071A98151D0000745E /* Game.m */,
+				F211F5A61ABE1B3100B16426 /* GameObject.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -403,6 +398,8 @@
 				70C7612D1A980F83005F0311 /* MovementTask.m */,
 				70C7612F1A981F2B005F0311 /* TaskManager.h */,
 				70C761301A981F2B005F0311 /* TaskManager.m */,
+				F211F5A71ABE1F7300B16426 /* RotationTask.h */,
+				F211F5A81ABE1F8A00B16426 /* RotationTask.m */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -463,19 +460,6 @@
 				A572981E1A7C1F30001934F9 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F20C19571A917A1600D63661 /* Game Logic */ = {
-			isa = PBXGroup;
-			children = (
-				F20C19581A917A2800D63661 /* APSystem.h */,
-				F20C19591A917A2800D63661 /* APSystem.m */,
-				F20C195A1A917A2800D63661 /* GameObject.h */,
-				F20C195B1A917A2800D63661 /* GameObject.m */,
-				F20C195C1A917A2800D63661 /* GameObjectData.h */,
-				F20C195D1A917A2800D63661 /* GameObjectData.m */,
-			);
-			name = "Game Logic";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -622,13 +606,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F20C19601A917A2800D63661 /* GameObjectData.m in Sources */,
+				F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */,
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
-				F20C195F1A917A2800D63661 /* GameObject.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
-				F20C195E1A917A2800D63661 /* APSystem.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
 				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,

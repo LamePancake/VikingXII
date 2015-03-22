@@ -47,6 +47,7 @@ const double MOVETASK_EPSILON = 0.001;
         _isFinished = NO;
         _next = next;
         _speed = speed * 0.2; // The scale of the hex cells; TODO: not hardcode this
+        _unit.taskAvailable = false;
     }
     return self;
 }
@@ -69,6 +70,7 @@ const double MOVETASK_EPSILON = 0.001;
     
     if(length <= 0.03f) {
         _isFinished = YES;
+        _unit.taskAvailable = true;
         newPos.x = _destination.x;
         newPos.y = _destination.y;
     }

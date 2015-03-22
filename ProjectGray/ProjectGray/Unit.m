@@ -18,6 +18,11 @@
 
 @implementation Unit
 
+@synthesize position = _position;
+@synthesize rotation = _rotation;
+@synthesize scale = _scale;
+@synthesize taskAvailable = _taskAvailable;
+
 -(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex {
     if((self = [super init])) {
         _position = atPos;
@@ -26,13 +31,15 @@
         _shipClass = shipClass;
         _faction = faction;
         _position = atPos;
-        _rotation = shipRot;
+        _initRotation = GLKVector3Make(0.0f, 0.0f, -90.0f);
+        _rotation = GLKVector3Subtract(_initRotation, shipRot);
         _hex = hex;
         _shipStats = factionShipStats[faction][shipClass];
         _modelData = shipModels[faction][shipClass];
         _modelArrSize = shipVertexCounts[faction][shipClass] * VERTEX_SIZE;
         _numModelVerts = shipVertexCounts[faction][shipClass];
         _active = true;
+        _taskAvailable = true;
     }
     return self;
 }

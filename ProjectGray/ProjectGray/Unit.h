@@ -16,15 +16,17 @@
 #import "h_vikingVertices.h"
 #import "Hex.h"
 #import "UnitStats.h"
+#import "GameObject.h"
 
-@interface Unit : NSObject
+@interface Unit : NSObject <GameObject>
 
 @property (nonatomic) int shipClass;
 @property (nonatomic) int faction;
-@property (nonatomic) GLKVector3 position;
-@property (nonatomic) GLKVector3 rotation;
+//@property (nonatomic) GLKVector3 position;
+//@property (nonatomic) GLKVector3 rotation;
+@property (nonatomic) GLKVector3 initRotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
-@property (nonatomic) float scale;
+//@property (nonatomic) float scale;
 
 //stats
 @property (readonly) ShipStats* stats;      // Gets a pointer to the ship's stats struct. Note: stats can be set using the pointer, but the pointer itself cannot be redirected.
@@ -34,6 +36,9 @@
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 @property (nonatomic) bool active;
+
+//Task related
+//@property (nonatomic) BOOL taskAvailable;
 
 -(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex;
 -(void) resetAP;
