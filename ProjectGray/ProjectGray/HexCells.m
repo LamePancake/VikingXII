@@ -14,6 +14,8 @@ const GLKVector4 DEFAULT_COLOUR = {0.12f, 0.12f, 0.16f, 0.5f};
 const GLKVector4 ATTACKABLE_COLOUR = {0.73f, 0.23f, 0.4f, 0.8f};
 const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.8f};
 const GLKVector4 SELECTED_COLOUR = {0.5f, 1, 0.5f, 0.8f};
+const GLKVector4 GRAY_PLACEMENT_COLOUR = {0.5f, 0.5f, 0.7f, 0.8f};
+const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
 
 @implementation HexCells
 {
@@ -437,4 +439,35 @@ const GLKVector4 SELECTED_COLOUR = {0.5f, 1, 0.5f, 0.8f};
     return path;
 }
 
+-(NSMutableArray*)graysSelectableRange
+{
+    NSMutableArray* selectableRange = [[NSMutableArray alloc] init];
+    
+    for(int i = _N; i > _N-3; i--)
+    {
+        for(int j = 0; j >= -i; j--)
+        {
+            Hex* currentHex = [self hexAtQ:i andR:j];
+            [selectableRange addObject:currentHex];
+        }
+    }
+           
+    return selectableRange;
+}
+
+-(NSMutableArray*)vikingsSelectableRange
+{
+    NSMutableArray* selectableRange = [[NSMutableArray alloc] init];
+    
+    for(int i = -_N; i < -_N+3; i++)
+    {
+        for(int j = 0; j <= -i; j++)
+        {
+            Hex* currentHex = [self hexAtQ:i andR:j];
+            [selectableRange addObject:currentHex];
+        }
+    }
+    
+    return selectableRange;
+}
 @end

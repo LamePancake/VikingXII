@@ -18,6 +18,7 @@ static Game* _game = nil;
 
 @property (strong, nonatomic) TaskManager* taskManager;
 @property (strong, nonatomic) CADisplayLink* dispLink;
+@property (nonatomic) int selectionSwitchCount;
 
 @end
 
@@ -38,6 +39,8 @@ static Game* _game = nil;
         _taskManager = [[TaskManager alloc] init];
         _game = self;
         _currentRound = 1;
+        _state = PLAYING;
+        _selectionSwitchCount = 0;
     }
     return self;
 }
@@ -59,7 +62,27 @@ static Game* _game = nil;
     return nil;
 }
 
--(void)selectTile:(Hex *)tile {
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
+{
+    if (!tile) return;
+    
+    NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
+
+    for(Unit* u in units)
+    {
+        if(u.hex.r == tile.r && u.hex.q == tile.q)
+        {
+            if([self getUnitOnHex:tile] == nil)
+            {
+                //add hex cell here
+            }
+            break;
+        }
+    }
+}
+
+-(void)selectTile:(Hex *)tile
+{
     if (!tile) return;
 
     Unit* unitOnTile = [self getUnitOnHex:tile];
@@ -88,7 +111,7 @@ static Game* _game = nil;
             [UnitActions moveThis:_selectedUnit toHex:tile onMap:_map];
         }
     }
-
+    
     // If they selected a tile with a friendly unit, set the current selection to that
     if(unitOnTile && unitOnTile.faction == _whoseTurn)
     {
@@ -96,7 +119,40 @@ static Game* _game = nil;
     }
 }
 
--(void)switchTurn {
+-(void)switchTurn
+{
+    if(_state == SELECTION)
+    {
+        [self switchTurnSelecting];
+    }
+    else
+    {
+        [self switchTurnPlaying];
+    }
+}
+
+-(void)switchTurnSelecting
+{
+    NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
+    for(int i = 0; i < units.count; i++)
+    {
+        if(((Unit*)units[i]).hex == nil)
+        {
+            NSLog(@"You still have units to place!");
+            return;
+        }
+    }
+    
+    _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
+    _selectionSwitchCount++;
+    if(_selectionSwitchCount >= 2)
+    {
+        _state = PLAYING;
+    }
+}
+
+-(void)switchTurnPlaying
+{
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
     

@@ -90,6 +90,10 @@ enum
     GLuint _grayBrokenTexture;
     GLuint _bgTexture;
     GLuint _itemTexture;
+    
+    NSMutableArray* graySelectableRange;
+    NSMutableArray* vikingsSelectableRange;
+
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -173,6 +177,9 @@ enum
 
      _camera = [[Camera alloc] initWithWidth:self.view.bounds.size.width WithHeight: self.view.bounds.size.height WithRadius:hexCells.N];
     
+    graySelectableRange = [game.map graysSelectableRange];
+    vikingsSelectableRange = [game.map vikingsSelectableRange];
+    
     [self setupGL];
 }
 
@@ -225,7 +232,6 @@ enum
     
     glGenVertexArraysOES(1, &_vertexHexArray);
     glBindVertexArrayOES(_vertexHexArray);
-    
     
     // Hex stuff
     GLfloat vertices[16];
@@ -301,7 +307,7 @@ enum
         }
     }
     
-    // viking stuff
+    // viking light
     glGenVertexArraysOES(1, &_vertexVikingArray[LIGHT]);
     glBindVertexArrayOES(_vertexVikingArray[LIGHT]);
     
@@ -352,7 +358,7 @@ enum
     
     glBindVertexArrayOES(0);
     
-    // gray stuff
+    // gray light
     glGenVertexArraysOES(1, &_vertexGrayArray[LIGHT]);
     glBindVertexArrayOES(_vertexGrayArray[LIGHT]);
     
@@ -644,7 +650,12 @@ enum
     GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
-    [game selectTile: pickedTile];
+        
+    if(game.state == SELECTION)
+        [game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
+    else
+        [game selectTile: pickedTile];
+    
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -699,46 +710,66 @@ enum
     }
     
     [game.map clearColours];
-    if (game.selectedUnit != nil)
+    if(game.state == PLAYING)
     {
-        NSMutableArray* movableRange;
-        movableRange = [game.map movableRange:([game.selectedUnit moveRange]) from:game.selectedUnit.hex];
-        for(Hex* hex in movableRange)
+        if (game.selectedUnit != nil)
         {
-            [hex setColour:MOVEABLE_COLOUR];
-        }
-        
-        if(game.whoseTurn == VIKINGS)
-        {
-            if ([game.selectedUnit ableToAttack])
+            NSMutableArray* movableRange;
+            movableRange = [game.map movableRange:([game.selectedUnit moveRange]) from:game.selectedUnit.hex];
+            for(Hex* hex in movableRange)
             {
-                for(Unit* unit in game.p2Units)
+                [hex setColour:MOVEABLE_COLOUR];
+            }
+            
+            if(game.whoseTurn == VIKINGS)
+            {
+                if ([game.selectedUnit ableToAttack])
                 {
-                    if(unit.active)
+                    for(Unit* unit in game.p2Units)
                     {
-                        if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
-                            [unit.hex setColour:ATTACKABLE_COLOUR];
+                        if(unit.active)
+                        {
+                            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                                [unit.hex setColour:ATTACKABLE_COLOUR];
+                            }
                         }
                     }
                 }
             }
-        }
-        else if (game.whoseTurn == ALIENS)
-        {
-            if ([game.selectedUnit ableToAttack])
+            else if (game.whoseTurn == ALIENS)
             {
-                for(Unit* unit in game.p1Units)
+                if ([game.selectedUnit ableToAttack])
                 {
-                    if(unit.active)
+                    for(Unit* unit in game.p1Units)
                     {
-                        if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
-                            [unit.hex setColour:ATTACKABLE_COLOUR];
+                        if(unit.active)
+                        {
+                            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                                [unit.hex setColour:ATTACKABLE_COLOUR];
+                            }
                         }
                     }
                 }
             }
+            [game.selectedUnit.hex setColour:SELECTED_COLOUR];
         }
-        [game.selectedUnit.hex setColour:SELECTED_COLOUR];
+    }
+    else if(game.state == SELECTION)
+    {
+        if(game.whoseTurn == ALIENS)
+        {
+            for(Hex* hex in graySelectableRange)
+            {
+                [hex setColour:GRAY_PLACEMENT_COLOUR];
+            }
+        }
+        else if(game.whoseTurn == VIKINGS)
+        {
+            for(Hex* hex in vikingsSelectableRange)
+            {
+                [hex setColour:VIKING_PLACEMENT_COLOUR];
+            }
+        }
     }
     
     [[Game taskManager] runTasksWithCurrentTime: [NSDate timeIntervalSinceReferenceDate]];

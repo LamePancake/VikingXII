@@ -17,6 +17,8 @@ extern const GLKVector4 DEFAULT_COLOUR;
 extern const GLKVector4 ATTACKABLE_COLOUR;
 extern const GLKVector4 MOVEABLE_COLOUR;
 extern const GLKVector4 SELECTED_COLOUR;
+extern const GLKVector4 GRAY_PLACEMENT_COLOUR;
+extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
 
 @interface HexCells : NSObject
 
@@ -147,6 +149,18 @@ extern const GLKVector4 SELECTED_COLOUR;
  * @return returns the closest hex to the world position
  */
 - (Hex*)closestHexToWorldPosition:(GLKVector2) position WithinHexagon:(BOOL)limit;
+
+/**
+ * Gets the hex cells that the grays can occupy at the start.
+ * @return An array of Hex objects to place the grays in.
+ */
+- (NSMutableArray*)graysSelectableRange;
+
+/**
+ * Gets the hex cells that the vikings can occupy at the start.
+ * @return An array of Hex objects to place the vikings in.
+ */
+- (NSMutableArray*)vikingsSelectableRange;
 
 @end
 

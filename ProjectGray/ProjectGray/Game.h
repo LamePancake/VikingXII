@@ -12,7 +12,15 @@
 #include "GameMode.h"
 #import "TaskManager.h"
 
+typedef enum _GameState {
+    SELECTION = 0,
+    PLAYING = 1
+} GameState;
+
 @interface Game : NSObject
+
+// The current state of the game
+@property (nonatomic) int state;
 
 /// The list of hex cells composing the map.
 @property (strong, nonatomic) HexCells* map;
@@ -47,6 +55,16 @@
  * @return The unit for @a player on @a hex if there is one or nil.
  */
 -(Unit *)getUnitOnHex: (Hex *)hex;
+
+/**
+ * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
+ * attacks, schedules tasks, etc.
+ *
+ * @param tile The hex tile that was selected.
+ * @param alienRange a range of hex cells that can be selected by the aliens.
+ * @param vikingRange a range of hex cells that can be selected by the vikings.
+ */
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
