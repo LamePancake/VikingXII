@@ -587,6 +587,7 @@ enum
         [_game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
     else
         [_game selectTile: pickedTile];
+    
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -809,6 +810,11 @@ enum
     for(unsigned int i = 0; i < numUnits; i++)
     {
         Unit* curUnit = (Unit*)units[i];
+        
+        if(_game.state == SELECTION)
+            if(curUnit.hex == nil)
+                continue;
+        
         if(curUnit.active == isAlive)
         {
             GLKMatrix4 _transMat;

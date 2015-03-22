@@ -9,6 +9,7 @@
 #import "Unit.h"
 
 const float UNIT_SCALE = 0.002f;
+const float UNIT_HEIGHT = 0.04f;
 
 @interface Unit () <GameObject>
 {

@@ -70,12 +70,10 @@ static Game* _game = nil;
 
     for(Unit* u in units)
     {
-        if(u.hex.r == tile.r && u.hex.q == tile.q)
+        if(u.hex == nil)
         {
-            if([self getUnitOnHex:tile] == nil)
-            {
-                //add hex cell here
-            }
+            u.hex = tile;
+            u.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
             break;
         }
     }
