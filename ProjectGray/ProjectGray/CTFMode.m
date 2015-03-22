@@ -7,22 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ConvoyMode.h"
+#import "CTFMode.h"
 
-@implementation ConvoyMode
+@implementation CTFMode
 
--(instancetype) init {
-    self = [super init];
-    
-    if(!self) {
-        return nil;
-    }
-    return self;
+-(int) checkForWinWithPlayerOneUnits:(NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
+{
+    return -1;
 }
 
 + (NSString *)getName
 {
-    return @"Convoy";
+    return @"Capture the Flag";
 }
 
 @end

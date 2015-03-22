@@ -14,6 +14,7 @@
 #import "background.h"
 #include "HexCells.h"
 #include "GLProgramUtils.h"
+#import "GameObject.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -73,17 +74,6 @@ enum
     GLuint _vertexBGArray;
     GLuint _vertexBGBuffer;
     
-    //GameStuff
-    Game* game;
-    
-    //unit stuff
-    int vikingNum;
-    int grayNum;
-    NSMutableArray *vikingList;
-    NSMutableArray *grayList;
-    int currentGrayUnit;
-    int currentVikingUnit;
-    
     GLuint _vikingTexture;
     GLuint _grayTexture;
     GLuint _vikingBrokenTexture;
@@ -142,43 +132,12 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    HexCells* map = [[HexCells alloc] initWithSize:5];
-
-    //unit lists initialization
-    vikingNum = 3;
-    vikingList = [[NSMutableArray alloc] initWithCapacity:vikingNum];
-    for(int i = 0; i < vikingNum; i++)
-    {
-        Hex* temp = [map hexAtQ:0 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:VIKINGS andClass:((ShipClass)((int)LIGHT + i)) atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
-                                          withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
-        [vikingList addObject:tempUnit];
-    }
-    
-    grayNum = 3;
-    grayList = [[NSMutableArray alloc] initWithCapacity:grayNum];
-    for(int i = 0; i < grayNum; i++)
-    {
-        Hex* temp = [map hexAtQ:-2 andR:i];
-        Unit* tempUnit = [[Unit alloc] initWithFaction:ALIENS andClass:((ShipClass)((int)LIGHT + i)) atPosition: GLKVector3Make(temp.worldPosition.x, temp.worldPosition.y, 0.03)
-                                          withRotation:GLKVector3Make(0, 0, 0) andScale:0.002 onHex:temp];
-        [grayList insertObject:tempUnit atIndex:i];
-    }
-    
-    currentGrayUnit = 0;
-    currentVikingUnit = 0;
-    
-    // _settings.currentMode is a class
-    id<GameMode> mode = [[_settings.currentMode alloc] init];
-    
-    game = [[Game alloc] initWithMode: mode andPlayer1Units:vikingList andPlayer2Units:grayList andMap:map];
-
-    hexCells = game.map;
+    hexCells = _game.map;
 
      _camera = [[Camera alloc] initWithWidth:self.view.bounds.size.width WithHeight: self.view.bounds.size.height WithRadius:hexCells.N];
     
-    graySelectableRange = [game.map graysSelectableRange];
-    vikingsSelectableRange = [game.map vikingsSelectableRange];
+    graySelectableRange = [_game.map graysSelectableRange];
+    vikingsSelectableRange = [_game.map vikingsSelectableRange];
     
     [self setupGL];
 }
@@ -513,47 +472,20 @@ enum
 {
     [EAGLContext setCurrentContext:self.context];
     
-    glDeleteBuffers(1, &_vertexVikingBuffer[LIGHT]);
-    glDeleteVertexArraysOES(1, &_vertexVikingArray[LIGHT]);
-    
-    glDeleteBuffers(1, &_normalVikingBuffer[LIGHT]);
-    glDeleteVertexArraysOES(1, &_normalVikingArray[LIGHT]);
-    
-    glDeleteBuffers(1, &_vertexGrayBuffer[LIGHT]);
-    glDeleteVertexArraysOES(1, &_vertexGrayArray[LIGHT]);
-    
-    glDeleteBuffers(1, &_normalGrayBuffer[LIGHT]);
-    glDeleteVertexArraysOES(1, &_normalGrayArray[LIGHT]);
-    
-    glDeleteBuffers(1, &_vertexVikingBuffer[MEDIUM]);
-    glDeleteVertexArraysOES(1, &_vertexVikingArray[MEDIUM]);
-    
-    glDeleteBuffers(1, &_normalVikingBuffer[MEDIUM]);
-    glDeleteVertexArraysOES(1, &_normalVikingArray[MEDIUM]);
-    
-    glDeleteBuffers(1, &_vertexGrayBuffer[MEDIUM]);
-    glDeleteVertexArraysOES(1, &_vertexGrayArray[MEDIUM]);
-    
-    glDeleteBuffers(1, &_normalGrayBuffer[MEDIUM]);
-    glDeleteVertexArraysOES(1, &_normalGrayArray[MEDIUM]);
-
-    glDeleteBuffers(1, &_vertexVikingBuffer[HEAVY]);
-    glDeleteVertexArraysOES(1, &_vertexVikingArray[HEAVY]);
-    
-    glDeleteBuffers(1, &_normalVikingBuffer[HEAVY]);
-    glDeleteVertexArraysOES(1, &_normalVikingArray[HEAVY]);
-    
-    glDeleteBuffers(1, &_vertexGrayBuffer[HEAVY]);
-    glDeleteVertexArraysOES(1, &_vertexGrayArray[HEAVY]);
-    
-    glDeleteBuffers(1, &_normalGrayBuffer[HEAVY]);
-    glDeleteVertexArraysOES(1, &_normalGrayArray[HEAVY]);
-    
-    glDeleteBuffers(1, &_vertexHexBuffer);
-    glDeleteVertexArraysOES(1, &_vertexBGArray);
+    for(int i = 0; i < NUM_CLASSES; i++)
+    {
+        glDeleteBuffers(1, &_vertexVikingBuffer[i]);
+        glDeleteBuffers(1, &_vertexGrayBuffer[i]);
+        
+        glDeleteBuffers(1, &_normalVikingBuffer[i]);
+        glDeleteBuffers(1, &_normalGrayBuffer[i]);
+        
+        glDeleteVertexArraysOES(1, &_vertexVikingArray[i]);
+        glDeleteVertexArraysOES(1, &_vertexGrayArray[i]);
+    }
     
     _camera = nil;
-    game = nil;
+    _game = nil;
     
     glDeleteBuffers(1, &_vertexBGBuffer);
     glDeleteVertexArraysOES(1, &_vertexHexArray);
@@ -651,11 +583,10 @@ enum
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
         
-    if(game.state == SELECTION)
-        [game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
+    if(_game.state == SELECTION)
+        [_game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
     else
-        [game selectTile: pickedTile];
-    
+        [_game selectTile: pickedTile];
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -669,14 +600,14 @@ enum
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
-    switch([game checkForWin])
+    switch([_game checkForWin])
     {
-        case 1:
+        case VIKINGS:
         {
             _winLabel.text = @"Vikings Win!!";
             break;
         }
-        case 2:
+        case ALIENS:
         {
             _winLabel.text = @"Grays Win!!";
             break;
@@ -689,10 +620,10 @@ enum
     
     _attackLabel.text = @""; //[UnitActions getAttackInfo];
     
-    if(game.selectedUnit)
+    if(_game.selectedUnit)
     {
         _statsBackground.hidden = NO;
-        Unit* seld = game.selectedUnit;
+        Unit* seld = _game.selectedUnit;
         NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rAction Points: %d\rShip Health: %d",
                            seld.stats->hull,
                            seld.stats->attackRange,
@@ -709,61 +640,63 @@ enum
         _statsLabel.text = @"";
     }
     
-    [game.map clearColours];
-    if(game.state == PLAYING)
+    [_game.map clearColours];
+    if(_game.state == PLAYING)
     {
-        if (game.selectedUnit != nil)
+        if (_game.selectedUnit != nil)
         {
             NSMutableArray* movableRange;
-            movableRange = [game.map movableRange:([game.selectedUnit moveRange]) from:game.selectedUnit.hex];
+            movableRange = [_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
             for(Hex* hex in movableRange)
             {
                 [hex setColour:MOVEABLE_COLOUR];
             }
             
-            if(game.whoseTurn == VIKINGS)
+            if(_game.whoseTurn == VIKINGS)
             {
-                if ([game.selectedUnit ableToAttack])
+                if ([_game.selectedUnit ableToAttack])
                 {
-                    for(Unit* unit in game.p2Units)
+                    for(Unit* unit in _game.p2Units)
                     {
                         if(unit.active)
                         {
-                            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            {
                                 [unit.hex setColour:ATTACKABLE_COLOUR];
                             }
                         }
                     }
                 }
             }
-            else if (game.whoseTurn == ALIENS)
+            else if (_game.whoseTurn == ALIENS)
             {
-                if ([game.selectedUnit ableToAttack])
+                if ([_game.selectedUnit ableToAttack])
                 {
-                    for(Unit* unit in game.p1Units)
+                    for(Unit* unit in _game.p1Units)
                     {
                         if(unit.active)
                         {
-                            if ([HexCells distanceFrom:game.selectedUnit.hex toHex:unit.hex] <= game.selectedUnit.stats->attackRange) {
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            {
                                 [unit.hex setColour:ATTACKABLE_COLOUR];
                             }
                         }
                     }
                 }
             }
-            [game.selectedUnit.hex setColour:SELECTED_COLOUR];
+            [_game.selectedUnit.hex setColour:SELECTED_COLOUR];
         }
     }
-    else if(game.state == SELECTION)
+    else if(_game.state == SELECTION)
     {
-        if(game.whoseTurn == ALIENS)
+        if(_game.whoseTurn == ALIENS)
         {
             for(Hex* hex in graySelectableRange)
             {
                 [hex setColour:GRAY_PLACEMENT_COLOUR];
             }
         }
-        else if(game.whoseTurn == VIKINGS)
+        else if(_game.whoseTurn == VIKINGS)
         {
             for(Hex* hex in vikingsSelectableRange)
             {
@@ -828,19 +761,20 @@ enum
         }
     }
     glDisable(GL_BLEND);
+
     
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p1Units withVertices:_vertexVikingArray usingProgram:_program andIsAlive:YES];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p2Units withVertices:_vertexGrayArray usingProgram:_program andIsAlive:YES];
     
     glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
-    [self drawUnits:vikingList withVertices:_vertexVikingArray usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p1Units withVertices:_vertexVikingArray usingProgram:_program andIsAlive:NO];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
-    [self drawUnits:grayList withVertices:_vertexGrayArray usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p2Units withVertices:_vertexGrayArray usingProgram:_program andIsAlive:NO];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -874,12 +808,12 @@ enum
 
     for(unsigned int i = 0; i < numUnits; i++)
     {
-        Unit* curUnit = (Unit *)units[i];
+        Unit* curUnit = (Unit*)units[i];
         if(curUnit.active == isAlive)
         {
             GLKMatrix4 _transMat;
             GLKMatrix4 _scaleMat;
-            glBindVertexArrayOES(vertices[curUnit.shipClass]);
+            glBindVertexArrayOES(vertices[((Unit*)curUnit).shipClass]);
             glUseProgram(program);
             
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
@@ -955,13 +889,13 @@ enum
         [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
     }];
     
-    [game switchTurn];
+    [_game switchTurn];
     
-    if([game whoseTurn] == VIKINGS)
+    if([_game whoseTurn] == VIKINGS)
     {
         [_turnMarker setImage:[UIImage imageNamed:@"vikingsturn.png"]];
     }
-    else if([game whoseTurn] == ALIENS)
+    else if([_game whoseTurn] == ALIENS)
     {
         [_turnMarker setImage:[UIImage imageNamed:@"graysturn.png"]];
     }

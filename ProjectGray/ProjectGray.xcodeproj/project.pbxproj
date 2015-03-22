@@ -48,7 +48,8 @@
 		704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */ = {isa = PBXBuildFile; fileRef = 704455D71A9D523D00A9B2B3 /* Title_resized.png */; };
 		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
-		70C718341A894635003E3B05 /* ConvoyMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* ConvoyMode.m */; };
+		70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C47C301ABE161C0030664E /* UnitSelectionViewController.m */; };
+		70C718341A894635003E3B05 /* CTFMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* CTFMode.m */; };
 		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
@@ -144,10 +145,12 @@
 		706C83261A9864D900305C66 /* GLProgramUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgramUtils.h; sourceTree = "<group>"; };
 		706C83271A9864D900305C66 /* GLProgramUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgramUtils.m; sourceTree = "<group>"; };
 		709DA0A11A89835A007D63C1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		70C47C2F1ABE161C0030664E /* UnitSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSelectionViewController.h; sourceTree = "<group>"; };
+		70C47C301ABE161C0030664E /* UnitSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSelectionViewController.m; sourceTree = "<group>"; };
 		70C7182F1A89421B003E3B05 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		70C718301A8944B1003E3B05 /* GameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMode.h; sourceTree = "<group>"; };
-		70C718331A894635003E3B05 /* ConvoyMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvoyMode.m; sourceTree = "<group>"; };
-		70C718351A89485A003E3B05 /* ConvoyMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvoyMode.h; sourceTree = "<group>"; };
+		70C718331A894635003E3B05 /* CTFMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFMode.m; sourceTree = "<group>"; };
+		70C718351A89485A003E3B05 /* CTFMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTFMode.h; sourceTree = "<group>"; };
 		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
 		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
 		70C761291A980EEE005F0311 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
@@ -333,16 +336,16 @@
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
 				709DA0A11A89835A007D63C1 /* Settings.m */,
-				70C718331A894635003E3B05 /* ConvoyMode.m */,
-				70C718351A89485A003E3B05 /* ConvoyMode.h */,
+				70C718331A894635003E3B05 /* CTFMode.m */,
+				70C718351A89485A003E3B05 /* CTFMode.h */,
 				70C718301A8944B1003E3B05 /* GameMode.h */,
-				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
 				70C718371A894BD5003E3B05 /* SkirmishMode.m */,
 				3082EA0A1A8D4D4200A54360 /* HexCells.h */,
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
 				A5FE71BE1A9189A0008D9C1F /* Unit.h */,
+				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
 				A5FE71BF1A9189A0008D9C1F /* Unit.m */,
 				F29BB5031A9811940000745E /* UnitActions.h */,
 				F29BB5041A9811A70000745E /* UnitActions.m */,
@@ -363,6 +366,8 @@
 				A572980B1A7C1F30001934F9 /* GameViewController.mm */,
 				A572982C1A7C37D6001934F9 /* MainViewController.h */,
 				A572982D1A7C37D6001934F9 /* MainViewController.m */,
+				70C47C2F1ABE161C0030664E /* UnitSelectionViewController.h */,
+				70C47C301ABE161C0030664E /* UnitSelectionViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -612,7 +617,7 @@
 				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
-				70C718341A894635003E3B05 /* ConvoyMode.m in Sources */,
+				70C718341A894635003E3B05 /* CTFMode.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
@@ -626,6 +631,7 @@
 				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
+				70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */,
 				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,
 				A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */,

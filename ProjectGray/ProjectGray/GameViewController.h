@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 #import "Unit.h"
-#import "ConvoyMode.h"
+#import "CTFMode.h"
 #import "Settings.h"
 #import "SkirmishMode.h"
+#import "Game.h"
 #import "factionmodel.h"
 
 @interface GameViewController : GLKViewController
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *attackLabel;
 
 @property (strong, nonatomic) Settings* settings;
+@property (strong, nonatomic) Game* game;
 
 @property (strong, nonatomic) IBOutlet UIImageView *turnMarker;
 @property (strong, nonatomic) IBOutlet UIImageView *statsBackground;

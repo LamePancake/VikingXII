@@ -11,7 +11,7 @@
 
 #import "GameMode.h"
 #import "SkirmishMode.h"
-#import "ConvoyMode.h"
+#import "CTFMode.h"
 
 @interface Settings : NSObject
 
@@ -20,6 +20,8 @@
 
 /// The list of all game modes.
 @property (strong, readonly, nonatomic) NSArray* modes;
+
+@property (nonatomic) int mapSize;
 
 /// Switches the current mode to the next mode in the list.
 -(void)switchToNextMode;

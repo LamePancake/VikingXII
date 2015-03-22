@@ -9,6 +9,175 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Unit Selectio-->
+        <scene sceneID="eAA-27-BqQ">
+            <objects>
+                <viewController title="Unit Selectio" id="tOk-eh-mFZ" customClass="UnitSelectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hIh-Xj-eKL"/>
+                        <viewControllerLayoutGuide type="bottom" id="O4v-1G-C14"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fdL-cN-K7m">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaaaace.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="RI0-gS-8uR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Imr-Em-ooW" userLabel="Alien Light">
+                                <rect key="frame" x="16" y="493" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMR-n3-1WS" userLabel="Alien Medium">
+                                <rect key="frame" x="16" y="529" width="63" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heavy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePp-7j-mUi" userLabel="Alien Heavy Stepper">
+                                <rect key="frame" x="16" y="565" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="C1G-kv-Wiz" userLabel="Alien Light Stepper">
+                                <rect key="frame" x="93" y="489" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addAlienShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="nik-E7-yzZ"/>
+                                </connections>
+                            </stepper>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="kyi-oM-VWE" userLabel="Alien Medium Stepper">
+                                <rect key="frame" x="93" y="525" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addAlienShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="53i-Fh-BXq"/>
+                                </connections>
+                            </stepper>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="eaZ-sT-AkR" userLabel="Alien Heavy Stepper">
+                                <rect key="frame" x="93" y="561" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addAlienShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="0QR-3u-0mf"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQN-RC-UOO">
+                                <rect key="frame" x="16" y="98" width="63" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heavy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUs-oP-ewW">
+                                <rect key="frame" x="16" y="134" width="48" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alien Ship Selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o2-XG-pFe">
+                                <rect key="frame" x="16" y="451" width="217" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Viking Ship Selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2E-0s-2lR">
+                                <rect key="frame" x="16" y="20" width="229" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="egJ-eY-plc" userLabel="Viking Light Stepper">
+                                <rect key="frame" x="93" y="58" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addVikingShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="u1T-mp-uvH"/>
+                                </connections>
+                            </stepper>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="h0n-bd-D0Y" userLabel="Viking Medium Stepper">
+                                <rect key="frame" x="93" y="94" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addVikingShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="Hb9-Le-EMV"/>
+                                </connections>
+                            </stepper>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="dBE-a2-Tsu" userLabel="Viking Heavy Stepper">
+                                <rect key="frame" x="93" y="130" width="94" height="29"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="addVikingShip:" destination="tOk-eh-mFZ" eventType="valueChanged" id="4wn-z8-YdR"/>
+                                </connections>
+                            </stepper>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8x2-Lc-kIW">
+                                <rect key="frame" x="162" y="277" width="230" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="START THE GAME">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="ToGame" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="pNm-gh-FuG"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="012-5F-0IJ">
+                                <rect key="frame" x="16" y="62" width="39" height="21"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kyi-oM-VWE" firstAttribute="leading" secondItem="eaZ-sT-AkR" secondAttribute="leading" id="15q-X3-ATQ"/>
+                            <constraint firstItem="RI0-gS-8uR" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leading" id="2TL-27-3sy"/>
+                            <constraint firstAttribute="centerY" secondItem="8x2-Lc-kIW" secondAttribute="centerY" id="4V8-Nn-pnN"/>
+                            <constraint firstItem="AQN-RC-UOO" firstAttribute="centerY" secondItem="h0n-bd-D0Y" secondAttribute="centerY" id="5rS-Eo-cXD"/>
+                            <constraint firstItem="C1G-kv-Wiz" firstAttribute="top" secondItem="1o2-XG-pFe" secondAttribute="bottom" constant="8" id="6BA-1g-iLO"/>
+                            <constraint firstItem="dBE-a2-Tsu" firstAttribute="centerY" secondItem="YUs-oP-ewW" secondAttribute="centerY" id="78z-ro-eHh"/>
+                            <constraint firstItem="EMR-n3-1WS" firstAttribute="top" secondItem="Imr-Em-ooW" secondAttribute="bottom" constant="15" id="7rr-hX-U6s"/>
+                            <constraint firstItem="h0n-bd-D0Y" firstAttribute="leading" secondItem="dBE-a2-Tsu" secondAttribute="leading" id="D11-U4-GqV"/>
+                            <constraint firstItem="h0n-bd-D0Y" firstAttribute="leading" secondItem="egJ-eY-plc" secondAttribute="leading" id="DDY-YV-nXS"/>
+                            <constraint firstItem="C1G-kv-Wiz" firstAttribute="leading" secondItem="Imr-Em-ooW" secondAttribute="trailing" constant="38" id="EYh-cl-YaN"/>
+                            <constraint firstItem="ePp-7j-mUi" firstAttribute="top" secondItem="EMR-n3-1WS" secondAttribute="bottom" constant="15" id="HTP-hc-VFA"/>
+                            <constraint firstAttribute="centerY" secondItem="RI0-gS-8uR" secondAttribute="centerY" id="KhN-0c-Ye1"/>
+                            <constraint firstItem="egJ-eY-plc" firstAttribute="top" secondItem="C2E-0s-2lR" secondAttribute="bottom" constant="8" id="PPA-xe-W0d"/>
+                            <constraint firstItem="Imr-Em-ooW" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leadingMargin" id="Pon-or-CgR"/>
+                            <constraint firstItem="C2E-0s-2lR" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leadingMargin" id="RqN-qf-47r"/>
+                            <constraint firstItem="012-5F-0IJ" firstAttribute="centerY" secondItem="egJ-eY-plc" secondAttribute="centerY" id="XCu-Ll-KDN"/>
+                            <constraint firstItem="ePp-7j-mUi" firstAttribute="bottom" secondItem="eaZ-sT-AkR" secondAttribute="bottom" constant="-4" id="Xcm-cx-lVq"/>
+                            <constraint firstItem="RI0-gS-8uR" firstAttribute="height" secondItem="fdL-cN-K7m" secondAttribute="height" id="Ywj-H7-swt"/>
+                            <constraint firstItem="h0n-bd-D0Y" firstAttribute="top" secondItem="egJ-eY-plc" secondAttribute="bottom" constant="7" id="bVI-jE-BTZ"/>
+                            <constraint firstItem="kyi-oM-VWE" firstAttribute="top" secondItem="C1G-kv-Wiz" secondAttribute="bottom" constant="7" id="e6W-Ca-ye8"/>
+                            <constraint firstItem="Imr-Em-ooW" firstAttribute="leading" secondItem="1o2-XG-pFe" secondAttribute="leading" id="eJk-ow-MYF"/>
+                            <constraint firstItem="C2E-0s-2lR" firstAttribute="top" secondItem="hIh-Xj-eKL" secondAttribute="bottom" id="eu7-ak-7W4"/>
+                            <constraint firstItem="egJ-eY-plc" firstAttribute="leading" secondItem="012-5F-0IJ" secondAttribute="trailing" constant="38" id="fUL-mS-6bU"/>
+                            <constraint firstItem="RI0-gS-8uR" firstAttribute="width" secondItem="fdL-cN-K7m" secondAttribute="width" id="i0F-Rl-434"/>
+                            <constraint firstItem="012-5F-0IJ" firstAttribute="leading" secondItem="AQN-RC-UOO" secondAttribute="leading" id="lPM-cL-Ldl"/>
+                            <constraint firstItem="kyi-oM-VWE" firstAttribute="leading" secondItem="C1G-kv-Wiz" secondAttribute="leading" id="msf-zz-aa1"/>
+                            <constraint firstAttribute="centerX" secondItem="8x2-Lc-kIW" secondAttribute="centerX" constant="23.5" id="nbj-wQ-j2p"/>
+                            <constraint firstItem="AQN-RC-UOO" firstAttribute="leading" secondItem="YUs-oP-ewW" secondAttribute="leading" id="qvG-7u-wrh"/>
+                            <constraint firstItem="eaZ-sT-AkR" firstAttribute="top" secondItem="kyi-oM-VWE" secondAttribute="bottom" constant="7" id="rNk-H4-kxi"/>
+                            <constraint firstItem="EMR-n3-1WS" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leadingMargin" id="rV8-sF-8gL"/>
+                            <constraint firstItem="O4v-1G-C14" firstAttribute="top" secondItem="ePp-7j-mUi" secondAttribute="bottom" constant="14" id="th7-Gj-U3V"/>
+                            <constraint firstItem="ePp-7j-mUi" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leadingMargin" id="wDm-C6-3gF"/>
+                            <constraint firstItem="dBE-a2-Tsu" firstAttribute="top" secondItem="h0n-bd-D0Y" secondAttribute="bottom" constant="7" id="xEE-nS-Wqo"/>
+                            <constraint firstItem="012-5F-0IJ" firstAttribute="leading" secondItem="fdL-cN-K7m" secondAttribute="leadingMargin" id="xZR-qa-A0J"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="alienHeavyStepper" destination="eaZ-sT-AkR" id="ffC-RC-7ni"/>
+                        <outlet property="alienLightStepper" destination="C1G-kv-Wiz" id="zue-v8-cdr"/>
+                        <outlet property="alienMediumStepper" destination="kyi-oM-VWE" id="dM1-db-dwb"/>
+                        <outlet property="vikingHeavyStepper" destination="dBE-a2-Tsu" id="Mi6-P9-8W9"/>
+                        <outlet property="vikingLightStepper" destination="egJ-eY-plc" id="x4D-t0-O5i"/>
+                        <outlet property="vikingMediumStepper" destination="h0n-bd-D0Y" id="hd9-fJ-Q6u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p1m-nj-VL7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="186"/>
+        </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -203,7 +372,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BV1-FR-VrT" kind="presentation" identifier="ToGameMode" modalTransitionStyle="flipHorizontal" id="adW-14-5cZ"/>
+                                    <segue destination="tOk-eh-mFZ" kind="presentation" identifier="ToUnitSel" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="cbh-iy-3ui"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Title_resized.png" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-3b-BhV">
@@ -244,7 +413,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bk9-LB-moE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-109" y="206"/>
+            <point key="canvasLocation" x="-656" y="185"/>
         </scene>
     </scenes>
     <resources>

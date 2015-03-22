@@ -8,6 +8,12 @@
 
 #include "UnitStats.h"
 
+const char* factionNames[] =
+{
+    "Vikings",
+    "Aliens"
+};
+
 const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
     // VIKINGS
     {

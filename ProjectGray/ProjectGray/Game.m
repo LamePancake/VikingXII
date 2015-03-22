@@ -39,7 +39,7 @@ static Game* _game = nil;
         _taskManager = [[TaskManager alloc] init];
         _game = self;
         _currentRound = 1;
-        _state = PLAYING;
+        _state = SELECTION;
         _selectionSwitchCount = 0;
     }
     return self;
@@ -94,7 +94,7 @@ static Game* _game = nil;
     
     if(_selectedUnit && _selectedUnit.taskAvailable)
     {
-        // If they tapped the tile that the selected unit was on, unselected it
+        // If they tapped the tile that the selected unit was on, unselect it
         if(_selectedUnit == unitOnTile)
         {
             _selectedUnit = nil;
@@ -153,28 +153,23 @@ static Game* _game = nil;
 
 -(void)switchTurnPlaying
 {
+    // Determine whose turn it should be
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
+
+    NSMutableArray* unitList;
+    // Reset the action points of the faction who just finished their turn
+    unitList = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     
-    if (_whoseTurn == _p2Faction)
+    for (Unit *unit in unitList)
     {
-        for (Unit *unit in _p2Units)
-        {
-            [unit resetAP];
-        }
-    }
-    else
-    {
-        for (Unit *unit in _p1Units)
-        {
-            [unit resetAP];
-        }
+        [unit resetAP];
     }
 }
 
 -(int)checkForWin
 {
-    return [_mode checkForWinWithPlayerOneUnits: _p1Units andPlayerTwoUnits:_p2Units];
+    return [_mode checkForWinWithPlayerOneUnits:_p1Units andPlayerTwoUnits:_p2Units];
 }
 
 +(TaskManager *) taskManager {

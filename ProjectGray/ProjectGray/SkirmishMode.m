@@ -19,33 +19,33 @@
 //TODO: Change returned value to a faction instead
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
 {
-    int vikingsAlive = 0;
+    BOOL playerOneAlive = NO;
     for(int i = 0; i < p1Units.count; i++)
     {
         if(((Unit*)p1Units[i]).active)
         {
-            vikingsAlive++;
+            playerOneAlive = YES;
             break;
         }
     }
     
-    int graysAlive = 0;
+    BOOL playerTwoAlive = NO;
     for(int i = 0; i < p2Units.count; i++)
     {
         if(((Unit*)p2Units[i]).active)
         {
-            graysAlive++;
+            playerTwoAlive = YES;
             break;
         }
     }
     
-    if(vikingsAlive != 0 && graysAlive != 0)
-        return 0;
-    else if(vikingsAlive != 0 && graysAlive == 0)
-        return 1;
-    else if(vikingsAlive == 0 && graysAlive != 0)
-        return 2;
-    return 0;
+    if(playerOneAlive && playerTwoAlive)
+        return -1;
+    else if(playerOneAlive && playerTwoAlive)
+        return ((Unit*)p1Units[0]).faction;
+    else if(playerOneAlive && playerTwoAlive)
+        return ((Unit*)p2Units[0]).faction;
+    return -1;
 }
 
 + (NSString *)getName

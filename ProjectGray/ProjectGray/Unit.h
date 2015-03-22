@@ -18,6 +18,7 @@
 #import "UnitStats.h"
 #import "GameObject.h"
 
+extern const float UNIT_SCALE;
 @interface Unit : NSObject <GameObject>
 
 @property (nonatomic) int shipClass;

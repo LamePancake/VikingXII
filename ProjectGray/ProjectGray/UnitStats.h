@@ -9,10 +9,10 @@
 /**
  * The faction which the ship belongs to.
  */
-#define NUM_FACTIONS 2 /// The number of factions. Must be updated when factions are added/deleted.
 typedef enum _Faction {
-    VIKINGS = 0,
-    ALIENS = 1
+    VIKINGS,
+    ALIENS,
+    NUM_FACTIONS
 } Faction;
 
 /**
@@ -22,11 +22,11 @@ typedef enum _Faction {
  * Medium units have both moderate move range and attack damage/range.
  * Heavy units can't move far, but they can deal significant damage.
  */
-#define NUM_CLASSES 3 /// The number of of classes. Must be updated when factions are added/deleted.
 typedef enum _ShipClass {
-    LIGHT = 0,
-    MEDIUM = 1,
-    HEAVY = 2
+    LIGHT,
+    MEDIUM,
+    HEAVY,
+    NUM_CLASSES
 } ShipClass;
 
 typedef struct _ShipStats {
@@ -50,3 +50,4 @@ typedef struct _ShipStats {
 } ShipStats;
 
 extern const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES];
+extern const char* factionNames[NUM_FACTIONS];

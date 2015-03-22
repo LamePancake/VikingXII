@@ -66,12 +66,12 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:@"ToGameMode"])
+    if ([[segue identifier] isEqualToString:@"ToUnitSel"])
     {
     
         // Pass the settings object to the game view controller for further use
-        GameViewController* gameVC = [segue destinationViewController];
-        gameVC.settings = _gameSettings;
+        GameViewController* unitSelVC = [segue destinationViewController];
+        unitSelVC.settings = _gameSettings;
     }
 }
 

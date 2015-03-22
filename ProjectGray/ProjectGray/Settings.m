@@ -24,10 +24,12 @@
     if(self) {
         
         // Initialise the modes list and set the current mode
-        _modes = @[ [ConvoyMode class],
+        _modes = @[ [CTFMode class],
                     [SkirmishMode class]];
         _modeIdx = 0;
         _currentMode = _modes[0];
+        
+        _mapSize = 5;
     }
     
     return self;

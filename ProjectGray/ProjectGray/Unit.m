@@ -8,7 +8,9 @@
 
 #import "Unit.h"
 
-@interface Unit ()
+const float UNIT_SCALE = 0.002f;
+
+@interface Unit () <GameObject>
 {
     ShipStats _shipStats;
 }
