@@ -9,6 +9,7 @@
 
 #import "HexCells.h"
 #import "NSMutableArray+QueueAdditions.h"
+#import "PriorityQueue.h"
 
 const GLKVector4 DEFAULT_COLOUR = {0.12f, 0.12f, 0.16f, 0.5f};
 const GLKVector4 ATTACKABLE_COLOUR = {0.73f, 0.23f, 0.4f, 0.8f};
@@ -402,27 +403,49 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     return neighbors;
 }
 
+- (int) ManhattanHeuristicA:(GLKVector2)a toB:(GLKVector2)b
+{
+    return abs(a.x - b.x) + abs(a.y - b.y);
+}
+
 - (NSMutableArray*)makePathFrom:(int)q1 :(int)r1 To:(int)q2 :(int)r2
 {
     Hex *start = [self hexAtQ:q1 andR:r1];
     Hex *goal = [self hexAtQ:q2 andR:r2];
     
-    NSMutableArray* frontierQueue = [[NSMutableArray alloc] init];
+    //NSMutableArray* frontierQueue = [[NSMutableArray alloc] init];
     
-    [frontierQueue enqueue:start];
+    PriorityQueue *frontierQueue = [[PriorityQueue alloc] init];
+    
+    [frontierQueue addObject:start value:0];
     NSMutableDictionary* cameFrom = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* costSoFar = [[NSMutableDictionary alloc] init];
     [cameFrom setObject:start forKey:[NSNumber numberWithInt:start.hash]];
+    [costSoFar setObject:[NSNumber numberWithInt:0] forKey:[NSNumber numberWithInt:start.hash]];
     Hex* current;
     NSMutableArray* neighbors;
     
-    while (!frontierQueue.empty) {
-        current = [frontierQueue dequeue];
+    while (!(frontierQueue.count == 0)) {
+        current = [frontierQueue pop];
+        
+        if (current == goal)
+        {
+            break;
+        }
+        
         neighbors = [self neighbors:current];
         for (id next in neighbors)
         {
-            if ([cameFrom objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] == nil)
+            int newCost = [[costSoFar objectForKey:[NSNumber numberWithInt:current.hash]] intValue] + 1;
+            
+            if (([costSoFar objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] == nil) ||
+                newCost < [[costSoFar objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] intValue])
             {
-                [frontierQueue enqueue:next];
+                [costSoFar setObject:[NSNumber numberWithInt:newCost] forKey:[NSNumber numberWithInt:((Hex*)next).hash]];
+                
+                int priority = newCost + [self ManhattanHeuristicA:goal.worldPosition toB:((Hex*)next).worldPosition];
+                
+                [frontierQueue addObject:next value:priority];
                 [cameFrom setObject:current forKey:[NSNumber numberWithInt:((Hex*)next).hash]];
             }
         }

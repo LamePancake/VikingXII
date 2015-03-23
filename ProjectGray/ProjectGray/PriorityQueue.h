@@ -12,8 +12,8 @@
 #import <Foundation/Foundation.h>
 
 // .h
-@interface ChemicalBurnOrderedQueue : NSObject {
-    struct CBOQNode*	mObjs;
+@interface PriorityQueue : NSObject {
+    struct PQNode*	mObjs;
     unsigned			mCount;
     unsigned			mCapacity;
     

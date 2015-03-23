@@ -14,21 +14,20 @@
 #include <algorithm>
 
 
-struct CBOQNode
-{
-    id obj;
+typedef struct PQNode {
+    void* obj;
     unsigned val;
-};
+} PQNode;
 
-static bool NodeLessThan( struct CBOQNode &n1, struct CBOQNode &n2)
+static bool NodeLessThan(PQNode &n1, PQNode &n2)
 {
     if( n1.val != n2.val )
         return n1.val > n2.val;
     else
-        return (int64_t)n1.obj < (int64_t)n2.obj;
+        return (unsigned)n1.obj < (unsigned)n2.obj;
 }
 
-@implementation ChemicalBurnOrderedQueue
+@implementation PriorityQueue
 
 - init
 {
@@ -36,7 +35,7 @@ static bool NodeLessThan( struct CBOQNode &n1, struct CBOQNode &n2)
     {
         mCount = 0;
         mCapacity = 100;
-        mObjs = (struct CBOQNode *)malloc( mCapacity * sizeof( *mObjs ) );
+        mObjs = (PQNode *)malloc( mCapacity * sizeof(PQNode) );
     }
     return self;
 }
@@ -67,10 +66,10 @@ static bool NodeLessThan( struct CBOQNode &n1, struct CBOQNode &n2)
     if( mCount > mCapacity )
     {
         mCapacity *= 2;
-        mObjs = (struct CBOQNode *)realloc( mObjs, mCapacity * sizeof( *mObjs ) );
+        mObjs = (PQNode *)realloc( mObjs, mCapacity * sizeof(PQNode) );
     }
     
-    mObjs[mCount - 1].obj = obj;
+    mObjs[mCount - 1].obj = (__bridge_retained void *)obj;
     mObjs[mCount - 1].val = val;
     
     if( mHeapified )
@@ -86,7 +85,7 @@ static bool NodeLessThan( struct CBOQNode &n1, struct CBOQNode &n2)
     
     std::pop_heap( mObjs, mObjs + mCount, NodeLessThan );
     mCount--;
-    return mObjs[mCount].obj;
+    return (__bridge_transfer id)mObjs[mCount].obj;
 }
 
 - (NSString *)description
