@@ -12,10 +12,19 @@
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
 
+enum type
+{
+    EMPTY,
+    ALIEN,
+    VIKING,
+    ASTEROID
+};
+
 @interface Hex : NSObject <NSCopying>
 
 @property int r;
 @property int q;
+@property enum type hexType;
 @property int instanceVertexIndex;
 @property GLKVector2 worldPosition;
 @property GLKVector4 colour;

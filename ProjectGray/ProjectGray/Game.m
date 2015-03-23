@@ -75,6 +75,14 @@ static Game* _game = nil;
         {
             if(h.q == tile.q && h.r == tile.r)
             {
+                if (_selectedUnit.faction == VIKINGS)
+                {
+                    tile.hexType = VIKING;
+                }
+                else if (_selectedUnit.faction == ALIENS)
+                {
+                    tile.hexType = ALIEN;
+                }
                 _selectedUnit.hex = tile;
                 _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
                 break;

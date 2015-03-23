@@ -281,11 +281,14 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
 -(NSMutableArray*)movableRange:(int)range from:(Hex *)selectedHex {
     NSMutableArray* withinRange = [[NSMutableArray alloc] init];
     
-    for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx) {
-        for (int dy = MAX(-range+selectedHex.r, -dx-range+selectedHex.q+selectedHex.r); dy <= MIN(range+selectedHex.r, -dx+range+selectedHex.q+selectedHex.r); ++dy) {
-            if([self inRange:dx :dy]) {
+    for(int dx = selectedHex.q -range; dx <= selectedHex.q +range; ++dx)
+    {
+        for (int dy = MAX(-range+selectedHex.r, -dx-range+selectedHex.q+selectedHex.r); dy <= MIN(range+selectedHex.r, -dx+range+selectedHex.q+selectedHex.r); ++dy)
+        {
+            if([self inRange:dx :dy])
+            {
                 Hex* currentHex = [self hexAtQ:dx andR:dy];
-                [withinRange addObject:currentHex];
+                if (currentHex.hexType == EMPTY) [withinRange addObject:currentHex];
             }
         }
     }
@@ -337,7 +340,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         Hex* neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r + 1
     
-        if (neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }
@@ -348,7 +351,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r - 1
         
-        if (neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }
@@ -360,7 +363,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r - 1
         
-        if ([self inRange:q :r] && neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }
@@ -371,7 +374,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r
         
-        if (neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }
@@ -383,7 +386,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r
         
-        if (neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }
@@ -394,7 +397,7 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r + r
         
-        if (neighbor.instanceVertexIndex != -1)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
         {
             [neighbors addObject:neighbor];
         }

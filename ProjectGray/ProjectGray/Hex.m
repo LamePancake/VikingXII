@@ -20,6 +20,7 @@
         self.colour = GLKVector4Make(1,0,1,1);
         self.instanceVertexIndex = index;
         self.worldPosition = world;
+        self.hexType = EMPTY;
     }
     return self;
 }
@@ -34,6 +35,7 @@
         self.colour = colour;
         self.instanceVertexIndex = index;
         self.worldPosition = world;
+        self.hexType = EMPTY;
     }
     return self;
 }
