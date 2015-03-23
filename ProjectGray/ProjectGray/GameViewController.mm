@@ -656,7 +656,7 @@ enum
         if (_game.selectedUnit != nil)
         {
             NSMutableArray* movableRange;
-            movableRange = [_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
+            movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];//[_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
             for(Hex* hex in movableRange)
             {
                 [hex setColour:MOVEABLE_COLOUR];

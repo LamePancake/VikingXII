@@ -131,6 +131,8 @@ extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
  */
 - (NSMutableArray*)makePathFrom:(int)q1 :(int)r1 To:(int)q2 :(int)r2;
 
+- (NSMutableArray*)makeFrontierFrom:(int)q1 :(int)r1 inRangeOf:(int)limit;
+
 /**
  * Gets the neighbours of a given hex cell.
  *

@@ -416,8 +416,6 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     Hex *start = [self hexAtQ:q1 andR:r1];
     Hex *goal = [self hexAtQ:q2 andR:r2];
     
-    //NSMutableArray* frontierQueue = [[NSMutableArray alloc] init];
-    
     PriorityQueue *frontierQueue = [[PriorityQueue alloc] init];
     
     [frontierQueue addObject:start value:0];
@@ -463,6 +461,48 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     }
     [path addObject:start];
     return path;
+}
+
+- (NSMutableArray*)makeFrontierFrom:(int)q1 :(int)r1 inRangeOf:(int)limit
+{
+    Hex *start = [self hexAtQ:q1 andR:r1];
+    
+    PriorityQueue *frontierQueue = [[PriorityQueue alloc] init];
+    NSMutableArray *frontierFinal = [[NSMutableArray alloc] init];
+    
+    [frontierQueue addObject:start value:0];
+    NSMutableDictionary* cameFrom = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* costSoFar = [[NSMutableDictionary alloc] init];
+    [cameFrom setObject:start forKey:[NSNumber numberWithInt:start.hash]];
+    [costSoFar setObject:[NSNumber numberWithInt:0] forKey:[NSNumber numberWithInt:start.hash]];
+    Hex* current;
+    NSMutableArray* neighbors;
+    
+    while (!(frontierQueue.count == 0)) {
+        current = [frontierQueue pop];
+        
+        neighbors = [self neighbors:current];
+        for (id next in neighbors)
+        {
+            int newCost = [[costSoFar objectForKey:[NSNumber numberWithInt:current.hash]] intValue] + 1;
+            
+            if (newCost > limit) {
+                continue;
+            }
+            
+            if (([costSoFar objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] == nil) ||
+                newCost < [[costSoFar objectForKey:[NSNumber numberWithInt:((Hex*)next).hash]] intValue])
+            {
+                [costSoFar setObject:[NSNumber numberWithInt:newCost] forKey:[NSNumber numberWithInt:((Hex*)next).hash]];
+                
+                [frontierQueue addObject:next value:newCost];
+                [frontierFinal addObject:next];
+                [cameFrom setObject:current forKey:[NSNumber numberWithInt:((Hex*)next).hash]];
+            }
+        }
+    }
+    
+    return frontierFinal;
 }
 
 -(NSMutableArray*)graysSelectableRange
