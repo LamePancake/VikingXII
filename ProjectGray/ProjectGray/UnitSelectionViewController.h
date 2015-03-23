@@ -23,5 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIStepper *alienLightStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *alienMediumStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *alienHeavyStepper;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *vikingLabels;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *alienLabels;
 
 @end

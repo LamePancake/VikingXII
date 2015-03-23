@@ -55,7 +55,13 @@
     if(_alienCounts[chosenClass] < sender.value)
     {
         // Don't add anymore ships if the player has already selected the max number.
-        if(currentAlienCount == MAX_UNITS) return;
+        if(currentAlienCount == MAX_UNITS)
+        {
+            //if(sender == _alienLightStepper) _alienLightStepper.value = _alienLightStepper.value--;
+            //else if(sender == _alienMediumStepper) _alienMediumStepper.value = _alienMediumStepper.value--;
+            //else if(sender == _alienHeavyStepper) _alienHeavyStepper.value = _alienHeavyStepper.value--;
+            return;
+        }
         
         // Otherwise, create and add a new alien ship of the selected class
         [_aliens addObject:[[Unit alloc]
@@ -66,12 +72,19 @@
                             andScale:UNIT_SCALE
                             onHex:nil]];
         _alienCounts[chosenClass]++;
+        [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
     }
     // Removed a ship of the chosen class
     else if(_alienCounts[chosenClass] > sender.value)
     {
         // If they somehow managed to remove when there were none, then return
-        if(currentAlienCount == 0) return;
+        if(currentAlienCount == 0)
+        {
+            //if(sender == _alienLightStepper) _alienLightStepper.value = _alienLightStepper.value++;
+            //else if(sender == _alienMediumStepper) _alienMediumStepper.value = _alienMediumStepper.value++;
+            //else if(sender == _alienHeavyStepper) _alienHeavyStepper.value = _alienHeavyStepper.value++;
+            return;
+        }
         
         // Remove the first ship of that type in the array
         for(Unit* ship in _aliens)
@@ -83,6 +96,7 @@
             }
         }
         _alienCounts[chosenClass]--;
+        [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
     }
 }
 
@@ -102,7 +116,13 @@
     if(_vikingCounts[chosenClass] < sender.value)
     {
         // Don't add anymore ships if the player has already selected the max number.
-        if(currentVikingCount == MAX_UNITS) return;
+        if(currentVikingCount == MAX_UNITS)
+        {
+            if(sender == _vikingLightStepper) _vikingLightStepper.value = _vikingLightStepper.value--;
+            else if(sender == _vikingMediumStepper) _vikingMediumStepper.value = _vikingMediumStepper.value--;
+            else if(sender == _vikingHeavyStepper) _vikingHeavyStepper.value = _vikingHeavyStepper.value--;
+            return;
+        }
         
         // Otherwise, create and add a new alien ship of the selected class
         [_vikings addObject:[[Unit alloc]
@@ -113,13 +133,19 @@
                             andScale:UNIT_SCALE
                             onHex:nil]];
         _vikingCounts[chosenClass]++;
+        [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
     }
     // Removed a ship of the chosen class
     else if(_vikingCounts[chosenClass] > sender.value)
     {
         // If they somehow managed to remove when there were none, then return
-        if(currentVikingCount == 0) return;
-        
+        if(currentVikingCount == 0)
+        {
+            if(sender == _vikingLightStepper) _vikingLightStepper.value = _vikingLightStepper.value++;
+            else if(sender == _vikingMediumStepper) _vikingMediumStepper.value = _vikingMediumStepper.value++;
+            else if(sender == _vikingHeavyStepper) _vikingHeavyStepper.value = _vikingHeavyStepper.value++;
+            return;
+        }
         // Remove the first ship of that type in the array
         for(Unit* ship in _vikings)
         {
@@ -130,6 +156,7 @@
             }
         }
         _vikingCounts[chosenClass]--;
+        [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
     }
 }
 
