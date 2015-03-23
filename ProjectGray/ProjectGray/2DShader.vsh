@@ -23,15 +23,7 @@ varying vec2 texCoordOut;
 void main()
 {
     texCoordOut = texCoordIn;
-    
-    vec3 eyeNormal = normalize(normalMatrix * normal);
-    vec3 lightPosition = vec3(0.0, 2.0, -5.0);
-    vec4 diffuseColor = vec4(1.0, 1.0, 1.0, 1.0);
-    vec4 ambient = vec4(0.3, 0.3, 0.4, 1.0);
-    
-    float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
-                 
-    colorVarying = (diffuseColor * nDotVP) + ambient;
+
     
     gl_Position = translationMatrix * position;
 }

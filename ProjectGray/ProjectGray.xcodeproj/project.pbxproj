@@ -61,6 +61,8 @@
 		A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = A50862BB1ABDFCC800D1925A /* factionmodel.c */; };
 		A50862BF1ABE072800D1925A /* environment.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BD1ABE072800D1925A /* environment.png */; };
 		A50862C01ABE072800D1925A /* factionitem.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BE1ABE072800D1925A /* factionitem.png */; };
+		A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */; };
+		A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */; };
 		A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61111A9935A0002A6A3B /* h_vikingVertices.c */; };
 		A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61131A9935D2002A6A3B /* l_vikingVertices.c */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
@@ -170,6 +172,8 @@
 		A50862BD1ABE072800D1925A /* environment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = environment.png; sourceTree = "<group>"; };
 		A50862BE1ABE072800D1925A /* factionitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factionitem.png; sourceTree = "<group>"; };
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
+		A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.vsh; sourceTree = "<group>"; };
+		A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.fsh; sourceTree = "<group>"; };
 		A54E61111A9935A0002A6A3B /* h_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h_vikingVertices.c; sourceTree = "<group>"; };
 		A54E61131A9935D2002A6A3B /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
 		A57297FC1A7C1F30001934F9 /* ProjectGray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectGray.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,6 +322,8 @@
 			children = (
 				A57298061A7C1F30001934F9 /* Shader.fsh */,
 				A57298081A7C1F30001934F9 /* Shader.vsh */,
+				A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */,
+				A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */,
 				3082EA0F1A8D697000A54360 /* HexShader.fsh */,
 				3082EA111A8D698F00A54360 /* HexShader.vsh */,
 				3521E7A51A9131E600D481B4 /* GUIShader.vsh */,
@@ -584,6 +590,7 @@
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				A50862B41ABDF1BB00D1925A /* laser.txt in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
+				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
@@ -592,6 +599,7 @@
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
+				A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */,
 				355F09EA1AAE453100006127 /* vikingVertsLight.txt in Resources */,
 				A50862BF1ABE072800D1925A /* environment.png in Resources */,
 			);

@@ -29,6 +29,10 @@ enum
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
     UNIFORM_UNIT_TEXTURE,
+    UNIFORM_2D_MODELVIEWPROJECTION_MATRIX,
+    UNIFORM_2D_NORMAL_MATRIX,
+    UNIFORM_2D_UNIT_TEXTURE,
+    UNIFORM_2D_TRANSLATION_MATRIX,
     NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -44,6 +48,7 @@ enum
 @interface GameViewController () {
     GLuint _program;
     GLuint _hexProgram;
+    GLuint _2DProgram;
     
     float _rotation;
     
@@ -500,6 +505,10 @@ enum
         glDeleteProgram(_hexProgram);
         _hexProgram = 0;
     }
+    if (_2DProgram) {
+        glDeleteProgram(_2DProgram);
+        _2DProgram = 0;
+    }
 }
 
 -(IBAction)doPinch:(UIPinchGestureRecognizer *)recognizer
@@ -715,7 +724,7 @@ enum
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glBindTexture(GL_TEXTURE_2D, _bgTexture);
-    [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_program];
+    [self draw:bgNumVerts withVertices:_vertexBGArray usingProgram:_2DProgram];
     
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
@@ -846,19 +855,22 @@ enum
 
 - (BOOL)loadShaders
 {
-    NSString *vertShaderPathname, *fragShaderPathname;
-    NSString *vertHexShaderPathname, *fragHexShaderPathname;
+    NSString *vertShaderPathname, *fragShaderPathname, *vert2DShaderPathname;
+    NSString *vertHexShaderPathname, *fragHexShaderPathname, *frag2DShaderPathname;
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
     vertHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"vsh"];
+    vert2DShaderPathname = [[NSBundle mainBundle] pathForResource:@"2DShader" ofType:@"vsh"];
 
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
     fragHexShaderPathname = [[NSBundle mainBundle] pathForResource:@"HexShader" ofType:@"fsh"];
+    frag2DShaderPathname = [[NSBundle mainBundle] pathForResource:@"2DShader" ofType:@"fsh"];
     
     ShaderAttribute mainProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     ShaderAttribute hexProgAttrs[] = {{GLKVertexAttribPosition, "position"}};
+    ShaderAttribute twoDProgAttrs[] = {{GLKVertexAttribPosition, "position"}, {GLKVertexAttribNormal, "normal"}, {GLKVertexAttribTexCoord0, "texCoordIn"}};
     
     if([GLProgramUtils makeProgram: &_program withVertShader: vertShaderPathname andFragShader: fragShaderPathname
                andAttributes: mainProgAttrs withNumberOfAttributes:3])
@@ -868,14 +880,24 @@ enum
         glDeleteProgram(_program);
         return NO;
     }
-    
+    if([GLProgramUtils makeProgram: &_2DProgram withVertShader: vert2DShaderPathname andFragShader: frag2DShaderPathname andAttributes:twoDProgAttrs withNumberOfAttributes:3])
+    {
+        glDeleteProgram(_program);
+        glDeleteProgram(_hexProgram);
+        return NO;
+    }
+        
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
+    uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
+    uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
+    uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     uniforms[UNIFORM_UNIT_TEXTURE] = glGetUniformLocation(_program, "texture");
+    uniforms[UNIFORM_2D_UNIT_TEXTURE] = glGetUniformLocation(_2DProgram, "texture");
 
     return YES;
 }
