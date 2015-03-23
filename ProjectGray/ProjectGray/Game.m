@@ -34,7 +34,7 @@ static Game* _game = nil;
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
         
         _mode = mode;
-        _selectedUnit = nil;
+        _selectedUnit = p1Units[0];
         _map = map;
         _taskManager = [[TaskManager alloc] init];
         _game = self;
@@ -66,16 +66,35 @@ static Game* _game = nil;
 {
     if (!tile) return;
     
-    NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
-
-    for(Unit* u in units)
+    NSMutableArray *range = _whoseTurn == _p1Faction ? vikingRange : alienRange;
+    
+    Unit* unitOnTile = [self getUnitOnHex:tile];
+    if(unitOnTile == nil)
     {
-        if(u.hex == nil)
+        for(Hex* h in range)
         {
-            u.hex = tile;
-            u.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
-            break;
+            if(h.q == tile.q && h.r == tile.r)
+            {
+                _selectedUnit.hex = tile;
+                _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
+                break;
+            }
         }
+        
+        NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
+        for(Unit* u in units)
+        {
+            if(u.hex == nil)
+            {
+                _selectedUnit = u;
+                break;
+            }
+        }
+    }
+    else
+    {
+        if(unitOnTile.faction == _whoseTurn)
+            _selectedUnit = unitOnTile;
     }
 }
 
@@ -131,6 +150,8 @@ static Game* _game = nil;
 
 -(void)switchTurnSelecting
 {
+    _selectedUnit = nil;
+    
     NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     for(int i = 0; i < units.count; i++)
     {
