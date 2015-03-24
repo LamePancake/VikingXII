@@ -17,6 +17,12 @@
     int _alienCounts[NUM_CLASSES];
     int _vikingCounts[NUM_CLASSES];
     
+    NSString* _vikingsImageStrings[3];
+    NSString* _aliensImageStrings[3];
+    
+    int _vikingImageIndex;
+    int _alienImageIndex;
+    
     NSMutableArray* _vikings;
     NSMutableArray* _aliens;
     
@@ -32,6 +38,17 @@
     
     _vikings = [[NSMutableArray alloc] init];
     _aliens = [[NSMutableArray alloc] init];
+    
+    _vikingsImageStrings[0] = @"l_viking";
+    _vikingsImageStrings[1] = @"m_viking";
+    _vikingsImageStrings[2] = @"h_viking";
+    
+    _aliensImageStrings[0] = @"l_gray";
+    _aliensImageStrings[1] = @"m_gray";
+    _aliensImageStrings[2] = @"h_gray";
+    
+    _vikingImageIndex = 0;
+    _alienImageIndex = 0;
     
     memset(&(_alienCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     memset(&(_vikingCounts[0]), 0, sizeof(int) * NUM_CLASSES);
@@ -57,9 +74,6 @@
         // Don't add anymore ships if the player has already selected the max number.
         if(currentAlienCount == MAX_UNITS)
         {
-            //if(sender == _alienLightStepper) _alienLightStepper.value = _alienLightStepper.value--;
-            //else if(sender == _alienMediumStepper) _alienMediumStepper.value = _alienMediumStepper.value--;
-            //else if(sender == _alienHeavyStepper) _alienHeavyStepper.value = _alienHeavyStepper.value--;
             return;
         }
         
@@ -80,9 +94,6 @@
         // If they somehow managed to remove when there were none, then return
         if(currentAlienCount == 0)
         {
-            //if(sender == _alienLightStepper) _alienLightStepper.value = _alienLightStepper.value++;
-            //else if(sender == _alienMediumStepper) _alienMediumStepper.value = _alienMediumStepper.value++;
-            //else if(sender == _alienHeavyStepper) _alienHeavyStepper.value = _alienHeavyStepper.value++;
             return;
         }
         
@@ -118,9 +129,6 @@
         // Don't add anymore ships if the player has already selected the max number.
         if(currentVikingCount == MAX_UNITS)
         {
-            if(sender == _vikingLightStepper) _vikingLightStepper.value = _vikingLightStepper.value--;
-            else if(sender == _vikingMediumStepper) _vikingMediumStepper.value = _vikingMediumStepper.value--;
-            else if(sender == _vikingHeavyStepper) _vikingHeavyStepper.value = _vikingHeavyStepper.value--;
             return;
         }
         
@@ -134,6 +142,10 @@
                             onHex:nil]];
         _vikingCounts[chosenClass]++;
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
+        
+
+        [self updateImage:_vikingsImageStrings[chosenClass] From:_VikingImages AtCount:_vikingImageIndex];
+        _vikingImageIndex++;
     }
     // Removed a ship of the chosen class
     else if(_vikingCounts[chosenClass] > sender.value)
@@ -141,9 +153,6 @@
         // If they somehow managed to remove when there were none, then return
         if(currentVikingCount == 0)
         {
-            if(sender == _vikingLightStepper) _vikingLightStepper.value = _vikingLightStepper.value++;
-            else if(sender == _vikingMediumStepper) _vikingMediumStepper.value = _vikingMediumStepper.value++;
-            else if(sender == _vikingHeavyStepper) _vikingHeavyStepper.value = _vikingHeavyStepper.value++;
             return;
         }
         // Remove the first ship of that type in the array
@@ -157,6 +166,9 @@
         }
         _vikingCounts[chosenClass]--;
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
+
+        [self removeImageFrom:_VikingImages AtCount:_vikingImageIndex - 1];
+        _vikingImageIndex--;
     }
 }
 
@@ -182,6 +194,30 @@
         GameViewController* gameVC = [segue destinationViewController];
         gameVC.game = game;
     }
+}
+
+- (void)updateImage:(NSString*) image From:(NSArray*) images AtCount: (int) count
+{
+    [images[count] setImage:[UIImage imageNamed:image]];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(0.0,0.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+    }];
+}
+
+- (void)removeImageFrom:(NSArray*)images AtCount: (int) count
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(1.0,1.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(0.00001,0.00001);
+        } completion:nil];
+    }];
 }
 
 @end

@@ -29,6 +29,12 @@
 		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
 		35117B831A9BF284007E56CD /* Stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 35117B821A9BF284007E56CD /* Stats.png */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
+		3516E2501AC1D983008A815C /* h_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24A1AC1D983008A815C /* h_gray.png */; };
+		3516E2511AC1D983008A815C /* h_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24B1AC1D983008A815C /* h_viking.png */; };
+		3516E2521AC1D983008A815C /* l_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24C1AC1D983008A815C /* l_gray.png */; };
+		3516E2531AC1D983008A815C /* l_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24D1AC1D983008A815C /* l_viking.png */; };
+		3516E2541AC1D983008A815C /* m_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24E1AC1D983008A815C /* m_gray.png */; };
+		3516E2551AC1D983008A815C /* m_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24F1AC1D983008A815C /* m_viking.png */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
 		352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */ = {isa = PBXBuildFile; fileRef = 352C72DD1A99397900A1B67A /* VikingDiff.png */; };
@@ -125,6 +131,12 @@
 		35117B801A9BF087007E56CD /* background.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = background.c; sourceTree = "<group>"; };
 		35117B821A9BF284007E56CD /* Stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stats.png; sourceTree = "<group>"; };
 		3514AA471A93C733002FB00C /* EndTurn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurn.png; sourceTree = "<group>"; };
+		3516E24A1AC1D983008A815C /* h_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = h_gray.png; sourceTree = "<group>"; };
+		3516E24B1AC1D983008A815C /* h_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = h_viking.png; sourceTree = "<group>"; };
+		3516E24C1AC1D983008A815C /* l_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_gray.png; sourceTree = "<group>"; };
+		3516E24D1AC1D983008A815C /* l_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_viking.png; sourceTree = "<group>"; };
+		3516E24E1AC1D983008A815C /* m_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_gray.png; sourceTree = "<group>"; };
+		3516E24F1AC1D983008A815C /* m_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_viking.png; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
 		352C72DD1A99397900A1B67A /* VikingDiff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingDiff.png; sourceTree = "<group>"; };
@@ -268,6 +280,12 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				3516E24A1AC1D983008A815C /* h_gray.png */,
+				3516E24B1AC1D983008A815C /* h_viking.png */,
+				3516E24C1AC1D983008A815C /* l_gray.png */,
+				3516E24D1AC1D983008A815C /* l_viking.png */,
+				3516E24E1AC1D983008A815C /* m_gray.png */,
+				3516E24F1AC1D983008A815C /* m_viking.png */,
 				35B2F0A91ABDF18400E902F3 /* vikingsturn.png */,
 				35B2F0AA1ABDF18400E902F3 /* graysturn.png */,
 				355F09D51AAE2A1200006127 /* GrayDiff.png */,
@@ -560,6 +578,7 @@
 				30D6583B1A99629C00DE1F63 /* cannon4.aiff in Resources */,
 				30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */,
 				A5E12FA51A9D08B4007A8C63 /* white.png in Resources */,
+				3516E2521AC1D983008A815C /* l_gray.png in Resources */,
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				A50862C01ABE072800D1925A /* factionitem.png in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
@@ -578,6 +597,7 @@
 				A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */,
 				A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
+				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				355F09E51AAE453100006127 /* grayVertsMedium.txt in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
@@ -587,7 +607,9 @@
 				355F09EB1AAE453100006127 /* vikingVertsMedium.txt in Resources */,
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
+				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
+				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
 				A50862B41ABDF1BB00D1925A /* laser.txt in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
@@ -595,8 +617,10 @@
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
+				3516E2511AC1D983008A815C /* h_viking.png in Resources */,
 				355F09E41AAE453100006127 /* grayVertsLight.txt in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
+				3516E2541AC1D983008A815C /* m_gray.png in Resources */,
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				352C72DE1A99397900A1B67A /* VikingDiff.png in Resources */,
 				A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */,
