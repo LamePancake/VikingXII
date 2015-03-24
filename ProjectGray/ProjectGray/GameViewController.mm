@@ -537,6 +537,26 @@ enum
     [_camera PanDidBegin:didBegin X:x Y:y];
 }
 
+- (IBAction)attackAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = ATTACK;
+}
+
+- (IBAction)moveAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = MOVE;
+}
+
+- (IBAction)healAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = HEAL;
+}
+
+- (IBAction)searchAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = SEARCH;
+}
+
 /*!
  * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and intersect it against the xy-plane to pick a hex cell.
  */
@@ -597,6 +617,15 @@ enum
     else
         [_game selectTile: pickedTile];
     
+    if (_game.selectedUnit.shipClass == MEDIUM)
+    {
+        _healAbilityButton.hidden = false;
+    }
+    else
+    {
+        _healAbilityButton.hidden = true;
+    }
+    
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -655,32 +684,54 @@ enum
     {
         if (_game.selectedUnit != nil)
         {
-            NSMutableArray* movableRange;
-            movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];//[_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
-            for(Hex* hex in movableRange)
+            if (_game.selectedUnitAbility == MOVE)
             {
-                [hex setColour:MOVEABLE_COLOUR];
-            }
-            
-            if(_game.whoseTurn == VIKINGS)
-            {
-                if ([_game.selectedUnit ableToAttack])
+                NSMutableArray* movableRange;
+                movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];//[_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
+                
+                for(Hex* hex in movableRange)
                 {
-                    for(Unit* unit in _game.p2Units)
+                    [hex setColour:MOVEABLE_COLOUR];
+                }
+            }
+            else if (_game.selectedUnitAbility == ATTACK)
+            {
+                if(_game.whoseTurn == VIKINGS)
+                {
+                    if ([_game.selectedUnit ableToAttack])
                     {
-                        if(unit.active)
+                        for(Unit* unit in _game.p2Units)
                         {
-                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            if(unit.active)
                             {
-                                [unit.hex setColour:ATTACKABLE_COLOUR];
+                                if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                                {
+                                    [unit.hex setColour:ATTACKABLE_COLOUR];
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (_game.whoseTurn == ALIENS)
+                {
+                    if ([_game.selectedUnit ableToAttack])
+                    {
+                        for(Unit* unit in _game.p1Units)
+                        {
+                            if(unit.active)
+                            {
+                                if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                                {
+                                    [unit.hex setColour:ATTACKABLE_COLOUR];
+                                }
                             }
                         }
                     }
                 }
             }
-            else if (_game.whoseTurn == ALIENS)
+            else if (_game.selectedUnitAbility == HEAL)
             {
-                if ([_game.selectedUnit ableToAttack])
+                if(_game.whoseTurn == VIKINGS)
                 {
                     for(Unit* unit in _game.p1Units)
                     {
@@ -688,12 +739,28 @@ enum
                         {
                             if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
                             {
-                                [unit.hex setColour:ATTACKABLE_COLOUR];
+                                [unit.hex setColour:HEAL_COLOUR];
                             }
                         }
                     }
+                    
+                }
+                else if (_game.whoseTurn == ALIENS)
+                {
+                    for(Unit* unit in _game.p2Units)
+                    {
+                        if(unit.active)
+                        {
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            {
+                                [unit.hex setColour:HEAL_COLOUR];
+                            }
+                        }
+                    }
+                    
                 }
             }
+            
             [_game.selectedUnit.hex setColour:SELECTED_COLOUR];
         }
     }

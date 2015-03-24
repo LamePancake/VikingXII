@@ -41,6 +41,7 @@ static Game* _game = nil;
         _currentRound = 1;
         _state = SELECTION;
         _selectionSwitchCount = 0;
+        _selectedUnitAbility = NONE;
     }
     return self;
 }
@@ -75,6 +76,7 @@ static Game* _game = nil;
         {
             if(h.q == tile.q && h.r == tile.r)
             {
+                _selectedUnit.hex.hexType = EMPTY;
                 if (_selectedUnit.faction == VIKINGS)
                 {
                     tile.hexType = VIKING;
@@ -125,12 +127,16 @@ static Game* _game = nil;
             _selectedUnit = nil;
         }
         // Attack the enemy if possible
-        else if(unitOnTile != nil && unitOnTile.faction != _selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
+        else if(_selectedUnitAbility == ATTACK &&
+                unitOnTile != nil &&
+                unitOnTile.faction != _selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
         {
             [UnitActions attackThis:unitOnTile with:_selectedUnit];
         }
         // Move to another tile
-        else if(!unitOnTile && [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
+        else if(_selectedUnitAbility == MOVE &&
+                !unitOnTile &&
+                [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
         {
             // Unit actions move
             [UnitActions moveThis:_selectedUnit toHex:tile onMap:_map];
@@ -141,6 +147,7 @@ static Game* _game = nil;
     if(unitOnTile && unitOnTile.faction == _whoseTurn)
     {
         _selectedUnit = unitOnTile;
+        _selectedUnitAbility = MOVE;
     }
 }
 
@@ -183,6 +190,7 @@ static Game* _game = nil;
     // Determine whose turn it should be
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
+    _selectedUnitAbility = NONE;
 
     NSMutableArray* unitList;
     // Reset the action points of the faction who just finished their turn

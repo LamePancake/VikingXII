@@ -17,6 +17,15 @@ typedef enum _GameState {
     PLAYING = 1
 } GameState;
 
+typedef enum UnitAbilities
+{
+    ATTACK,
+    MOVE,
+    HEAL,
+    SEARCH,
+    NONE
+} UnitAbilities;
+
 @interface Game : NSObject
 
 // The current state of the game
@@ -45,6 +54,8 @@ typedef enum _GameState {
 
 /// The currently selected unit, if any.
 @property (weak, nonatomic) Unit* selectedUnit;
+
+@property (nonatomic) UnitAbilities selectedUnitAbility;
 
 -(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 

@@ -28,4 +28,8 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *turnMarker;
 @property (strong, nonatomic) IBOutlet UIImageView *statsBackground;
+@property (strong, nonatomic) IBOutlet UIButton *attackAbilityButton;
+@property (strong, nonatomic) IBOutlet UIButton *moveAbilityButton;
+@property (strong, nonatomic) IBOutlet UIButton *healAbilityButton;
+@property (strong, nonatomic) IBOutlet UIButton *searchAbilityButton;
 @end
