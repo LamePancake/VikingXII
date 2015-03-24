@@ -21,6 +21,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy
@@ -36,6 +37,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy
@@ -51,6 +53,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy
@@ -69,6 +72,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy
@@ -84,6 +88,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy
@@ -99,6 +104,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         {
             2,          // Attack range
             2,          // Action points per attack
+            2,          // Action points per heal
             1,          // Moves (tiles) per action point
             3,          // Action point pool (number at the beginning of each turn)
             0.75f,      // Accuracy

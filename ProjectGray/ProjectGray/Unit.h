@@ -45,6 +45,7 @@ extern const float UNIT_HEIGHT;
 -(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex;
 -(void) resetAP;
 -(BOOL) ableToAttack;
+-(BOOL) ableToHeal;
 -(int) moveRange;
 @end
 #endif

@@ -33,6 +33,7 @@ typedef struct _ShipStats {
     // Ranges & action point limitations
     int attackRange;
     int actionPointsPerAttack;
+    int actionPointsPerHeal;
     int movesPerActionPoint;
     int actionPool;
     

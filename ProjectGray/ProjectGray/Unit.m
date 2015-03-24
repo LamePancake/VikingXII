@@ -54,9 +54,15 @@ const float UNIT_HEIGHT = 0.04f;
 -(void)resetAP {
     _shipStats.actionPool = factionShipStats[_faction][_shipClass].actionPool;
 }
+
 - (BOOL) ableToAttack
 {
     return (_shipStats.actionPointsPerAttack <= _shipStats.actionPool);
+}
+
+- (BOOL) ableToHeal
+{
+    return (_shipStats.actionPointsPerHeal <= _shipStats.actionPool);
 }
 
 -(int) moveRange

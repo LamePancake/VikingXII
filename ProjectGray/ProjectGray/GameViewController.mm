@@ -694,42 +694,36 @@ enum
                     [hex setColour:MOVEABLE_COLOUR];
                 }
             }
-            else if (_game.selectedUnitAbility == ATTACK)
+            else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
             {
                 if(_game.whoseTurn == VIKINGS)
                 {
-                    if ([_game.selectedUnit ableToAttack])
+                    for(Unit* unit in _game.p2Units)
                     {
-                        for(Unit* unit in _game.p2Units)
+                        if(unit.active)
                         {
-                            if(unit.active)
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
                             {
-                                if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
-                                {
-                                    [unit.hex setColour:ATTACKABLE_COLOUR];
-                                }
+                                [unit.hex setColour:ATTACKABLE_COLOUR];
                             }
                         }
                     }
                 }
                 else if (_game.whoseTurn == ALIENS)
                 {
-                    if ([_game.selectedUnit ableToAttack])
+                    for(Unit* unit in _game.p1Units)
                     {
-                        for(Unit* unit in _game.p1Units)
+                        if(unit.active)
                         {
-                            if(unit.active)
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
                             {
-                                if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
-                                {
-                                    [unit.hex setColour:ATTACKABLE_COLOUR];
-                                }
+                                [unit.hex setColour:ATTACKABLE_COLOUR];
                             }
                         }
                     }
                 }
             }
-            else if (_game.selectedUnitAbility == HEAL)
+            else if (_game.selectedUnitAbility == HEAL && [_game.selectedUnit ableToHeal])
             {
                 if(_game.whoseTurn == VIKINGS)
                 {
