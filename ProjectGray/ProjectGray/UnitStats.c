@@ -20,6 +20,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Light ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point
@@ -36,6 +37,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Medium ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point
@@ -52,6 +54,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Heavy ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point
@@ -71,6 +74,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Light ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point
@@ -87,6 +91,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Medium ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point
@@ -103,6 +108,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
         // Heavy ship base stats
         {
             2,          // Attack range
+            2,          // Heal range
             2,          // Action points per attack
             2,          // Action points per heal
             1,          // Moves (tiles) per action point

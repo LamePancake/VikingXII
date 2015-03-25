@@ -138,8 +138,15 @@ static Game* _game = nil;
                 !unitOnTile &&
                 [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
         {
-            // Unit actions move
             [UnitActions moveThis:_selectedUnit toHex:tile onMap:_map];
+        }
+        // Heal a member of your faction
+        else if (_selectedUnitAbility == HEAL &&
+                 unitOnTile != nil &&
+                 unitOnTile.faction == _whoseTurn &&
+                 [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
+        {
+            [UnitActions healThis:unitOnTile byThis:_selectedUnit];
         }
     }
     

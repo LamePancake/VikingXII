@@ -32,6 +32,7 @@ typedef enum _ShipClass {
 typedef struct _ShipStats {
     // Ranges & action point limitations
     int attackRange;
+    int healRange;
     int actionPointsPerAttack;
     int actionPointsPerHeal;
     int movesPerActionPoint;
