@@ -172,23 +172,25 @@ static Game* _game = nil;
 
 -(void)switchTurnSelecting
 {
-    _selectedUnit = nil;
-    
     NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     for(int i = 0; i < units.count; i++)
     {
         if(((Unit*)units[i]).hex == nil)
         {
+             _selectedUnit = units[i];
             NSLog(@"You still have units to place!");
             return;
         }
     }
     
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
+    units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     _selectionSwitchCount++;
+    _selectedUnit = units[0];
     if(_selectionSwitchCount >= 2)
     {
         _state = PLAYING;
+        _selectedUnit = nil;
     }
 }
 

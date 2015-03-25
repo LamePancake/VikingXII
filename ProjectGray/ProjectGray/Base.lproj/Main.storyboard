@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -362,7 +362,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvC-70-yNN" userLabel="Attack">
-                                <rect key="frame" x="16" y="550" width="46" height="30"/>
+                                <rect key="frame" x="224" y="550" width="46" height="30"/>
                                 <state key="normal" title="Attack">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -371,7 +371,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97V-E6-jp5">
-                                <rect key="frame" x="70" y="550" width="46" height="30"/>
+                                <rect key="frame" x="278" y="550" width="46" height="30"/>
                                 <state key="normal" title="Move">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -379,17 +379,8 @@
                                     <action selector="moveAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="U9w-to-Azg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whP-zb-phm">
-                                <rect key="frame" x="120" y="550" width="46" height="30"/>
-                                <state key="normal" title="Heal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="healAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ewJ-4S-Nv4"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="May-KN-Jeo">
-                                <rect key="frame" x="174" y="550" width="50" height="30"/>
+                                <rect key="frame" x="332" y="550" width="50" height="30"/>
                                 <state key="normal" title="Search">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -403,10 +394,37 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pNP-9q-ygh">
+                                <rect key="frame" x="16" y="440" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="h67-7A-8XM"/>
+                                    <constraint firstAttribute="width" constant="150" id="kSN-5t-eI9"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Unit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hf-v4-Wdu">
+                                <rect key="frame" x="16" y="411" width="150" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="EGp-fU-weh"/>
+                                    <constraint firstAttribute="height" constant="21" id="JR1-Oq-9N0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whP-zb-phm">
+                                <rect key="frame" x="390" y="550" width="46" height="30"/>
+                                <state key="normal" title="Heal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="healAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ewJ-4S-Nv4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="pNP-9q-ygh" firstAttribute="top" secondItem="6hf-v4-Wdu" secondAttribute="bottom" constant="8" id="1W3-EI-Vro"/>
                             <constraint firstItem="dSk-ba-NOp" firstAttribute="width" secondItem="jea-WI-af3" secondAttribute="width" constant="-20" id="5CN-81-uMV"/>
                             <constraint firstItem="1Jv-Ch-006" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="-10" id="5yu-95-aMG"/>
                             <constraint firstItem="Mam-Bn-BEX" firstAttribute="bottom" secondItem="3se-qz-xqx" secondAttribute="bottomMargin" constant="-10" id="6ba-dF-h4p"/>
@@ -414,10 +432,13 @@
                             <constraint firstItem="WyU-sd-vxG" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="topMargin" constant="-13" id="AGc-j8-JeW"/>
                             <constraint firstItem="dSk-ba-NOp" firstAttribute="top" secondItem="jea-WI-af3" secondAttribute="centerY" multiplier="0.512939" id="Dde-rw-SZy"/>
                             <constraint firstItem="1Jv-Ch-006" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="topMargin" constant="10" id="M0i-PD-Xkt"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="pNP-9q-ygh" secondAttribute="bottom" constant="10" id="PqD-hd-RLv"/>
+                            <constraint firstItem="6hf-v4-Wdu" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="T3h-mZ-BML"/>
                             <constraint firstItem="jea-WI-af3" firstAttribute="width" relation="lessThanOrEqual" secondItem="3se-qz-xqx" secondAttribute="width" multiplier="0.4" id="WEo-lB-fxK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mam-Bn-BEX" secondAttribute="trailing" constant="-10" id="Wo4-jt-B0e"/>
                             <constraint firstItem="jea-WI-af3" firstAttribute="height" relation="lessThanOrEqual" secondItem="3se-qz-xqx" secondAttribute="height" multiplier="0.5" id="Xmf-do-Eia"/>
                             <constraint firstItem="jea-WI-af3" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="ZK7-x7-OEJ"/>
+                            <constraint firstItem="pNP-9q-ygh" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" id="bXn-K4-P4C"/>
                             <constraint firstItem="dSk-ba-NOp" firstAttribute="leading" secondItem="jea-WI-af3" secondAttribute="leading" constant="10" id="ekR-pW-TZw"/>
                         </constraints>
                         <connections>
@@ -430,6 +451,8 @@
                         <outlet property="healAbilityButton" destination="whP-zb-phm" id="25N-Sr-hGy"/>
                         <outlet property="moveAbilityButton" destination="97V-E6-jp5" id="dM4-KI-JLj"/>
                         <outlet property="searchAbilityButton" destination="May-KN-Jeo" id="e8z-6w-ddU"/>
+                        <outlet property="selectedUnitLabel" destination="6hf-v4-Wdu" id="qqh-6a-Z1j"/>
+                        <outlet property="selectedUnitVIew" destination="pNP-9q-ygh" id="k04-UL-zAe"/>
                         <outlet property="statsBackground" destination="jea-WI-af3" id="U7E-iG-Ir4"/>
                         <outlet property="statsLabel" destination="dSk-ba-NOp" id="3Xt-lG-kZD"/>
                         <outlet property="turnMarker" destination="WyU-sd-vxG" id="X3q-xi-NHJ"/>

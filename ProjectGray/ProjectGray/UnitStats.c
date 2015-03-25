@@ -14,6 +14,23 @@ const char* factionNames[] =
     "Aliens"
 };
 
+const char* shipImages[NUM_FACTIONS][NUM_CLASSES] =
+{
+    //vikings
+    {
+        "l_viking",
+        "m_viking",
+        "h_viking"
+    },
+    //aliens
+    {
+        "l_gray",
+        "m_gray",
+        "h_gray"
+    }
+
+};
+
 const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
     // VIKINGS
     {

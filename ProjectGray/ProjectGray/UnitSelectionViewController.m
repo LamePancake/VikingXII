@@ -17,9 +17,6 @@
     int _alienCounts[NUM_CLASSES];
     int _vikingCounts[NUM_CLASSES];
     
-    NSString* _vikingsImageStrings[3];
-    NSString* _aliensImageStrings[3];
-    
     int _vikingImageIndex;
     int _alienImageIndex;
     
@@ -38,14 +35,6 @@
     
     _vikings = [[NSMutableArray alloc] init];
     _aliens = [[NSMutableArray alloc] init];
-    
-    _vikingsImageStrings[0] = @"l_viking";
-    _vikingsImageStrings[1] = @"m_viking";
-    _vikingsImageStrings[2] = @"h_viking";
-    
-    _aliensImageStrings[0] = @"l_gray";
-    _aliensImageStrings[1] = @"m_gray";
-    _aliensImageStrings[2] = @"h_gray";
     
     _vikingImageIndex = 0;
     _alienImageIndex = 0;
@@ -144,7 +133,7 @@
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
         
 
-        [self updateImage:_vikingsImageStrings[chosenClass] From:_VikingImages AtCount:_vikingImageIndex];
+        [self updateImage:[NSString stringWithUTF8String:shipImages[VIKINGS][chosenClass]] From:_VikingImages AtCount:_vikingImageIndex];
         _vikingImageIndex++;
     }
     // Removed a ship of the chosen class

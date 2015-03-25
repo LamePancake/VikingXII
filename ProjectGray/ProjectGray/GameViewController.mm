@@ -144,6 +144,8 @@ enum
     graySelectableRange = [_game.map graysSelectableRange];
     vikingsSelectableRange = [_game.map vikingsSelectableRange];
     
+    [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+    
     [self setupGL];
 }
 
@@ -613,7 +615,9 @@ enum
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
         
     if(_game.state == SELECTION)
+    {
         [_game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
+    }
     else
         [_game selectTile: pickedTile];
     
@@ -633,6 +637,15 @@ enum
 
 - (void)update
 {
+    if(_game.selectedUnit == nil)
+    {
+        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
+    }
+    else
+    {
+        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+    }
+    
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
     
     self.effect.transform.projectionMatrix = _camera.projectionMatrix;
@@ -996,6 +1009,9 @@ enum
             ((UIView*)_turnMarker).transform = CGAffineTransformMakeScale(1,1);
         } completion:nil];
     }];
+    
+    if(_game.state == SELECTION)
+        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
 }
 
 - (IBAction)pausePresssed:(id)sender

@@ -53,3 +53,4 @@ typedef struct _ShipStats {
 
 extern const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES];
 extern const char* factionNames[NUM_FACTIONS];
+extern const char* shipImages[NUM_FACTIONS][NUM_CLASSES];
