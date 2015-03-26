@@ -11,7 +11,6 @@
 #import "Unit.h"
 #import "CTFMode.h"
 #import "Settings.h"
-#import "SkirmishMode.h"
 #import "Game.h"
 #import "factionmodel.h"
 

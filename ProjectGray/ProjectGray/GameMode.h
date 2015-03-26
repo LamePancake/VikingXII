@@ -8,29 +8,12 @@
 
 #ifndef ProjectGray_GameMode_h
 #define ProjectGray_GameMode_h
-#import "Unit.h"
 
-/**
- * @brief The base interface for all game modes.
- * @discussion The GameMode encapsulates information specific to a game mode (name, time limit,
- * win condition, other game state information).
- */
-@protocol GameMode
-
-/**
- * Checks whether the win condition for the mode has been satisfied.
- *
- * @param playerOne The array of player one's units.
- * @param playerTwo The array of player two's units.
- * @return 0 if neither player has one, or the wining player (1 or 2).
- */
-- (int) checkForWinWithPlayerOneUnits: (NSMutableArray*)p1Units andPlayerTwoUnits: (NSMutableArray*)p2Units;
-
-/**
- * Gets the game mode's name.
- */
-+ (NSString *)getName;
-
-@end
+typedef enum GameMode
+{
+    SKIRMISH,
+    CTF,
+    NUMMODES
+} GameMode;
 
 #endif

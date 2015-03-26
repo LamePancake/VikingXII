@@ -8,15 +8,12 @@
 
 #ifndef ProjectGray_Settings_h
 #define ProjectGray_Settings_h
-
 #import "GameMode.h"
-#import "SkirmishMode.h"
-#import "CTFMode.h"
 
 @interface Settings : NSObject
 
 /// The currently selected game mode.
-@property(strong, readonly, nonatomic) Class currentMode;
+@property(nonatomic) int currentMode;
 
 /// The list of all game modes.
 @property (strong, readonly, nonatomic) NSArray* modes;
@@ -28,6 +25,9 @@
 
 /// Switches the current mode to the previous mode in the list.
 -(void)switchToPrevMode;
+
+/// Get the name of the currently selected game mode.
+-(NSString*)getModeName;
 
 @end
 

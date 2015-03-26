@@ -174,11 +174,27 @@
     
     if ([[segue identifier] isEqualToString:@"ToGame"])
     {
-        Game* game = [[Game alloc]
-                      initWithMode:[[_settings.currentMode alloc] init]
-                      andPlayer1Units:_vikings
-                      andPlayer2Units:_aliens
-                      andMap:_map];
+        Game* game;
+        
+        switch (_settings.currentMode) {
+            case SKIRMISH:
+            {
+                game = [[SkirmishGameMode alloc]
+                        initWithPlayer1Units:_vikings
+                        andPlayer2Units:_aliens
+                        andMap:_map];
+            } break;
+            case CTF:
+            {
+                game = [[CTFGameMode alloc]
+                        initWithPlayer1Units:_vikings
+                        andPlayer2Units:_aliens
+                        andMap:_map];
+            } break;
+            default:
+                break;
+        }
+        
         // Pass the settings object to the game view controller for further use
         GameViewController* gameVC = [segue destinationViewController];
         gameVC.game = game;

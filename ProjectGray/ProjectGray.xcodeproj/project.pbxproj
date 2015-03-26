@@ -12,6 +12,8 @@
 		301F0A261A993D5C00C552B2 /* sound1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 301F0A241A993D5C00C552B2 /* sound1.caf */; };
 		301F0A271A993D5C00C552B2 /* track1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 301F0A251A993D5C00C552B2 /* track1.caf */; };
 		303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 303F79411AAE3D23009207DF /* PriorityQueue.mm */; };
+		3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */; };
+		3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */; };
 		3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0D1A8D4D9200A54360 /* Hex.m */; };
 		3082EA101A8D697000A54360 /* HexShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA0F1A8D697000A54360 /* HexShader.fsh */; };
 		3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA111A8D698F00A54360 /* HexShader.vsh */; };
@@ -55,8 +57,6 @@
 		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
 		70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C47C301ABE161C0030664E /* UnitSelectionViewController.m */; };
-		70C718341A894635003E3B05 /* CTFMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718331A894635003E3B05 /* CTFMode.m */; };
-		70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C718371A894BD5003E3B05 /* SkirmishMode.m */; };
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
@@ -111,6 +111,10 @@
 		301F0A251A993D5C00C552B2 /* track1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = track1.caf; sourceTree = "<group>"; };
 		303F79401AAE3CD3009207DF /* PriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriorityQueue.h; sourceTree = "<group>"; };
 		303F79411AAE3D23009207DF /* PriorityQueue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PriorityQueue.mm; sourceTree = "<group>"; };
+		3042D4F41AC3981500E8EC48 /* CTFGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTFGameMode.h; sourceTree = "<group>"; };
+		3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFGameMode.m; sourceTree = "<group>"; };
+		3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishGameMode.h; sourceTree = "<group>"; };
+		3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishGameMode.m; sourceTree = "<group>"; };
 		3082EA0A1A8D4D4200A54360 /* HexCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HexCells.h; sourceTree = "<group>"; };
 		3082EA0B1A8D4D5200A54360 /* Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hex.h; sourceTree = "<group>"; };
 		3082EA0C1A8D4D7C00A54360 /* HexCells.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexCells.m; sourceTree = "<group>"; };
@@ -163,10 +167,6 @@
 		70C47C301ABE161C0030664E /* UnitSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSelectionViewController.m; sourceTree = "<group>"; };
 		70C7182F1A89421B003E3B05 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		70C718301A8944B1003E3B05 /* GameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameMode.h; sourceTree = "<group>"; };
-		70C718331A894635003E3B05 /* CTFMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFMode.m; sourceTree = "<group>"; };
-		70C718351A89485A003E3B05 /* CTFMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTFMode.h; sourceTree = "<group>"; };
-		70C718361A894BD5003E3B05 /* SkirmishMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishMode.h; sourceTree = "<group>"; };
-		70C718371A894BD5003E3B05 /* SkirmishMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishMode.m; sourceTree = "<group>"; };
 		70C761291A980EEE005F0311 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		70C7612C1A980F83005F0311 /* MovementTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementTask.h; sourceTree = "<group>"; };
 		70C7612D1A980F83005F0311 /* MovementTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementTask.m; sourceTree = "<group>"; };
@@ -360,16 +360,14 @@
 				359216AD1A8952A300327F76 /* Camera.m */,
 				70C7182F1A89421B003E3B05 /* Settings.h */,
 				709DA0A11A89835A007D63C1 /* Settings.m */,
-				70C718331A894635003E3B05 /* CTFMode.m */,
-				70C718351A89485A003E3B05 /* CTFMode.h */,
+				3042D4F41AC3981500E8EC48 /* CTFGameMode.h */,
+				3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */,
 				70C718301A8944B1003E3B05 /* GameMode.h */,
-				70C718371A894BD5003E3B05 /* SkirmishMode.m */,
 				3082EA0A1A8D4D4200A54360 /* HexCells.h */,
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
 				A5FE71BE1A9189A0008D9C1F /* Unit.h */,
-				70C718361A894BD5003E3B05 /* SkirmishMode.h */,
 				A5FE71BF1A9189A0008D9C1F /* Unit.m */,
 				F29BB5031A9811940000745E /* UnitActions.h */,
 				F29BB5041A9811A70000745E /* UnitActions.m */,
@@ -379,6 +377,8 @@
 				F29BB5061A98150E0000745E /* Game.h */,
 				F29BB5071A98151D0000745E /* Game.m */,
 				F211F5A61ABE1B3100B16426 /* GameObject.h */,
+				3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */,
+				3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -644,12 +644,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */,
+				3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */,
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
-				70C718381A894BD5003E3B05 /* SkirmishMode.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
-				70C718341A894635003E3B05 /* CTFMode.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
@@ -663,6 +662,7 @@
 				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
+				3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */,
 				70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */,
 				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,

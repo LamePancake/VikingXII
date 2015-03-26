@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Settings.h"
 #import "UnitStats.h"
+#import "SkirmishGameMode.h"
+#import "CTFGameMode.h"
 
 @interface UnitSelectionViewController : UIViewController
 

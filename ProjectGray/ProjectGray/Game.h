@@ -47,9 +47,6 @@ typedef enum UnitAbilities
 /// The faction who has the current turn.
 @property (readonly, nonatomic) Faction whoseTurn;
 
-/// The game mode object determining the win condition, etc.
-@property (strong, nonatomic) id<GameMode> mode;
-
 @property (nonatomic) int currentRound;
 
 /// The currently selected unit, if any.
@@ -57,7 +54,7 @@ typedef enum UnitAbilities
 
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
--(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
+-(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
 /**
  * Gets the unit on the specified hex cell, if there is one.

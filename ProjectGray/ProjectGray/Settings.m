@@ -10,10 +10,6 @@
 #import "Settings.h"
 
 @interface Settings()
-
-/// The array index of the currently selected mode.
-@property int modeIdx;
-
 @end
 
 @implementation Settings
@@ -22,13 +18,7 @@
     self = [super init];
     
     if(self) {
-        
-        // Initialise the modes list and set the current mode
-        _modes = @[ [CTFMode class],
-                    [SkirmishMode class]];
-        _modeIdx = 0;
-        _currentMode = _modes[0];
-        
+        _currentMode = SKIRMISH;
         _mapSize = 5;
     }
     
@@ -36,13 +26,26 @@
 }
 
 -(void)switchToPrevMode {
-    if(--_modeIdx == -1) _modeIdx = [_modes count] - 1;
-    _currentMode = _modes[_modeIdx];
+    if(--_currentMode == -1) _currentMode = NUMMODES - 1;
 }
 
 -(void)switchToNextMode {
-    if(++_modeIdx == [_modes count]) _modeIdx = 0;
-    _currentMode = _modes[_modeIdx];
+    if(++_currentMode == NUMMODES) _currentMode = SKIRMISH;
+}
+
+-(NSString*)getModeName
+{
+    switch (_currentMode) {
+        case SKIRMISH:
+            return @"Skirmish";
+            break;
+        case CTF:
+            return @"CTF";
+            break;
+        default:
+            return @"Oops!";
+            break;
+    }
 }
 
 @end

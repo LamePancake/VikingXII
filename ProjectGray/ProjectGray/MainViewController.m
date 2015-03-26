@@ -56,7 +56,7 @@
  * @brief Updates the current mode in the model and view.
  */
 -(void)updateModeText {
-    NSString *modeTxt = [[_gameSettings currentMode] getName];
+    NSString *modeTxt = [_gameSettings getModeName];
     [_curModeLabel setText: modeTxt];
 }
 

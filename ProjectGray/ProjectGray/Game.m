@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Game.h"
-#import "SkirmishMode.h"
 #import "TaskManager.h"
 #import "MovementTask.h"
 
@@ -23,7 +22,7 @@ static Game* _game = nil;
 @end
 
 @implementation Game
--(instancetype) initWithMode: (id<GameMode>)mode andPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
+-(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
     if(_game) return nil;
     
     if((self = [super init])) {
@@ -32,8 +31,6 @@ static Game* _game = nil;
         
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
-        
-        _mode = mode;
         _selectedUnit = p1Units[0];
         _map = map;
         _taskManager = [[TaskManager alloc] init];
@@ -210,11 +207,6 @@ static Game* _game = nil;
     {
         [unit resetAP];
     }
-}
-
--(int)checkForWin
-{
-    return [_mode checkForWinWithPlayerOneUnits:_p1Units andPlayerTwoUnits:_p2Units];
 }
 
 +(TaskManager *) taskManager {
