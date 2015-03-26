@@ -113,7 +113,8 @@ static Game* _game = nil;
     if (!tile) return;
 
     Unit* unitOnTile = [self getUnitOnHex:tile];
-    if(unitOnTile != nil && !unitOnTile.active)
+    
+    if(unitOnTile != nil && !unitOnTile.active && _selectedUnitAbility != HEAL)
     {
         NSLog(@"Unit is dead!");
         return;
@@ -151,7 +152,7 @@ static Game* _game = nil;
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(unitOnTile && unitOnTile.faction == _whoseTurn)
+    if(_selectedUnitAbility != HEAL && unitOnTile && unitOnTile.faction == _whoseTurn)
     {
         _selectedUnit = unitOnTile;
         _selectedUnitAbility = MOVE;

@@ -24,7 +24,7 @@ static bool NodeLessThan(PQNode &n1, PQNode &n2)
     if( n1.val != n2.val )
         return n1.val > n2.val;
     else
-        return (unsigned)n1.obj < (unsigned)n2.obj;
+        return (long)n1.obj < (long)n2.obj;
 }
 
 @implementation PriorityQueue

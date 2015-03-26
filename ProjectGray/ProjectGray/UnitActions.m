@@ -130,6 +130,7 @@ static NSMutableArray* currentPath;
     target.stats->shipHealth -= damage;
     if(target.stats->shipHealth <= 0)
     {
+        target.stats->shipHealth = 0;
         target.active = false;
     }
 
@@ -141,8 +142,18 @@ static NSMutableArray* currentPath;
 
 }
 
-+ (void)healThis:(Unit *)target byThis:(Unit *)healer {
-
++ (void)healThis:(Unit *)target byThis:(Unit *)healer
+{
+    if (![healer ableToHeal]) return;
+    else healer.stats->actionPool -= healer.stats->actionPointsPerHeal;
+    
+    if (!target.active) {
+        target.active = true;
+        NSLog(@"Revived buddy!");
+    }
+    
+    target.stats->shipHealth += 20;
+    NSLog(@"Added health to buddy.");
 }
 
 + (NSMutableArray *)getCurrentPath {

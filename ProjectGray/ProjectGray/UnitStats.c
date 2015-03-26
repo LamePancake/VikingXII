@@ -45,10 +45,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
         // Medium ship base stats
@@ -62,10 +62,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
         // Heavy ship base stats
@@ -79,10 +79,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
     },
@@ -99,10 +99,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
         // Medium ship base stats
@@ -116,10 +116,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
         // Heavy ship base stats
@@ -133,10 +133,10 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.75f,      // Accuracy
             0.05f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            2,          // Damage modifier
+            15,          // Damage modifier
             10,         // Hull
             5,          // Engine health
-            5.0f,       // Weapon health
+            1.0f,       // Weapon health
             100         // Ship health
         },
     }
