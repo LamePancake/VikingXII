@@ -16,6 +16,7 @@ uniform mat3 normalMatrix;
 uniform mat4 projectimMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 translationMatrix;
+uniform vec3 lightPos;
 
 attribute vec2 texCoordIn;
 varying vec2 texCoordOut;
@@ -25,9 +26,9 @@ void main()
     texCoordOut = texCoordIn;
     
     vec3 eyeNormal = normalize(normalMatrix * normal);
-    vec3 lightPosition = vec3(0.0, 2.0, -5.0);
-    vec4 diffuseColor = vec4(1.0, 1.0, 1.0, 1.0);
-    vec4 ambient = vec4(0.3, 0.3, 0.4, 1.0);
+    vec3 lightPosition = lightPos;
+    vec4 diffuseColor = vec4(1.0, 1.0, 0.5, 1.0);
+    vec4 ambient = vec4(0.15, 0.15, 0.2, 1.0);
     
     float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
                  

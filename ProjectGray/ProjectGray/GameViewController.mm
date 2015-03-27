@@ -26,6 +26,7 @@ enum
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
     UNIFORM_TRANSLATION_MATRIX,
+    UNIFORM_LIGHT_POSITION,
     UNIFORM_TEXTURE,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
@@ -52,6 +53,7 @@ enum
     GLuint _2DProgram;
     
     float _rotation;
+    GLKVector3 lightPosition;
     
     // Ship vertices and normals
     GLuint _shipVertexArray[NUM_FACTIONS][NUM_CLASSES];
@@ -115,7 +117,7 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    lightPosition = GLKVector3Make(0.0, 5.0, -5.0);
     // Add the sound manager and start playing the main game theme
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
@@ -580,6 +582,8 @@ enum
 
 - (void)update
 {
+    lightPosition = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.01f, 0.0f, 0.0f, 1.0f), lightPosition);
+    glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPosition.x, lightPosition.y, lightPosition.z);
     if(_game.selectedUnit == nil)
     {
         [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
@@ -834,7 +838,6 @@ enum
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
     glDrawArrays(GL_TRIANGLES, 0, numVerts);
-
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive withProjectile: (GLuint*)projectileVerts{
@@ -878,7 +881,7 @@ enum
             
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
             _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
-            _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
+            _scaleMat = GLKMatrix4MakeScale(0.005, 0.005, 0.005);
             _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
             _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
             
@@ -972,6 +975,7 @@ enum
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
+    uniforms[UNIFORM_LIGHT_POSITION] = glGetUniformLocation(_program, "lightPos");
     uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
     uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");
