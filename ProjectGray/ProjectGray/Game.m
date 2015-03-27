@@ -173,6 +173,12 @@ static Game* _game = nil;
         {
             
         }
+        else if (_selectedUnitAbility == SCOUT &&
+                 unitOnTile != nil &&
+                 unitOnTile.faction != _selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
+        {
+            
+        }
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that

@@ -23,6 +23,7 @@ typedef enum UnitAbilities
     MOVE,
     HEAL,
     SEARCH,
+    SCOUT,
     NONE
 } UnitAbilities;
 

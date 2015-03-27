@@ -509,6 +509,7 @@ enum
     _game.selectedUnitAbility = SEARCH;
 }
 
+
 /*!
  * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and intersect it against the xy-plane to pick a hex cell.
  */
@@ -1165,4 +1166,6 @@ enum
     }];
 }
 
+- (IBAction)scoutAbilityButton:(id)sender {
+}
 @end
