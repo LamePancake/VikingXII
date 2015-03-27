@@ -17,9 +17,6 @@
     int _alienCounts[NUM_CLASSES];
     int _vikingCounts[NUM_CLASSES];
     
-    int _vikingImageIndex;
-    int _alienImageIndex;
-    
     NSMutableArray* _vikings;
     NSMutableArray* _aliens;
     
@@ -35,9 +32,6 @@
     
     _vikings = [[NSMutableArray alloc] init];
     _aliens = [[NSMutableArray alloc] init];
-    
-    _vikingImageIndex = 0;
-    _alienImageIndex = 0;
     
     memset(&(_alienCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     memset(&(_vikingCounts[0]), 0, sizeof(int) * NUM_CLASSES);
@@ -76,6 +70,8 @@
                             onHex:nil]];
         _alienCounts[chosenClass]++;
         [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
+        
+        [self updateImage: _AlienImages OfClass: chosenClass IsIncremented: YES];
     }
     // Removed a ship of the chosen class
     else if(_alienCounts[chosenClass] > sender.value)
@@ -97,6 +93,8 @@
         }
         _alienCounts[chosenClass]--;
         [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
+        
+        [self updateImage: _AlienImages OfClass: chosenClass IsIncremented: NO];
     }
 }
 
@@ -133,8 +131,7 @@
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
         
 
-        [self updateImage:[NSString stringWithUTF8String:shipImages[VIKINGS][chosenClass]] From:_VikingImages AtCount:_vikingImageIndex];
-        _vikingImageIndex++;
+        [self updateImage: _VikingImages OfClass: chosenClass IsIncremented: YES];
     }
     // Removed a ship of the chosen class
     else if(_vikingCounts[chosenClass] > sender.value)
@@ -156,8 +153,7 @@
         _vikingCounts[chosenClass]--;
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
 
-        [self removeImageFrom:_VikingImages AtCount:_vikingImageIndex - 1];
-        _vikingImageIndex--;
+        [self updateImage: _VikingImages OfClass: chosenClass IsIncremented: NO];
     }
 }
 
@@ -201,28 +197,36 @@
     }
 }
 
-- (void)updateImage:(NSString*) image From:(NSArray*) images AtCount: (int) count
+- (void)updateImage: (NSArray*) images OfClass: (int) chosenClass IsIncremented: (bool) isIncremented
 {
-    [images[count] setImage:[UIImage imageNamed:image]];
-    
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(0.0,0.0);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(1,1);
-        } completion:nil];
-    }];
-}
-
-- (void)removeImageFrom:(NSArray*)images AtCount: (int) count
-{
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(1.0,1.0);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIImageView *)images[count]).transform = CGAffineTransformMakeScale(0.00001,0.00001);
-        } completion:nil];
-    }];
+    if(isIncremented)
+    {
+        [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(1.0,1.0);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(1.3,1.3);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                    ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(1.0,1.0);
+                } completion:nil];
+            }];
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(1.0,1.0);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(0.7,0.7);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                    ((UIImageView *)images[chosenClass]).transform = CGAffineTransformMakeScale(1.0,1.0);
+                } completion:nil];
+            }];
+        }];
+    }
 }
 
 @end

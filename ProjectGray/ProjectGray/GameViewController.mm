@@ -88,7 +88,8 @@ enum
     
     NSMutableArray* graySelectableRange;
     NSMutableArray* vikingsSelectableRange;
-
+    
+    UILabel *hitLabel;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -153,6 +154,8 @@ enum
     _modelVertexSpecification[2] = {GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, 24};
     
     [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+    
+    hitLabel = [[UILabel alloc] init];
     
     [self setupGL];
 }
@@ -1058,6 +1061,49 @@ enum
         } completion:nil];
         
         [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
+    }];
+}
+
+-(void)showDamageAtPos:(GLKVector3) position Damage: (float) damage IsDamage: (bool) isDamage
+{
+    GLKVector3 pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, position);
+    int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
+    int winY = (int) round((( 1 - pos.y ) / 2.0) * self.view.frame.size.height );
+    
+    [hitLabel setFrame:CGRectMake(winX, winY, 100, 20)];
+    hitLabel.backgroundColor=[UIColor clearColor];
+    
+    if(isDamage && damage == 0)
+        hitLabel.textColor=[UIColor blueColor];
+    else if(isDamage)
+        hitLabel.textColor=[UIColor redColor];
+    else
+        hitLabel.textColor=[UIColor greenColor];
+    
+    hitLabel.userInteractionEnabled = NO;
+    [self.view addSubview:hitLabel];
+    
+    if(isDamage)
+        if(damage == 0)
+            hitLabel.text = [NSString stringWithFormat:@"MISS"];
+        else
+            hitLabel.text = [NSString stringWithFormat:@"-%.2f", damage];
+    else
+        hitLabel.text = [NSString stringWithFormat:@"+%.2f", damage];
+    
+    
+    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(1,1);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
+            } completion:^(BOOL finished) {
+               hitLabel.text = @"";
+            }];
+        }];
     }];
 }
 

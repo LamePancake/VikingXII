@@ -28,6 +28,5 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *vikingLabels;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *alienLabels;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *VikingImages;
-
-
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *AlienImages;
 @end
