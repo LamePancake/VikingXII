@@ -42,7 +42,8 @@ extern const float UNIT_HEIGHT;
 //Task related
 //@property (nonatomic) BOOL taskAvailable;
 
--(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex;
+-(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (GLKVector3)scl
+                          onHex:(Hex*)hex;
 -(void) resetAP;
 -(BOOL) ableToAttack;
 -(BOOL) ableToHeal;

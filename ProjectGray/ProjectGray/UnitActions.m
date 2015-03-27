@@ -64,8 +64,13 @@ static NSMutableArray* currentPath;
     
     for (NSUInteger i = 0; i < count; i++)
     {
-        // The right-hand part gets evaluated first, so no worries there
-        nextMove = [[MovementTask alloc] initWithUnit:mover fromInitial:path[i + 1] toDestination:path[i] andNextTask:nextMove];
+        Hex* initHex = (Hex*)path[i + 1];
+        Hex* destHex = (Hex*)path[i];
+        GLKVector3 initPos = GLKVector3Make(initHex.worldPosition.x, initHex.worldPosition.y, mover.position.z);
+        GLKVector3 destPos = GLKVector3Make(destHex.worldPosition.x, destHex.worldPosition.y, mover.position.z);
+        
+        // The right-hand part gets evaluated first, so using andNextTask nextMove here is fine
+        nextMove = [[MovementTask alloc] initWithGameObject:mover fromInitial:initPos toDestination:destPos andNextTask:nextMove];
     }
     [[Game taskManager] addTask:nextMove];
 }

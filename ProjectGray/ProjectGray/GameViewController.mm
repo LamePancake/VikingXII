@@ -18,7 +18,6 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-
 // Uniform index.
 enum
 {
@@ -52,22 +51,17 @@ enum
     
     float _rotation;
     
-    GLuint _vertexVikingArray[3];
-    GLuint _vertexVikingBuffer[3];
-    GLuint _normalVikingArray[3];
-    GLuint _normalVikingBuffer[3];
-    GLuint _vertexGrayArray[3];
-    GLuint _vertexGrayBuffer[3];
-    GLuint _normalGrayArray[3];
-    GLuint _normalGrayBuffer[3];
+    // Ship vertices and normals
+    GLuint _shipVertexArray[NUM_FACTIONS][NUM_CLASSES];
+    GLuint _shipVertexBuffer[NUM_FACTIONS][NUM_CLASSES];
+    
+    VertexAttribute _modelVertexSpecification[3];
+    
+    // Item vertices and normals
     GLuint _vertexVikingItemArray[3];
     GLuint _vertexVikingItemBuffer[3];
-    GLuint _normalVikingItemArray[3];
-    GLuint _normalVikingItemBuffer[3];
     GLuint _vertexGrayItemArray[3];
     GLuint _vertexGrayItemBuffer[3];
-    GLuint _normalGrayItemArray[3];
-    GLuint _normalGrayItemBuffer[3];
 
     Camera *_camera;
     
@@ -115,10 +109,12 @@ enum
 {
     [super viewDidLoad];
     
+    // Add the sound manager and start playing the main game theme
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
     [[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
     
+    // Add gesture recognisers for zooming and panning the camera
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
     [self.view addGestureRecognizer:pinchZoom];
     
@@ -137,12 +133,18 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    // Retrieve the map from the Game object constructed in the unit selection screen
     hexCells = _game.map;
 
      _camera = [[Camera alloc] initWithWidth:self.view.bounds.size.width WithHeight: self.view.bounds.size.height WithRadius:hexCells.N];
     
     graySelectableRange = [_game.map graysSelectableRange];
     vikingsSelectableRange = [_game.map vikingsSelectableRange];
+    
+    // Set the vertex specification that we'll use for models
+    _modelVertexSpecification[0] = {GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, 0};
+    _modelVertexSpecification[1] = {GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, 12};
+    _modelVertexSpecification[2] = {GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, 24};
     
     [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
     
@@ -259,10 +261,10 @@ enum
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
     
-    glBindVertexArrayOES(0);
+    glBindVertexArrayOES(0); // End configuration for the hex tiles
     
+    // Translate the hex cells by the appropriate amount in x and y depending on where they are in the map
     NSMutableArray *instPositions = hexCells.hexPositions;
-    
     for (int i = 0; i < 91; ++i)
     {
         
@@ -273,128 +275,33 @@ enum
         }
     }
     
-    // viking light
-    glGenVertexArraysOES(1, &_vertexVikingArray[LIGHT]);
-    glBindVertexArrayOES(_vertexVikingArray[LIGHT]);
-    
-    glGenBuffers(1, &_vertexVikingBuffer[LIGHT]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[LIGHT]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][LIGHT] * sizeof(float) * 8, shipModels[VIKINGS][LIGHT], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Viking Medium
-    glGenVertexArraysOES(1, &_vertexVikingArray[MEDIUM]);
-    glBindVertexArrayOES(_vertexVikingArray[MEDIUM]);
-    
-    glGenBuffers(1, &_vertexVikingBuffer[MEDIUM]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[MEDIUM]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][MEDIUM] * sizeof(float) * 8, shipModels[VIKINGS][MEDIUM], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-
-    // Viking Heavy
-    glGenVertexArraysOES(1, &_vertexVikingArray[HEAVY]);
-    glBindVertexArrayOES(_vertexVikingArray[HEAVY]);
-    
-    glGenBuffers(1, &_vertexVikingBuffer[HEAVY]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingBuffer[HEAVY]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[VIKINGS][HEAVY] * sizeof(float) * 8, shipModels[VIKINGS][HEAVY], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // gray light
-    glGenVertexArraysOES(1, &_vertexGrayArray[LIGHT]);
-    glBindVertexArrayOES(_vertexGrayArray[LIGHT]);
-    
-    glGenBuffers(1, &_vertexGrayBuffer[LIGHT]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[LIGHT]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][LIGHT] * sizeof(float) * 8, shipModels[ALIENS][LIGHT], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // gray Medium
-    glGenVertexArraysOES(1, &_vertexGrayArray[MEDIUM]);
-    glBindVertexArrayOES(_vertexGrayArray[MEDIUM]);
-    
-    glGenBuffers(1, &_vertexGrayBuffer[MEDIUM]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[MEDIUM]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][MEDIUM] * sizeof(float) * 8, shipModels[ALIENS][MEDIUM], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-
-    // gray Heavy
-    glGenVertexArraysOES(1, &_vertexGrayArray[HEAVY]);
-    glBindVertexArrayOES(_vertexGrayArray[HEAVY]);
-    
-    glGenBuffers(1, &_vertexGrayBuffer[HEAVY]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayBuffer[HEAVY]);
-    glBufferData(GL_ARRAY_BUFFER, shipVertexCounts[ALIENS][HEAVY] * sizeof(float) * 8, shipModels[ALIENS][HEAVY], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
+    // Generate and fill buffers for each ship model
+    for(int faction = 0; faction < NUM_FACTIONS; faction++)
+    {
+        for(int shipClass = 0; shipClass < NUM_CLASSES; shipClass++)
+        {
+            // Creates a new array and buffer, fills the buffer, and sets the vertex specification
+            [self setupVertexArray: &_shipVertexArray[faction][shipClass]
+                        withBuffer: & _shipVertexBuffer[faction][shipClass]
+                       andVertices: shipModels[faction][shipClass]
+                   withNumVertices: shipVertexCounts[faction][shipClass]
+                  usingDrawingMode: GL_STATIC_DRAW
+              withVertexAttributes: _modelVertexSpecification
+                  andNumAttributes: 3];
+        }
+    }
     
     // set up items
     [self setupItems];
     
-    
-    //Background vertices
-    glGenVertexArraysOES(1, &_vertexBGArray);
-    glBindVertexArrayOES(_vertexBGArray);
-    
-    glGenBuffers(1, &_vertexBGBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBGBuffer);
-    glBufferData(GL_ARRAY_BUFFER, bgNumVerts * sizeof(float) * 8, bgVerts, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
+    // Background setup
+    [self setupVertexArray:&_vertexBGArray
+                withBuffer:&_vertexBGBuffer
+               andVertices:bgVerts
+           withNumVertices:bgNumVerts
+          usingDrawingMode:GL_STATIC_DRAW
+      withVertexAttributes:_modelVertexSpecification
+          andNumAttributes:3];
     
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
@@ -475,20 +382,24 @@ enum
     glBindVertexArrayOES(0);
 }
 
+/**
+ * Tears down the GL context and all associated variables.
+ * @todo Need to refactor normals such that they everything can be deleted in the same way.
+ */
 - (void)tearDownGL
 {
     [EAGLContext setCurrentContext:self.context];
     
     for(int i = 0; i < NUM_CLASSES; i++)
     {
-        glDeleteBuffers(1, &_vertexVikingBuffer[i]);
-        glDeleteBuffers(1, &_vertexGrayBuffer[i]);
-        
-        glDeleteBuffers(1, &_normalVikingBuffer[i]);
-        glDeleteBuffers(1, &_normalGrayBuffer[i]);
-        
-        glDeleteVertexArraysOES(1, &_vertexVikingArray[i]);
-        glDeleteVertexArraysOES(1, &_vertexGrayArray[i]);
+//        glDeleteBuffers(1, &_vertexVikingBuffer[i]);
+//        glDeleteBuffers(1, &_vertexGrayBuffer[i]);
+//        
+//        glDeleteBuffers(1, &_normalVikingBuffer[i]);
+//        glDeleteBuffers(1, &_normalGrayBuffer[i]);
+//        
+//        glDeleteVertexArraysOES(1, &_vertexVikingArray[i]);
+//        glDeleteVertexArraysOES(1, &_vertexGrayArray[i]);
     }
     
     _camera = nil;
@@ -695,12 +606,12 @@ enum
     [_game.map clearColours];
     if(_game.state == PLAYING)
     {
-        if (_game.selectedUnit != nil)
+        if (_game.selectedUnit)
         {
             if (_game.selectedUnitAbility == MOVE)
             {
                 NSMutableArray* movableRange;
-                movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];//[_game.map movableRange:([_game.selectedUnit moveRange]) from:_game.selectedUnit.hex];
+                movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];
                 
                 for(Hex* hex in movableRange)
                 {
@@ -709,7 +620,7 @@ enum
             }
             else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
             {
-                if(_game.whoseTurn == VIKINGS)
+                if(_game.whoseTurn == _game.p1Faction)
                 {
                     for(Unit* unit in _game.p2Units)
                     {
@@ -722,7 +633,7 @@ enum
                         }
                     }
                 }
-                else if (_game.whoseTurn == ALIENS)
+                else if (_game.whoseTurn == _game.p2Faction)
                 {
                     for(Unit* unit in _game.p1Units)
                     {
@@ -845,14 +756,14 @@ enum
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    [self drawUnits:_game.p1Units withVertices:_vertexVikingArray usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    [self drawUnits:_game.p2Units withVertices:_vertexGrayArray usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:YES];
     
     glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
-    [self drawUnits:_game.p1Units withVertices:_vertexVikingArray usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
-    [self drawUnits:_game.p2Units withVertices:_vertexGrayArray usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -901,11 +812,11 @@ enum
             
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
             _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
-            _scaleMat = GLKMatrix4MakeScale(curUnit.scale, curUnit.scale, curUnit.scale);
+            _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
             _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
             _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
             
-            GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.scale, curUnit.scale, curUnit.scale);
+            GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
             _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.position.x, curUnit.position.y, curUnit.position.z));
             _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
             
@@ -968,6 +879,53 @@ enum
     uniforms[UNIFORM_2D_UNIT_TEXTURE] = glGetUniformLocation(_2DProgram, "texture");
 
     return YES;
+}
+
+// Pointer to vertex array
+// Pointer to vertex buffer
+// Number of vertices
+// Pointer to vertices
+// Drawing mode
+// VertexAttribute list
+// Number of vertex attributes
+/**
+ * Creates a vertex array and buffer, loads the specified data, and sets the vertex specification.
+ */
+- (void) setupVertexArray: (GLuint *)array withBuffer: (GLuint*)buffer andVertices: (const void*)vertices withNumVertices: (unsigned int)numVertices
+         usingDrawingMode: (int)drawMode withVertexAttributes: (VertexAttribute*)attribs andNumAttributes: (unsigned int)numAttributes
+{
+    unsigned int size = 0;
+    
+    // Calculate the size of one vertex
+    for(unsigned i = 0; i < numAttributes; i++)
+    {
+        switch(attribs[i].type)
+        {
+            case GL_BYTE:
+            case GL_UNSIGNED_BYTE:
+                size += attribs[i].size;
+                break;
+            case GL_SHORT:
+            case GL_UNSIGNED_SHORT:
+                size += attribs[i].size * sizeof(short);
+                break;
+            case GL_FIXED:
+            case GL_FLOAT:
+                size += attribs[i].size * sizeof(float);
+                break;
+        }
+    }
+    
+    // Generate the array. gemerate amd fill the buffer, and set the vertex specification
+    glGenVertexArraysOES(1, array);
+    glBindVertexArrayOES(*array);
+    
+    glGenBuffers(1, buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, *buffer);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * size, vertices, drawMode);
+    
+    [GLProgramUtils setVertexAttributes:attribs withNumAttributes:numAttributes];
+    glBindVertexArrayOES(0);
 }
 
 - (IBAction)endTurnPressed:(id)sender

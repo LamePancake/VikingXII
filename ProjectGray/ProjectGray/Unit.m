@@ -11,7 +11,7 @@
 const float UNIT_SCALE = 0.002f;
 const float UNIT_HEIGHT = 0.04f;
 
-@interface Unit () <GameObject>
+@interface Unit ()
 {
     ShipStats _shipStats;
 }
@@ -26,7 +26,8 @@ const float UNIT_HEIGHT = 0.04f;
 @synthesize scale = _scale;
 @synthesize taskAvailable = _taskAvailable;
 
--(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (float)scl onHex:(Hex*)hex {
+-(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (GLKVector3)scl
+                          onHex:(Hex*)hex {
     if((self = [super init])) {
         _position = atPos;
         _rotation = shipRot;

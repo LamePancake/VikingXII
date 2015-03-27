@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 
+// Converts a buffer offset to a pointer to make OpenGL happy.
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
 /**
  * @brief Failure states for the makeProgram function.
  */
@@ -23,9 +26,18 @@ enum GL_PROG_UTILS_MAKEFAIL
  * Contains the OpenGL index indicating the type of attribute and its name within the vertex shader.
  */
 typedef struct _ShaderAttribute {
-    GLuint attributeIndex;
-    const char *attributeName;
+    GLuint attributeIndex;      // The user-defined attribute index to reference this attribute (e.g. GLKVertexAttribPosition).
+    const char *attributeName;  // The name of the attribute within the shader (e.g. "texCoordIn").
 } ShaderAttribute;
+
+typedef struct _VertexAttribute {
+    GLuint index;               // The user-defined attribute index to reference this attribute (e.g. GLKVertexAttribPosition).
+    GLint size;                 // The number of elements that make up this attribute.
+    GLenum type;                // The type of element (GL_FLOAT, GL_UNSIGNED_SHORT, etc.).
+    GLboolean normalise;        // Whether to normalise the values before use.
+    GLsizei stride;             // The number of bytes between attributes of this type.
+    unsigned int bufferOffset;  // The starting offset into the buffer from which to read the first attribute.
+} VertexAttribute;
 
 @interface GLProgramUtils : NSObject
 
@@ -80,4 +92,11 @@ typedef struct _ShaderAttribute {
  * @return An int that represents the texture.
  */
 + (GLuint)setupTexture:(NSString *)fileName;
+
+/**
+ * @brief Sets up the vertex specification for the currently bound buffer.
+ * @param attributes A list of vertex attributes to enable.
+ * @param numAttrs   The number of attributes in the list.
+ */
++ (void)setVertexAttributes: (VertexAttribute *)attributes withNumAttributes: (unsigned int)numAttrs;
 @end

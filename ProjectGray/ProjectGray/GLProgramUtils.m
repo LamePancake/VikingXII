@@ -193,4 +193,19 @@
     return texName;
 }
 
++ (void)setVertexAttributes: (VertexAttribute *)attributes withNumAttributes: (unsigned int)numAttrs
+{
+    // Loop through all attributes and enable them
+    for(unsigned i = 0; i < numAttrs; i++)
+    {
+        glEnableVertexAttribArray(attributes[i].index);
+        glVertexAttribPointer(attributes[i].index,
+                              attributes[i].size,
+                              attributes[i].type,
+                              attributes[i].normalise,
+                              attributes[i].stride,
+                              BUFFER_OFFSET(attributes[i].bufferOffset));
+    }
+}
+
 @end

@@ -19,7 +19,7 @@ const double MOVETASK_EPSILON = 0.001;
 @interface MovementTask()
 {
     GLKVector2 _direction;
-    Unit* _unit;
+    id<GameObject> _obj;
     GLKVector3 _destination;
     GLKVector3 _initial;
     BOOL _isFinished;
@@ -33,21 +33,21 @@ const double MOVETASK_EPSILON = 0.001;
 @synthesize isFinished = _isFinished;
 @synthesize nextTask = _next;
 
--(instancetype) initWithUnit: (Unit *)unit fromInitial: (Hex*)initialHex toDestination: (Hex *)destination {
-    return [self initWithUnit: unit fromInitial:initialHex toDestination: destination andNextTask: nil];
+-(instancetype) initWithGameObject: (id<GameObject>)obj fromInitial: (GLKVector3)initialPos toDestination: (GLKVector3)destination {
+    return [self initWithGameObject: obj fromInitial:initialPos toDestination: destination andNextTask: nil];
 }
 
--(instancetype) initWithUnit: (Unit *)unit fromInitial:(Hex*)initCell toDestination:(Hex *)destination andNextTask: (id<Task>)next {
+-(instancetype) initWithGameObject: (id<GameObject>)obj fromInitial:(GLKVector3)initPos toDestination:(GLKVector3)destination andNextTask: (id<Task>)next {
     
     if(self = [super init]) {
-        _unit = unit;
-        _initial = GLKVector3Make(initCell.worldPosition.x, initCell.worldPosition.y, unit.position.z);
-        _destination = GLKVector3Make(destination.worldPosition.x, destination.worldPosition.y, unit.position.z);
-        _direction = GLKVector2Normalize(GLKVector2Make(_destination.x - initCell.worldPosition.x, _destination.y - initCell.worldPosition.y));
+        _obj = obj;
+        _initial = initPos;
+        _destination = GLKVector3Make(destination.x, destination.y, initPos.z);
+        _direction = GLKVector2Normalize(GLKVector2Make(_destination.x - initPos.x, _destination.y - initPos.y));
         _isFinished = NO;
         _next = next;
         _speed = speed * 0.2; // The scale of the hex cells; TODO: not hardcode this
-        _unit.taskAvailable = false;
+        _obj.taskAvailable = false;
     }
     return self;
 }
@@ -58,8 +58,8 @@ const double MOVETASK_EPSILON = 0.001;
     double xDist = travel * _direction.x;
     double yDist = travel * _direction.y;
     
-    GLKVector3 currentPos = _unit.position;
-    GLKVector3 newPos = GLKVector3Make(0, 0, _unit.position.z);
+    GLKVector3 currentPos = _obj.position;
+    GLKVector3 newPos = GLKVector3Make(0, 0, _obj.position.z);
     
     newPos.x = currentPos.x + xDist;
     newPos.y = currentPos.y + yDist;
@@ -68,14 +68,15 @@ const double MOVETASK_EPSILON = 0.001;
     
     double length = GLKVector2Length(GLKVector2Make(_destination.x - newPos.x, _destination.y - newPos.y));
     
+    // Also don't want to hard code this if possible
     if(length <= 0.03f) {
         _isFinished = YES;
-        _unit.taskAvailable = true;
+        _obj.taskAvailable = true;
         newPos.x = _destination.x;
         newPos.y = _destination.y;
     }
     
-    _unit.position = newPos;
+    _obj.position = newPos;
 }
 
 @end

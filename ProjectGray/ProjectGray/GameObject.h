@@ -15,7 +15,8 @@
 
 @property (nonatomic) GLKVector3 position;
 
-@property (nonatomic) float scale;
+@property (nonatomic) GLKVector3 scale;
+
 //If this object is available for a task
 @property (nonatomic) BOOL taskAvailable;
 

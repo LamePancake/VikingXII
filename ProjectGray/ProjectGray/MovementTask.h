@@ -15,17 +15,17 @@
 
 /**
  * Initialises a task to move the given unit from its current position to the destination.
- * @param unit        The unit to be moved.
- * @param destination The destination hex cell.
+ * @param obj         The GameObject to be moved.
+ * @param destination The destination position.
  */
--(instancetype) initWithUnit: (Unit *)unit fromInitial: (Hex*)initialHex toDestination: (Hex *)destination;
+-(instancetype) initWithGameObject: (id<GameObject>)obj fromInitial: (GLKVector3)initialPos toDestination: (GLKVector3)destination;
 
 /**
  * Initialises a task to move the given unit from its current position to the destination and
  * to execute specified task on completion.
- * @param unit        The unit to be moved.
- * @param destination The destination hex cell.
+ * @param obj         The GameObject to be moved.
+ * @param destination The destination position.
  * @param next        The next task to be executed.
  */
--(instancetype) initWithUnit: (Unit *)unit fromInitial:(Hex*)initCell toDestination:(Hex *)destination andNextTask: (id<Task>)next;
+-(instancetype) initWithGameObject: (id<GameObject>)obj fromInitial:(GLKVector3)initPos toDestination:(GLKVector3)destination andNextTask: (id<Task>)next;
 @end

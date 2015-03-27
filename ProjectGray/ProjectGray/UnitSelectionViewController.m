@@ -72,7 +72,7 @@
                             andClass:chosenClass
                             atPosition:GLKVector3Make(0, 0, 0)
                             withRotation:GLKVector3Make(0, 0, 0)
-                            andScale:UNIT_SCALE
+                            andScale:GLKVector3Make(UNIT_SCALE, UNIT_SCALE, UNIT_SCALE)
                             onHex:nil]];
         _alienCounts[chosenClass]++;
         [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
@@ -127,7 +127,7 @@
                             andClass:chosenClass
                             atPosition:GLKVector3Make(0, 0, 0)
                             withRotation:GLKVector3Make(0, 0, 0)
-                            andScale:UNIT_SCALE
+                            andScale:GLKVector3Make(UNIT_SCALE, UNIT_SCALE, UNIT_SCALE)
                             onHex:nil]];
         _vikingCounts[chosenClass]++;
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];

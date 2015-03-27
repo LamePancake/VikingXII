@@ -116,7 +116,6 @@
     return [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
 }
 
-//TODO: Change returned value to a faction instead
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
 {
     BOOL playerOneAlive = NO;
