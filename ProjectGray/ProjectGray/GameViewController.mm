@@ -636,24 +636,23 @@ enum
     }
     
     [_game.map clearColours];
-    
-    for (EnvironmentEntity* entity in _game.environmentEntities)
-    {
-        switch (entity.type) {
-            case ENV_ASTEROID:
-                [entity.hex setColour:ASTEROID_COLOUR];
-                break;
-                
-            default:
-                break;
-        }
-    }
-    
     if(_game.state == PLAYING)
     {
         if (_game.selectedUnit)
         {
-            if (_game.selectedUnitAbility == MOVE)
+            if (_game.selectedUnitAbility == SEARCH)
+            {
+                for (EnvironmentEntity* entity in _game.environmentEntities)
+                {
+                    if (entity.type == ENV_ASTEROID &&
+                        [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1)
+                    {
+                        [entity.hex setColour:ASTEROID_COLOUR];
+                    }
+                }
+
+            }
+            else if (_game.selectedUnitAbility == MOVE)
             {
                 NSMutableArray* movableRange;
                 movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];
