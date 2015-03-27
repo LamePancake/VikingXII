@@ -77,6 +77,8 @@ static NSMutableArray* currentPath;
 
 + (void)attackThis:(Unit*)target with:(Unit *)attacker
 {
+    attacker.attacking = YES;
+    
     MovementTask *firingMove = nil;
     if(!target.active)
     {

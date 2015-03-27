@@ -26,7 +26,6 @@ enum
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
     UNIFORM_TRANSLATION_MATRIX,
-    UNIFORM_LIGHT_POSITION,
     UNIFORM_TEXTURE,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
@@ -53,7 +52,6 @@ enum
     GLuint _2DProgram;
     
     float _rotation;
-    GLKVector3 lightPosition;
     
     // Ship vertices and normals
     GLuint _shipVertexArray[NUM_FACTIONS][NUM_CLASSES];
@@ -68,8 +66,8 @@ enum
     GLuint _vertexGrayItemBuffer[3];
     
     // Environment vertices and normals
-    GLuint _vertexEnvironmentArray[NUM_ENVIRONMENT];
-    GLuint _vertexEnvironmentBuffer[NUM_ENVIRONMENT];
+    GLuint _vertexEnvironmentArray[1];
+    GLuint _vertexEnvironmentBuffer[1];
 
     Camera *_camera;
     
@@ -87,6 +85,7 @@ enum
     GLuint _grayBrokenTexture;
     GLuint _bgTexture;
     GLuint _itemTexture;
+    GLuint _evironmentTexture;
     
     NSMutableArray* graySelectableRange;
     NSMutableArray* vikingsSelectableRange;
@@ -117,7 +116,7 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    lightPosition = GLKVector3Make(0.0, 5.0, -5.0);
+    
     // Add the sound manager and start playing the main game theme
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
@@ -323,6 +322,7 @@ enum
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
     _itemTexture = [GLProgramUtils setupTexture:@"factionitem.png"];
+    _evironmentTexture = [GLProgramUtils setupTexture:@"environment.png"];
 }
 
 - (void)setupItems
@@ -582,8 +582,6 @@ enum
 
 - (void)update
 {
-    lightPosition = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.01f, 0.0f, 0.0f, 1.0f), lightPosition);
-    glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPosition.x, lightPosition.y, lightPosition.z);
     if(_game.selectedUnit == nil)
     {
         [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
@@ -640,23 +638,24 @@ enum
     }
     
     [_game.map clearColours];
+    
+    for (EnvironmentEntity* entity in _game.environmentEntities)
+    {
+        switch (entity.type) {
+            case ENV_ASTEROID:
+                [entity.hex setColour:ASTEROID_COLOUR];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
     if(_game.state == PLAYING)
     {
         if (_game.selectedUnit)
         {
-            if (_game.selectedUnitAbility == SEARCH)
-            {
-                for (EnvironmentEntity* entity in _game.environmentEntities)
-                {
-                    if (entity.type == ENV_ASTEROID &&
-                        [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1)
-                    {
-                        [entity.hex setColour:ASTEROID_COLOUR];
-                    }
-                }
-
-            }
-            else if (_game.selectedUnitAbility == MOVE)
+            if (_game.selectedUnitAbility == MOVE)
             {
                 NSMutableArray* movableRange;
                 movableRange = [_game.map makeFrontierFrom:_game.selectedUnit.hex.q :_game.selectedUnit.hex.r inRangeOf:[_game.selectedUnit moveRange]];
@@ -799,20 +798,29 @@ enum
     }
     glDisable(GL_BLEND);
 
-    [self drawEnvironment:_game.environmentEntities withVertices: _vertexEnvironmentArray usingProgram:_program];
-    
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
+    //Draw environment hazzards
+    glBindTexture(GL_TEXTURE_2D, _evironmentTexture);
+    [self drawEnvironment:_game.environmentEntities withVertices: _vertexEnvironmentArray usingProgram:_program];
+
+    //Draw Units
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES withProjectile:_vertexVikingItemArray];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:YES withProjectile:_vertexGrayItemArray];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:YES];
     
+    //Draw dead units
     glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
-    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO withProjectile:_vertexVikingItemArray];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
-    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO withProjectile:_vertexGrayItemArray];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO];
+    
+    //Draw items
+    glBindTexture(GL_TEXTURE_2D, _itemTexture);
+    [self drawProjectile:_game.p1Units withVertices:_vertexVikingItemArray usingProgram:_program];
+    [self drawProjectile:_game.p2Units withVertices:_vertexGrayItemArray usingProgram:_program];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -838,9 +846,11 @@ enum
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
     glDrawArrays(GL_TRIANGLES, 0, numVerts);
+
 }
 
-- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive withProjectile: (GLuint*)projectileVerts{
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive
+{
     NSUInteger numUnits = [units count];
 
     for(unsigned int i = 0; i < numUnits; i++)
@@ -874,28 +884,44 @@ enum
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
             
             glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
-            
-            // projectile
-            glBindVertexArrayOES(projectileVerts[0]);
-            glUseProgram(program);
-            
-            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-            _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
-            _scaleMat = GLKMatrix4MakeScale(0.005, 0.005, 0.005);
-            _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
-            _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-            
-            _transNorm = GLKMatrix4MakeScale(0.005, 0.005, 0.005);
-            _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.position.x, curUnit.position.y, curUnit.position.z));
-            _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
-            
-            tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-            
-            glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
-            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-            
-            glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][0]);
         }
+    }
+}
+
+-(void) drawProjectile:(NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram:(GLuint)program
+{
+    NSUInteger numProjectiles = [units count];
+    
+    for(unsigned int i = 0; i < numProjectiles; i++)
+    {
+        GLKMatrix4 _transMat;
+        GLKMatrix4 _scaleMat;
+        
+        Unit* curUnit = (Unit*)units[i];
+        
+        if(!curUnit.attacking)
+            continue;
+        
+        // projectile
+        glBindVertexArrayOES(vertices[PROJECTILE]);
+        glUseProgram(program);
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z);
+        _scaleMat = GLKMatrix4MakeScale(0.1, 0.1, 0.1);
+        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+        
+        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(0.1, 0.1, 0.1);
+        _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z));
+        _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
+        
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+        
+        glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][PROJECTILE]);
     }
 }
 
@@ -975,7 +1001,6 @@ enum
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
     uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
-    uniforms[UNIFORM_LIGHT_POSITION] = glGetUniformLocation(_program, "lightPos");
     uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
     uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");
