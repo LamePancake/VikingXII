@@ -34,6 +34,7 @@ enum
     UNIFORM_2D_NORMAL_MATRIX,
     UNIFORM_2D_UNIT_TEXTURE,
     UNIFORM_2D_TRANSLATION_MATRIX,
+    UNIFORM_LIGHT_POSITION,
     NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -91,6 +92,8 @@ enum
     NSMutableArray* vikingsSelectableRange;
     
     UILabel *hitLabel;
+    
+    GLKVector3 lightPos;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -121,6 +124,8 @@ enum
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
     //[[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
+    
+    lightPos = GLKVector3Make(0.0, 5.0, -5.0);
     
     // Add gesture recognisers for zooming and panning the camera
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
@@ -582,6 +587,9 @@ enum
 
 - (void)update
 {
+    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.01f, 0, 0, 1), lightPos);
+    glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
+    
     if(_game.selectedUnit == nil)
     {
         [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
@@ -1008,6 +1016,7 @@ enum
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     uniforms[UNIFORM_UNIT_TEXTURE] = glGetUniformLocation(_program, "texture");
     uniforms[UNIFORM_2D_UNIT_TEXTURE] = glGetUniformLocation(_2DProgram, "texture");
+    uniforms[UNIFORM_LIGHT_POSITION] = glGetUniformLocation(_program, "lightPos");
 
     return YES;
 }
