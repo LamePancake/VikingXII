@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SkirmishGameMode.h"
+#import "EnvironmentEntity.h"
 
 @interface SkirmishGameMode ()
 
@@ -114,6 +115,19 @@
 -(int)checkForWin
 {
     return [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
+}
+
+- (NSMutableArray*) generateEnvironment
+{
+    NSMutableArray* environment = [[NSMutableArray alloc] init];
+    
+    Hex* hex = [self.map hexAtQ:0 andR:0];
+    
+    EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
+    
+    [environment addObject:entity];
+    
+    return environment;
 }
 
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units

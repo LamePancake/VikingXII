@@ -38,6 +38,8 @@ typedef enum UnitAbilities
 @property (strong, nonatomic) NSMutableArray* p1Units;
 /// An array of Unit objects belonging to player 2.
 @property (strong, nonatomic) NSMutableArray* p2Units;
+// An array of environment entities (e.g. asteroids)
+@property (strong, nonatomic) NSMutableArray* environmentEntities;
 
 /// Player 1's faction (ALIENS or VIKINGS).
 @property (nonatomic) Faction p1Faction;
@@ -91,6 +93,8 @@ typedef enum UnitAbilities
  * Checks to see if a faction won.
  */
 -(int)checkForWin;
+
+- (NSMutableArray*) generateEnvironment;
 
 /**
  * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.

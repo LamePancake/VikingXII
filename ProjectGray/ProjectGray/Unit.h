@@ -24,11 +24,8 @@ extern const float UNIT_HEIGHT;
 
 @property (nonatomic) int shipClass;
 @property (nonatomic) int faction;
-//@property (nonatomic) GLKVector3 position;
-//@property (nonatomic) GLKVector3 rotation;
 @property (nonatomic) GLKVector3 initRotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
-//@property (nonatomic) float scale;
 
 //stats
 @property (readonly) ShipStats* stats;      // Gets a pointer to the ship's stats struct. Note: stats can be set using the pointer, but the pointer itself cannot be redirected.

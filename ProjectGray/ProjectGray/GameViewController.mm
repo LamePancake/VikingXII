@@ -15,7 +15,9 @@
 #include "HexCells.h"
 #include "GLProgramUtils.h"
 #import "GameObject.h"
-
+#import "EnvironmentStats.h"
+#import "environmentmodel.h"
+#import "EnvironmentEntity.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 // Uniform index.
@@ -62,6 +64,10 @@ enum
     GLuint _vertexVikingItemBuffer[3];
     GLuint _vertexGrayItemArray[3];
     GLuint _vertexGrayItemBuffer[3];
+    
+    // Environment vertices and normals
+    GLuint _vertexEnvironmentArray[1];
+    GLuint _vertexEnvironmentBuffer[1];
 
     Camera *_camera;
     
@@ -112,7 +118,7 @@ enum
     // Add the sound manager and start playing the main game theme
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
-    [[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
+    //[[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
     
     // Add gesture recognisers for zooming and panning the camera
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
@@ -294,6 +300,9 @@ enum
     // set up items
     [self setupItems];
     
+    // set up environment
+    [self setupEnvironment];
+    
     // Background setup
     [self setupVertexArray:&_vertexBGArray
                 withBuffer:&_vertexBGBuffer
@@ -371,6 +380,26 @@ enum
     glGenBuffers(1, &_vertexGrayItemBuffer[FLAG]);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[FLAG]);
     glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][FLAG] * sizeof(float) * 8, factionModels[ALIENS][FLAG], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+}
+
+- (void) setupEnvironment
+{
+    // Item: Asteroid
+    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID]);
+    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID]);
+    
+    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID]);
+    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID] * sizeof(float) * 8, environmentModels[ENV_ASTEROID], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -604,6 +633,19 @@ enum
     }
     
     [_game.map clearColours];
+    
+    for (EnvironmentEntity* entity in _game.environmentEntities)
+    {
+        switch (entity.type) {
+            case ENV_ASTEROID:
+                [entity.hex setColour:ASTEROID_COLOUR];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
     if(_game.state == PLAYING)
     {
         if (_game.selectedUnit)
@@ -751,6 +793,7 @@ enum
     }
     glDisable(GL_BLEND);
 
+    [self drawEnvironment:_game.environmentEntities withVertices: _vertexEnvironmentArray usingProgram:_program];
     
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
@@ -827,6 +870,42 @@ enum
             
             glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
         }
+    }
+}
+
+- (void) drawEnvironment: (NSMutableArray *)environment withVertices: (GLuint*)vertices usingProgram:(GLuint)program
+{
+    NSUInteger numEntities = [environment count];
+    
+    for(unsigned int i = 0; i < numEntities; i++)
+    {
+        EnvironmentEntity* curEntity = (EnvironmentEntity*)environment[i];
+        
+        if(_game.state == SELECTION)
+            if(curEntity.hex == nil)
+                continue;
+        
+        GLKMatrix4 _transMat;
+        GLKMatrix4 _scaleMat;
+        glBindVertexArrayOES(vertices[ENV_ASTEROID]);
+        glUseProgram(program);
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curEntity.position.x, curEntity.position.y, curEntity.position.z);
+        _scaleMat = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
+        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+        
+        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
+        _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curEntity.position.x, curEntity.position.y, curEntity.position.z));
+        _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
+        
+        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+        
+        glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[ENV_ASTEROID]);
     }
 }
 

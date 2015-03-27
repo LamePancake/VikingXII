@@ -14,6 +14,8 @@
 		303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 303F79411AAE3D23009207DF /* PriorityQueue.mm */; };
 		3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */; };
 		3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */; };
+		307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5C1AC5D2560055F326 /* environmentmodel.c */; };
+		307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */; };
 		3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0D1A8D4D9200A54360 /* Hex.m */; };
 		3082EA101A8D697000A54360 /* HexShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA0F1A8D697000A54360 /* HexShader.fsh */; };
 		3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3082EA111A8D698F00A54360 /* HexShader.vsh */; };
@@ -115,6 +117,11 @@
 		3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFGameMode.m; sourceTree = "<group>"; };
 		3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishGameMode.h; sourceTree = "<group>"; };
 		3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishGameMode.m; sourceTree = "<group>"; };
+		307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStats.h; sourceTree = "<group>"; };
+		307D4A5B1AC5D2360055F326 /* environmentmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = environmentmodel.h; sourceTree = "<group>"; };
+		307D4A5C1AC5D2560055F326 /* environmentmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = environmentmodel.c; sourceTree = "<group>"; };
+		307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnvironmentEntity.m; sourceTree = "<group>"; };
+		307D4A601AC5DF2E0055F326 /* EnvironmentEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentEntity.h; sourceTree = "<group>"; };
 		3082EA0A1A8D4D4200A54360 /* HexCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HexCells.h; sourceTree = "<group>"; };
 		3082EA0B1A8D4D5200A54360 /* Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hex.h; sourceTree = "<group>"; };
 		3082EA0C1A8D4D7C00A54360 /* HexCells.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HexCells.m; sourceTree = "<group>"; };
@@ -331,6 +338,8 @@
 				70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */,
 				A50862B51ABDF20600D1925A /* factionmodel.h */,
 				A50862BB1ABDFCC800D1925A /* factionmodel.c */,
+				307D4A5B1AC5D2360055F326 /* environmentmodel.h */,
+				307D4A5C1AC5D2560055F326 /* environmentmodel.c */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -379,6 +388,9 @@
 				F211F5A61ABE1B3100B16426 /* GameObject.h */,
 				3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */,
 				3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */,
+				307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */,
+				307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */,
+				307D4A601AC5DF2E0055F326 /* EnvironmentEntity.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -661,6 +673,7 @@
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
 				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
+				307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
 				3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */,
 				70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */,
@@ -668,6 +681,7 @@
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,
 				A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */,
 				35117B811A9BF087007E56CD /* background.c in Sources */,
+				307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
 				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
 			);

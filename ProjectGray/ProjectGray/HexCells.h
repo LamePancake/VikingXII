@@ -18,6 +18,7 @@ extern const GLKVector4 ATTACKABLE_COLOUR;
 extern const GLKVector4 HEAL_COLOUR;
 extern const GLKVector4 MOVEABLE_COLOUR;
 extern const GLKVector4 SELECTED_COLOUR;
+extern const GLKVector4 ASTEROID_COLOUR;
 extern const GLKVector4 GRAY_PLACEMENT_COLOUR;
 extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
 

@@ -22,25 +22,34 @@ static Game* _game = nil;
 @end
 
 @implementation Game
--(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map {
+-(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map{
     if(_game) return nil;
     
     if((self = [super init])) {
         _p1Units = p1Units;
         _p2Units = p2Units;
-        
+        _map = map;
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
         _selectedUnit = p1Units[0];
-        _map = map;
         _taskManager = [[TaskManager alloc] init];
         _game = self;
         _currentRound = 1;
         _state = SELECTION;
         _selectionSwitchCount = 0;
         _selectedUnitAbility = NONE;
+        
+        
+        _environmentEntities = [self generateEnvironment];
     }
     return self;
+}
+
+- (NSMutableArray*) generateEnvironment
+{
+    NSMutableArray* environment = [[NSMutableArray alloc] init];
+    
+    return environment;
 }
 
 -(void)dealloc {

@@ -33,6 +33,8 @@
 
 -(int)checkForWin;
 
+- (NSMutableArray*) generateEnvironment;
+
 @end
 
 #endif
