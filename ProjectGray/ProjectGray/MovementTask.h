@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Task.h"
 #import "Unit.h"
+#import "Item.h"
 #import "Hex.h"
 
 @interface MovementTask : NSObject <Task>

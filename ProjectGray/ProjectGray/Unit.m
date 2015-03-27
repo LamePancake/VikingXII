@@ -45,6 +45,7 @@ const float UNIT_HEIGHT = 0.04f;
         _active = true;
         _taskAvailable = true;
     }
+    _projectile = [_projectile initWithFaction:_faction andClass:PROJECTILE atPosition:_position withRotation:_rotation andScale:_scale onHex:_hex];
     return self;
 }
 

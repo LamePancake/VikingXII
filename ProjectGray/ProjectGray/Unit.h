@@ -16,6 +16,8 @@
 #import "h_vikingVertices.h"
 #import "Hex.h"
 #import "UnitStats.h"
+#import "Item.h"
+#import "ItemStats.h"
 #import "GameObject.h"
 
 extern const float UNIT_SCALE;
@@ -35,6 +37,8 @@ extern const float UNIT_HEIGHT;
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
 @property (nonatomic) bool active;
+@property (nonatomic) Item* projectile;
+@property (nonatomic) bool attacking;
 
 //Task related
 //@property (nonatomic) BOOL taskAvailable;

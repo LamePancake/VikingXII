@@ -71,6 +71,7 @@
 		A50862C01ABE072800D1925A /* factionitem.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BE1ABE072800D1925A /* factionitem.png */; };
 		A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */; };
 		A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */; };
+		A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = A54C285B1AC5D55F0003F0C2 /* Item.m */; };
 		A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61111A9935A0002A6A3B /* h_vikingVertices.c */; };
 		A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61131A9935D2002A6A3B /* l_vikingVertices.c */; };
 		A57298021A7C1F30001934F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A57298011A7C1F30001934F9 /* main.m */; };
@@ -193,6 +194,8 @@
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
 		A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.vsh; sourceTree = "<group>"; };
 		A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.fsh; sourceTree = "<group>"; };
+		A54C285B1AC5D55F0003F0C2 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		A54C285D1AC5D56E0003F0C2 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		A54E61111A9935A0002A6A3B /* h_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h_vikingVertices.c; sourceTree = "<group>"; };
 		A54E61131A9935D2002A6A3B /* l_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = l_vikingVertices.c; sourceTree = "<group>"; };
 		A57297FC1A7C1F30001934F9 /* ProjectGray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectGray.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -376,6 +379,8 @@
 				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
+				A54C285D1AC5D56E0003F0C2 /* Item.h */,
+				A54C285B1AC5D55F0003F0C2 /* Item.m */,
 				A5FE71BE1A9189A0008D9C1F /* Unit.h */,
 				A5FE71BF1A9189A0008D9C1F /* Unit.m */,
 				F29BB5031A9811940000745E /* UnitActions.h */,
@@ -667,6 +672,7 @@
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
+				A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
 				A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */,
 				303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */,

@@ -802,14 +802,14 @@ enum
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
     
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
-    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES withProjectile:_vertexVikingItemArray];
     glBindTexture(GL_TEXTURE_2D, _grayTexture);
-    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:YES];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:YES withProjectile:_vertexGrayItemArray];
     
     glBindTexture(GL_TEXTURE_2D, _vikingBrokenTexture);
-    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO withProjectile:_vertexVikingItemArray];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
-    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO];
+    [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO withProjectile:_vertexGrayItemArray];
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -838,7 +838,7 @@ enum
 
 }
 
-- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive {
+- (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive withProjectile: (GLuint*)projectileVerts{
     NSUInteger numUnits = [units count];
 
     for(unsigned int i = 0; i < numUnits; i++)
@@ -872,6 +872,27 @@ enum
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
             
             glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
+            
+            // projectile
+            glBindVertexArrayOES(projectileVerts[0]);
+            glUseProgram(program);
+            
+            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+            _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
+            _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
+            _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+            _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+            
+            _transNorm = GLKMatrix4MakeScale(0.005, 0.005, 0.005);
+            _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.position.x, curUnit.position.y, curUnit.position.z));
+            _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
+            
+            tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
+            
+            glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+            
+            glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][0]);
         }
     }
 }

@@ -31,6 +31,7 @@ static Game* _game = nil;
         _map = map;
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
+        
         _selectedUnit = p1Units[0];
         _taskManager = [[TaskManager alloc] init];
         _game = self;
