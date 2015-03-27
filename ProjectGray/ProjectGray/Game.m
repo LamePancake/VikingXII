@@ -70,6 +70,17 @@ static Game* _game = nil;
     return nil;
 }
 
+-(EnvironmentEntity *) getEnvironmentEntityOnHex: (Hex *)hex
+{
+    
+    // Search both sets of units
+    for(EnvironmentEntity* entity in _environmentEntities) {
+        if(hex == entity.hex) return entity;
+    }
+    
+    return nil;
+}
+
 -(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
 {
     if (!tile) return;
@@ -155,6 +166,12 @@ static Game* _game = nil;
                  [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
         {
             [UnitActions healThis:unitOnTile byThis:_selectedUnit];
+        }
+        else if (_selectedUnitAbility == SEARCH &&
+                 tile.hexType == ASTEROID &&
+                 [HexCells distanceFrom:tile toHex:_selectedUnit.hex] == 1)
+        {
+            
         }
     }
     

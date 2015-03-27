@@ -165,6 +165,11 @@ static NSMutableArray* currentPath;
     NSLog(@"Added health to buddy.");
 }
 
++(void)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher
+{
+    NSLog(@"Searching");
+}
+
 + (NSMutableArray *)getCurrentPath {
     return currentPath;
 }

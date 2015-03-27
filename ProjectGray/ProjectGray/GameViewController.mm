@@ -66,8 +66,8 @@ enum
     GLuint _vertexGrayItemBuffer[3];
     
     // Environment vertices and normals
-    GLuint _vertexEnvironmentArray[1];
-    GLuint _vertexEnvironmentBuffer[1];
+    GLuint _vertexEnvironmentArray[NUM_ENVIRONMENT];
+    GLuint _vertexEnvironmentBuffer[NUM_ENVIRONMENT];
 
     Camera *_camera;
     

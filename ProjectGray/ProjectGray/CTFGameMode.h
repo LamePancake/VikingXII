@@ -10,18 +10,9 @@
 #define ProjectGray_CTFGameMode_h
 
 #import "Game.h"
+#import "EnvironmentEntity.h"
 
 @interface CTFGameMode : Game
-
-/**
- * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
- * attacks, schedules tasks, etc.
- *
- * @param tile The hex tile that was selected.
- * @param alienRange a range of hex cells that can be selected by the aliens.
- * @param vikingRange a range of hex cells that can be selected by the vikings.
- */
--(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
@@ -32,6 +23,8 @@
 -(void)selectTile: (Hex*)tile;
 
 -(int)checkForWin;
+
+- (NSMutableArray*) generateEnvironment;
 
 @end
 

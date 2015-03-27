@@ -66,6 +66,8 @@ typedef enum UnitAbilities
  */
 -(Unit *)getUnitOnHex: (Hex *)hex;
 
+-(EnvironmentEntity *) getEnvironmentEntityOnHex: (Hex *)hex;
+
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
  * attacks, schedules tasks, etc.
