@@ -8,7 +8,7 @@
 
 #import "Item.h"
 
-const float ITEM_SCALE = 0.002f;
+const float ITEM_SCALE = 0.01f;
 const float ITEM_HEIGHT = 0.04f;
 
 @interface Item ()

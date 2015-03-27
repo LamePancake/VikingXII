@@ -917,11 +917,11 @@ enum
         
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z);
-        _scaleMat = GLKMatrix4MakeScale(0.1, 0.1, 0.1);
+        _scaleMat = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
         _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
-        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(0.1, 0.1, 0.1);
+        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
         _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z));
         _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
         

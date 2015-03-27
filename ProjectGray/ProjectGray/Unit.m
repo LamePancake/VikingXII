@@ -45,7 +45,7 @@ const float UNIT_HEIGHT = 0.04f;
         _active = true;
         _taskAvailable = true;
     }
-    _projectile = [[Item alloc] initWithFaction:_faction andClass:PROJECTILE atPosition:_position withRotation:_rotation andScale:_scale onHex:_hex];
+    _projectile = [[Item alloc] initWithFaction:_faction andClass:PROJECTILE atPosition:_position withRotation:_rotation andScale:GLKVector3Make(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE) onHex:_hex];
     return self;
 }
 
