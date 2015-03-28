@@ -168,9 +168,17 @@ static NSMutableArray* currentPath;
     NSLog(@"Added health to buddy.");
 }
 
-+(void)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher
++(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
 {
+    
     NSLog(@"Searching");
+    
+    if (target == graysAsteroid || target == vikingAsteroid)
+    {
+        return true;
+    }
+    
+    return false;
 }
 
 + (NSMutableArray *)getCurrentPath {

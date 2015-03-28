@@ -176,14 +176,14 @@
             case SKIRMISH:
             {
                 game = [[SkirmishGameMode alloc]
-                        initWithPlayer1Units:_vikings
+                        initGameMode:SKIRMISH withPlayer1Units:_vikings
                         andPlayer2Units:_aliens
                         andMap:_map];
             } break;
             case CTF:
             {
                 game = [[CTFGameMode alloc]
-                        initWithPlayer1Units:_vikings
+                        initGameMode: CTF withPlayer1Units:_vikings
                         andPlayer2Units:_aliens
                         andMap:_map];
             } break;

@@ -11,8 +11,28 @@
 
 #import "Game.h"
 #import "EnvironmentEntity.h"
+#import "Item.h"
+
+typedef enum FlagState
+{
+    HIDDEN,
+    DROPPED,
+    TAKEN,
+} FlagState;
 
 @interface CTFGameMode : Game
+
+@property EnvironmentEntity* vikingFlagHidingLocation;
+@property EnvironmentEntity* graysFlagHidingLocation;
+@property FlagState vikingFlagState;
+@property FlagState graysFlagState;
+@property Item* vikingFlag;
+@property Item* graysFlag;
+@property Unit* vikingFlagCarrier;
+@property Unit* graysFlagCarrier;
+//@property FlagState vikingFlagState;
+
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
@@ -23,6 +43,8 @@
 -(void)selectTile: (Hex*)tile;
 
 -(int)checkForWin;
+
+-(void)update;
 
 - (NSMutableArray*) generateEnvironment;
 

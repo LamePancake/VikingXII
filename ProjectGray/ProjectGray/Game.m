@@ -22,10 +22,13 @@ static Game* _game = nil;
 @end
 
 @implementation Game
--(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map{
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+{
     if(_game) return nil;
     
-    if((self = [super init])) {
+    if((self = [super init]))
+    {
+        _mode = mode;
         _p1Units = p1Units;
         _p2Units = p2Units;
         _map = map;
@@ -40,8 +43,7 @@ static Game* _game = nil;
         _selectionSwitchCount = 0;
         _selectedUnitAbility = NONE;
         
-        
-        _environmentEntities = [self generateEnvironment];
+        _environmentEntities = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -124,6 +126,11 @@ static Game* _game = nil;
         if(unitOnTile.faction == _whoseTurn)
             _selectedUnit = unitOnTile;
     }
+}
+
+-(void)update
+{
+    
 }
 
 -(void)selectTile:(Hex *)tile

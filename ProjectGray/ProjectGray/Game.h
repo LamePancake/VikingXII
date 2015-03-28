@@ -29,6 +29,8 @@ typedef enum UnitAbilities
 
 @interface Game : NSObject
 
+@property GameMode mode;
+
 // The current state of the game
 @property (nonatomic) int state;
 
@@ -57,7 +59,7 @@ typedef enum UnitAbilities
 
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
--(instancetype) initWithPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
 
 /**
  * Gets the unit on the specified hex cell, if there is one.
@@ -96,6 +98,8 @@ typedef enum UnitAbilities
  * Checks to see if a faction won.
  */
 -(int)checkForWin;
+
+-(void)update;
 
 - (NSMutableArray*) generateEnvironment;
 

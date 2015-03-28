@@ -18,6 +18,7 @@
 #import "EnvironmentStats.h"
 #import "environmentmodel.h"
 #import "EnvironmentEntity.h"
+#import "CTFGameMode.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 // Uniform index.
@@ -615,6 +616,8 @@ enum
     
     self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
     
+    [_game update];
+    
     switch([_game checkForWin])
     {
         case VIKINGS:
@@ -656,19 +659,7 @@ enum
     }
     
     [_game.map clearColours];
-    
-    for (EnvironmentEntity* entity in _game.environmentEntities)
-    {
-        switch (entity.type) {
-            case ENV_ASTEROID:
-                [entity.hex setColour:ASTEROID_COLOUR];
-                break;
-                
-            default:
-                break;
-        }
-    }
-    
+        
     if(_game.state == PLAYING)
     {
         if (_game.selectedUnit)
@@ -681,6 +672,16 @@ enum
                 for(Hex* hex in movableRange)
                 {
                     [hex setColour:MOVEABLE_COLOUR];
+                }
+            }
+            else if (_game.selectedUnitAbility == SEARCH)
+            {
+                for (EnvironmentEntity* entity in _game.environmentEntities)
+                {
+                    if (entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1)
+                    {
+                        [entity.hex setColour:ASTEROID_COLOUR];
+                    }
                 }
             }
             else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
@@ -844,6 +845,16 @@ enum
         }
     }
     glDisable(GL_BLEND);
+    
+    
+    if (_game.mode == CTF)
+    {
+        CTFGameMode* game = (CTFGameMode*)_game;
+        if (game.vikingFlagState != HIDDEN)
+            [self drawFlag:game.vikingFlag ofFaction:VIKINGS withVertices:_vertexVikingItemArray usingProgram:_program];
+        if (game.graysFlagState != HIDDEN)
+            [self drawFlag:game.graysFlag ofFaction:ALIENS withVertices:_vertexGrayItemArray usingProgram:_program];
+    }
 
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
@@ -1014,6 +1025,35 @@ enum
         
         glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[ENV_ASTEROID]);
     }
+}
+
+- (void) drawFlag: (Item*)flag ofFaction:(Faction) faction withVertices: (GLuint*)vertices usingProgram: (GLuint)program
+{
+    if(_game.state == SELECTION)
+            return;
+    
+    GLKMatrix4 _transMat;
+    GLKMatrix4 _scaleMat;
+    glBindVertexArrayOES(vertices[FLAG]);
+    glUseProgram(program);
+    
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, flag.position.x, flag.position.y, flag.position.z);
+    _scaleMat = GLKMatrix4MakeScale(flag.scale.x, flag.scale.y, flag.scale.z);
+    _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+    
+    GLKMatrix4 _transNorm = GLKMatrix4MakeScale(flag.scale.x, flag.scale.y, flag.scale.z);
+    _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(flag.position.x, flag.position.y, flag.position.z));
+    _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
+    
+    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
+    
+    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+    
+    glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[faction][FLAG]);
+
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
