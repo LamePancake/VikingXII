@@ -109,7 +109,7 @@
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&
-                !unitOnTile &&
+                tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
             [UnitActions moveThis:self.selectedUnit toHex:tile onMap:self.map];
