@@ -17,8 +17,7 @@ enum type
     EMPTY,
     ALIEN,
     VIKING,
-    ASTEROID,
-    FACTIONFLAG
+    ASTEROID
 };
 
 @interface Hex : NSObject <NSCopying>

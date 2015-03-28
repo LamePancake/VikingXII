@@ -18,10 +18,13 @@ extern const GLKVector4 ATTACKABLE_COLOUR;
 extern const GLKVector4 SCOUT_COLOUR;
 extern const GLKVector4 HEAL_COLOUR;
 extern const GLKVector4 MOVEABLE_COLOUR;
-extern const GLKVector4 SELECTED_COLOUR;
+extern const GLKVector4 SELECTED_GRAY_COLOUR;
+extern const GLKVector4 SELECTED_VIKING_COLOUR;
 extern const GLKVector4 ASTEROID_COLOUR;
 extern const GLKVector4 GRAY_PLACEMENT_COLOUR;
 extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
+extern const GLKVector4 GRAY_CAPTURE_ZONE_COLOUR;
+extern const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR;
 
 @interface HexCells : NSObject
 
@@ -166,6 +169,10 @@ extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
  * @return An array of Hex objects to place the vikings in.
  */
 - (NSMutableArray*)vikingsSelectableRange;
+
+-(NSMutableArray*)setupVikingsCaptureRange;
+
+-(NSMutableArray*)setupGraysCaptureRange;
 
 @end
 

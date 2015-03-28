@@ -85,7 +85,7 @@
     
     Unit* unitOnTile = [self getUnitOnHex:tile];
     
-    if(unitOnTile != nil && !unitOnTile.active && self.selectedUnitAbility != HEAL)
+    if(unitOnTile != nil && !unitOnTile.active && self.selectedUnitAbility != HEAL && self.selectedUnitAbility != SEARCH)
     {
         NSLog(@"Unit is dead!");
         return;
@@ -121,19 +121,39 @@
             [UnitActions healThis:unitOnTile byThis:self.selectedUnit];
         }
         else if (self.selectedUnitAbility == SEARCH &&
-                 tile.hexType == ASTEROID &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] == 1)
         {
-            EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
-            if ([UnitActions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
+            if (tile.hexType == ASTEROID)
             {
-                if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
-                    _graysFlagCarrier = self.selectedUnit;
-                    _graysFlagState = TAKEN;
+                EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
+                if ([UnitActions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
+                {
+                    if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
+                        _graysFlagCarrier = self.selectedUnit;
+                        _graysFlagState = TAKEN;
+                        NSLog(@"Gray flag picked up!");
+                    }
+                    else if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
+                        _vikingFlagCarrier = self.selectedUnit;
+                        _vikingFlagState = TAKEN;
+                        NSLog(@"Viking flag picked up!");
+                    }
                 }
-                else if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
-                    _vikingFlagCarrier = self.selectedUnit;
-                    _vikingFlagState = TAKEN;
+            }
+            else if (tile.hexType == VIKING || tile.hexType == ALIEN)
+            {
+                if (!unitOnTile.active)
+                {
+                    if (_graysFlagCarrier == unitOnTile)
+                    {
+                        _graysFlagCarrier = self.selectedUnit;
+                        NSLog(@"Gray flag picked up!");
+                    }
+                    else if (_vikingFlagCarrier == unitOnTile)
+                    {
+                        _vikingFlagCarrier = self.selectedUnit;
+                        NSLog(@"Viking flag picked up!");
+                    }
                 }
             }
         }
@@ -209,8 +229,25 @@
     }
 }
 
--(int)checkForWin
+-(int)checkForFlagCaptureInVikingZone: (NSMutableArray*)vikingCaptureZone andGraysZone: (NSMutableArray*)grayCaptureZone
 {
+    
+    for(Hex* hex in vikingCaptureZone)
+    {
+        if (hex == _graysFlagCarrier.hex && _graysFlagCarrier.faction == VIKINGS)
+        {
+            return VIKINGS;
+        }
+    }
+    
+    for(Hex* hex in grayCaptureZone)
+    {
+        if (hex == _vikingFlagCarrier.hex && _vikingFlagCarrier.faction == ALIENS)
+        {
+            return ALIENS;
+        }
+    }
+    
     return -1;
 }
 

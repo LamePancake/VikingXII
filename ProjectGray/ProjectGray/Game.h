@@ -94,11 +94,6 @@ typedef enum UnitAbilities
  */
 -(void)switchTurn;
 
-/**
- * Checks to see if a faction won.
- */
--(int)checkForWin;
-
 -(void)update;
 
 - (NSMutableArray*) generateEnvironment;

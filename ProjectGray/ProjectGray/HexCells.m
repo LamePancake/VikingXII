@@ -17,9 +17,12 @@ const GLKVector4 SCOUT_COLOUR = {0.23f, 0.0f, 0.73f, 0.8f};
 const GLKVector4 HEAL_COLOUR = {0.23f, 0.23f, 0.73f, 0.8f};
 const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.8f};
 const GLKVector4 ASTEROID_COLOUR = {1, 0.576f, 0.05, 0.8f};
-const GLKVector4 SELECTED_COLOUR = {0.5f, 1, 0.5f, 0.8f};
-const GLKVector4 GRAY_PLACEMENT_COLOUR = {0.5f, 0.5f, 0.7f, 0.8f};
-const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
+const GLKVector4 SELECTED_GRAY_COLOUR = {1, 0.5f, 0.5f, 0.8f};
+const GLKVector4 SELECTED_VIKING_COLOUR = {1, 0.5f, 0.5f, 0.8f};
+const GLKVector4 GRAY_PLACEMENT_COLOUR = {0.5f, 1, 0.5f, 0.8f};
+const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.5f, 0.5f, 1, 0.8f};
+const GLKVector4 GRAY_CAPTURE_ZONE_COLOUR = {0.5f, 1, 0.5f, 0.8f};
+const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
 
 @implementation HexCells
 {
@@ -538,5 +541,37 @@ const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.7f, 0.5f, 0.5f, 0.8f};
     }
     
     return selectableRange;
+}
+
+-(NSMutableArray*)setupGraysCaptureRange
+{
+    NSMutableArray* captureRange = [[NSMutableArray alloc] init];
+    
+    for(int i = _N; i > _N-2; i--)
+    {
+        for(int j = 0; j >= -i; j--)
+        {
+            Hex* currentHex = [self hexAtQ:i andR:j];
+            [captureRange addObject:currentHex];
+        }
+    }
+    
+    return captureRange;
+}
+
+-(NSMutableArray*)setupVikingsCaptureRange
+{
+    NSMutableArray* captureRange = [[NSMutableArray alloc] init];
+    
+    for(int i = -_N; i < -_N+2; i++)
+    {
+        for(int j = 0; j <= -i; j++)
+        {
+            Hex* currentHex = [self hexAtQ:i andR:j];
+            [captureRange addObject:currentHex];
+        }
+    }
+    
+    return captureRange;
 }
 @end

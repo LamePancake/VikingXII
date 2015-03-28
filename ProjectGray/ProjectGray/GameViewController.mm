@@ -19,6 +19,7 @@
 #import "environmentmodel.h"
 #import "EnvironmentEntity.h"
 #import "CTFGameMode.h"
+#import "SkirmishGameMode.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 // Uniform index.
@@ -91,6 +92,8 @@ enum
     
     NSMutableArray* graySelectableRange;
     NSMutableArray* vikingsSelectableRange;
+    NSMutableArray* grayCaptureRange;
+    NSMutableArray* vikingsCaptureRange;
     
     UILabel *hitLabel;
     
@@ -158,6 +161,8 @@ enum
     
     graySelectableRange = [_game.map graysSelectableRange];
     vikingsSelectableRange = [_game.map vikingsSelectableRange];
+    grayCaptureRange = [_game.map setupGraysCaptureRange];
+    vikingsCaptureRange = [_game.map setupVikingsCaptureRange];
     
     // Set the vertex specification that we'll use for models
     _modelVertexSpecification[0] = {GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, 0};
@@ -618,7 +623,21 @@ enum
     
     [_game update];
     
-    switch([_game checkForWin])
+    int winner;
+    
+    if (_game.mode == CTF)
+    {
+        CTFGameMode* game = (CTFGameMode*)_game;
+        winner = [game checkForFlagCaptureInVikingZone:vikingsCaptureRange andGraysZone:grayCaptureRange];
+    }
+    else
+    {
+        
+        SkirmishGameMode* game = (SkirmishGameMode*)_game;
+        winner = [game checkForWin];
+    }
+    
+    switch(winner)
     {
         case VIKINGS:
         {
@@ -659,9 +678,22 @@ enum
     }
     
     [_game.map clearColours];
-        
+    
     if(_game.state == PLAYING)
     {
+        if (_game.mode == CTF)
+        {
+            for(Hex* hex in vikingsCaptureRange)
+            {
+                [hex setColour:VIKING_CAPTURE_ZONE_COLOUR];
+            }
+            
+            for(Hex* hex in grayCaptureRange)
+            {
+                [hex setColour:GRAY_CAPTURE_ZONE_COLOUR];
+            }
+        }
+        
         if (_game.selectedUnit)
         {
             if (_game.selectedUnitAbility == MOVE)
@@ -768,7 +800,15 @@ enum
                 }
             }
             
-            [_game.selectedUnit.hex setColour:SELECTED_COLOUR];
+            if (_game.selectedUnit.faction == VIKINGS)
+            {
+                [_game.selectedUnit.hex setColour:SELECTED_VIKING_COLOUR];
+            }
+            else
+            {
+                [_game.selectedUnit.hex setColour:SELECTED_GRAY_COLOUR];
+            }
+            
         }
     }
     else if(_game.state == SELECTION)

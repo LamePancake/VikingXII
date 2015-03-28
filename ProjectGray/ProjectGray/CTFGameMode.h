@@ -42,7 +42,7 @@ typedef enum FlagState
  */
 -(void)selectTile: (Hex*)tile;
 
--(int)checkForWin;
+-(int)checkForFlagCaptureInVikingZone: (NSMutableArray*)vikingCaptureZone andGraysZone: (NSMutableArray*)grayCaptureZone;
 
 -(void)update;
 
