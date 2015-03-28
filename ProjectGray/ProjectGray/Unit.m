@@ -36,6 +36,8 @@ const float UNIT_HEIGHT = 0.04f;
         _faction = faction;
         _position = atPos;
         _hex = hex;
+        _initRotation = (faction == VIKINGS ? GLKVector3Make(0, 0, -(M_PI / 2)) : GLKVector3Make(0, 0, (M_PI / 2)));
+        _rotation = GLKVector3Subtract(_initRotation, shipRot);
         _shipStats = factionShipStats[faction][shipClass];
         _modelData = shipModels[faction][shipClass];
         _modelArrSize = shipVertexCounts[faction][shipClass] * VERTEX_SIZE;

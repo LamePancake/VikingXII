@@ -16,7 +16,7 @@
 // Units start facing 90 degrees
 // TODO: Change the model, pass this as a parameter, or add it to GameObject so that
 //       we can rotate other things with this task.
-#define UNIT_ZROT_OFF (M_PI / 2)
+#define UNIT_ZROT_OFF -(M_PI / 2)
 
 @interface RotationTask()
 {
@@ -51,8 +51,17 @@
         _next = next;
         _speed = 3;
         _obj.taskAvailable = false;
-        
         _rotationDirection = 0;
+        _endAngle = [RotationTask clampRotation:_endAngle];
+        
+        float rotationOffset = 0;
+        
+        if([(id)obj isMemberOfClass:[Unit class]])
+        {
+            rotationOffset = UNIT_ZROT_OFF;
+        }
+        
+        _endAngle.z += rotationOffset;
         _endAngle = [RotationTask clampRotation:_endAngle];
         
         // I'm just going to implement this for z rotations for the time being, but this
