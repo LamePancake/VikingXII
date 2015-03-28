@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *scoutAbilityButton;
 @property (strong, nonatomic) IBOutlet UIImageView *selectedUnitVIew;
 @property (strong, nonatomic) IBOutlet UILabel *selectedUnitLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *turnImage;
 
 
 @end

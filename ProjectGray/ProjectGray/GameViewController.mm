@@ -1233,19 +1233,27 @@ enum
     
     if([_game whoseTurn] == VIKINGS)
     {
+        [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
         [_turnMarker setImage:[UIImage imageNamed:@"vikingsturn.png"]];
     }
     else if([_game whoseTurn] == ALIENS)
     {
+        [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
         [_turnMarker setImage:[UIImage imageNamed:@"graysturn.png"]];
     }
     
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        ((UIView*)_turnMarker).transform = CGAffineTransformMakeScale(1.5,1.5);
+    [UIView animateWithDuration:0.8 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _turnImage.hidden = NO;
+        ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIView*)_turnMarker).transform = CGAffineTransformMakeScale(1,1);
-        } completion:nil];
+        [UIView animateWithDuration:0.5 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _turnImage.hidden = YES;
+            } completion:nil];
+        }];
+
     }];
     
     if(_game.state == SELECTION)
