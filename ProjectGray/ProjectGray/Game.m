@@ -86,51 +86,6 @@ static Game* _game = nil;
     return nil;
 }
 
--(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
-{
-    if (!tile) return;
-    
-    NSMutableArray *range = _whoseTurn == _p1Faction ? vikingRange : alienRange;
-    
-    Unit* unitOnTile = [self getUnitOnHex:tile];
-    if(unitOnTile == nil)
-    {
-        for(Hex* h in range)
-        {
-            if(h.q == tile.q && h.r == tile.r)
-            {
-                _selectedUnit.hex.hexType = EMPTY;
-                if (_selectedUnit.faction == VIKINGS)
-                {
-                    tile.hexType = VIKING;
-                }
-                else if (_selectedUnit.faction == ALIENS)
-                {
-                    tile.hexType = ALIEN;
-                }
-                _selectedUnit.hex = tile;
-                _selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
-                break;
-            }
-        }
-        
-        NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
-        for(Unit* u in units)
-        {
-            if(u.hex == nil)
-            {
-                _selectedUnit = u;
-                break;
-            }
-        }
-    }
-    else
-    {
-        if(unitOnTile.faction == _whoseTurn)
-            _selectedUnit = unitOnTile;
-    }
-}
-
 -(void)update
 {
     

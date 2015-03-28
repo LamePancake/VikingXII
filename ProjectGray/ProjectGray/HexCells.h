@@ -143,9 +143,10 @@ extern const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR;
  * Gets the neighbours of a given hex cell.
  *
  * @param hex The cell whose neighbours are to be found.
+ * @param hexType The neighbor's type
  * @return An array of Hex objects neighbouring @a hex.
  */
-- (NSMutableArray*)neighbors:(Hex*)hex;
+- (NSMutableArray*)neighborsOf:(Hex*)hex ofType:(HexType)hexType;
 
 /**
  * Gets the closest hex cell to a given position in world coordinates.
@@ -173,6 +174,9 @@ extern const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR;
 -(NSMutableArray*)setupVikingsCaptureRange;
 
 -(NSMutableArray*)setupGraysCaptureRange;
+
+-(NSMutableArray*)generateDistribution;
+
 
 @end
 

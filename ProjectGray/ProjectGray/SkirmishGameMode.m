@@ -16,9 +16,67 @@
 
 @implementation SkirmishGameMode
 
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+{
+    if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map]))
+    {
+        self.environmentEntities = [self generateEnvironment];
+    }
+    
+    return self;
+}
+
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
+{
+    if (!tile || tile.hexType == ASTEROID) return;
+    
+    NSMutableArray *range = self.whoseTurn == self.p1Faction ? vikingRange : alienRange;
+    
+    Unit* unitOnTile = [self getUnitOnHex:tile];
+    if(unitOnTile == nil)
+    {
+        for(Hex* h in range)
+        {
+            if(h.q == tile.q && h.r == tile.r)
+            {
+                self.selectedUnit.hex.hexType = EMPTY;
+                if (self.selectedUnit.faction == VIKINGS)
+                {
+                    tile.hexType = VIKING;
+                }
+                else if (self.selectedUnit.faction == ALIENS)
+                {
+                    tile.hexType = ALIEN;
+                }
+                self.selectedUnit.hex = tile;
+                self.selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
+                break;
+            }
+        }
+        
+        NSMutableArray *units = self.whoseTurn == self.p1Faction ? self.p1Units : self.p2Units;
+        for(Unit* u in units)
+        {
+            if(u.hex == nil)
+            {
+                self.selectedUnit = u;
+                break;
+            }
+        }
+    }
+    else
+    {
+        if(unitOnTile.faction == self.whoseTurn)
+            self.selectedUnit = unitOnTile;
+    }
+}
+
+
 -(void)selectTile:(Hex *)tile
 {
     if (!tile) return;
+    
+    NSLog(@"Tile: %d, %d",tile.q,tile.r);
     
     Unit* unitOnTile = [self getUnitOnHex:tile];
     
@@ -74,16 +132,31 @@
     }
 }
 
--(int)checkForWin
-{
-    return [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
-}
-
 - (NSMutableArray*) generateEnvironment
 {
     NSMutableArray* environment = [[NSMutableArray alloc] init];
+    NSMutableArray* hexagons = [self.map generateDistribution];
+    //Hex* hex = [self.map hexAtQ:0 andR:-2];
+    
+    for (Hex* hex in hexagons)
+    {
+        EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
+        
+        [environment addObject:entity];
+    }
+    
+    Hex* hex = [self.map hexAtQ:0 andR:2];
+    
+    EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
+    
+    [environment addObject:entity];
     
     return environment;
+}
+
+-(int)checkForWin
+{
+    return [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
 }
 
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units

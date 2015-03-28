@@ -13,6 +13,8 @@
 
 @interface SkirmishGameMode : Game
 
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
+
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
  * attacks, schedules tasks, etc.

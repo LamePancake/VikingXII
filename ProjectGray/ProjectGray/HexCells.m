@@ -334,7 +334,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     return true;
 }
 
-- (NSMutableArray*)neighbors:(Hex*)hex
+- (NSMutableArray*)neighborsOf:(Hex*)hex ofType:(HexType)hexType
 {
     NSMutableArray* neighbors = [[NSMutableArray alloc] init];
     Hex* neighbor;
@@ -346,7 +346,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         Hex* neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r + 1
     
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -357,7 +357,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q, r - 1
         
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -369,7 +369,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r - 1
         
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -380,7 +380,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q + 1, r
         
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -392,7 +392,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r
         
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -403,7 +403,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     {
         neighbor = [self hexAtQ:q andR:r]; // get neighbor at q - 1, r + r
         
-        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == EMPTY)
+        if (neighbor.instanceVertexIndex != -1 && neighbor.hexType == hexType)
         {
             [neighbors addObject:neighbor];
         }
@@ -440,7 +440,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
             break;
         }
         
-        neighbors = [self neighbors:current];
+        neighbors = [self neighborsOf:current ofType:EMPTY];
         for (id next in neighbors)
         {
             int newCost = [[costSoFar objectForKey:[NSNumber numberWithInt:current.hash]] intValue] + 1;
@@ -487,7 +487,7 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     while (!(frontierQueue.count == 0)) {
         current = [frontierQueue pop];
         
-        neighbors = [self neighbors:current];
+        neighbors = [self neighborsOf:current ofType:EMPTY];
         for (id next in neighbors)
         {
             int newCost = [[costSoFar objectForKey:[NSNumber numberWithInt:current.hash]] intValue] + 1;
@@ -573,5 +573,84 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     }
     
     return captureRange;
+}
+
+-(BOOL)probabilityPercentOf:(float)percent
+{
+    int baseValue = arc4random()%100 +1;
+    NSLog(@"%d", baseValue);
+    if (baseValue <= percent)
+        return true;
+    return false;
+}
+
+-(BOOL)neighborHasAsteroid: (Hex*)hex
+{
+    NSMutableArray* neighbors = [self neighborsOf:hex ofType:ASTEROID];
+    
+    if ([neighbors count] > 0) {
+        return true;
+    }
+    
+    return false;
+}
+
+-(NSMutableArray*)generateDistribution
+{
+    NSMutableArray* hexagonsInDistribution = [[NSMutableArray alloc] init];
+    
+    int hexCount = _N;
+    
+    // right side of hex
+    for (int q = 0; q <= hexCount; ++q)
+    {
+        for (int r = -hexCount; r <= hexCount - q; ++r)
+        {
+            Hex* hex = [self hexAtQ:q andR:r];
+            BOOL inDistribution = false;
+            
+            if ([self neighborHasAsteroid:hex])
+            {
+                inDistribution = [self probabilityPercentOf:50];
+            }
+            else
+            {
+                inDistribution = [self probabilityPercentOf:25];
+            }
+            
+            if (inDistribution)
+            {
+                [hexagonsInDistribution addObject:hex];
+            }
+        }
+    }
+    
+    
+    // left side of hex
+    for (int q = -hexCount; q <= -1; ++q)
+    {
+        for (int r = -hexCount - q; r <= hexCount; ++r)
+        {
+            Hex* hex = [self hexAtQ:q andR:r];
+            BOOL inDistribution = false;
+            
+            if ([self neighborHasAsteroid:hex])
+            {
+                inDistribution = [self probabilityPercentOf:20];
+            }
+            else
+            {
+                inDistribution = [self probabilityPercentOf:20];
+            }
+            
+            if (inDistribution)
+            {
+                [hexagonsInDistribution addObject:hex];
+                hex.hexType = ASTEROID;
+            }
+        }
+    }
+    
+    return hexagonsInDistribution;
 }
 @end
