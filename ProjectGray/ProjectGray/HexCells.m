@@ -78,20 +78,6 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
     NSMutableArray *subArray = [_hexArray objectAtIndex:q + _N];
     return (Hex*)[subArray objectAtIndex:r + _N + MIN(0, q)];
 }
-/*
-- (Hex*)hexFromPixelAtX:(int)x andY:(int)y
-{
-    
-    float qf = x * 2/3 / size;
-    float rf = (-x/3 + sqrt(3)/3 * y) / size;
-    
-    GLKVector2 axialCoord = [self cubeToAxial:[self roundCube:[self axialToCube:qf :rf]]];
-    
-    int q = axialCoord.x;
-    int r = axialCoord.y;
-    
-    return [self hexAtQ:q andR:r];
-}*/
 
 -(GLKVector3) roundCube:(GLKVector3) cube
 {
@@ -207,6 +193,8 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
             ++instanceVertexIndex;
         }
     }
+    
+    NSLog(@"num: %d", instanceVertexIndex);
 }
 
 - (Hex*) closestHexToWorldPosition:(GLKVector2)position WithinHexagon:(BOOL)limit

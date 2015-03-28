@@ -77,7 +77,7 @@ enum
     GLuint _vertexHexArray;
     GLuint _vertexHexBuffer;
     HexCells *hexCells;
-    GLfloat instanceVertices[91][16];
+    GLfloat instanceVertices[217][16];
     
     GLuint _vertexBGArray;
     GLuint _vertexBGBuffer;
@@ -290,7 +290,7 @@ enum
     
     // Translate the hex cells by the appropriate amount in x and y depending on where they are in the map
     NSMutableArray *instPositions = hexCells.hexPositions;
-    for (int i = 0; i < 91; ++i)
+    for (int i = 0; i < 217; ++i)
     {
         
         for (int j = 0; j < 16; j += 2)

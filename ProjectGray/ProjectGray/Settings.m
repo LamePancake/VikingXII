@@ -19,7 +19,7 @@
     
     if(self) {
         _currentMode = SKIRMISH;
-        _mapSize = 5;
+        _mapSize = 8;
     }
     
     return self;
