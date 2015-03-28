@@ -42,15 +42,13 @@
     for(NSUInteger i = 0; i < numTasks; i++)
     {
         id<Task> curTask = _taskList[i];
-        
-        // If there isn't a task at this slot, don't bother
-        if(!curTask) continue;
-        
         [curTask updateWithDeltaTime: delta];
         
         // Replace the current task with the next one in the list (if it exists)
-        // Otherwise, add this slot to the list of empty slots
+        // and invoke its completion handler if it has one
         if(curTask.isFinished) {
+            // Invoke the completion handler, if any
+            [curTask.completionHandler invoke];
             id<Task>next = curTask.nextTask;
             
             if(next) _taskList[i] = next;

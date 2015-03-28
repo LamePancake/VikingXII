@@ -16,6 +16,11 @@
 @property (strong, nonatomic) id<Task> nextTask;
 
 /**
+ * If specified, this completion handler will be run when the task finishes.
+ */
+@property (strong, nonatomic) NSInvocation* completionHandler;
+
+/**
  * Whether this task is finished.
  */
 @property (nonatomic, readonly) BOOL isFinished;

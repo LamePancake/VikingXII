@@ -25,6 +25,7 @@ const double MOVETASK_EPSILON = 0.001;
     BOOL _isFinished;
     id<Task> _next;
     double _speed;
+    NSInvocation* _completion;
 }
 @end
 
@@ -32,6 +33,7 @@ const double MOVETASK_EPSILON = 0.001;
 
 @synthesize isFinished = _isFinished;
 @synthesize nextTask = _next;
+@synthesize completionHandler = _completion;
 
 -(instancetype) initWithGameObject: (id<GameObject>)obj fromInitial: (GLKVector3)initialPos toDestination: (GLKVector3)destination {
     return [self initWithGameObject: obj fromInitial:initialPos toDestination: destination andNextTask: nil];

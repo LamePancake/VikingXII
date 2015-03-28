@@ -59,20 +59,49 @@ static NSMutableArray* currentPath;
     // The path is arranged from goal->start
     // We want to want to add goal->goal - 1, goal - 1 -> goal - 2, ... goal - n -> start
     // Should end up with [path count - 1] iterations of our loop
-    MovementTask *nextMove = nil;
+    id<Task> nextTask = nil;
     NSUInteger count = [path count] - 1;
     
     for (NSUInteger i = 0; i < count; i++)
     {
         Hex* initHex = (Hex*)path[i + 1];
         Hex* destHex = (Hex*)path[i];
+        
+        GLKVector3 finalAngle;
+        
+        // Determine the angle which the ship must face before traveling to the next hex
+        // Note: The coordinates are for some reason reflected along the r axis
+        if(destHex.q == initHex.q + 1 && destHex.r == initHex.r)          finalAngle = GLKVector3Make(0, 0, M_PI / 6);
+        else if(destHex.q == initHex.q && destHex.r == initHex.r + 1)     finalAngle = GLKVector3Make(0, 0, 3 * M_PI / 6);
+        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r + 1) finalAngle = GLKVector3Make(0, 0, 5 * M_PI / 6);
+        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r)     finalAngle = GLKVector3Make(0, 0, 7 * M_PI / 6);
+        else if(destHex.q == initHex.q && destHex.r == initHex.r - 1)     finalAngle = GLKVector3Make(0, 0, 9 * M_PI / 6);
+        else if(destHex.q == initHex.q + 1 && destHex.r == initHex.r - 1) finalAngle = GLKVector3Make(0, 0, 11 * M_PI / 6);
+        
         GLKVector3 initPos = GLKVector3Make(initHex.worldPosition.x, initHex.worldPosition.y, mover.position.z);
         GLKVector3 destPos = GLKVector3Make(destHex.worldPosition.x, destHex.worldPosition.y, mover.position.z);
         
-        // The right-hand part gets evaluated first, so using andNextTask nextMove here is fine
-        nextMove = [[MovementTask alloc] initWithGameObject:mover fromInitial:initPos toDestination:destPos andNextTask:nextMove];
+        //
+        MovementTask* currentMove = [[MovementTask alloc] initWithGameObject:mover fromInitial:initPos toDestination:destPos andNextTask:nextTask];
+        RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:mover toAngle:finalAngle andNextTask:currentMove];
+        nextTask = rotTask;
     }
-    [[Game taskManager] addTask:nextMove];
+    
+    NSMethodSignature* sig = [UnitActions methodSignatureForSelector:@selector(testHandler:)];
+    NSInvocation* testInvocation = [NSInvocation invocationWithMethodSignature:sig];
+    NSString* test = @"test";
+    
+    [testInvocation setSelector:@selector(testHandler:)];
+    [testInvocation setArgument:&test atIndex:2]; // 2 Because 0 is self and 1 is _cmd
+    [testInvocation setTarget:[UnitActions class]];
+    nextTask.completionHandler = testInvocation;
+    
+    [[Game taskManager] addTask:nextTask];
+}
+
++ (void)testHandler: (NSString*) toLog
+{
+    NSLog(@"Testing: %@", toLog);
 }
 
 + (void)attackThis:(Unit*)target with:(Unit *)attacker

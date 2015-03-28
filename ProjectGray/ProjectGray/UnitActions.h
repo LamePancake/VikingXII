@@ -11,6 +11,7 @@
 #import "HexCells.h"
 #import "Task.h"
 #import "MovementTask.h"
+#import "RotationTask.h"
 #import "EnvironmentEntity.h"
 
 static NSString *attackInfo;
