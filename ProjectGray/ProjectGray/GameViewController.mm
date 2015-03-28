@@ -603,7 +603,7 @@ enum
 
 - (void)update
 {
-    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.0003f, 0, 0, 1), lightPos);
+    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.003f, 0, 0, 1), lightPos);
     glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
     
     if(_game.selectedUnit == nil)
@@ -942,8 +942,10 @@ enum
     _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
     _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
     
-    GLKMatrix4 _transNorm = GLKMatrix4MakeScale(4, 4, 4);
-    _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(0, 0, -6));
+    GLKMatrix4 _transNorm = GLKMatrix4MakeScale(5, 5, 5);
+    GLKMatrix4 _rotNorm = GLKMatrix4MakeRotation(-bgRotation, 0, 0, 1);
+    _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
+    _transNorm = GLKMatrix4Multiply(_rotNorm, GLKMatrix4MakeTranslation(bgPos.x, bgPos.y, bgPos.z));
     _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
     
     GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
@@ -986,6 +988,8 @@ enum
             _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
             
             GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
+            GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curUnit.rotation.z);
+            _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
             _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.position.x, curUnit.position.y, curUnit.position.z));
             _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
             
@@ -1029,6 +1033,8 @@ enum
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
         GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
+        GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curUnit.rotation.z);
+        _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
         _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z));
         _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
         
@@ -1065,6 +1071,8 @@ enum
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
         GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
+        GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curEntity.rotation.z);
+        _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
         _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curEntity.position.x, curEntity.position.y, curEntity.position.z));
         _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
         
@@ -1098,7 +1106,8 @@ enum
     _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
     
     GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-    
+    GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(flag.rotation.z);
+    _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
     glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
