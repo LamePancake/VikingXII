@@ -489,6 +489,11 @@ enum
     [_camera PanDidBegin:didBegin X:x Y:y];
 }
 
+- (IBAction)scoutAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = SCOUT;        
+}
+
 - (IBAction)attackAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = ATTACK;
@@ -698,6 +703,35 @@ enum
                             if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
                             {
                                 [unit.hex setColour:ATTACKABLE_COLOUR];
+                            }
+                        }
+                    }
+                }
+            }
+            else if (_game.selectedUnitAbility == SCOUT/* && [_game.selectedUnit ableToAttack]*/)
+            {
+                if(_game.whoseTurn == _game.p1Faction)
+                {
+                    for(Unit* unit in _game.p2Units)
+                    {
+                        if(unit.active)
+                        {
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            {
+                                [unit.hex setColour:SCOUT_COLOUR];
+                            }
+                        }
+                    }
+                }
+                else if (_game.whoseTurn == _game.p2Faction)
+                {
+                    for(Unit* unit in _game.p1Units)
+                    {
+                        if(unit.active)
+                        {
+                            if ([HexCells distanceFrom:_game.selectedUnit.hex toHex:unit.hex] <= _game.selectedUnit.stats->attackRange)
+                            {
+                                [unit.hex setColour:SCOUT_COLOUR];
                             }
                         }
                     }
@@ -1166,6 +1200,5 @@ enum
     }];
 }
 
-- (IBAction)scoutAbilityButton:(id)sender {
-}
+
 @end

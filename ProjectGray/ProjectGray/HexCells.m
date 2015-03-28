@@ -13,6 +13,7 @@
 
 const GLKVector4 DEFAULT_COLOUR = {0.12f, 0.12f, 0.16f, 0.5f};
 const GLKVector4 ATTACKABLE_COLOUR = {0.73f, 0.23f, 0.4f, 0.8f};
+const GLKVector4 SCOUT_COLOUR = {0.23f, 0.0f, 0.73f, 0.8f};
 const GLKVector4 HEAL_COLOUR = {0.23f, 0.23f, 0.73f, 0.8f};
 const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.8f};
 const GLKVector4 ASTEROID_COLOUR = {1, 0.576f, 0.05, 0.8f};
