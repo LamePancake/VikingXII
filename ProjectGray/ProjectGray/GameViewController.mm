@@ -94,6 +94,8 @@ enum
     UILabel *hitLabel;
     
     GLKVector3 lightPos;
+    GLKVector3 bgPos;
+    float bgRotation;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -126,6 +128,8 @@ enum
     //[[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
     
     lightPos = GLKVector3Make(0.0, 5.0, -5.0);
+    bgPos = GLKVector3Make(0.0, 0, -6.0);
+    bgRotation = 0.0;
     
     // Add gesture recognisers for zooming and panning the camera
     UIPinchGestureRecognizer *pinchZoom = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(doPinch:)];
@@ -593,7 +597,7 @@ enum
 
 - (void)update
 {
-    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.01f, 0, 0, 1), lightPos);
+    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.0003f, 0, 0, 1), lightPos);
     glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
     
     if(_game.selectedUnit == nil)
@@ -870,13 +874,21 @@ enum
 {
     GLKMatrix4 _transMat;
     GLKMatrix4 _scaleMat;
+    GLKMatrix4 _rotMat;
     glBindVertexArrayOES(vertices);
     glUseProgram(program);
     
+    bgRotation += 0.0003f;
+    if(bgRotation >= 360)
+        bgRotation = 0;
+    
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, 0, 0, -6);
-    _scaleMat = GLKMatrix4MakeScale(4, 4, 4);
-    _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+    _rotMat = GLKMatrix4MakeRotation(-bgRotation, 0, 0, 1);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, bgPos.x, bgPos.y, bgPos.z);
+    _scaleMat = GLKMatrix4MakeScale(5, 5, 5);
+    
+    _rotMat = GLKMatrix4Multiply(_rotMat, _scaleMat);
+    _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
     _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
     
     GLKMatrix4 _transNorm = GLKMatrix4MakeScale(4, 4, 4);
