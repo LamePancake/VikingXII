@@ -32,6 +32,7 @@ static NSString *attackInfo;
 +(void)refillAPFor:(Unit*)thisObject;//This should be called at beginning of turn for all GameObjects
 +(void)healThis:(Unit*)target byThis:(Unit*)healer;
 +(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid;
++(void)scoutThis:(Unit*)target with:(Unit*)scouter;
 +(NSMutableArray*)getCurrentPath;
 +(NSString*) getAttackInfo;
 + (void) setAttackInfo:(NSString*)info;

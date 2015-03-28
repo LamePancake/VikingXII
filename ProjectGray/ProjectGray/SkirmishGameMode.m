@@ -105,7 +105,7 @@
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            //[UnitActions attackThis:unitOnTile with:self.selectedUnit];
+            [UnitActions scoutThis:unitOnTile with:self.selectedUnit];
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&

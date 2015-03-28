@@ -142,7 +142,7 @@ static Game* _game = nil;
                  unitOnTile != nil &&
                  unitOnTile.faction != _selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
         {
-            
+            [UnitActions scoutThis:unitOnTile with:_selectedUnit];
         }
     }
     
