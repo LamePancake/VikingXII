@@ -17,6 +17,8 @@
 
 @property (nonatomic) GLKVector3 scale;
 
+@property (nonatomic) bool active;
+
 //If this object is available for a task
 @property (nonatomic) BOOL taskAvailable;
 

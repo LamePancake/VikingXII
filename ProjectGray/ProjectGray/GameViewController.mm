@@ -666,7 +666,7 @@ enum
     {
         _statsBackground.hidden = NO;
         Unit* seld = _game.selectedUnit;
-        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
+        NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
                            seld.stats->hull,
                            seld.stats->attackRange,
                            seld.stats->damage,
@@ -714,7 +714,7 @@ enum
             {
                 for (EnvironmentEntity* entity in _game.environmentEntities)
                 {
-                    if (entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1)
+                    if (entity.active && entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 && _game.selectedUnit.stats->actionPool > 0)
                     {
                         [entity.hex setColour:ASTEROID_COLOUR];
                     }
@@ -722,6 +722,17 @@ enum
             }
             else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
             {
+                if (_game.selectedUnit.shipClass == HEAVY) {
+                    for (EnvironmentEntity* entity in _game.environmentEntities)
+                    {
+                        if (entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 &&
+                            [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] <= _game.selectedUnit.stats->attackRange)
+                        {
+                            [entity.hex setColour:ATTACKABLE_COLOUR];
+                        }
+                    }
+                }
+                
                 if(_game.whoseTurn == _game.p1Faction)
                 {
                     for(Unit* unit in _game.p2Units)
@@ -1058,6 +1069,8 @@ enum
     for(unsigned int i = 0; i < numEntities; i++)
     {
         EnvironmentEntity* curEntity = (EnvironmentEntity*)environment[i];
+        
+        if(!curEntity.active) continue;
         
         if(_game.state == SELECTION)
             if(curEntity.hex == nil)

@@ -21,6 +21,7 @@
 @synthesize position = _position;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
+@synthesize active = _active;
 @synthesize taskAvailable = _taskAvailable;
 
 -(instancetype) initWithType: (EnvironmentClasses) type atPosition:(GLKVector3)pos withRotation:(GLKVector3)rot andScale: (GLKVector3)scl onHex:(Hex*)hex
@@ -37,6 +38,7 @@
         _rotation = rot;
         _scale = scl;
         _hex = hex;
+        _active = true;
     }
     return self;
 

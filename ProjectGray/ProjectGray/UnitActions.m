@@ -87,21 +87,21 @@ static NSMutableArray* currentPath;
         nextTask = rotTask;
     }
     
-    NSMethodSignature* sig = [UnitActions methodSignatureForSelector:@selector(testHandler:)];
-    NSInvocation* testInvocation = [NSInvocation invocationWithMethodSignature:sig];
-    NSString* test = @"test";
-    
-    [testInvocation setSelector:@selector(testHandler:)];
-    [testInvocation setArgument:&test atIndex:2]; // 2 Because 0 is self and 1 is _cmd
-    [testInvocation setTarget:[UnitActions class]];
-    nextTask.completionHandler = testInvocation;
-    
     [[Game taskManager] addTask:nextTask];
 }
 
-+ (void)testHandler: (NSString*) toLog
++ (void)destroyAsteroid:(EnvironmentEntity*)asteroid with:(Unit*)attacker
 {
-    NSLog(@"Testing: %@", toLog);
+    if (![attacker ableToAttack])
+    {
+        NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.stats->actionPointsPerAttack, attacker.stats->actionPool];
+        [UnitActions setAttackInfo:info];
+        return;
+    }
+    
+    attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
+    asteroid.hex.hexType = EMPTY;
+    asteroid.active = false;
 }
 
 + (void)attackThis:(Unit*)target with:(Unit *)attacker
@@ -156,7 +156,7 @@ static NSMutableArray* currentPath;
         return; // miss!
     }
     
-    float damage = attacker.stats->weaponHealth * attacker.stats->damage; //percent of weapon health determines damage
+    float damage = attacker.stats->damage * (1.0f - target.stats->hull); //percent of weapon health determines damage
     float critRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if the hit is critical
     
     if (critRandom <= attacker.stats->critChance)
@@ -201,12 +201,23 @@ static NSMutableArray* currentPath;
 +(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
 {
     
-    NSLog(@"Searching");
-    
-    if (target == graysAsteroid || target == vikingAsteroid)
+    if (target.percentSearched < 100.0f)
     {
-        return true;
+        target.percentSearched += 33.33f;
+        searcher.stats->actionPool--;
+        
+        if (ceilf(target.percentSearched) >= 100.0f)
+        {
+            target.percentSearched = 100.0f;
+            
+            if (target == graysAsteroid || target == vikingAsteroid)
+            {
+                return true;
+            }
+        }
     }
+    
+    NSLog(@"Percent Searched: %f", target.percentSearched);
     
     return false;
 }

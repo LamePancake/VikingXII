@@ -24,6 +24,7 @@ const float UNIT_HEIGHT = 0.04f;
 @synthesize position = _position;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
+@synthesize active = _active;
 @synthesize taskAvailable = _taskAvailable;
 
 -(instancetype) initWithFaction: (Faction)faction andClass: (ShipClass)shipClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)shipRot andScale: (GLKVector3)scl

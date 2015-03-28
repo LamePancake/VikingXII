@@ -93,6 +93,18 @@
         {
             self.selectedUnit = nil;
         }
+        else if (self.selectedUnitAbility == ATTACK &&
+                 self.selectedUnit.shipClass == HEAVY &&
+                 tile.hexType == ASTEROID)
+        {
+            EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
+            
+            if (entity.hex == tile && [HexCells distanceFrom:entity.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
+            {
+                [UnitActions destroyAsteroid:entity with:self.selectedUnit];
+            }
+            
+        }
         // Attack the enemy if possible
         else if(self.selectedUnitAbility == ATTACK &&
                 unitOnTile != nil &&
