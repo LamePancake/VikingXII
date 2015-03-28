@@ -92,7 +92,7 @@ typedef enum UnitAbilities
 /**
  * Switches the turn to the other player.
  */
--(void)switchTurn;
+-(bool)switchTurn;
 
 -(void)update;
 
