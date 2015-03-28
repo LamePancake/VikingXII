@@ -931,13 +931,18 @@ enum
         {
             GLKMatrix4 _transMat;
             GLKMatrix4 _scaleMat;
+            GLKMatrix4 _rotMat;
             glBindVertexArrayOES(vertices[((Unit*)curUnit).shipClass]);
             glUseProgram(program);
             
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+            
+            _rotMat = GLKMatrix4MakeZRotation(curUnit.rotation.z);
             _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
             _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
-            _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+            
+            _rotMat = GLKMatrix4Multiply(_rotMat, _scaleMat);
+            _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
             _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
             
             GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
