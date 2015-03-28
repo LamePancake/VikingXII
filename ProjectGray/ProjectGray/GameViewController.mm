@@ -967,6 +967,7 @@ enum
     {
         GLKMatrix4 _transMat;
         GLKMatrix4 _scaleMat;
+        GLKMatrix4 _rotMat;
         
         Unit* curUnit = (Unit*)units[i];
         
@@ -978,9 +979,13 @@ enum
         glUseProgram(program);
         
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        
+        _rotMat = GLKMatrix4MakeZRotation(curUnit.projectile.rotation.z);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z);
         _scaleMat = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
-        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
+        
+        _rotMat = GLKMatrix4Multiply(_rotMat, _scaleMat);
+        _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
         _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
         
         GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);

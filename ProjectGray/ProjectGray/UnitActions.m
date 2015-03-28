@@ -145,6 +145,7 @@ static NSMutableArray* currentPath;
     NSString *info = [NSString stringWithFormat:@"Attacked unit at hex: and did %f damage leaving the target with %d health", damage, target.stats->shipHealth];
     
     attacker.projectile.position = attacker.position;
+    attacker.projectile.rotation = attacker.rotation;
     firingMove = [[MovementTask alloc] initWithGameObject:attacker.projectile fromInitial:attacker.position toDestination:target.position andNextTask:nil];
     [[Game taskManager] addTask:firingMove];
     [UnitActions setAttackInfo:info];
