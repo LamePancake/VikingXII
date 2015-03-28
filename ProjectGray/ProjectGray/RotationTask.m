@@ -45,7 +45,7 @@
 
 //We need to make a function that rotates the ship on screen and sets flags
 -(void) updateWithDeltaTime:(NSTimeInterval)delta {
-    //Which we will do here
+    
 }
 
 @end

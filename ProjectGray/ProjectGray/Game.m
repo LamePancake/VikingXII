@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Tim Wang. All rights reserved.
 //
 
+//#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+
 #import <Foundation/Foundation.h>
 #import "Game.h"
 #import "TaskManager.h"
@@ -45,6 +47,7 @@ static Game* _game = nil;
         
         _environmentEntities = [[NSMutableArray alloc] init];
     }
+    [self saveScores];
     return self;
 }
 
@@ -265,6 +268,45 @@ static Game* _game = nil;
         [currentUnit resetAP];
     }
     ++_currentRound;
+}
+
+-(BOOL)saveScores {
+//    NSString *pathName = @"/Users/a00795612/Desktop/8081 Project/comp8051_group1/ProjectGray/testSave";
+//    [[NSFileManager defaultManager] createFileAtPath:pathName contents:nil attributes:nil];
+//    NSString *str = @"testString";
+//    [str writeToFile:pathName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    [self writeToTextFile];
+    [self readTextFile];
+    return false;
+}
+
+-(void) writeToTextFile{
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/textfile.txt", documentsDirectory];
+    //create content - four lines of text
+    NSString *content = @"One<data>Two<data>Three<data>Four<data>Five";
+    //save content to the documents directory
+    [content writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
+}
+
+-(void) readTextFile{
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/textfile.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
+    NSArray *dataSegments = [content componentsSeparatedByString:@"<data>"];
+    //printf("%s", [content UTF8String]);
+    //use simple alert from my library (see previous post for details)
+//    [ASFunctions alert:content];
+//    [content release];
 }
 
 @end

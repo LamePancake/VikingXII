@@ -99,6 +99,21 @@ typedef enum UnitAbilities
 - (NSMutableArray*) generateEnvironment;
 
 /**
+ * Saves the scores of the players
+ */
+-(BOOL)saveScores;
+
+/**
+ * Method writes a string to a text file
+ */
+-(void) writeToTextFile;
+
+/**
+ * Method retrieves content from documents directory and displays it in an alert
+ */
+-(void) readTextFile;
+
+/**
  * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.
  */
 +(TaskManager *)taskManager;
