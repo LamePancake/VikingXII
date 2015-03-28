@@ -42,10 +42,10 @@ typedef struct _ShipStats {
     float accuracy;
     float critChance;
     float critModifier;
-    int damage;
+    float damage;
     
     // Health
-    int hull;
+    float hull;
     int engineHealth;
     float weaponHealth;
     int shipHealth;

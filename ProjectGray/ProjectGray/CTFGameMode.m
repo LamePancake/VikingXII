@@ -121,6 +121,7 @@
             [UnitActions healThis:unitOnTile byThis:self.selectedUnit];
         }
         else if (self.selectedUnitAbility == SEARCH &&
+                 self.selectedUnit.stats->actionPool > 0 &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] == 1)
         {
             if (tile.hexType == ASTEROID)

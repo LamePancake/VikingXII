@@ -29,6 +29,7 @@
     {
         
         hex.hexType = ASTEROID;
+        _percentSearched = 0.0f;
         _type = type;
         _position.x = hex.worldPosition.x;
         _position.y = hex.worldPosition.y;
