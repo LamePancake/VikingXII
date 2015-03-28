@@ -48,6 +48,8 @@ typedef enum FlagState
 
 - (NSMutableArray*) generateEnvironment;
 
+-(void)addToRespawnList: (Unit*)units from: (Faction*)whoseturn;
+
 @end
 
 #endif

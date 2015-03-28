@@ -41,6 +41,10 @@ typedef enum UnitAbilities
 @property (strong, nonatomic) NSMutableArray* p1Units;
 /// An array of Unit objects belonging to player 2.
 @property (strong, nonatomic) NSMutableArray* p2Units;
+/// An array of Units queueing for respawn
+@property (strong, nonatomic) NSMutableArray* p1RespawnUnits;
+/// An array of Units queueing for respawn
+@property (strong, nonatomic) NSMutableArray* p2RespawnUnits;
 // An array of environment entities (e.g. asteroids)
 @property (strong, nonatomic) NSMutableArray* environmentEntities;
 
@@ -93,6 +97,11 @@ typedef enum UnitAbilities
  * Switches the turn to the other player.
  */
 -(bool)switchTurn;
+
+/**
+ * Respawn the units
+ */
+-(void)respawnUnits;
 
 -(void)update;
 

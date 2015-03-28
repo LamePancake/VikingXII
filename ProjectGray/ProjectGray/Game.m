@@ -162,7 +162,21 @@ static Game* _game = nil;
     }
     else
     {
-        return [self switchTurnPlaying];
+        [self switchTurnPlaying];
+        [self respawnUnits];
+        return YES;
+    }
+}
+
+-(void)respawnUnits
+{
+    if(_whoseTurn)
+    {
+        for(Unit *unit in _p1RespawnUnits)
+        {
+            unit.active = YES;
+            unit.stats->shipHealth = 100;
+        }
     }
 }
 
@@ -201,6 +215,7 @@ static Game* _game = nil;
     NSMutableArray* unitList;
     // Reset the action points of the faction who just finished their turn
     unitList = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
+    
     
     for (Unit *unit in unitList)
     {

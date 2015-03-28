@@ -252,4 +252,23 @@
     return -1;
 }
 
+-(void)addToRespawnList:(NSMutableArray *)units from:(Faction *)whoseturn
+{
+    for(int i = 0; i < units.count; i++)
+    {
+        if(!((Unit *)units[i]).active)
+        {
+            ((Unit *)units[i]).stats->shipHealth += 100;
+            if(!whoseturn)
+            {
+                [self.p1RespawnUnits addObject:((Unit *)units[i])];
+            }
+            else
+            {
+                [self.p2RespawnUnits addObject:((Unit *)units[i])];
+            }
+        }
+    }
+}
+
 @end
