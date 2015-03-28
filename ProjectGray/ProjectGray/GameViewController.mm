@@ -100,6 +100,7 @@ enum
     GLKVector3 lightPos;
     GLKVector3 bgPos;
     float bgRotation;
+    bool endTurnPressed;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -172,6 +173,7 @@ enum
     [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
     
     hitLabel = [[UILabel alloc] init];
+    endTurnPressed = NO;
     
     [self setupGL];
 }
@@ -1218,48 +1220,53 @@ enum
 
 - (IBAction)endTurnPressed:(id)sender
 {
-    [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
-    
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateNormal];
-        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
-        } completion:nil];
-        
-        [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
-    }];
-    
-    if([_game switchTurn])
+    if(!endTurnPressed)
     {
-        if([_game whoseTurn] == VIKINGS)
-        {
-            [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
-            [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
-        }
-        else if([_game whoseTurn] == ALIENS)
-        {
-            [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
-            [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
-        }
+        [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
         
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            _turnImage.hidden = NO;
-            ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateNormal];
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                    _turnImage.hidden = YES;
-                } completion:nil];
-            }];
-
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+            } completion:nil];
+            
+            [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
         }];
-        
-        if(_game.state == SELECTION)
-            [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+    
+        if([_game switchTurn])
+        {
+            if([_game whoseTurn] == VIKINGS)
+            {
+                [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
+                [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
+            }
+            else if([_game whoseTurn] == ALIENS)
+            {
+                [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
+                [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
+            }
+            
+            [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _turnImage.hidden = NO;
+                endTurnPressed = YES;
+                ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                    ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                        _turnImage.hidden = YES;
+                        endTurnPressed = NO;
+                    } completion:nil];
+                }];
+
+            }];
+            
+            if(_game.state == SELECTION)
+                [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+        }
     }
 }
 
