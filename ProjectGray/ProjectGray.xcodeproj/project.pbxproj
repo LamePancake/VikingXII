@@ -43,6 +43,8 @@
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
+		3547EEC51AC72F6F00F94B35 /* GrayPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */; };
+		3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0A91ABDF18400E902F3 /* vikingsturn.png */; };
 		35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0AA1ABDF18400E902F3 /* graysturn.png */; };
@@ -153,6 +155,8 @@
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
+		3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayPortrait.png; sourceTree = "<group>"; };
+		3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingPortrait.png; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		35B2F0A91ABDF18400E902F3 /* vikingsturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vikingsturn.png; sourceTree = "<group>"; };
@@ -290,6 +294,8 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */,
+				3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */,
 				3516E24A1AC1D983008A815C /* h_gray.png */,
 				3516E24B1AC1D983008A815C /* h_viking.png */,
 				3516E24C1AC1D983008A815C /* l_gray.png */,
@@ -615,6 +621,7 @@
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
 				A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */,
 				A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */,
+				3547EEC51AC72F6F00F94B35 /* GrayPortrait.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
@@ -626,6 +633,7 @@
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
+				3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */,
 				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
