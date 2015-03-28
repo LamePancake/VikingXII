@@ -609,10 +609,13 @@ enum
     if(_game.selectedUnit == nil)
     {
         [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
+        _apLabel.hidden = YES;
     }
     else
     {
         [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+        _apLabel.hidden = NO;
+        [_apLabel setText:[NSString stringWithFormat:@"AP: %d", _game.selectedUnit.stats->actionPool]];
     }
     
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
@@ -661,13 +664,12 @@ enum
     {
         _statsBackground.hidden = NO;
         Unit* seld = _game.selectedUnit;
-        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rAction Points: %d\rShip Health: %d",
+        NSString *stats = [NSString stringWithFormat:@"Hull: %d\rAttack Range: %d\rDamage: %d\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
                            seld.stats->hull,
                            seld.stats->attackRange,
                            seld.stats->damage,
                            seld.moveRange,
                            seld.stats->accuracy,
-                           seld.stats->actionPool,
                            seld.stats->shipHealth];
         _statsLabel.text = stats;
     }
