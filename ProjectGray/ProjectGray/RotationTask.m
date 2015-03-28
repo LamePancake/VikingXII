@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RotationTask.h"
 
-// Rotation directions
-#define CCW 1
-#define CW  -1
-
 // Units start facing 90 degrees
 // TODO: Change the model, pass this as a parameter, or add it to GameObject so that
 //       we can rotate other things with this task.
@@ -25,8 +21,6 @@
     BOOL _isFinished;
     id<Task> _next;
     double _speed;
-    
-    int _rotationDirection;
     NSInvocation* _completion;
 }
 @end
@@ -51,7 +45,6 @@
         _next = next;
         _speed = 3;
         _obj.taskAvailable = false;
-        _rotationDirection = 0;
         _endAngle = [RotationTask clampRotation:_endAngle];
         
         float rotationOffset = 0;
@@ -72,20 +65,16 @@
         // we always rotation <= 180 degrees
         if(_endAngle.z < _obj.rotation.z)
         {
-            if(angleDelta < M_PI) _rotationDirection = CW;
-            else
+            if(angleDelta >= M_PI)
             {
                 _endAngle.z += M_PI * 2;
-                _rotationDirection = CCW;
             }
         }
         else
         {
-            if(angleDelta < M_PI) _rotationDirection = CCW;
-            else
+            if(angleDelta >= M_PI)
             {
                 _endAngle.z -= M_PI * 2;
-                _rotationDirection = CW;
             }
         }
     }
@@ -94,22 +83,26 @@
 
 //We need to make a function that rotates the ship on screen and sets flags
 -(void) updateWithDeltaTime:(NSTimeInterval)delta {
-//    In each update, multiply rotation direction * speed * deltaTime to calculate rotation
+
+    float current = [self lerpFrom:_obj.rotation.z to:_endAngle.z withValue:(delta * _speed)];
     
-    float rotThisUpdate = _rotationDirection * _speed * delta;
-    float deltaToEnd = _endAngle.z - _obj.rotation.z;
-    GLKVector3 newRot = GLKVector3Make(_obj.rotation.x, _obj.rotation.y, _obj.rotation.z + rotThisUpdate);
-    
-    // If the amount by which the object will rotate this frame is greater than the remaining rotation, we're done
-    // Also clamp the rotation again for consistency
-    if(fabs(rotThisUpdate) > fabs(deltaToEnd))
+    if ((fabs((current) - (_endAngle.z)) <= 0.0327f))
     {
+        current = _endAngle.z;
         _isFinished = YES;
-        newRot = GLKVector3Make(_obj.rotation.x, _obj.rotation.y, _obj.rotation.z + deltaToEnd);
-        newRot = [RotationTask clampRotation:newRot];
     }
+    _obj.rotation = GLKVector3Make(_obj.rotation.x, _obj.rotation.y, current);
     
-    _obj.rotation = newRot;
+}
+
+//Interpolates between a and b by t. t is clamped between 0 and 1.
+-(float)lerpFrom:(float)from to:(float)to withValue:(float)value
+{
+    if (value < 0.0f)
+        return from;
+    else if (value > 1.0f)
+        return to;
+    return (to - from) * value + from;
 }
 
 /**
