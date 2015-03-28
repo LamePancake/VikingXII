@@ -10,7 +10,7 @@
 #import "GameViewController.h"
 #import "HexCells.h"
 
-#define MAX_UNITS 5
+#define MAX_UNITS 6
 
 @interface UnitSelectionViewController ()
 {
