@@ -26,7 +26,7 @@
     return self;
 }
 
--(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange
 {
     if (!tile || tile.hexType == ASTEROID) return;
     

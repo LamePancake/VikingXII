@@ -582,7 +582,7 @@ enum
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
         
-    if(_game.state == SELECTION)
+    if(_game.state == SELECTION || _game.state == FLAG_PLACEMENT)
     {
         [_game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
     }
@@ -824,6 +824,13 @@ enum
                 [_game.selectedUnit.hex setColour:SELECTED_GRAY_COLOUR];
             }
             
+        }
+    }
+    else if (_game.state == FLAG_PLACEMENT)
+    {
+        for (EnvironmentEntity* entity in _game.environmentEntities)
+        {
+            [entity.hex setColour:ASTEROID_COLOUR];
         }
     }
     else if(_game.state == SELECTION)

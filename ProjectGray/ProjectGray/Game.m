@@ -19,7 +19,6 @@ static Game* _game = nil;
 
 @property (strong, nonatomic) TaskManager* taskManager;
 @property (strong, nonatomic) CADisplayLink* dispLink;
-@property (nonatomic) int selectionSwitchCount;
 
 @end
 
@@ -228,6 +227,7 @@ static Game* _game = nil;
     units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     _selectionSwitchCount++;
     _selectedUnit = units[0];
+    
     if(_selectionSwitchCount >= 2)
     {
         _state = PLAYING;

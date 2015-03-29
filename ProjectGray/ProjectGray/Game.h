@@ -15,7 +15,8 @@
 
 typedef enum _GameState {
     SELECTION = 0,
-    PLAYING = 1
+    FLAG_PLACEMENT = 1,
+    PLAYING = 2
 } GameState;
 
 typedef enum UnitAbilities
@@ -48,14 +49,14 @@ typedef enum UnitAbilities
 @property (strong, nonatomic) NSMutableArray* p2RespawnUnits;
 // An array of environment entities (e.g. asteroids)
 @property (strong, nonatomic) NSMutableArray* environmentEntities;
-
+@property (nonatomic) int selectionSwitchCount;
 /// Player 1's faction (ALIENS or VIKINGS).
 @property (nonatomic) Faction p1Faction;
 /// Player 2's faction (ALIENS or VIKINGS).
 @property (nonatomic) Faction p2Faction;
 
 /// The faction who has the current turn.
-@property (readonly, nonatomic) Faction whoseTurn;
+@property (nonatomic) Faction whoseTurn;
 
 @property (nonatomic) int currentRound;
 
@@ -98,6 +99,10 @@ typedef enum UnitAbilities
  * Switches the turn to the other player.
  */
 -(void)switchTurn;
+
+-(void)switchTurnSelecting;
+
+-(void)switchTurnPlaying;
 
 /**
  * Respawn the units

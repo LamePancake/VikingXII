@@ -32,7 +32,7 @@ typedef enum FlagState
 @property Unit* graysFlagCarrier;
 //@property FlagState vikingFlagState;
 
--(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
+-(void)selectTile: (Hex*)tile duringGameState:(GameState)state WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
@@ -49,6 +49,10 @@ typedef enum FlagState
 - (NSMutableArray*) generateEnvironment;
 
 -(void)addToRespawnList: (Unit*)units from: (Faction*)whoseturn;
+
+-(void)switchTurnSelecting;
+
+-(void)switchTurnFlagPlacement;
 
 @end
 

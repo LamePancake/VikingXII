@@ -28,49 +28,75 @@
     return self;
 }
 
--(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange;
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange
 {
     if (!tile) return;
     
-    NSMutableArray *range = self.whoseTurn == self.p1Faction ? vikingRange : alienRange;
-    
-    Unit* unitOnTile = [self getUnitOnHex:tile];
-    if(unitOnTile == nil)
+    if (self.state == FLAG_PLACEMENT && tile.hexType == ASTEROID)
     {
-        for(Hex* h in range)
-        {
-            if(h.q == tile.q && h.r == tile.r)
-            {
-                self.selectedUnit.hex.hexType = EMPTY;
-                if (self.selectedUnit.faction == VIKINGS)
+        for (EnvironmentEntity* entity in self.environmentEntities) {
+            if (entity.hex == tile) {
+                
+                if (self.whoseTurn == VIKINGS)
                 {
-                    tile.hexType = VIKING;
+                    _vikingFlagHidingLocation = entity;
+                    _vikingFlag.position = entity.position;
+                    _vikingFlagState = HIDDEN;
+                    _vikingFlagCarrier = nil;
                 }
-                else if (self.selectedUnit.faction == ALIENS)
+                else
                 {
-                    tile.hexType = ALIEN;
+                    _graysFlagHidingLocation = entity;
+                    _graysFlag.position = entity.position;
+                    _graysFlagState = HIDDEN;
+                    _graysFlagCarrier = nil;
                 }
-                self.selectedUnit.hex = tile;
-                self.selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
-                break;
             }
         }
+    }
+    else if (self.state == SELECTION)
+    {
+        NSMutableArray *range = self.whoseTurn == self.p1Faction ? vikingRange : alienRange;
         
-        NSMutableArray *units = self.whoseTurn == self.p1Faction ? self.p1Units : self.p2Units;
-        for(Unit* u in units)
+        Unit* unitOnTile = [self getUnitOnHex:tile];
+        if(unitOnTile == nil)
         {
-            if(u.hex == nil)
+            for(Hex* h in range)
             {
-                self.selectedUnit = u;
-                break;
+                if(h.q == tile.q && h.r == tile.r)
+                {
+                    self.selectedUnit.hex.hexType = EMPTY;
+                    if (self.selectedUnit.faction == VIKINGS)
+                    {
+                        tile.hexType = VIKING;
+                    }
+                    else if (self.selectedUnit.faction == ALIENS)
+                    {
+                        tile.hexType = ALIEN;
+                    }
+                    self.selectedUnit.hex = tile;
+                    self.selectedUnit.position = GLKVector3Make(tile.worldPosition.x, tile.worldPosition.y, UNIT_HEIGHT);
+                    break;
+                }
+            }
+            
+            NSMutableArray *units = self.whoseTurn == self.p1Faction ? self.p1Units : self.p2Units;
+            for(Unit* u in units)
+            {
+                if(u.hex == nil)
+                {
+                    self.selectedUnit = u;
+                    break;
+                }
             }
         }
+        else
+        {
+            if(unitOnTile.faction == self.whoseTurn)
+                self.selectedUnit = unitOnTile;
+        }
     }
-    else
-    {
-        if(unitOnTile.faction == self.whoseTurn)
-            self.selectedUnit = unitOnTile;
-    }
+    
 }
 
 /**
@@ -189,21 +215,12 @@
     
     EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
     
-    _graysFlagHidingLocation = entity;
-    _graysFlag.position = entity.position;
-    _graysFlagState = HIDDEN;
-    _graysFlagCarrier = nil;
     
     [environment addObject:entity];
     
     hex = [self.map hexAtQ:0 andR:2];
     
     entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
-    
-    _vikingFlagHidingLocation = entity;
-    _vikingFlag.position = entity.position;
-    _vikingFlagState = HIDDEN;
-    _vikingFlagCarrier = nil;
     
     [environment addObject:entity];
     
@@ -240,6 +257,49 @@
             break;
         default:
             break;
+    }
+}
+
+-(void)switchTurn
+{
+    if(self.state == SELECTION)
+    {
+        [self switchTurnSelecting];
+    }
+    else if (self.state == FLAG_PLACEMENT)
+    {
+        [self switchTurnFlagPlacement];
+    }
+    else if (self.state == PLAYING)
+    {
+        [self switchTurnPlaying];
+        [self respawnUnits];
+    }
+}
+
+-(void)switchTurnSelecting
+{
+    NSMutableArray *units = self.whoseTurn == self.p1Faction ? self.p1Units : self.p2Units;
+    self.whoseTurn = self.whoseTurn == self.p1Faction ? self.p2Faction : self.p1Faction;
+    units = self.whoseTurn == self.p1Faction ? self.p1Units : self.p2Units;
+    self.selectionSwitchCount++;
+    self.selectedUnit = units[0];
+    
+    if(self.selectionSwitchCount >= 2)
+    {
+        self.state = FLAG_PLACEMENT;
+        self.selectedUnit = nil;
+    }
+}
+
+-(void)switchTurnFlagPlacement
+{
+    self.whoseTurn = self.whoseTurn == VIKINGS ? ALIENS : VIKINGS;
+    self.selectedUnit = nil;
+    
+    if(_graysFlagHidingLocation != nil && _vikingFlagHidingLocation != nil)
+    {
+        self.state = PLAYING;
     }
 }
 
