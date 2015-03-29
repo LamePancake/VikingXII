@@ -8,21 +8,39 @@
 
 #import <Foundation/Foundation.h>
 #import "CTFGameMode.h"
+#import "UnitActions.h"
+#import "GameViewController.h"
 
 @interface CTFGameMode ()
+
+@property NSMutableArray* p1CaptureRange;
+@property NSMutableArray* p2CaptureRange;
 
 @end
 
 @implementation CTFGameMode
 
--(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map andGameVC:(GameViewController *)gameVC
 {
-    if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map]))
+    if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map andGameVC:gameVC]))
     {
-        _graysFlag = [[Item alloc]initWithFaction:VIKINGS andClass:FLAG atPosition:GLKVector3Make(0, 0, 0.05) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.01, 0.01, 0.01) onHex:nil];
-        _vikingFlag = [[Item alloc]initWithFaction:ALIENS andClass:FLAG atPosition:GLKVector3Make(0, 0, 0.05) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.01, 0.01, 0.01) onHex:nil];
+        _graysFlag = [[Item alloc]initWithFaction:self.p1Faction
+                                         andClass:FLAG
+                                       atPosition:GLKVector3Make(0, 0, 0.05)
+                                     withRotation:GLKVector3Make(0, 0, 0)
+                                         andScale:GLKVector3Make(0.01, 0.01, 0.01)
+                                            onHex:nil];
+        _vikingFlag = [[Item alloc]initWithFaction:self.p2Faction
+                                          andClass:FLAG
+                                        atPosition:GLKVector3Make(0, 0, 0.05)
+                                      withRotation:GLKVector3Make(0, 0, 0)
+                                          andScale:GLKVector3Make(0.01, 0.01, 0.01)
+                                             onHex:nil];
         
         self.environmentEntities = [self generateEnvironment];
+        
+        _p1CaptureRange = [self.map setupVikingsCaptureRange];
+        _p2CaptureRange = [self.map setupGraysCaptureRange];
     }
     
     return self;
@@ -132,7 +150,7 @@
             
             if (entity.hex == tile && [HexCells distanceFrom:entity.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
             {
-                [UnitActions destroyAsteroid:entity with:self.selectedUnit];
+                [self.actions destroyAsteroid:entity with:self.selectedUnit];
                 
                 if (entity.active == false)
                 {
@@ -158,7 +176,7 @@
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [UnitActions attackThis:unitOnTile with:self.selectedUnit];
+            [self.actions attackThis:unitOnTile with:self.selectedUnit];
             [self addToRespawnList:unitOnTile];
         }
         // Move to another tile
@@ -166,38 +184,7 @@
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
-            /*if (tile.hexType == FLAG)
-            {
-                if (self.selectedUnit.faction == VIKINGS)
-                {
-                    if (tile == _graysFlag.hex && _graysFlagState == DROPPED) {
-                        _graysFlagCarrier = self.selectedUnit;
-                        _graysFlagState = TAKEN;
-                        NSLog(@"Gray flag picked up!");
-                    }
-                    else if (tile == _vikingFlag.hex && _vikingFlagState == DROPPED) {
-                        _vikingFlagCarrier = self.selectedUnit;
-                        _vikingFlagState = TAKEN;
-                        NSLog(@"Viking flag picked up!");
-                    }
-                }
-                else
-                {
-                    if (tile == _vikingFlag.hex && _vikingFlagState == DROPPED) {
-                        _vikingFlagCarrier = self.selectedUnit;
-                        _vikingFlagState = TAKEN;
-                        NSLog(@"Viking flag picked up!");
-                    }
-                    else if (tile == _graysFlag.hex && _graysFlagState == DROPPED) {
-                        _graysFlagCarrier = self.selectedUnit;
-                        _graysFlagState = TAKEN;
-                        NSLog(@"Gray flag picked up!");
-                    }
-                }
-
-            }*/
-            
-            [UnitActions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&
@@ -205,7 +192,7 @@
                  unitOnTile.faction == self.whoseTurn &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [UnitActions healThis:unitOnTile byThis:self.selectedUnit];
+            [self.actions healThis:unitOnTile byThis:self.selectedUnit];
         }
         else if (self.selectedUnitAbility == SEARCH &&
                  self.selectedUnit.stats->actionPool > 0 &&
@@ -214,7 +201,7 @@
             if (tile.hexType == ASTEROID)
             {
                 EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
-                if ([UnitActions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
+                if ([self.actions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
                 {
                     
                     if (self.selectedUnit.faction == VIKINGS)
@@ -270,6 +257,11 @@
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;
     }
+    
+    // Check if anyone has won and notify the game
+    int winner = [self checkForFlagCapture];
+    if(winner != -1) [self.gameVC factionDidWin: winner];
+    
 }
 
 - (NSMutableArray*) generateEnvironment
@@ -363,20 +355,19 @@
     }
 }
 
--(int)checkForFlagCaptureInVikingZone: (NSMutableArray*)vikingCaptureZone andGraysZone: (NSMutableArray*)grayCaptureZone
+-(int)checkForFlagCapture
 {
-    
-    for(Hex* hex in vikingCaptureZone)
+    for(Hex* hex in _p1CaptureRange)
     {
-        if (hex == _graysFlagCarrier.hex && _graysFlagCarrier.faction == VIKINGS)
+        if (hex == _graysFlagCarrier.hex && _graysFlagCarrier.faction == self.p1Faction)
         {
             return VIKINGS;
         }
     }
     
-    for(Hex* hex in grayCaptureZone)
+    for(Hex* hex in _p2CaptureRange)
     {
-        if (hex == _vikingFlagCarrier.hex && _vikingFlagCarrier.faction == ALIENS)
+        if (hex == _vikingFlagCarrier.hex && _vikingFlagCarrier.faction == self.p2Faction)
         {
             return ALIENS;
         }

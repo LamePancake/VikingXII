@@ -13,7 +13,7 @@
 
 @interface SkirmishGameMode : Game
 
--(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map andGameVC:(GameViewController *)gameVC;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
@@ -22,8 +22,6 @@
  * @param tile The hex tile that was selected.
  */
 -(void)selectTile: (Hex*)tile;
-
--(int)checkForWin;
 
 - (NSMutableArray*) generateEnvironment;
 

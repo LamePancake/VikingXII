@@ -8,19 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import "SkirmishGameMode.h"
+#import "GameViewController.h"
 #import "EnvironmentEntity.h"
+#import "UnitActions.h"
 
 @interface SkirmishGameMode ()
-
+{
+    UnitActions* _actions;
+}
 @end
 
 @implementation SkirmishGameMode
 
--(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map andGameVC:(GameViewController *)gameVC
 {
-    if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map]))
+    if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map andGameVC:gameVC]))
     {
         self.environmentEntities = [self generateEnvironment];
+        _actions = [[UnitActions alloc] initWithGame:self];
     }
     
     return self;
@@ -101,30 +106,33 @@
             
             if (entity.hex == tile && [HexCells distanceFrom:entity.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
             {
-                [UnitActions destroyAsteroid:entity with:self.selectedUnit];
+                [_actions destroyAsteroid:entity with:self.selectedUnit];
             }
-            
         }
         // Attack the enemy if possible
         else if(self.selectedUnitAbility == ATTACK &&
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [UnitActions attackThis:unitOnTile with:self.selectedUnit];
+            [_actions attackThis:unitOnTile with:self.selectedUnit];
+            
+            // After attack, check if either set of units is something
+            int winner = [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
+            if(winner != -1) [self.gameVC factionDidWin:winner];
         }
         // Scout the enemy if possible
         else if(self.selectedUnitAbility == SCOUT &&
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [UnitActions scoutThis:unitOnTile with:self.selectedUnit];
+            [_actions scoutThis:unitOnTile with:self.selectedUnit];
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
-            [UnitActions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            [_actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&
@@ -132,7 +140,7 @@
                  unitOnTile.faction == self.whoseTurn &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [UnitActions healThis:unitOnTile byThis:self.selectedUnit];
+            [_actions healThis:unitOnTile byThis:self.selectedUnit];
         }
     }
     
@@ -159,11 +167,6 @@
     return environment;
 }
 
--(int)checkForWin
-{
-    return [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
-}
-
 -(int) checkForWinWithPlayerOneUnits: (NSMutableArray *)p1Units andPlayerTwoUnits:(NSMutableArray *)p2Units
 {
     BOOL playerOneAlive = NO;
@@ -188,13 +191,11 @@
     
     if(playerOneAlive && playerTwoAlive)
         return -1;
-    else if(playerOneAlive && playerTwoAlive)
+    else if(playerOneAlive && !playerTwoAlive)
         return ((Unit*)p1Units[0]).faction;
-    else if(playerOneAlive && playerTwoAlive)
+    else if(!playerOneAlive && playerTwoAlive)
         return ((Unit*)p2Units[0]).faction;
     return -1;
 }
-
-
 
 @end

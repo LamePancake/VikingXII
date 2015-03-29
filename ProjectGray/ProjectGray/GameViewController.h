@@ -11,8 +11,9 @@
 #import "Unit.h"
 #import "CTFMode.h"
 #import "Settings.h"
-#import "Game.h"
 #import "factionmodel.h"
+
+@class Game;
 
 @interface GameViewController : GLKViewController
 - (IBAction)endTurnPressed:(id)sender;
@@ -37,5 +38,20 @@
 @property (strong, nonatomic) IBOutlet UIImageView *turnImage;
 @property (strong, nonatomic) IBOutlet UILabel *apLabel;
 
+/**
+ * Notifies the game that the given faction has won.
+ * @param winner The winning faction.
+ */
+-(void)factionDidWin: (Faction)winner;
+
+/**
+ * Notifies the game that a given unit was attacked.
+ * @param x        The X coordinate of the affected unit's position.
+ * @param y        The Y coordinate of the affected unit's position.
+ * @param z        The Z coordinate of the affected unit's position.
+ * @param change   The amount by which the health changed.
+ * @param isDamage Whether the change was damage, healing or a missed attack.
+ */
+-(void)unitHealthChangedAtX: (float)x andY: (float)y andZ: (float)z withChange: (float)change andIsDamage: (bool) isDamage;
 
 @end

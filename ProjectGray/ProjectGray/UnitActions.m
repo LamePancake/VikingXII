@@ -11,21 +11,34 @@
 #import "UnitActions.h"
 #import "HexCells.h"
 #import "SoundManager.h"
+#import "GameViewController.h"
 #import "Game.h"
 
 static NSMutableArray* currentPath;
 
 @interface UnitActions ()
-
+{
+    Game* _game;
+}
 @end
 
 @implementation UnitActions
 
+-(instancetype)initWithGame:(Game *)game
+{
+    if((self = [super init]))
+    {
+        _game = game;
+    }
+    return self;
+}
+
 //When these methods are called, they should do a move that is already legal
-+ (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
+- (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
 {
     if(!mover.active)
     {
+        // Notify GameViewController
         NSLog(@"Unit is dead!");
         return;
     }
@@ -36,6 +49,7 @@ static NSMutableArray* currentPath;
     
     if (requiredAP > [mover moveRange])
     {
+        // Notify GameViewController
         NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.stats->actionPool);
         return;
     }
@@ -71,7 +85,7 @@ static NSMutableArray* currentPath;
         GLKVector3 finalAngle;
         
         // Determine the angle which the ship must face before traveling to the next hex
-        // Note: The coordinates are for some reason reflected along the r axis
+        // Note: Hex coordinates are reflected on the r axis
         if(destHex.q == initHex.q + 1 && destHex.r == initHex.r)          finalAngle = GLKVector3Make(0, 0, M_PI / 6);
         else if(destHex.q == initHex.q && destHex.r == initHex.r + 1)     finalAngle = GLKVector3Make(0, 0, 3 * M_PI / 6);
         else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r + 1) finalAngle = GLKVector3Make(0, 0, 5 * M_PI / 6);
@@ -91,12 +105,12 @@ static NSMutableArray* currentPath;
     [[Game taskManager] addTask:nextTask];
 }
 
-+ (void)destroyAsteroid:(EnvironmentEntity*)asteroid with:(Unit*)attacker
+- (void)destroyAsteroid:(EnvironmentEntity*)asteroid with:(Unit*)attacker
 {
     if (![attacker ableToAttack])
     {
         NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.stats->actionPointsPerAttack, attacker.stats->actionPool];
-        [UnitActions setAttackInfo:info];
+        [self setAttackInfo:info];
         return;
     }
     
@@ -105,7 +119,7 @@ static NSMutableArray* currentPath;
     asteroid.active = false;
 }
 
-+ (void)attackThis:(Unit*)target with:(Unit *)attacker
+- (void)attackThis:(Unit*)target with:(Unit *)attacker
 {
     attacker.attacking = YES;
     
@@ -127,7 +141,7 @@ static NSMutableArray* currentPath;
     if (![attacker ableToAttack])
     {
         NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", attacker.stats->actionPointsPerAttack, attacker.stats->actionPool];
-        [UnitActions setAttackInfo:info];
+        [self setAttackInfo:info];
         return;
     }
     
@@ -157,7 +171,7 @@ static NSMutableArray* currentPath;
         return; // miss!
     }
     
-    float damage = attacker.stats->damage * (1.0f - target.stats->hull); //percent of weapon health determines damage
+    float damage = attacker.stats->damage * (1.0f - target.stats->hull);
     float critRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if the hit is critical
     
     if (critRandom <= attacker.stats->critChance)
@@ -178,14 +192,30 @@ static NSMutableArray* currentPath;
     attacker.projectile.rotation = attacker.rotation;
     firingMove = [[MovementTask alloc] initWithGameObject:attacker.projectile fromInitial:attacker.position toDestination:target.position andNextTask:nil];
     [[Game taskManager] addTask:firingMove];
-    [UnitActions setAttackInfo:info];
+    [self setAttackInfo:info];
+    
+    // Create the callback to show damage
+    NSMethodSignature* methodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
+    NSInvocation* completion = [NSInvocation invocationWithMethodSignature:methodSig];
+    GLKVector3 unitPos = target.position; // Can't pass property to the invocation
+    BOOL isDamage = YES;
+    
+    completion.target = _game.gameVC;
+    completion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
+    [completion setArgument:&unitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (whatever the fuck that is)
+    [completion setArgument:&unitPos.y atIndex:3];
+    [completion setArgument:&unitPos.z atIndex:4];
+    [completion setArgument:&damage atIndex:5];
+    [completion setArgument:&isDamage atIndex:6];
+    
+    firingMove.completionHandler = completion;
 }
 
-+ (void)refillAPFor:(Unit *)thisObject {
+- (void)refillAPFor:(Unit *)thisObject {
 
 }
 
-+ (void)healThis:(Unit *)target byThis:(Unit *)healer
+- (void)healThis:(Unit *)target byThis:(Unit *)healer
 {
     if (![healer ableToHeal]) return;
     else healer.stats->actionPool -= healer.stats->actionPointsPerHeal;
@@ -199,7 +229,7 @@ static NSMutableArray* currentPath;
     NSLog(@"Added health to buddy.");
 }
 
-+(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
+-(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
 {
     
     if (target.percentSearched < 100.0f || (target == vikingAsteroid || target == graysAsteroid))
@@ -223,7 +253,7 @@ static NSMutableArray* currentPath;
     return false;
 }
 
-+(void)scoutThis:(Unit*)target with:(Unit*)scouter
+-(void)scoutThis:(Unit*)target with:(Unit*)scouter
 {
     scouter.attacking = YES;
     
@@ -245,23 +275,23 @@ static NSMutableArray* currentPath;
     if (![scouter ableToAttack])
     {
         NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", scouter.stats->actionPointsPerAttack, scouter.stats->actionPool];
-        [UnitActions setAttackInfo:info];
+        [self setAttackInfo:info];
         return;
     }
     
     scouter.stats->actionPool -= scouter.stats->actionPointsPerAttack;
 }
 
-+ (NSMutableArray *)getCurrentPath {
+- (NSMutableArray *)getCurrentPath {
     return currentPath;
 }
 
-+ (void) setAttackInfo:(NSString*)info
+- (void) setAttackInfo:(NSString*)info
 {
     attackInfo = info;
 }
 
-+(NSString*) getAttackInfo
+-(NSString*) getAttackInfo
 {
     return attackInfo;
 }

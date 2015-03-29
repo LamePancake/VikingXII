@@ -10,20 +10,24 @@
 
 #import <Foundation/Foundation.h>
 #import "Game.h"
+#import "GameViewController.h"
 #import "TaskManager.h"
 #import "MovementTask.h"
 
 static Game* _game = nil;
 
 @interface Game ()
+{
+    NSMutableArray* _p1SelectableRange;
+    NSMutableArray* _p2SelectableRange;
+}
 
-@property (strong, nonatomic) TaskManager* taskManager;
-@property (strong, nonatomic) CADisplayLink* dispLink;
 
 @end
 
 @implementation Game
 -(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+                   andGameVC: (GameViewController*) gameVC
 {
     if(_game) return nil;
     
@@ -47,6 +51,11 @@ static Game* _game = nil;
         _p2RespawnUnits = [[NSMutableArray alloc] init];
         
         _environmentEntities = [[NSMutableArray alloc] init];
+        _gameVC = gameVC;
+        
+        // Get the spawn areas for each
+        _p1SelectableRange = [_map vikingsSelectableRange];
+        _p2SelectableRange = [_map graysSelectableRange];
     }
     [self saveScores];
     return self;
@@ -60,7 +69,6 @@ static Game* _game = nil;
 }
 
 -(void)dealloc {
-    [_dispLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 -(Unit *) getUnitOnHex: (Hex *)hex {
@@ -78,7 +86,6 @@ static Game* _game = nil;
 
 -(EnvironmentEntity *) getEnvironmentEntityOnHex: (Hex *)hex
 {
-    
     // Search both sets of units
     for(EnvironmentEntity* entity in _environmentEntities) {
         if(hex == entity.hex) return entity;
@@ -92,68 +99,9 @@ static Game* _game = nil;
     
 }
 
--(void)selectTile:(Hex *)tile
-{
-    if (!tile) return;
+-(void)selectTile: (Hex*)tile WithAlienRange: (NSMutableArray*) alienRange WithVikingRange: (NSMutableArray*) vikingRange {}
 
-    Unit* unitOnTile = [self getUnitOnHex:tile];
-    
-    if(unitOnTile != nil && !unitOnTile.active && _selectedUnitAbility != HEAL)
-    {
-        NSLog(@"Unit is dead!");
-        return;
-    }
-    
-    if(_selectedUnit && _selectedUnit.taskAvailable)
-    {
-        // If they tapped the tile that the selected unit was on, unselect it
-        if(_selectedUnit == unitOnTile)
-        {
-            _selectedUnit = nil;
-        }
-        // Attack the enemy if possible
-        else if(_selectedUnitAbility == ATTACK &&
-                unitOnTile != nil &&
-                unitOnTile.faction != _selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
-        {
-            [UnitActions attackThis:unitOnTile with:_selectedUnit];
-        }
-        // Move to another tile
-        else if(_selectedUnitAbility == MOVE &&
-                !unitOnTile &&
-                [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.moveRange)
-        {
-            [UnitActions moveThis:_selectedUnit toHex:tile onMap:_map];
-        }
-        // Heal a member of your faction
-        else if (_selectedUnitAbility == HEAL &&
-                 unitOnTile != nil &&
-                 unitOnTile.faction == _whoseTurn &&
-                 [HexCells distanceFrom:tile toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
-        {
-            [UnitActions healThis:unitOnTile byThis:_selectedUnit];
-        }
-        else if (_selectedUnitAbility == SEARCH &&
-                 tile.hexType == ASTEROID &&
-                 [HexCells distanceFrom:tile toHex:_selectedUnit.hex] == 1)
-        {
-            
-        }
-        else if (_selectedUnitAbility == SCOUT &&
-                 unitOnTile != nil &&
-                 unitOnTile.faction != _selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:_selectedUnit.hex] <= _selectedUnit.stats->attackRange)
-        {
-            [UnitActions scoutThis:unitOnTile with:_selectedUnit];
-        }
-    }
-    
-    // If they selected a tile with a friendly unit, set the current selection to that
-    if(_selectedUnitAbility != HEAL && unitOnTile && unitOnTile.faction == _whoseTurn)
-    {
-        _selectedUnit = unitOnTile;
-        _selectedUnitAbility = MOVE;
-    }
-}
+-(void)selectTile:(Hex *)tile {}
 
 -(void)switchTurn
 {

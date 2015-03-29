@@ -8,10 +8,15 @@
 
 #import "HexCells.h"
 #import "Unit.h"
-#import "UnitActions.h"
-#include "GameMode.h"
+#import "EnvironmentEntity.h"
+#import "GameMode.h"
 #import "TaskManager.h"
+#import "UnitActions.h"
 #include "NSMutableArray_Shuffling.h"
+
+// Have to forward declare these to avoid circular includes
+@class GameViewController;
+@class UnitActions;
 
 typedef enum _GameState {
     SELECTION = 0,
@@ -50,6 +55,9 @@ typedef enum UnitAbilities
 // An array of environment entities (e.g. asteroids)
 @property (strong, nonatomic) NSMutableArray* environmentEntities;
 @property (nonatomic) int selectionSwitchCount;
+/// Reference to the GameViewController coordinating with this game.
+@property (weak, nonatomic, readonly) GameViewController* gameVC;
+
 /// Player 1's faction (ALIENS or VIKINGS).
 @property (nonatomic) Faction p1Faction;
 /// Player 2's faction (ALIENS or VIKINGS).
@@ -58,6 +66,9 @@ typedef enum UnitAbilities
 /// The faction who has the current turn.
 @property (nonatomic) Faction whoseTurn;
 
+@property (strong, nonatomic, readonly) TaskManager* taskManager;
+@property (strong, nonatomic, readonly) UnitActions* actions;
+
 @property (nonatomic) int currentRound;
 
 /// The currently selected unit, if any.
@@ -65,7 +76,8 @@ typedef enum UnitAbilities
 
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
--(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map;
+-(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
+                   andGameVC: (GameViewController*)gameVC;
 
 /**
  * Gets the unit on the specified hex cell, if there is one.

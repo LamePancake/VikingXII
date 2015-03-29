@@ -475,6 +475,7 @@ enum
     }
 }
 
+#pragma mark - View targets
 -(IBAction)doPinch:(UIPinchGestureRecognizer *)recognizer
 {
     BOOL didBegin;
@@ -501,32 +502,6 @@ enum
     [_camera PanDidBegin:didBegin X:x Y:y];
 }
 
-- (IBAction)scoutAbilitySelected:(id)sender
-{
-    _game.selectedUnitAbility = SCOUT;        
-}
-
-- (IBAction)attackAbilitySelected:(id)sender
-{
-    _game.selectedUnitAbility = ATTACK;
-}
-
-- (IBAction)moveAbilitySelected:(id)sender
-{
-    _game.selectedUnitAbility = MOVE;
-}
-
-- (IBAction)healAbilitySelected:(id)sender
-{
-    _game.selectedUnitAbility = HEAL;
-}
-
-- (IBAction)searchAbilitySelected:(id)sender
-{
-    _game.selectedUnitAbility = SEARCH;
-}
-
-
 /*!
  * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and intersect it against the xy-plane to pick a hex cell.
  */
@@ -544,7 +519,7 @@ enum
     // Convert the screen touches into devices coordinates (between [-1, 1])
     screenTouch.x /= self.view.frame.size.width;
     screenTouch.y /= self.view.frame.size.height;
-
+    
     screenTouch.x *= 2;
     screenTouch.y *= 2;
     
@@ -581,7 +556,7 @@ enum
     GLKVector3 worldPoint = GLKVector3Make((t * rayDirection.x) + near.x, (t * rayDirection.y) + near.y, (t * rayDirection.z) + near.z);
     
     Hex* pickedTile = [hexCells closestHexToWorldPosition:GLKVector2Make(worldPoint.x, worldPoint.y) WithinHexagon:TRUE];
-        
+    
     if(_game.state == SELECTION || _game.state == FLAG_PLACEMENT)
     {
         [_game selectTile: pickedTile WithAlienRange:graySelectableRange WithVikingRange:vikingsSelectableRange];
@@ -599,6 +574,176 @@ enum
     }
     
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
+}
+
+- (IBAction)scoutAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = SCOUT;        
+}
+
+- (IBAction)attackAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = ATTACK;
+}
+
+- (IBAction)moveAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = MOVE;
+}
+
+- (IBAction)healAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = HEAL;
+}
+
+- (IBAction)searchAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = SEARCH;
+}
+
+- (IBAction)endTurnPressed:(id)sender
+{
+    if(!endTurnPressed)
+    {
+        [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
+        
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateNormal];
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+            } completion:nil];
+            
+            [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
+        }];
+        
+        if(_game.state == PLAYING)
+        {
+            bool apAvaliable = NO;
+            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
+            for(Unit* u in units)
+            {
+                if(u.stats->actionPool != 0)
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?"
+                                                                    message:@"Some units still have action points."
+                                                                   delegate: self
+                                                          cancelButtonTitle:@"No"
+                                                          otherButtonTitles:@"Yes", nil];
+                    [alert show];
+                    apAvaliable = YES;
+                    break;
+                }
+            }
+            if(!apAvaliable)
+                [self endTurn];
+        }
+        else
+        {
+            bool unitNotPlaced = NO;
+            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
+            for(Unit* u in units)
+            {
+                if(u.hex == nil)
+                {
+                    _game.selectedUnit = u;
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hey listen!"
+                                                                    message:@"Some units have not been placed."
+                                                                   delegate: self
+                                                          cancelButtonTitle:@"Continue"
+                                                          otherButtonTitles:nil, nil];
+                    [alert show];
+                    unitNotPlaced = YES;
+                    break;
+                }
+            }
+            if(!unitNotPlaced)
+                [self endTurn];
+        }
+    }
+}
+
+- (IBAction)pausePresssed:(id)sender
+{
+    [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateNormal];
+        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+        
+        [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
+    }];
+}
+
+#pragma mark - Model targets
+-(void)unitHealthChangedAtX: (float)x andY: (float)y andZ: (float)z withChange: (float)change andIsDamage: (bool) isDamage
+{
+    GLKVector3 pos = GLKVector3Make(x, y, z);
+    pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, pos);
+    int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
+    int winY = (int) round((( 1 - pos.y ) / 2.0) * self.view.frame.size.height );
+    
+    [hitLabel setFrame:CGRectMake(winX, winY, 100, 20)];
+    hitLabel.backgroundColor=[UIColor clearColor];
+    
+    if(isDamage && change == 0)
+        hitLabel.textColor=[UIColor blueColor];
+    else if(isDamage)
+        hitLabel.textColor=[UIColor redColor];
+    else
+        hitLabel.textColor=[UIColor greenColor];
+    
+    hitLabel.userInteractionEnabled = NO;
+    [self.view addSubview:hitLabel];
+    
+    if(isDamage)
+        if(change == 0)
+            hitLabel.text = [NSString stringWithFormat:@"MISS"];
+        else
+            hitLabel.text = [NSString stringWithFormat:@"-%.2f", change];
+        else
+            hitLabel.text = [NSString stringWithFormat:@"+%.2f", change];
+    
+    
+    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(1,1);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
+            } completion:^(BOOL finished) {
+                hitLabel.text = @"";
+            }];
+        }];
+    }];
+}
+
+-(void) factionDidWin: (Faction)winner
+{
+    switch(winner)
+    {
+        case VIKINGS:
+        {
+            _winLabel.text = @"Vikings Win!!";
+            break;
+        }
+        case ALIENS:
+        {
+            _winLabel.text = @"Grays Win!!";
+            break;
+        }
+        default:
+        {
+            _winLabel.text = @"";
+        }
+    }
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
@@ -628,39 +773,7 @@ enum
     
     [_game update];
     
-    int winner;
-    
-    if (_game.mode == CTF)
-    {
-        CTFGameMode* game = (CTFGameMode*)_game;
-        winner = [game checkForFlagCaptureInVikingZone:vikingsCaptureRange andGraysZone:grayCaptureRange];
-    }
-    else
-    {
-        
-        SkirmishGameMode* game = (SkirmishGameMode*)_game;
-        winner = [game checkForWin];
-    }
-    
-    switch(winner)
-    {
-        case VIKINGS:
-        {
-            _winLabel.text = @"Vikings Win!!";
-            break;
-        }
-        case ALIENS:
-        {
-            _winLabel.text = @"Grays Win!!";
-            break;
-        }
-        default:
-        {
-            _winLabel.text = @"";
-        }
-    }
-    
-    _attackLabel.text = @""; //[UnitActions getAttackInfo];
+    _attackLabel.text = @"";
     
     if(_game.selectedUnit)
     {
@@ -1238,73 +1351,10 @@ enum
     glBindVertexArrayOES(0);
 }
 
-- (IBAction)endTurnPressed:(id)sender
-{
-    if(!endTurnPressed)
-    {
-        [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
-        
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateNormal];
-            ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
-            } completion:nil];
-            
-            [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
-        }];
-        
-        if(_game.state == PLAYING)
-        {
-            bool apAvaliable = NO;
-            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
-            for(Unit* u in units)
-            {
-                if(u.stats->actionPool != 0)
-                {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?"
-                                                                    message:@"Some units still have action points."
-                                                                   delegate: self
-                                                          cancelButtonTitle:@"No"
-                                                          otherButtonTitles:@"Yes", nil];
-                    [alert show];
-                    apAvaliable = YES;
-                    break;
-                }
-            }
-            if(!apAvaliable)
-                [self endTurn];
-        }
-        else
-        {
-            bool unitNotPlaced = NO;
-            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
-            for(Unit* u in units)
-            {
-                if(u.hex == nil)
-                {
-                    _game.selectedUnit = u;
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hey listen!"
-                                                                    message:@"Some units have not been placed."
-                                                                   delegate: self
-                                                          cancelButtonTitle:@"Continue"
-                                                          otherButtonTitles:nil, nil];
-                    [alert show];
-                    unitNotPlaced = YES;
-                    break;
-                }
-            }
-            if(!unitNotPlaced)
-                [self endTurn];
-        }
-    }
-}
-
 - (void)endTurn
 {
     [_game switchTurn];
-
+    
     if([_game whoseTurn] == VIKINGS)
     {
         [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
@@ -1329,7 +1379,6 @@ enum
                 endTurnPressed = NO;
             } completion:nil];
         }];
-        
     }];
     
     if(_game.state == SELECTION)
@@ -1347,65 +1396,5 @@ enum
             break;
     }
 }
-
-- (IBAction)pausePresssed:(id)sender
-{
-    [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
-    
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateNormal];
-        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
-        } completion:nil];
-        
-        [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
-    }];
-}
-
--(void)showDamageAtPos:(GLKVector3) position Damage: (float) damage IsDamage: (bool) isDamage
-{
-    GLKVector3 pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, position);
-    int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
-    int winY = (int) round((( 1 - pos.y ) / 2.0) * self.view.frame.size.height );
-    
-    [hitLabel setFrame:CGRectMake(winX, winY, 100, 20)];
-    hitLabel.backgroundColor=[UIColor clearColor];
-    
-    if(isDamage && damage == 0)
-        hitLabel.textColor=[UIColor blueColor];
-    else if(isDamage)
-        hitLabel.textColor=[UIColor redColor];
-    else
-        hitLabel.textColor=[UIColor greenColor];
-    
-    hitLabel.userInteractionEnabled = NO;
-    [self.view addSubview:hitLabel];
-    
-    if(isDamage)
-        if(damage == 0)
-            hitLabel.text = [NSString stringWithFormat:@"MISS"];
-        else
-            hitLabel.text = [NSString stringWithFormat:@"-%.2f", damage];
-    else
-        hitLabel.text = [NSString stringWithFormat:@"+%.2f", damage];
-    
-    
-    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(1,1);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
-            } completion:^(BOOL finished) {
-               hitLabel.text = @"";
-            }];
-        }];
-    }];
-}
-
 
 @end

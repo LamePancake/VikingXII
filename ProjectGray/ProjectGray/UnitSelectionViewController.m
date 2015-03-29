@@ -10,7 +10,7 @@
 #import "GameViewController.h"
 #import "HexCells.h"
 
-#define MAX_UNITS 6
+#define MAX_UNITS 1
 
 @interface UnitSelectionViewController ()
 {
@@ -221,27 +221,30 @@
     {
         Game* game;
         
+        // Pass the settings object to the game view controller for further use
+        GameViewController* gameVC = [segue destinationViewController];
+        
         switch (_settings.currentMode) {
             case SKIRMISH:
             {
                 game = [[SkirmishGameMode alloc]
                         initGameMode:SKIRMISH withPlayer1Units:_vikings
                         andPlayer2Units:_aliens
-                        andMap:_map];
+                        andMap:_map
+                        andGameVC:gameVC];
             } break;
             case CTF:
             {
                 game = [[CTFGameMode alloc]
                         initGameMode: CTF withPlayer1Units:_vikings
                         andPlayer2Units:_aliens
-                        andMap:_map];
+                        andMap:_map
+                        andGameVC:gameVC];
             } break;
             default:
                 break;
         }
         
-        // Pass the settings object to the game view controller for further use
-        GameViewController* gameVC = [segue destinationViewController];
         gameVC.game = game;
     }
 }
