@@ -158,8 +158,44 @@
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"ToGame"]) {
-        return [_aliens count] == MAX_UNITS && [_vikings count] == MAX_UNITS;
+    if ([identifier isEqualToString:@"ToGame"])
+    {
+        if([_aliens count] == MAX_UNITS && [_vikings count] == MAX_UNITS)
+        {
+            return YES;
+        }
+        else
+        {
+            if([_aliens count] != MAX_UNITS  && [_vikings count] == MAX_UNITS)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                                message:@"Aliens do not have enough units."
+                                                               delegate: self
+                                                      cancelButtonTitle:@"Continue"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+
+            }
+            else if([_aliens count] == MAX_UNITS  && [_vikings count] != MAX_UNITS)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                                message:@"Vikings do not have enough units."
+                                                               delegate: self
+                                                      cancelButtonTitle:@"Continue"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                                message:@"Aliens and Vikings do not have enough units."
+                                                               delegate: self
+                                                      cancelButtonTitle:@"Continue"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            return NO;
+        }
     }
     
     return YES;
