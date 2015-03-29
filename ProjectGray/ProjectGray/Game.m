@@ -56,6 +56,8 @@ static Game* _game = nil;
         // Get the spawn areas for each
         _p1SelectableRange = [_map vikingsSelectableRange];
         _p2SelectableRange = [_map graysSelectableRange];
+
+        _actions = [[UnitActions alloc] initWithGame:self];
     }
     [self saveScores];
     return self;

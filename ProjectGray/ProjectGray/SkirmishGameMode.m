@@ -25,7 +25,6 @@
     if((self = [super initGameMode:mode withPlayer1Units:p1Units andPlayer2Units:p2Units andMap:map andGameVC:gameVC]))
     {
         self.environmentEntities = [self generateEnvironment];
-        _actions = [[UnitActions alloc] initWithGame:self];
     }
     
     return self;
