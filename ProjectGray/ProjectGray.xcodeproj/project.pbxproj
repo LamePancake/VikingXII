@@ -62,6 +62,7 @@
 		A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = A50862BB1ABDFCC800D1925A /* factionmodel.c */; };
 		A50862BF1ABE072800D1925A /* environment.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BD1ABE072800D1925A /* environment.png */; };
 		A50862C01ABE072800D1925A /* factionitem.png in Resources */ = {isa = PBXBuildFile; fileRef = A50862BE1ABE072800D1925A /* factionitem.png */; };
+		A50E72961AC8900B00FECBE6 /* NSMutableArray_Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = A50E72951AC8900B00FECBE6 /* NSMutableArray_Shuffling.m */; };
 		A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */; };
 		A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */; };
 		A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = A54C285B1AC5D55F0003F0C2 /* Item.m */; };
@@ -187,6 +188,8 @@
 		A50862BD1ABE072800D1925A /* environment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = environment.png; sourceTree = "<group>"; };
 		A50862BE1ABE072800D1925A /* factionitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factionitem.png; sourceTree = "<group>"; };
 		A50AC18A1A96C46C0086199A /* l_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l_vikingVertices.h; sourceTree = "<group>"; };
+		A50E72941AC8900B00FECBE6 /* NSMutableArray_Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMutableArray_Shuffling.h; sourceTree = "<group>"; };
+		A50E72951AC8900B00FECBE6 /* NSMutableArray_Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArray_Shuffling.m; sourceTree = "<group>"; };
 		A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.vsh; sourceTree = "<group>"; };
 		A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.fsh; sourceTree = "<group>"; };
 		A54C285B1AC5D55F0003F0C2 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
@@ -382,8 +385,8 @@
 				3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */,
 				70C718301A8944B1003E3B05 /* GameMode.h */,
 				3082EA0A1A8D4D4200A54360 /* HexCells.h */,
-				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0C1A8D4D7C00A54360 /* HexCells.m */,
+				3082EA0B1A8D4D5200A54360 /* Hex.h */,
 				3082EA0D1A8D4D9200A54360 /* Hex.m */,
 				A54C285D1AC5D56E0003F0C2 /* Item.h */,
 				A54C285B1AC5D55F0003F0C2 /* Item.m */,
@@ -491,6 +494,8 @@
 			children = (
 				706C83261A9864D900305C66 /* GLProgramUtils.h */,
 				706C83271A9864D900305C66 /* GLProgramUtils.m */,
+				A50E72941AC8900B00FECBE6 /* NSMutableArray_Shuffling.h */,
+				A50E72951AC8900B00FECBE6 /* NSMutableArray_Shuffling.m */,
 				A57298001A7C1F30001934F9 /* Info.plist */,
 				A57298011A7C1F30001934F9 /* main.m */,
 			);
@@ -697,6 +702,7 @@
 				35117B811A9BF087007E56CD /* background.c in Sources */,
 				307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */,
 				A57298021A7C1F30001934F9 /* main.m in Sources */,
+				A50E72961AC8900B00FECBE6 /* NSMutableArray_Shuffling.m in Sources */,
 				A572982E1A7C37D6001934F9 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

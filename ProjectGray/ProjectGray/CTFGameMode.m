@@ -267,9 +267,9 @@
 
 -(void)addToRespawnList:(Unit *)unit
 {
-    if(!((Unit *)unit).active)
+    if(!(((Unit *)unit).active))
     {
-        if(self.whoseTurn == VIKINGS)
+        if(unit.faction == VIKINGS)
         {
             [self.p1RespawnUnits addObject:((Unit *)unit)];
         }

@@ -164,10 +164,12 @@ static Game* _game = nil;
     }
     else
     {
+        [self respawnUnits];        
         [self switchTurnPlaying];
-        [self respawnUnits];
+
     }
 }
+
 
 -(void)respawnUnits
 {
@@ -177,6 +179,20 @@ static Game* _game = nil;
         {
             unit.active = true;
             unit.stats->shipHealth += 100;
+            
+            NSMutableArray * spawnCells = [_map vikingsSelectableRange];
+            [spawnCells shuffle];
+            for(int i = 0; i < spawnCells.count; i++)
+            {
+                if(((Hex*)spawnCells[i]).hexType == EMPTY)
+                {
+                    unit.hex.hexType = EMPTY;
+                    unit.position = GLKVector3Make(((Hex*)spawnCells[i]).worldPosition.x, ((Hex*)spawnCells[i]).worldPosition.y, unit.position.z);
+                    unit.hex = spawnCells[i];
+                    unit.hex.hexType = VIKING;
+                    break;
+                }
+            }
             [_p1RespawnUnits removeObject:unit];
         }
     }
@@ -186,6 +202,20 @@ static Game* _game = nil;
         {
             unit.active = true;
             unit.stats->shipHealth += 100;
+            
+            NSMutableArray * spawnCells = [_map graysSelectableRange];
+            [spawnCells shuffle];
+            for(int i = 0; i < spawnCells.count; i++)
+            {
+                if(((Hex*)spawnCells[i]).hexType == EMPTY)
+                {
+                    unit.hex.hexType = EMPTY;
+                    unit.position = GLKVector3Make(((Hex*)spawnCells[i]).worldPosition.x, ((Hex*)spawnCells[i]).worldPosition.y, unit.position.z);
+                    unit.hex = spawnCells[i];
+                    unit.hex.hexType = ALIEN;
+                    break;
+                }
+            }
             [_p2RespawnUnits removeObject:unit];
         }
     }

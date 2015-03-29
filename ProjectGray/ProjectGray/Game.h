@@ -11,6 +11,7 @@
 #import "UnitActions.h"
 #include "GameMode.h"
 #import "TaskManager.h"
+#include "NSMutableArray_Shuffling.h"
 
 typedef enum _GameState {
     SELECTION = 0,
