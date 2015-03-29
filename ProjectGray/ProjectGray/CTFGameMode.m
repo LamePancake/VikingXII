@@ -133,6 +133,23 @@
             if (entity.hex == tile && [HexCells distanceFrom:entity.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
             {
                 [UnitActions destroyAsteroid:entity with:self.selectedUnit];
+                
+                if (entity.active == false)
+                {
+                    if (_vikingFlagHidingLocation == entity)
+                    {
+                        _vikingFlagState = DROPPED;
+                        _vikingFlag.hex = entity.hex;
+                        entity.hex.hexType = FLAG;
+                    }
+                    
+                    if (_graysFlagHidingLocation == entity)
+                    {
+                        _graysFlagState = DROPPED;
+                        _graysFlag.hex = entity.hex;
+                        entity.hex.hexType = FLAG;
+                    }
+                }
             }
             
         }
@@ -149,6 +166,37 @@
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
+            /*if (tile.hexType == FLAG)
+            {
+                if (self.selectedUnit.faction == VIKINGS)
+                {
+                    if (tile == _graysFlag.hex && _graysFlagState == DROPPED) {
+                        _graysFlagCarrier = self.selectedUnit;
+                        _graysFlagState = TAKEN;
+                        NSLog(@"Gray flag picked up!");
+                    }
+                    else if (tile == _vikingFlag.hex && _vikingFlagState == DROPPED) {
+                        _vikingFlagCarrier = self.selectedUnit;
+                        _vikingFlagState = TAKEN;
+                        NSLog(@"Viking flag picked up!");
+                    }
+                }
+                else
+                {
+                    if (tile == _vikingFlag.hex && _vikingFlagState == DROPPED) {
+                        _vikingFlagCarrier = self.selectedUnit;
+                        _vikingFlagState = TAKEN;
+                        NSLog(@"Viking flag picked up!");
+                    }
+                    else if (tile == _graysFlag.hex && _graysFlagState == DROPPED) {
+                        _graysFlagCarrier = self.selectedUnit;
+                        _graysFlagState = TAKEN;
+                        NSLog(@"Gray flag picked up!");
+                    }
+                }
+
+            }*/
+            
             [UnitActions moveThis:self.selectedUnit toHex:tile onMap:self.map];
         }
         // Heal a member of your faction

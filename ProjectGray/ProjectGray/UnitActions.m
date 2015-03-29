@@ -43,6 +43,7 @@ static NSMutableArray* currentPath;
     mover.stats->actionPool -= requiredAP;
     
     // TODO: Create "changeHex" method in Unit to handle this maybe
+        
     mover.hex.hexType = EMPTY;
     mover.hex = hex;
     if (mover.faction == VIKINGS)
