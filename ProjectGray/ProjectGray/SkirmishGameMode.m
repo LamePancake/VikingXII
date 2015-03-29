@@ -13,9 +13,6 @@
 #import "UnitActions.h"
 
 @interface SkirmishGameMode ()
-{
-    UnitActions* _actions;
-}
 @end
 
 @implementation SkirmishGameMode
@@ -105,7 +102,7 @@
             
             if (entity.hex == tile && [HexCells distanceFrom:entity.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
             {
-                [_actions destroyAsteroid:entity with:self.selectedUnit];
+                [self.actions destroyAsteroid:entity with:self.selectedUnit];
             }
         }
         // Attack the enemy if possible
@@ -113,7 +110,7 @@
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [_actions attackThis:unitOnTile with:self.selectedUnit];
+            [self.actions attackThis:unitOnTile with:self.selectedUnit];
             
             // After attack, check if either set of units is something
             int winner = [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
@@ -124,14 +121,14 @@
                 unitOnTile != nil &&
                 unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [_actions scoutThis:unitOnTile with:self.selectedUnit];
+            [self.actions scoutThis:unitOnTile with:self.selectedUnit];
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
-            [_actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&
@@ -139,7 +136,7 @@
                  unitOnTile.faction == self.whoseTurn &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
-            [_actions healThis:unitOnTile byThis:self.selectedUnit];
+            [self.actions healThis:unitOnTile byThis:self.selectedUnit];
         }
     }
     

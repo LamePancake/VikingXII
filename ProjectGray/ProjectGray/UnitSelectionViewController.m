@@ -36,7 +36,7 @@
     memset(&(_alienCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     memset(&(_vikingCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     
-    _map = [[HexCells alloc] initWithSize:_settings.mapSize];
+    _map = [[HexCells alloc] initWithSize:_settings.mapSize]; 
     
     if(_settings.currentMode == SKIRMISH)
         [_titleLabel setText:@"Skirmish Mode"];
