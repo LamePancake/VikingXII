@@ -156,17 +156,16 @@ static Game* _game = nil;
     }
 }
 
--(bool)switchTurn
+-(void)switchTurn
 {
     if(_state == SELECTION)
     {
-        return [self switchTurnSelecting];
+        [self switchTurnSelecting];
     }
     else
     {
         [self switchTurnPlaying];
         [self respawnUnits];
-        return YES;
     }
 }
 
@@ -192,19 +191,9 @@ static Game* _game = nil;
     }
 }
 
--(bool)switchTurnSelecting
+-(void)switchTurnSelecting
 {
     NSMutableArray *units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
-    for(int i = 0; i < units.count; i++)
-    {
-        if(((Unit*)units[i]).hex == nil)
-        {
-             _selectedUnit = units[i];
-            NSLog(@"You still have units to place!");
-            return false;
-        }
-    }
-    
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     units = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
     _selectionSwitchCount++;
@@ -214,10 +203,9 @@ static Game* _game = nil;
         _state = PLAYING;
         _selectedUnit = nil;
     }
-    return true;
 }
 
--(bool)switchTurnPlaying
+-(void)switchTurnPlaying
 {
     // Determine whose turn it should be
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
@@ -233,7 +221,6 @@ static Game* _game = nil;
     {
         [unit resetAP];
     }
-    return true;
 }
 
 +(TaskManager *) taskManager {

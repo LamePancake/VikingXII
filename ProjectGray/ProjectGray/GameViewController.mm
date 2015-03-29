@@ -108,7 +108,7 @@ enum
 
 - (void)setupGL;
 - (void)tearDownGL;
-
+- (void)endTurn;
 - (BOOL)loadShaders;
 
 /**
@@ -1247,39 +1247,97 @@ enum
             
             [sender setImage:[UIImage imageNamed:@"EndTurn.png"] forState:UIControlStateNormal];
         }];
-    
-        if([_game switchTurn])
+        
+        if(_game.state == PLAYING)
         {
-            if([_game whoseTurn] == VIKINGS)
+            bool apAvaliable = NO;
+            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
+            for(Unit* u in units)
             {
-                [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
-                [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
+                if(u.stats->actionPool != 0)
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?"
+                                                                    message:@"Some units still have action points."
+                                                                   delegate: self
+                                                          cancelButtonTitle:@"No"
+                                                          otherButtonTitles:@"Yes", nil];
+                    [alert show];
+                    apAvaliable = YES;
+                    break;
+                }
             }
-            else if([_game whoseTurn] == ALIENS)
-            {
-                [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
-                [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
-            }
-            
-            [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _turnImage.hidden = NO;
-                endTurnPressed = YES;
-                ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                    ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
-                } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                        _turnImage.hidden = YES;
-                        endTurnPressed = NO;
-                    } completion:nil];
-                }];
-
-            }];
-            
-            if(_game.state == SELECTION)
-                [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+            if(!apAvaliable)
+                [self endTurn];
         }
+        else
+        {
+            bool unitNotPlaced = NO;
+            NSArray* units = _game.whoseTurn == VIKINGS? _game.p1Units : _game.p2Units;
+            for(Unit* u in units)
+            {
+                if(u.hex == nil)
+                {
+                    _game.selectedUnit = u;
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hey listen!"
+                                                                    message:@"Some units have not been placed."
+                                                                   delegate: self
+                                                          cancelButtonTitle:@"Continue"
+                                                          otherButtonTitles:nil, nil];
+                    [alert show];
+                    unitNotPlaced = YES;
+                    break;
+                }
+            }
+            if(!unitNotPlaced)
+                [self endTurn];
+        }
+    }
+}
+
+- (void)endTurn
+{
+    [_game switchTurn];
+
+    if([_game whoseTurn] == VIKINGS)
+    {
+        [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
+        [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
+    }
+    else if([_game whoseTurn] == ALIENS)
+    {
+        [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
+        [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
+    }
+    
+    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _turnImage.hidden = NO;
+        endTurnPressed = YES;
+        ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _turnImage.hidden = YES;
+                endTurnPressed = NO;
+            } completion:nil];
+        }];
+        
+    }];
+    
+    if(_game.state == SELECTION)
+        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch(buttonIndex) {
+        case 0: //"No" pressed
+            break;
+        case 1: //"Yes" pressed
+            [self.navigationController popViewControllerAnimated:YES];
+            [self endTurn];
+            break;
     }
 }
 
