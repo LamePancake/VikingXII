@@ -201,7 +201,7 @@ static NSMutableArray* currentPath;
 +(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
 {
     
-    if (target.percentSearched < 100.0f)
+    if (target.percentSearched < 100.0f || (target == vikingAsteroid || target == graysAsteroid))
     {
         target.percentSearched += 33.33f;
         searcher.stats->actionPool--;

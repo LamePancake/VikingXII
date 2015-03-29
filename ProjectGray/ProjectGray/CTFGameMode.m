@@ -168,15 +168,32 @@
                 EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
                 if ([UnitActions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
                 {
-                    if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
-                        _graysFlagCarrier = self.selectedUnit;
-                        _graysFlagState = TAKEN;
-                        NSLog(@"Gray flag picked up!");
+                    
+                    if (self.selectedUnit.faction == VIKINGS)
+                    {
+                        if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
+                            _graysFlagCarrier = self.selectedUnit;
+                            _graysFlagState = TAKEN;
+                            NSLog(@"Gray flag picked up!");
+                        }
+                        else if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
+                            _vikingFlagCarrier = self.selectedUnit;
+                            _vikingFlagState = TAKEN;
+                            NSLog(@"Viking flag picked up!");
+                        }
                     }
-                    else if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
-                        _vikingFlagCarrier = self.selectedUnit;
-                        _vikingFlagState = TAKEN;
-                        NSLog(@"Viking flag picked up!");
+                    else
+                    {
+                        if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
+                            _vikingFlagCarrier = self.selectedUnit;
+                            _vikingFlagState = TAKEN;
+                            NSLog(@"Viking flag picked up!");
+                        }
+                        else if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
+                            _graysFlagCarrier = self.selectedUnit;
+                            _graysFlagState = TAKEN;
+                            NSLog(@"Gray flag picked up!");
+                        }
                     }
                 }
             }
@@ -210,19 +227,14 @@
 - (NSMutableArray*) generateEnvironment
 {
     NSMutableArray* environment = [[NSMutableArray alloc] init];
+    NSMutableArray* hexagons = [self.map generateDistribution];
     
-    Hex* hex = [self.map hexAtQ:0 andR:-2];
-    
-    EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
-    
-    
-    [environment addObject:entity];
-    
-    hex = [self.map hexAtQ:0 andR:2];
-    
-    entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
-    
-    [environment addObject:entity];
+    for (Hex* hex in hexagons)
+    {
+        EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
+        
+        [environment addObject:entity];
+    }
     
     return environment;
 }
