@@ -44,6 +44,8 @@ static Game* _game = nil;
         _state = SELECTION;
         _selectionSwitchCount = 0;
         _selectedUnitAbility = NONE;
+        _p1RespawnUnits = [[NSMutableArray alloc] init];
+        _p2RespawnUnits = [[NSMutableArray alloc] init];
         
         _environmentEntities = [[NSMutableArray alloc] init];
     }
@@ -170,12 +172,22 @@ static Game* _game = nil;
 
 -(void)respawnUnits
 {
-    if(_whoseTurn)
+    if(_whoseTurn == VIKINGS)
     {
         for(Unit *unit in _p1RespawnUnits)
         {
-            unit.active = YES;
-            unit.stats->shipHealth = 100;
+            unit.active = true;
+            unit.stats->shipHealth += 100;
+            [_p1RespawnUnits removeObject:unit];
+        }
+    }
+    else
+    {
+        for(Unit *unit in _p2RespawnUnits)
+        {
+            unit.active = true;
+            unit.stats->shipHealth += 100;
+            [_p2RespawnUnits removeObject:unit];
         }
     }
 }

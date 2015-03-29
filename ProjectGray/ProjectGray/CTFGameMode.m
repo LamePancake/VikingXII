@@ -116,6 +116,7 @@
                 unitOnTile.faction != self.selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
             [UnitActions attackThis:unitOnTile with:self.selectedUnit];
+            [self addToRespawnList:unitOnTile];
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&
@@ -264,21 +265,17 @@
     return -1;
 }
 
--(void)addToRespawnList:(NSMutableArray *)units from:(Faction *)whoseturn
+-(void)addToRespawnList:(Unit *)unit
 {
-    for(int i = 0; i < units.count; i++)
+    if(!((Unit *)unit).active)
     {
-        if(!((Unit *)units[i]).active)
+        if(self.whoseTurn == VIKINGS)
         {
-            ((Unit *)units[i]).stats->shipHealth += 100;
-            if(!whoseturn)
-            {
-                [self.p1RespawnUnits addObject:((Unit *)units[i])];
-            }
-            else
-            {
-                [self.p2RespawnUnits addObject:((Unit *)units[i])];
-            }
+            [self.p1RespawnUnits addObject:((Unit *)unit)];
+        }
+        else
+        {
+            [self.p2RespawnUnits addObject:((Unit *)unit)];
         }
     }
 }
