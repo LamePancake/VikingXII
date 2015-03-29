@@ -37,6 +37,11 @@
     memset(&(_vikingCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     
     _map = [[HexCells alloc] initWithSize:_settings.mapSize];
+    
+    if(_settings.currentMode == SKIRMISH)
+        [_titleLabel setText:@"Skirmish Mode"];
+    else
+        [_titleLabel setText:@"CTF Mode"];
 }
 
 - (IBAction)addAlienShip:(UIStepper*)sender {
@@ -72,6 +77,7 @@
         [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
         
         [self updateImage: _AlienImages OfClass: chosenClass IsIncremented: YES];
+        currentAlienCount++;
     }
     // Removed a ship of the chosen class
     else if(_alienCounts[chosenClass] > sender.value)
@@ -95,7 +101,10 @@
         [_alienLabels[chosenClass] setText:[@(_alienCounts[chosenClass]) stringValue]];
         
         [self updateImage: _AlienImages OfClass: chosenClass IsIncremented: NO];
+        currentAlienCount--;
     }
+    
+    [_unitCountLabel[ALIENS] setText:[NSString stringWithFormat:@"%d / %d", currentAlienCount, MAX_UNITS]];
 }
 
 - (IBAction)addVikingShip:(UIStepper*)sender {
@@ -132,6 +141,7 @@
         
 
         [self updateImage: _VikingImages OfClass: chosenClass IsIncremented: YES];
+        currentVikingCount++;
     }
     // Removed a ship of the chosen class
     else if(_vikingCounts[chosenClass] > sender.value)
@@ -154,7 +164,10 @@
         [_vikingLabels[chosenClass] setText:[@(_vikingCounts[chosenClass]) stringValue]];
 
         [self updateImage: _VikingImages OfClass: chosenClass IsIncremented: NO];
+        currentVikingCount--;
     }
+    
+    [_unitCountLabel[VIKINGS] setText:[NSString stringWithFormat:@"%d / %d", currentVikingCount, MAX_UNITS]];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
