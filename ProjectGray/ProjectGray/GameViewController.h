@@ -37,6 +37,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *selectedUnitLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *turnImage;
 @property (strong, nonatomic) IBOutlet UILabel *apLabel;
+@property (strong, nonatomic) IBOutlet UIButton *returnToMainMenuButton;
 
 /**
  * Notifies the game that the given faction has won.

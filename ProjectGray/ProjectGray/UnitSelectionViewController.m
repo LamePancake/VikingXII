@@ -10,7 +10,7 @@
 #import "GameViewController.h"
 #import "HexCells.h"
 
-#define MAX_UNITS 1
+#define MAX_UNITS 6
 
 @interface UnitSelectionViewController ()
 {
@@ -281,4 +281,8 @@
     }
 }
 
+- (IBAction)unwindToUnitSelection:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
 @end

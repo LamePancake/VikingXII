@@ -101,6 +101,8 @@ enum
     GLKVector3 bgPos;
     float bgRotation;
     bool endTurnPressed;
+    
+    bool isPaused;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -174,6 +176,8 @@ enum
     
     hitLabel = [[UILabel alloc] init];
     endTurnPressed = NO;
+    
+    isPaused = NO;
     
     [self setupGL];
 }
@@ -678,6 +682,13 @@ enum
         
         [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
     }];
+    
+    isPaused = !isPaused;
+    
+    if(isPaused)
+        _returnToMainMenuButton.hidden = NO;
+    else
+        _returnToMainMenuButton.hidden = YES;
 }
 
 #pragma mark - Model targets
@@ -1397,4 +1408,8 @@ enum
     }
 }
 
+- (IBAction)unwindToGame:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
 @end
