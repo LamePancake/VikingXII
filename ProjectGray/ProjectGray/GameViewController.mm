@@ -339,7 +339,7 @@ enum
     
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
-    _vikingBrokenTexture = [GLProgramUtils setupTexture:@"Pause.png"];
+    _vikingBrokenTexture = [GLProgramUtils setupTexture:@"brokenViking.png"];
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
     _itemTexture = [GLProgramUtils setupTexture:@"factionitem.png"];
@@ -1093,6 +1093,7 @@ enum
     glBindTexture(GL_TEXTURE_2D, _evironmentTexture);
     [self drawEnvironment:_game.environmentEntities withVertices: _vertexEnvironmentArray usingProgram:_program];
 
+    glEnable(GL_BLEND);
     //Draw Units
     glBindTexture(GL_TEXTURE_2D, _vikingTexture);
     [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:YES];
@@ -1104,6 +1105,7 @@ enum
     [self drawUnits:_game.p1Units withVertices:_shipVertexArray[_game.p1Faction] usingProgram:_program andIsAlive:NO];
     glBindTexture(GL_TEXTURE_2D, _grayBrokenTexture);
     [self drawUnits:_game.p2Units withVertices:_shipVertexArray[_game.p2Faction] usingProgram:_program andIsAlive:NO];
+    glDisable(GL_BLEND);
     
     //Draw items
     glBindTexture(GL_TEXTURE_2D, _itemTexture);
