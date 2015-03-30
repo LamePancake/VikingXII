@@ -130,6 +130,7 @@
 {
     if (!tile) return;
     
+    BOOL healedUnit = NO;
     Unit* unitOnTile = [self getUnitOnHex:tile];
     
     if(unitOnTile != nil && !unitOnTile.active && self.selectedUnitAbility != HEAL && self.selectedUnitAbility != SEARCH)
@@ -218,6 +219,7 @@
                  unitOnTile.faction == self.whoseTurn &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
+            healedUnit = [self.selectedUnit ableToHeal];
             [self.actions healThis:unitOnTile byThis:self.selectedUnit];
         }
         // Scout the enemy if possible
@@ -285,7 +287,7 @@
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(self.selectedUnitAbility != HEAL && unitOnTile && unitOnTile.faction == self.whoseTurn)
+    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn)
     {
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;

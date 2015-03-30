@@ -75,8 +75,16 @@ static NSMutableArray* currentPath;
     // We want to want to add goal->goal - 1, goal - 1 -> goal - 2, ... goal - n -> start
     // Should end up with [path count - 1] iterations of our loop
     id<Task> nextTask = nil;
-    NSUInteger count = [path count] - 1;
     
+    // Sets the completion handler to make the unit active again after movement
+    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setActive:)];
+    NSInvocation* moveCompletion = [NSInvocation invocationWithMethodSignature:signature];
+    bool willBeActive = true;
+    moveCompletion.target = mover;
+    moveCompletion.selector = @selector(setTaskAvailable:);
+    [moveCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+    
+    NSUInteger count = [path count] - 1;
     for (NSUInteger i = 0; i < count; i++)
     {
         Hex* initHex = (Hex*)path[i + 1];
@@ -99,7 +107,16 @@ static NSMutableArray* currentPath;
         MovementTask* currentMove = [[MovementTask alloc] initWithGameObject:mover fromInitial:initPos toDestination:destPos andNextTask:nextTask];
         RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:mover toAngle:finalAngle andNextTask:currentMove];
         nextTask = rotTask;
+        
+        if(i == 0)
+        {
+            // Add a completion handler
+            currentMove.completionHandler = moveCompletion;
+        }
     }
+    
+    
+    
     return nextTask;
 }
 

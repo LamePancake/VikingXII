@@ -73,7 +73,6 @@ const double MOVETASK_EPSILON = 0.001;
     // Also don't want to hard code this if possible
     if(length <= 0.03f) {
         _isFinished = YES;
-        _obj.taskAvailable = true;
         newPos.x = _destination.x;
         newPos.y = _destination.y;
     }
