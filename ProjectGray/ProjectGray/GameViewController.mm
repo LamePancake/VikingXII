@@ -586,6 +586,15 @@ enum
         _healAbilityButton.hidden = true;
     }
     
+    if (_game.selectedUnit.shipClass == LIGHT)
+    {
+        _scoutAbilityButton.hidden = false;
+    }
+    else
+    {
+        _scoutAbilityButton.hidden = true;
+    }
+    
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
