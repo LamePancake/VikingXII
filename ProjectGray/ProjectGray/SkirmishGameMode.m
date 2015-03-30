@@ -93,6 +93,7 @@
         if(self.selectedUnit == unitOnTile)
         {
             self.selectedUnit = nil;
+            return;
         }
         else if (self.selectedUnitAbility == ATTACK &&
                  self.selectedUnit.shipClass == HEAVY &&

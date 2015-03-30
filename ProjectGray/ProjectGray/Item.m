@@ -25,6 +25,7 @@ const float ITEM_HEIGHT = 0.04f;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
 @synthesize taskAvailable = _taskAvailable;
+@synthesize active = _active;
 
 -(instancetype) initWithFaction: (Faction)faction andClass: (ItemClasses)itemClass atPosition:(GLKVector3)atPos withRotation:(GLKVector3)itemRot andScale: (GLKVector3)scl
                           onHex:(Hex*)hex {

@@ -32,7 +32,6 @@ extern const float ITEM_HEIGHT;
 @property (nonatomic) const float *modelData;
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
-@property (nonatomic) bool active;
 
 //Task related
 //@property (nonatomic) BOOL taskAvailable;

@@ -51,6 +51,7 @@
 		35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0A91ABDF18400E902F3 /* vikingsturn.png */; };
 		35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0AA1ABDF18400E902F3 /* graysturn.png */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
+		704428F41AC8D7F10046E332 /* StrikeTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 704428F31AC8D7F10046E332 /* StrikeTask.m */; };
 		704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */ = {isa = PBXBuildFile; fileRef = 704455D71A9D523D00A9B2B3 /* Title_resized.png */; };
 		706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 706C83271A9864D900305C66 /* GLProgramUtils.m */; };
 		709DA0A21A89835A007D63C1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 709DA0A11A89835A007D63C1 /* Settings.m */; };
@@ -178,6 +179,8 @@
 		35B2F0AA1ABDF18400E902F3 /* graysturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graysturn.png; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
 		701E580C1A9C41050023A55A /* UnitStats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = UnitStats.c; sourceTree = "<group>"; };
+		704428F21AC8D7F10046E332 /* StrikeTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrikeTask.h; sourceTree = "<group>"; };
+		704428F31AC8D7F10046E332 /* StrikeTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrikeTask.m; sourceTree = "<group>"; };
 		704455D71A9D523D00A9B2B3 /* Title_resized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Title_resized.png; sourceTree = "<group>"; };
 		706C83261A9864D900305C66 /* GLProgramUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgramUtils.h; sourceTree = "<group>"; };
 		706C83271A9864D900305C66 /* GLProgramUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgramUtils.m; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 				70C761301A981F2B005F0311 /* TaskManager.m */,
 				F211F5A71ABE1F7300B16426 /* RotationTask.h */,
 				F211F5A81ABE1F8A00B16426 /* RotationTask.m */,
+				704428F21AC8D7F10046E332 /* StrikeTask.h */,
+				704428F31AC8D7F10046E332 /* StrikeTask.m */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -728,6 +733,7 @@
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
+				704428F41AC8D7F10046E332 /* StrikeTask.m in Sources */,
 				A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */,
 				351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,

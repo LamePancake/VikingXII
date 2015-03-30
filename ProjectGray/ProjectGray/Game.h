@@ -8,11 +8,10 @@
 
 #import "HexCells.h"
 #import "Unit.h"
+#import "TaskManager.h"
 #import "EnvironmentEntity.h"
 #import "GameMode.h"
-#import "TaskManager.h"
 #import "UnitActions.h"
-#include "NSMutableArray_Shuffling.h"
 
 // Have to forward declare these to avoid circular includes
 @class GameViewController;

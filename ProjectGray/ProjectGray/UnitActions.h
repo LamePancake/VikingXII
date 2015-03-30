@@ -12,6 +12,7 @@
 #import "Task.h"
 #import "MovementTask.h"
 #import "RotationTask.h"
+#import "StrikeTask.h"
 #import "EnvironmentEntity.h"
 
 static NSString *attackInfo;
@@ -84,16 +85,4 @@ static NSString *attackInfo;
  * @return The most recent movement path.
  */
 -(NSMutableArray*)getCurrentPath;
-
-/**
- * Gets the attack information for the most recent attack.
- * @return The attack information for the most recent attack.
- */
--(NSString*) getAttackInfo;
-
-/**
- * Sets the attack information.
- * @param info The new attack information string to store.
- */
--(void) setAttackInfo:(NSString*)info;
 @end

@@ -1205,7 +1205,7 @@ enum
         
         Unit* curUnit = (Unit*)units[i];
         
-        if(!curUnit.attacking)
+        if(!curUnit.attacking || !curUnit.projectile.active)
             continue;
         
         // projectile

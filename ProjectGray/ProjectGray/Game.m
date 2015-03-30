@@ -11,8 +11,9 @@
 #import <Foundation/Foundation.h>
 #import "Game.h"
 #import "GameViewController.h"
-#import "TaskManager.h"
+
 #import "MovementTask.h"
+#include "NSMutableArray_Shuffling.h"
 
 static Game* _game = nil;
 
