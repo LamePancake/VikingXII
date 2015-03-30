@@ -482,6 +482,9 @@ enum
 #pragma mark - View targets
 -(IBAction)doPinch:(UIPinchGestureRecognizer *)recognizer
 {
+    if(isPaused)
+        return;
+    
     BOOL didBegin;
     if([(UIPinchGestureRecognizer*)recognizer state] == UIGestureRecognizerStateBegan)
         didBegin = YES;
@@ -493,6 +496,9 @@ enum
 
 -(IBAction)doPan:(UIPanGestureRecognizer *)recognizer
 {
+    if(isPaused)
+        return;
+    
     BOOL didBegin;
     if([recognizer state] == UIGestureRecognizerStateBegan)
         didBegin = YES;
@@ -509,7 +515,10 @@ enum
 /*!
  * Unproject the screen point (from http://whackylabs.com/rants/?p=1043 ) and intersect it against the xy-plane to pick a hex cell.
  */
-- (IBAction)doTap:(UITapGestureRecognizer *)sender {
+- (IBAction)doTap:(UITapGestureRecognizer *)sender
+{
+    if(isPaused)
+        return;
     
     CGPoint screenTouch = [sender locationInView:self.view]; // The screen coordinates of the touch
     GLKVector2 touchLocation;                                // The location of the touch in clip space
@@ -607,6 +616,9 @@ enum
 
 - (IBAction)endTurnPressed:(id)sender
 {
+    if(isPaused)
+        return;
+    
     if(!endTurnPressed)
     {
         [sender setImage:[UIImage imageNamed:@"EndTurnPressed.png"] forState:UIControlStateHighlighted];
@@ -670,6 +682,9 @@ enum
 
 - (IBAction)pausePresssed:(id)sender
 {
+    if(isPaused)
+        return;
+    
     [sender setImage:[UIImage imageNamed:@"PausePressed.png"] forState:UIControlStateHighlighted];
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -683,12 +698,16 @@ enum
         [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
     }];
     
-    isPaused = !isPaused;
+    isPaused = YES;
+    _pausedView.hidden = NO;
     
-    if(isPaused)
-        _returnToMainMenuButton.hidden = NO;
-    else
-        _returnToMainMenuButton.hidden = YES;
+    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _pausedView.transform = CGAffineTransformMakeScale(0.00001,0.00001);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _pausedView.transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+    }];
 }
 
 #pragma mark - Model targets
@@ -1426,6 +1445,18 @@ enum
 
 - (IBAction)unwindToGame:(UIStoryboardSegue *)unwindSegue
 {
+    
+}
+
+- (IBAction)resumeButtonPressed:(id)sender
+{
+    isPaused = NO;
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _pausedView.transform = CGAffineTransformMakeScale(0.00001,0.00001);
+    } completion:^(BOOL finished) {
+        _pausedView.hidden = YES;
+    }];
     
 }
 @end
