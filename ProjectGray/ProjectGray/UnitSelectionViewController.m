@@ -36,7 +36,35 @@
     memset(&(_alienCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     memset(&(_vikingCounts[0]), 0, sizeof(int) * NUM_CLASSES);
     
-    _map = [[HexCells alloc] initWithSize:_settings.mapSize]; 
+    for(int i = 0; i < NUM_CLASSES; i++)
+    {
+        [_aliens addObject:[[Unit alloc]
+                            initWithFaction:ALIENS
+                            andClass:i
+                            atPosition:GLKVector3Make(0, 0, 0)
+                            withRotation:GLKVector3Make(0, 0, 0)
+                            andScale:GLKVector3Make(UNIT_SCALE, UNIT_SCALE, UNIT_SCALE)
+                            onHex:nil]];
+        
+        _alienCounts[i]++;
+        [_alienLabels[i] setText:[@(_alienCounts[i]) stringValue]];
+        
+        [_vikings addObject:[[Unit alloc]
+                             initWithFaction:VIKINGS
+                             andClass:i
+                             atPosition:GLKVector3Make(0, 0, 0)
+                             withRotation:GLKVector3Make(0, 0, 0)
+                             andScale:GLKVector3Make(UNIT_SCALE, UNIT_SCALE, UNIT_SCALE)
+                             onHex:nil]];
+        
+        _vikingCounts[i]++;
+        [_vikingLabels[i] setText:[@(_vikingCounts[i]) stringValue]];
+    }
+    
+    [_unitCountLabel[ALIENS] setText:[NSString stringWithFormat:@"%d / %d", NUM_CLASSES, MAX_UNITS]];
+    [_unitCountLabel[VIKINGS] setText:[NSString stringWithFormat:@"%d / %d", NUM_CLASSES, MAX_UNITS]];
+    
+    _map = [[HexCells alloc] initWithSize:_settings.mapSize];
     
     if(_settings.currentMode == SKIRMISH)
         [_titleLabel setText:@"Skirmish Mode"];
@@ -151,6 +179,7 @@
         {
             return;
         }
+               
         // Remove the first ship of that type in the array
         for(Unit* ship in _vikings)
         {
