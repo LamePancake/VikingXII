@@ -34,13 +34,13 @@ static NSMutableArray* currentPath;
 }
 
 //When these methods are called, they should do a move that is already legal
-- (void)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
+- (id<Task>)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map
 {
     if(!mover.active)
     {
         // Notify GameViewController
         NSLog(@"Unit is dead!");
-        return;
+        return nil;
     }
     
     //Call the Task system to animate.  Model should update immediately.
@@ -51,13 +51,13 @@ static NSMutableArray* currentPath;
     {
         // Notify GameViewController
         NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.stats->actionPool);
-        return;
+        return nil;
     }
     
     mover.stats->actionPool -= requiredAP;
     
     // TODO: Create "changeHex" method in Unit to handle this maybe
-        
+    
     mover.hex.hexType = EMPTY;
     mover.hex = hex;
     if (mover.faction == VIKINGS)
@@ -101,9 +101,9 @@ static NSMutableArray* currentPath;
         RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:mover toAngle:finalAngle andNextTask:currentMove];
         nextTask = rotTask;
     }
-    
-    [[Game taskManager] addTask:nextTask];
+    return nextTask;
 }
+
 
 - (void)destroyAsteroid:(EnvironmentEntity*)asteroid with:(Unit*)attacker
 {

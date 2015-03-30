@@ -32,7 +32,7 @@ static NSString *attackInfo;
  * @param hex   The hex cell to which the unit will move.
  * @param map   The map on which the unit will move.
  */
--(void)moveThis:(Unit*)mover toHex:(Hex*)hex onMap: (HexCells*)map; //GameObjectMovement
+- (id<Task>)moveThis:(Unit *)mover toHex:(Hex *)hex onMap:(HexCells *)map; //GameObjectMovement
 
 /**
  * Calculates the damage done on the target based on the attackers 
@@ -48,12 +48,6 @@ static NSString *attackInfo;
  * @param attacker The attacker destroying the asteroid.
  */
 -(void)destroyAsteroid:(EnvironmentEntity*)asteroid with:(Unit*)attacker;
-
-/**
- * Causes the specified unit to pick up the flag for the given faction.
- * @param NOTHING
- */
--(void)pickupFlag;
 
 /**
  * Sets the given unit's action point pool back to the default value for that ship class and faction.

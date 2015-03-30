@@ -14,6 +14,7 @@
 		303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 303F79411AAE3D23009207DF /* PriorityQueue.mm */; };
 		3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */; };
 		3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */; };
+		307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 307076811AC8D37500A63A55 /* PickupFlagTask.m */; };
 		307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5C1AC5D2560055F326 /* environmentmodel.c */; };
 		307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */; };
 		3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 3082EA0D1A8D4D9200A54360 /* Hex.m */; };
@@ -129,6 +130,8 @@
 		3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFGameMode.m; sourceTree = "<group>"; };
 		3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishGameMode.h; sourceTree = "<group>"; };
 		3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishGameMode.m; sourceTree = "<group>"; };
+		307076801AC8D37500A63A55 /* PickupFlagTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupFlagTask.h; sourceTree = "<group>"; };
+		307076811AC8D37500A63A55 /* PickupFlagTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupFlagTask.m; sourceTree = "<group>"; };
 		307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStats.h; sourceTree = "<group>"; };
 		307D4A5B1AC5D2360055F326 /* environmentmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = environmentmodel.h; sourceTree = "<group>"; };
 		307D4A5C1AC5D2560055F326 /* environmentmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = environmentmodel.c; sourceTree = "<group>"; };
@@ -472,6 +475,8 @@
 		70C761281A980EB2005F0311 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				307076801AC8D37500A63A55 /* PickupFlagTask.h */,
+				307076811AC8D37500A63A55 /* PickupFlagTask.m */,
 				70C761291A980EEE005F0311 /* Task.h */,
 				70C7612C1A980F83005F0311 /* MovementTask.h */,
 				70C7612D1A980F83005F0311 /* MovementTask.m */,
@@ -709,6 +714,7 @@
 				3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */,
 				A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */,
 				3082EA131A8D7D5200A54360 /* HexCells.m in Sources */,
+				307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,

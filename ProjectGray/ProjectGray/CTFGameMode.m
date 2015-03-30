@@ -10,6 +10,7 @@
 #import "CTFGameMode.h"
 #import "UnitActions.h"
 #import "GameViewController.h"
+#import "PickupFlagTask.h"
 
 @interface CTFGameMode ()
 
@@ -74,6 +75,8 @@
     }
     else if (self.state == SELECTION)
     {
+        if (tile.hexType == ASTEROID) return;
+        
         NSMutableArray *range = self.whoseTurn == self.p1Faction ? vikingRange : alienRange;
         
         Unit* unitOnTile = [self getUnitOnHex:tile];
@@ -158,14 +161,14 @@
                     {
                         _vikingFlagState = DROPPED;
                         _vikingFlag.hex = entity.hex;
-                        entity.hex.hexType = FLAG;
+                        entity.hex.hexType = EMPTY;
                     }
                     
                     if (_graysFlagHidingLocation == entity)
                     {
                         _graysFlagState = DROPPED;
                         _graysFlag.hex = entity.hex;
-                        entity.hex.hexType = FLAG;
+                        entity.hex.hexType = EMPTY;
                     }
                 }
             }
@@ -184,7 +187,30 @@
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
-            [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            id<Task> tasks = [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            
+            if (_vikingFlag.hex == tile || _graysFlag.hex == tile)
+            {
+                id<Task> currentTask;
+                currentTask = tasks;
+                
+                while (currentTask.nextTask != nil) {
+                    currentTask = currentTask.nextTask;
+                }
+                
+                if (_vikingFlag.hex == tile) {
+                    _vikingFlagCarrier = self.selectedUnit;
+                }
+                if (_graysFlag.hex == tile) {
+                    _graysFlagCarrier = self.selectedUnit;
+                }
+                
+                id<Task> pickupFlag = [[PickupFlagTask alloc] initWithGameObject:self.selectedUnit vikingFlagState:&_vikingFlagState vikingFlag:_vikingFlag vikingFlagCarrier:_vikingFlagCarrier graysFlagState:&_graysFlagState graysFlag:_graysFlag graysFlagCarrier:_graysFlagCarrier];
+                
+                currentTask.nextTask = pickupFlag;
+            }
+            
+            [[Game taskManager] addTask:tasks];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&
