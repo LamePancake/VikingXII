@@ -40,6 +40,7 @@
 		3516E2531AC1D983008A815C /* l_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24D1AC1D983008A815C /* l_viking.png */; };
 		3516E2541AC1D983008A815C /* m_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24E1AC1D983008A815C /* m_gray.png */; };
 		3516E2551AC1D983008A815C /* m_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24F1AC1D983008A815C /* m_viking.png */; };
+		351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D533B1AC9D40D0021FE40 /* StatsViewController.m */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
@@ -163,6 +164,8 @@
 		3516E24D1AC1D983008A815C /* l_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_viking.png; sourceTree = "<group>"; };
 		3516E24E1AC1D983008A815C /* m_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_gray.png; sourceTree = "<group>"; };
 		3516E24F1AC1D983008A815C /* m_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_viking.png; sourceTree = "<group>"; };
+		351D533A1AC9D40D0021FE40 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
+		351D533B1AC9D40D0021FE40 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
@@ -445,6 +448,8 @@
 				A572982D1A7C37D6001934F9 /* MainViewController.m */,
 				70C47C2F1ABE161C0030664E /* UnitSelectionViewController.h */,
 				70C47C301ABE161C0030664E /* UnitSelectionViewController.m */,
+				351D533A1AC9D40D0021FE40 /* StatsViewController.h */,
+				351D533B1AC9D40D0021FE40 /* StatsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -724,6 +729,7 @@
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
 				A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */,
+				351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
 				A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */,
 				303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */,

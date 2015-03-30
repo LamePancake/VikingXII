@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "GameViewController.h"
 #import "UnitSelectionViewController.h"
+#import "StatsViewController.h"
 #import "Settings.h"
 
 @interface MainViewController ()
@@ -88,6 +89,11 @@
     {
         NSLog(@"Coming from Unit!");
     }
+    else if ([sourceViewController isKindOfClass:[StatsViewController class]])
+    {
+        NSLog(@"Coming from Stats!");
+    }
+
 }
 
 @end

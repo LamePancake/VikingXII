@@ -179,7 +179,7 @@
         {
             return;
         }
-               
+                
         // Remove the first ship of that type in the array
         for(Unit* ship in _vikings)
         {
