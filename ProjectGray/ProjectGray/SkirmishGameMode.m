@@ -116,13 +116,6 @@
             int winner = [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
             if(winner != -1) [self.gameVC factionDidWin:winner];
         }
-        // Scout the enemy if possible
-        else if(self.selectedUnitAbility == SCOUT &&
-                unitOnTile != nil &&
-                unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
-        {
-            [self.actions scoutThis:unitOnTile with:self.selectedUnit];
-        }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&
                 tile.hexType == EMPTY &&
@@ -138,6 +131,13 @@
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
             [self.actions healThis:unitOnTile byThis:self.selectedUnit];
+        }
+        // Scout the enemy if possible
+        else if(self.selectedUnitAbility == SCOUT &&
+                unitOnTile != nil &&
+                unitOnTile.faction != self.selectedUnit.faction &&[HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
+        {
+            self.selectedScoutedUnit = [self.actions scoutThis:unitOnTile with:self.selectedUnit];
         }
     }
     

@@ -790,14 +790,30 @@ enum
     {
         _statsBackground.hidden = NO;
         Unit* seld = _game.selectedUnit;
-        NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
-                           seld.stats->hull,
-                           seld.stats->attackRange,
-                           seld.stats->damage,
-                           seld.moveRange,
-                           seld.stats->accuracy,
-                           seld.stats->shipHealth];
-        _statsLabel.text = stats;
+        if(_game.selectedUnitAbility == SCOUT && _game.selectedScoutedUnit != nil)
+        {
+            Unit* sctd = _game.selectedScoutedUnit;
+            NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
+                               sctd.stats->hull,
+                               sctd.stats->attackRange,
+                               sctd.stats->damage,
+                               sctd.moveRange,
+                               sctd.stats->accuracy,
+                               sctd.stats->shipHealth];
+            _statsLabel.text = stats;
+        }
+        else
+        {
+            NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
+                               seld.stats->hull,
+                               seld.stats->attackRange,
+                               seld.stats->damage,
+                               seld.moveRange,
+                               seld.stats->accuracy,
+                               seld.stats->shipHealth];
+            _statsLabel.text = stats;
+        }
+
     }
     else
     {

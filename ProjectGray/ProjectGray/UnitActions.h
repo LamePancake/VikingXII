@@ -77,7 +77,7 @@ static NSString *attackInfo;
  * @param target  The unit whose stats should be displayed.
  * @param scouter The unit performing the scouting.
  */
--(void)scoutThis:(Unit*)target with:(Unit*)scouter;
+-(Unit*)scoutThis:(Unit*)target with:(Unit*)scouter;
 
 /**
  * Gets the last movement path determined in moveThis.

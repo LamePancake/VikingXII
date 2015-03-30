@@ -220,6 +220,13 @@
         {
             [self.actions healThis:unitOnTile byThis:self.selectedUnit];
         }
+        // Scout the enemy if possible
+        else if(self.selectedUnitAbility == SCOUT &&
+                unitOnTile != nil &&
+                unitOnTile.faction != self.selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
+        {
+            self.selectedScoutedUnit = [self.actions scoutThis:unitOnTile with:self.selectedUnit];
+        }
         else if (self.selectedUnitAbility == SEARCH &&
                  self.selectedUnit.stats->actionPool > 0 &&
                  [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] == 1)

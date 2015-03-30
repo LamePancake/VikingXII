@@ -74,6 +74,9 @@ typedef enum UnitAbilities
 /// The currently selected unit, if any.
 @property (weak, nonatomic) Unit* selectedUnit;
 
+// The currently scouted unit
+@property (weak, nonatomic) Unit* selectedScoutedUnit;
+
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
 -(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map

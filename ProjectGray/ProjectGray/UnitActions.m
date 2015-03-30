@@ -253,33 +253,31 @@ static NSMutableArray* currentPath;
     return false;
 }
 
--(void)scoutThis:(Unit*)target with:(Unit*)scouter
+-(Unit*)scoutThis:(Unit*)target with:(Unit*)scouter
 {
-    scouter.attacking = YES;
-    
-    MovementTask *firingMove = nil;
+    if(![scouter ableToScout]) return scouter;
+
     if(!target.active)
     {
         NSLog(@"Target is dead!");
-        return;
+        return target;
     }
     
     if(!scouter.active)
     {
         NSLog(@"attacker is dead!");
-        return;
+        return target;
     }
     
-    [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
-    
-    if (![scouter ableToAttack])
+    if (![scouter ableToScout])
     {
         NSString *info = [NSString stringWithFormat:@"Not enough action points! needed: %d, in pool: %d", scouter.stats->actionPointsPerAttack, scouter.stats->actionPool];
         [self setAttackInfo:info];
-        return;
+        return scouter;
     }
     
-    scouter.stats->actionPool -= scouter.stats->actionPointsPerAttack;
+    scouter.stats->actionPool -= scouter.stats->actionPointsPerScout;
+    return target;
 }
 
 - (NSMutableArray *)getCurrentPath {

@@ -47,6 +47,7 @@ extern const float UNIT_HEIGHT;
 -(void) resetAP;
 -(BOOL) ableToAttack;
 -(BOOL) ableToHeal;
+-(BOOL) ableToScout;
 -(int) moveRange;
 @end
 #endif

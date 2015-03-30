@@ -35,6 +35,7 @@ typedef struct _ShipStats {
     int healRange;
     int actionPointsPerAttack;
     int actionPointsPerHeal;
+    int actionPointsPerScout;
     int movesPerActionPoint;
     int actionPool;
     

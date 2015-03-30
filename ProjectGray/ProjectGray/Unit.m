@@ -68,6 +68,11 @@ const float UNIT_HEIGHT = 0.04f;
     return (_shipStats.actionPointsPerHeal <= _shipStats.actionPool);
 }
 
+- (BOOL) ableToScout
+{
+    return (_shipStats.actionPointsPerScout <= _shipStats.actionPool);
+}
+
 -(int) moveRange
 {
     return (_shipStats.actionPool / _shipStats.movesPerActionPoint);
