@@ -128,7 +128,8 @@
                 tile.hexType == EMPTY &&
                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] <= self.selectedUnit.moveRange)
         {
-            [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            id<Task> tasks = [self.actions moveThis:self.selectedUnit toHex:tile onMap:self.map];
+            [[Game taskManager] addTask:tasks];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&
