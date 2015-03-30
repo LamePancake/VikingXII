@@ -25,14 +25,14 @@ void main()
 {
     texCoordOut = texCoordIn;
     
-    vec3 eyeNormal = normalize(normalMatrix * normal);
+    vec3 viewNormal = normalize(normalMatrix * normal);
     vec3 lightPosition = lightPos;
     vec4 diffuseColor = vec4(1.0, 1.0, 0.5, 1.0);
     vec4 ambient = vec4(0.15, 0.15, 0.2, 1.0);
     
-    float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
+    float nDotVP = max(0.0, dot(viewNormal, normalize(lightPosition)));
                  
     colorVarying = (diffuseColor * nDotVP) + ambient;
     
-    gl_Position = translationMatrix * position;
+    gl_Position = modelViewProjectionMatrix * position;
 }

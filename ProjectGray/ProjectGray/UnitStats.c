@@ -7,6 +7,7 @@
 //
 
 #include "UnitStats.h"
+#include <math.h>
 
 const char* factionNames[] =
 {
@@ -50,7 +51,8 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.7f,       // Hull
             5,          // Engine health
             1.0f,       // Weapon health
-            100         // Ship health
+            100,        // Ship health
+            M_PI / 2    // Relative rotation for firing
         },
         // Medium ship base stats
         {
@@ -63,12 +65,13 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             3,          // Action point pool (number at the beginning of each turn)
             0.70f,      // Accuracy
             0.10f,      // Critical hit chance
-            2.0f,      // Critical hit modifier
+            2.0f,       // Critical hit modifier
             5,          // Damage modifier
-            0.12f,         // Hull
+            0.12f,      // Hull
             5,          // Engine health
             1.0f,       // Weapon health
-            100         // Ship health
+            100,        // Ship health
+            0           // 
         },
         // Heavy ship base stats
         {

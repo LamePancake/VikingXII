@@ -27,7 +27,6 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
-    UNIFORM_TRANSLATION_MATRIX,
     UNIFORM_TEXTURE,
     UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_HEX_COLOUR,
@@ -106,7 +105,6 @@ enum
 }
 
 @property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)setupGL;
 - (void)tearDownGL;
@@ -222,10 +220,6 @@ enum
     
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    
-    self.effect = [[GLKBaseEffect alloc] init];
-    self.effect.light0.enabled = GL_TRUE;
-    self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
     
     glEnable(GL_DEPTH_TEST);
     
@@ -462,8 +456,6 @@ enum
     
     glDeleteBuffers(1, &_vertexBGBuffer);
     glDeleteVertexArraysOES(1, &_vertexHexArray);
-    
-    self.effect = nil;
     
     if (_program) {
         glDeleteProgram(_program);
@@ -789,7 +781,7 @@ enum
 
 - (void)update
 {
-    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.003f, 0, 0, 1), lightPos);
+    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.03f, 0, 0, 1), lightPos);
     glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
     
     if(_game.selectedUnit == nil)
@@ -805,11 +797,6 @@ enum
     }
     
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
-    
-    self.effect.transform.projectionMatrix = _camera.projectionMatrix;
-    
-    self.effect.transform.modelviewMatrix = _camera.modelViewMatrix;
-    
     [_game update];
     
     _attackLabel.text = @"";
@@ -1142,7 +1129,7 @@ enum
     
     GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
     
-    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
     glDrawArrays(GL_TRIANGLES, 0, numVerts);
@@ -1166,28 +1153,20 @@ enum
             GLKMatrix4 _transMat;
             GLKMatrix4 _scaleMat;
             GLKMatrix4 _rotMat;
+            GLKMatrix4 modelViewMatrix;
             glBindVertexArrayOES(vertices[((Unit*)curUnit).shipClass]);
             glUseProgram(program);
-            
-            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
             
             _rotMat = GLKMatrix4MakeZRotation(curUnit.rotation.z);
             _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
             _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
             
-            _rotMat = GLKMatrix4Multiply(_rotMat, _scaleMat);
-            _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
-            _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
+            modelViewMatrix = GLKMatrix4Multiply(_rotMat, _scaleMat);
+            modelViewMatrix = GLKMatrix4Multiply(_transMat, modelViewMatrix);
             
-            GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
-            GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curUnit.rotation.z);
-            _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
-            _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.position.x, curUnit.position.y, curUnit.position.z));
-            _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
+            GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(modelViewMatrix, 0));
             
-            GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-            
-            glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, GLKMatrix4Multiply(_camera.projectionMatrix, modelViewMatrix).m);
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
             
             glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
@@ -1214,7 +1193,7 @@ enum
         glBindVertexArrayOES(vertices[PROJECTILE]);
         glUseProgram(program);
         
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
         
         _rotMat = GLKMatrix4MakeZRotation(curUnit.projectile.rotation.z);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z);
@@ -1232,7 +1211,7 @@ enum
         
         GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
         
-        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
         glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][PROJECTILE]);
@@ -1258,7 +1237,7 @@ enum
         glBindVertexArrayOES(vertices[ENV_ASTEROID]);
         glUseProgram(program);
         
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+        //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
         _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curEntity.position.x, curEntity.position.y, curEntity.position.z);
         _scaleMat = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
         _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
@@ -1272,7 +1251,7 @@ enum
         
         GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
         
-        glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
         glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[ENV_ASTEROID]);
@@ -1289,7 +1268,7 @@ enum
     glBindVertexArrayOES(vertices[FLAG]);
     glUseProgram(program);
     
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
+    //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, flag.position.x, flag.position.y, flag.position.z);
     _scaleMat = GLKMatrix4MakeScale(flag.scale.x, flag.scale.y, flag.scale.z);
     _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
@@ -1302,7 +1281,7 @@ enum
     GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
     GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(flag.rotation.z);
     _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
-    glUniformMatrix4fv(uniforms[UNIFORM_TRANSLATION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
     glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[faction][FLAG]);
@@ -1348,7 +1327,7 @@ enum
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
-    uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
+    //uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
     uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");

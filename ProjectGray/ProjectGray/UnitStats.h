@@ -50,6 +50,9 @@ typedef struct _ShipStats {
     int engineHealth;
     float weaponHealth;
     int shipHealth;
+    
+    // Rotation about Z to fire
+    float relativeFireRotation;
 } ShipStats;
 
 extern const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES];
