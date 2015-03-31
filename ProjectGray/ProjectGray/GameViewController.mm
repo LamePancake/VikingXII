@@ -334,7 +334,7 @@ enum
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
     _vikingBrokenTexture = [GLProgramUtils setupTexture:@"brokenViking.png"];
-    _grayBrokenTexture = [GLProgramUtils setupTexture:@"EndTurn.png"];
+    _grayBrokenTexture = [GLProgramUtils setupTexture:@"brokenGray.png"];
     _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
     _itemTexture = [GLProgramUtils setupTexture:@"factionitem.png"];
     _evironmentTexture = [GLProgramUtils setupTexture:@"environment.png"];
@@ -781,7 +781,7 @@ enum
 
 - (void)update
 {
-    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.03f, 0, 0, 1), lightPos);
+    lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.003f, 0, 0, 1), lightPos);
     glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
     
     if(_game.selectedUnit == nil)
