@@ -40,6 +40,12 @@
 		3516E2531AC1D983008A815C /* l_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24D1AC1D983008A815C /* l_viking.png */; };
 		3516E2541AC1D983008A815C /* m_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24E1AC1D983008A815C /* m_gray.png */; };
 		3516E2551AC1D983008A815C /* m_viking.png in Resources */ = {isa = PBXBuildFile; fileRef = 3516E24F1AC1D983008A815C /* m_viking.png */; };
+		351C14281ACB1A4500D6C15D /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14221ACB1A4500D6C15D /* Back.png */; };
+		351C14291ACB1A4500D6C15D /* BackPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14231ACB1A4500D6C15D /* BackPressed.png */; };
+		351C142A1ACB1A4500D6C15D /* Fight.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14241ACB1A4500D6C15D /* Fight.png */; };
+		351C142B1ACB1A4500D6C15D /* Go.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14251ACB1A4500D6C15D /* Go.png */; };
+		351C142C1ACB1A4500D6C15D /* PlaceFlags.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14261ACB1A4500D6C15D /* PlaceFlags.png */; };
+		351C142D1ACB1A4500D6C15D /* PlaceUnits.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14271ACB1A4500D6C15D /* PlaceUnits.png */; };
 		351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D533B1AC9D40D0021FE40 /* StatsViewController.m */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -166,6 +172,12 @@
 		3516E24D1AC1D983008A815C /* l_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_viking.png; sourceTree = "<group>"; };
 		3516E24E1AC1D983008A815C /* m_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_gray.png; sourceTree = "<group>"; };
 		3516E24F1AC1D983008A815C /* m_viking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m_viking.png; sourceTree = "<group>"; };
+		351C14221ACB1A4500D6C15D /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
+		351C14231ACB1A4500D6C15D /* BackPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackPressed.png; sourceTree = "<group>"; };
+		351C14241ACB1A4500D6C15D /* Fight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fight.png; sourceTree = "<group>"; };
+		351C14251ACB1A4500D6C15D /* Go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Go.png; sourceTree = "<group>"; };
+		351C14261ACB1A4500D6C15D /* PlaceFlags.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceFlags.png; sourceTree = "<group>"; };
+		351C14271ACB1A4500D6C15D /* PlaceUnits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceUnits.png; sourceTree = "<group>"; };
 		351D533A1AC9D40D0021FE40 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
 		351D533B1AC9D40D0021FE40 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
@@ -324,6 +336,12 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				351C14221ACB1A4500D6C15D /* Back.png */,
+				351C14231ACB1A4500D6C15D /* BackPressed.png */,
+				351C14241ACB1A4500D6C15D /* Fight.png */,
+				351C14251ACB1A4500D6C15D /* Go.png */,
+				351C14261ACB1A4500D6C15D /* PlaceFlags.png */,
+				351C14271ACB1A4500D6C15D /* PlaceUnits.png */,
 				3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */,
 				3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */,
 				3516E24A1AC1D983008A815C /* h_gray.png */,
@@ -644,6 +662,7 @@
 				30D6583C1A99629C00DE1F63 /* cannon5.aiff in Resources */,
 				301F0A271A993D5C00C552B2 /* track1.caf in Resources */,
 				A50E72A91AC8BE7200FECBE6 /* m_cannonball.txt in Resources */,
+				351C142C1ACB1A4500D6C15D /* PlaceFlags.png in Resources */,
 				301F0A261A993D5C00C552B2 /* sound1.caf in Resources */,
 				A55AAB241ACA016D004D89A4 /* brokenViking.png in Resources */,
 				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
@@ -676,8 +695,11 @@
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				A50E72A51AC8BE7200FECBE6 /* h_cannonball.txt in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
+				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
 				A5A20A3A1AC720EE00E89B41 /* vikingVertsLight.txt in Resources */,
+				351C142A1ACB1A4500D6C15D /* Fight.png in Resources */,
+				351C14291ACB1A4500D6C15D /* BackPressed.png in Resources */,
 				A50E72991AC8BCFC00FECBE6 /* environment.png in Resources */,
 				A5A20A391AC720EE00E89B41 /* vikingVertsHeavy.txt in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
@@ -686,6 +708,7 @@
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
+				351C142D1ACB1A4500D6C15D /* PlaceUnits.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */,
 				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
@@ -693,6 +716,7 @@
 				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
+				351C14281ACB1A4500D6C15D /* Back.png in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
 				A50E72A41AC8BE7200FECBE6 /* asteroidcluster2.txt in Resources */,
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface StatsViewController : UIViewController
+- (IBAction)backPressed:(id)sender;
 
 @end

@@ -31,4 +31,5 @@
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *AlienImages;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *unitCountLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+- (IBAction)backPressed:(id)sender;
 @end

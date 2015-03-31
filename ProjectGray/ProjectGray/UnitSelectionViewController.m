@@ -314,4 +314,21 @@
 {
     
 }
+
+- (IBAction)backPressed:(id)sender
+{
+    
+    [sender setImage:[UIImage imageNamed:@"BackPressed.png"] forState:UIControlStateHighlighted];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [sender setImage:[UIImage imageNamed:@"BackPressed.png"] forState:UIControlStateNormal];
+        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+        
+        [sender setImage:[UIImage imageNamed:@"Back.png"] forState:UIControlStateNormal];
+    }];
+}
 @end
