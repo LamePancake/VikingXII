@@ -157,6 +157,15 @@ static NSMutableArray* currentPath;
         return;
     }
     
+    if (attacker.faction == VIKINGS)
+    {
+        [[SoundManager sharedManager] playSound:@"cannon1.aiff" looping:NO];
+    }
+    else
+    {
+        [[SoundManager sharedManager] playSound:@"laser4.wav" looping:NO];
+    }
+    
     attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
     
     int hexCellsApart = [HexCells distance:attacker.hex.q :attacker.hex.r :target.hex.q :target.hex.r];
@@ -223,7 +232,7 @@ static NSMutableArray* currentPath;
     [completion setArgument:&isDamage atIndex:6];
     
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
-    StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:attacker.projectile andTarget:target andGame:_game withSound:@"cannon1.aiff"
+    StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:attacker.projectile andTarget:target andGame:_game withSound:@"explosion-metallic.wav"
                                                     andNextTask:nil andCompletion:completion];
     
     firingMove.nextTask = strike;

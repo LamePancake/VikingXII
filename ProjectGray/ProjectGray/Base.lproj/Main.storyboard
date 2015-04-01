@@ -847,6 +847,7 @@
                         <outlet property="apLabel" destination="HY2-oi-nSS" id="1cZ-0y-Ei1"/>
                         <outlet property="attackAbilityButton" destination="AvC-70-yNN" id="iep-M0-h45"/>
                         <outlet property="attackLabel" destination="5E5-nm-V9Q" id="NA4-zh-z2H"/>
+                        <outlet property="hammerAbilityButton" destination="W6v-i7-0K4" id="vNZ-ol-JEp"/>
                         <outlet property="healAbilityButton" destination="whP-zb-phm" id="25N-Sr-hGy"/>
                         <outlet property="moveAbilityButton" destination="97V-E6-jp5" id="dM4-KI-JLj"/>
                         <outlet property="pausedView" destination="Yk2-oP-Nn5" id="RVT-wM-c1Z"/>

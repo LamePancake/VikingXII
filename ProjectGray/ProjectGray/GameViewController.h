@@ -35,6 +35,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *healAbilityButton;
 @property (strong, nonatomic) IBOutlet UIButton *searchAbilityButton;
 @property (strong, nonatomic) IBOutlet UIButton *scoutAbilityButton;
+@property (strong, nonatomic) IBOutlet UIButton *hammerAbilityButton;
 @property (strong, nonatomic) IBOutlet UIImageView *selectedUnitVIew;
 @property (strong, nonatomic) IBOutlet UILabel *selectedUnitLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *turnImage;

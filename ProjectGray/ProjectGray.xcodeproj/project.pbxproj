@@ -29,6 +29,11 @@
 		30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 30D658351A99629C00DE1F63 /* cannon6.aiff */; };
 		30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30D658361A99629C00DE1F63 /* cello-loop.wav */; };
 		30D6583F1A99629C00DE1F63 /* select.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30D658371A99629C00DE1F63 /* select.wav */; };
+		30EF3FC81ACB7577006C53A8 /* laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FC41ACB7577006C53A8 /* laser1.wav */; };
+		30EF3FC91ACB7577006C53A8 /* laser2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FC51ACB7577006C53A8 /* laser2.wav */; };
+		30EF3FCA1ACB7577006C53A8 /* laser3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FC61ACB7577006C53A8 /* laser3.wav */; };
+		30EF3FCB1ACB7577006C53A8 /* laser4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FC71ACB7577006C53A8 /* laser4.wav */; };
+		30EF3FCF1ACB7683006C53A8 /* explosion-metallic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */; };
 		350A00091A97BB1100602053 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00071A97BB1100602053 /* Pause.png */; };
 		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
 		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
@@ -65,6 +70,7 @@
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
+		70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */; };
 		A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AD1ABDF1BB00D1925A /* asteroid.txt */; };
 		A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AE1ABDF1BB00D1925A /* cannonball.txt */; };
 		A50862B31ABDF1BB00D1925A /* flag.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AF1ABDF1BB00D1925A /* flag.txt */; };
@@ -161,6 +167,11 @@
 		30D658351A99629C00DE1F63 /* cannon6.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = cannon6.aiff; sourceTree = "<group>"; };
 		30D658361A99629C00DE1F63 /* cello-loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "cello-loop.wav"; sourceTree = "<group>"; };
 		30D658371A99629C00DE1F63 /* select.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = select.wav; sourceTree = "<group>"; };
+		30EF3FC41ACB7577006C53A8 /* laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser1.wav; sourceTree = "<group>"; };
+		30EF3FC51ACB7577006C53A8 /* laser2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser2.wav; sourceTree = "<group>"; };
+		30EF3FC61ACB7577006C53A8 /* laser3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser3.wav; sourceTree = "<group>"; };
+		30EF3FC71ACB7577006C53A8 /* laser4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser4.wav; sourceTree = "<group>"; };
+		30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "explosion-metallic.wav"; sourceTree = "<group>"; };
 		350A00071A97BB1100602053 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
 		35117B7F1A9BF011007E56CD /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
@@ -210,6 +221,7 @@
 		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
 		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
 		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
+		70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "epic-orchestra.mp3"; sourceTree = "<group>"; };
 		A50862AD1ABDF1BB00D1925A /* asteroid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = asteroid.txt; sourceTree = "<group>"; };
 		A50862AE1ABDF1BB00D1925A /* cannonball.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cannonball.txt; sourceTree = "<group>"; };
 		A50862AF1ABDF1BB00D1925A /* flag.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.txt; sourceTree = "<group>"; };
@@ -321,6 +333,12 @@
 		301F0A231A993BD700C552B2 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */,
+				30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */,
+				30EF3FC41ACB7577006C53A8 /* laser1.wav */,
+				30EF3FC51ACB7577006C53A8 /* laser2.wav */,
+				30EF3FC61ACB7577006C53A8 /* laser3.wav */,
+				30EF3FC71ACB7577006C53A8 /* laser4.wav */,
 				30D658301A99629C00DE1F63 /* cannon1.aiff */,
 				30D658311A99629C00DE1F63 /* cannon2.aiff */,
 				30D658321A99629C00DE1F63 /* cannon3.aiff */,
@@ -708,6 +726,7 @@
 				A5A20A391AC720EE00E89B41 /* vikingVertsHeavy.txt in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				A50E72A81AC8BE7200FECBE6 /* l_laser.txt in Resources */,
+				30EF3FC91ACB7577006C53A8 /* laser2.wav in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
 				A57298091A7C1F30001934F9 /* Shader.vsh in Resources */,
@@ -715,6 +734,7 @@
 				351C142D1ACB1A4500D6C15D /* PlaceUnits.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
 				3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */,
+				70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */,
 				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
@@ -722,12 +742,16 @@
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
 				351C14281ACB1A4500D6C15D /* Back.png in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
+				30EF3FCF1ACB7683006C53A8 /* explosion-metallic.wav in Resources */,
 				A50E72A41AC8BE7200FECBE6 /* asteroidcluster2.txt in Resources */,
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
 				A50E72A61AC8BE7200FECBE6 /* h_laser.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
+				30EF3FC81ACB7577006C53A8 /* laser1.wav in Resources */,
+				30EF3FCB1ACB7577006C53A8 /* laser4.wav in Resources */,
 				A5A20A381AC720EE00E89B41 /* laser.txt in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
+				30EF3FCA1ACB7577006C53A8 /* laser3.wav in Resources */,
 				A50E729A1AC8BCFC00FECBE6 /* factionitem.png in Resources */,
 				3516E2511AC1D983008A815C /* h_viking.png in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,

@@ -128,9 +128,10 @@ enum
     [super viewDidLoad];
     
     // Add the sound manager and start playing the main game theme
+    [[SoundManager sharedManager] setMusicVolume:0.3f];
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
-    //[[SoundManager sharedManager] playMusic:@"track1.caf" looping:YES];
+    [[SoundManager sharedManager] playMusic:@"epic-orchestra.mp3" looping:YES];
     
     lightPos = GLKVector3Make(0.0, 5.0, -5.0);
     bgPos = GLKVector3Make(0.0, 0, -6.0);
@@ -176,6 +177,7 @@ enum
     endTurnPressed = NO;
     
     isPaused = NO;
+    _hammerAbilityButton.hidden = YES;
     
     [self setupGL];
 }

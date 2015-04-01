@@ -47,8 +47,8 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.70f,      // Accuracy
             0.10f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            15,         // Damage modifier
-            0.7f,       // Hull
+            20,         // Damage modifier
+            0.05f,       // Hull
             5,          // Engine health
             1.0f,       // Weapon health
             100,        // Ship health
@@ -66,8 +66,8 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.70f,      // Accuracy
             0.10f,      // Critical hit chance
             2.0f,       // Critical hit modifier
-            5,          // Damage modifier
-            0.12f,      // Hull
+            15,          // Damage modifier
+            0.10f,      // Hull
             5,          // Engine health
             1.0f,       // Weapon health
             100,        // Ship health
@@ -81,11 +81,11 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             2,          // Action points per heal
             1,          // Action points per scout
             1,          // Moves (tiles) per action point
-            2,          // Action point pool (number at the beginning of each turn)
+            3,          // Action point pool (number at the beginning of each turn)
             0.70f,      // Accuracy
             0.20f,      // Critical hit chance
             1.25f,       // Critical hit modifier
-            30,          // Damage modifier
+            50,          // Damage modifier
             0.25f,         // Hull
             5,          // Engine health
             1.0f,       // Weapon health
@@ -106,8 +106,8 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.70f,      // Accuracy
             0.10f,      // Critical hit chance
             1.5f,       // Critical hit modifier
-            15,         // Damage modifier
-            0.7f,          // Hull
+            20,         // Damage modifier
+            0.05f,          // Hull
             5,          // Engine health
             1.0f,       // Weapon health
             100         // Ship health
@@ -124,8 +124,8 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.70f,      // Accuracy
             0.10f,      // Critical hit chance
             2.0f,      // Critical hit modifier
-            5,          // Damage modifier
-            0.12f,         // Hull
+            15,          // Damage modifier
+            0.10f,         // Hull
             5,          // Engine health
             1.0f,       // Weapon health
             100         // Ship health
@@ -142,7 +142,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             0.70f,      // Accuracy
             0.20f,      // Critical hit chance
             1.25f,       // Critical hit modifier
-            30,          // Damage modifier
+            50,          // Damage modifier
             0.25f,         // Hull
             5,          // Engine health
             1.0f,       // Weapon health
