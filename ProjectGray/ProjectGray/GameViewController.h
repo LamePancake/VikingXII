@@ -23,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *winLabel;
 @property (strong, nonatomic) IBOutlet UILabel *attackLabel;
 
+
+
 @property (strong, nonatomic) Settings* settings;
 @property (strong, nonatomic) Game* game;
 

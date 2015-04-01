@@ -11,4 +11,10 @@
 @interface StatsViewController : UIViewController
 - (IBAction)backPressed:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UILabel *totalGame;
+@property (strong, nonatomic) IBOutlet UILabel *vikingWin;
+@property (strong, nonatomic) IBOutlet UILabel *vikingKill;
+@property (strong, nonatomic) IBOutlet UILabel *grayWin;
+@property (strong, nonatomic) IBOutlet UILabel *grayKill;
+
 @end

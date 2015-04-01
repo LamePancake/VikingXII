@@ -196,6 +196,8 @@ static NSMutableArray* currentPath;
         {
             target.stats->shipHealth = 0;
             target.active = false;
+            [_game unitKilledBy:attacker.faction];
+            [_game writeToTextFile];
         }
     }
     

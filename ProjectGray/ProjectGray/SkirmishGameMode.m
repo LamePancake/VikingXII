@@ -190,10 +190,15 @@
     
     if(playerOneAlive && playerTwoAlive)
         return -1;
-    else if(playerOneAlive && !playerTwoAlive)
+    else if(playerOneAlive && !playerTwoAlive) {
+        self.winsP1++;
         return ((Unit*)p1Units[0]).faction;
-    else if(!playerOneAlive && playerTwoAlive)
+    }
+    else if(!playerOneAlive && playerTwoAlive) {
+        self.winsP2++;
         return ((Unit*)p2Units[0]).faction;
+    }
+    [self writeToTextFile];
     return -1;
 }
 

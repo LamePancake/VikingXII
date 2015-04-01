@@ -78,6 +78,9 @@ typedef enum UnitAbilities
 
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
+//Saved Stats
+@property (nonatomic) int unitsKilledp1, unitsKilledp2, winsP1, winsP2, totalGames;
+
 -(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
                    andGameVC: (GameViewController*)gameVC;
 
@@ -141,6 +144,11 @@ typedef enum UnitAbilities
  * Method retrieves content from documents directory and displays it in an alert
  */
 -(void) readTextFile;
+
+/**
+ * Used whenever one team kills a unit (called when a unit is set to inactive);
+ */
+-(void) unitKilledBy:(Faction)thisFaction;
 
 /**
  * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.
