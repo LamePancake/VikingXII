@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "Game.h"
 #import "GameViewController.h"
-
+#import "PowerUp.h"
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
@@ -50,7 +50,7 @@ static Game* _game = nil;
         _selectedUnitAbility = NONE;
         _p1RespawnUnits = [[NSMutableArray alloc] init];
         _p2RespawnUnits = [[NSMutableArray alloc] init];
-        
+        _activePowerUps = [[NSMutableArray alloc] init];
         _environmentEntities = [[NSMutableArray alloc] init];
         _gameVC = gameVC;
         

@@ -260,6 +260,30 @@ static NSMutableArray* currentPath;
     [_game.gameVC unitHealthChangedAtX:pos.x andY:pos.y andZ:pos.z withChange:20 andIsDamage:false];
 }
 
+-(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forPowerUps:(NSMutableArray*)activePowerUps
+{
+    if (target.percentSearched < 100.0f)
+    {
+        target.percentSearched += 33.33f;
+        searcher.stats->actionPool--;
+        
+        if (ceilf(target.percentSearched) >= 100.0f)
+        {
+            target.percentSearched = 100.0f;
+            
+            if (target.powerUp != nil)
+            {
+                NSLog(@"Has PowerUp!: %f", target.percentSearched);
+                return true;
+            }
+        }
+    }
+    
+    NSLog(@"Percent Searched: %f", target.percentSearched);
+    
+    return false;
+}
+
 -(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid
 {
     
@@ -272,7 +296,7 @@ static NSMutableArray* currentPath;
         {
             target.percentSearched = 100.0f;
             
-            if (target == graysAsteroid || target == vikingAsteroid)
+            if (target == graysAsteroid || target == vikingAsteroid || target.powerUp != nil)
             {
                 return true;
             }

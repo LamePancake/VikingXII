@@ -53,6 +53,7 @@ typedef enum UnitAbilities
 @property (strong, nonatomic) NSMutableArray* p2RespawnUnits;
 // An array of environment entities (e.g. asteroids)
 @property (strong, nonatomic) NSMutableArray* environmentEntities;
+@property (strong, nonatomic) NSMutableArray* activePowerUps;
 @property (nonatomic) int selectionSwitchCount;
 /// Reference to the GameViewController coordinating with this game.
 @property (weak, nonatomic, readonly) GameViewController* gameVC;

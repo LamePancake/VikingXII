@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3003CEF51A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m */; };
+		3016F6831ACDC7E20036E908 /* PowerUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 3016F6821ACDC7E20036E908 /* PowerUp.m */; };
+		3016F6881ACDCC1F0036E908 /* ActionHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 3016F6871ACDCC1F0036E908 /* ActionHero.m */; };
 		301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 301F0A211A993BBD00C552B2 /* SoundManager.m */; };
 		301F0A261A993D5C00C552B2 /* sound1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 301F0A241A993D5C00C552B2 /* sound1.caf */; };
 		301F0A271A993D5C00C552B2 /* track1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 301F0A251A993D5C00C552B2 /* track1.caf */; };
@@ -136,6 +138,10 @@
 /* Begin PBXFileReference section */
 		3003CEF41A97D4F700CDBF26 /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
 		3003CEF51A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
+		3016F6821ACDC7E20036E908 /* PowerUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerUp.m; sourceTree = "<group>"; };
+		3016F6841ACDC8060036E908 /* PowerUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUp.h; sourceTree = "<group>"; };
+		3016F6861ACDCC0C0036E908 /* ActionHero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionHero.h; sourceTree = "<group>"; };
+		3016F6871ACDCC1F0036E908 /* ActionHero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionHero.m; sourceTree = "<group>"; };
 		301F0A201A993B6600C552B2 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		301F0A211A993BBD00C552B2 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		301F0A241A993D5C00C552B2 /* sound1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound1.caf; sourceTree = "<group>"; };
@@ -321,6 +327,17 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		3016F6851ACDCBF00036E908 /* PowerUps */ = {
+			isa = PBXGroup;
+			children = (
+				3016F6841ACDC8060036E908 /* PowerUp.h */,
+				3016F6821ACDC7E20036E908 /* PowerUp.m */,
+				3016F6861ACDCC0C0036E908 /* ActionHero.h */,
+				3016F6871ACDCC1F0036E908 /* ActionHero.m */,
+			);
+			name = PowerUps;
+			sourceTree = "<group>";
+		};
 		301F0A1F1A993B4900C552B2 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +466,7 @@
 		709DA0A31A898E76007D63C1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3016F6851ACDCBF00036E908 /* PowerUps */,
 				301F0A1F1A993B4900C552B2 /* Audio */,
 				70C761281A980EB2005F0311 /* Tasks */,
 				3003CEF01A97D40E00CDBF26 /* Utils */,
@@ -783,12 +801,14 @@
 				307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */,
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
+				3016F6881ACDCC1F0036E908 /* ActionHero.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
 				3082EA0E1A8D4D9200A54360 /* Hex.m in Sources */,
 				709DA0A21A89835A007D63C1 /* Settings.m in Sources */,
 				A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */,
 				A57298051A7C1F30001934F9 /* AppDelegate.m in Sources */,
+				3016F6831ACDC7E20036E908 /* PowerUp.m in Sources */,
 				704428F41AC8D7F10046E332 /* StrikeTask.m in Sources */,
 				A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */,
 				351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */,

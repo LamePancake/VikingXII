@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EnvironmentEntity.h"
+#import "ActionHero.h"
 
 @interface EnvironmentEntity ()
 {
@@ -39,6 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
+        _powerUp = [[ActionHero alloc] initPowerUpForUnit:nil];
     }
     return self;
 
