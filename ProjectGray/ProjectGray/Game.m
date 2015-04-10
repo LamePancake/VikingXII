@@ -53,7 +53,7 @@ static Game* _game = nil;
         _activePowerUps = [[NSMutableArray alloc] init];
         _environmentEntities = [[NSMutableArray alloc] init];
         _gameVC = gameVC;
-        
+                
         // Get the spawn areas for each
         _p1SelectableRange = [_map vikingsSelectableRange];
         _p2SelectableRange = [_map graysSelectableRange];
@@ -184,6 +184,7 @@ static Game* _game = nil;
     if(_selectionSwitchCount >= 2)
     {
         _state = PLAYING;
+        [_gameVC displayGoal];
         _selectedUnit = nil;
     }
 }

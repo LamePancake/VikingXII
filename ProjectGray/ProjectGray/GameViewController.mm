@@ -102,6 +102,8 @@ enum
     bool endTurnPressed;
     
     bool isPaused;
+    
+    bool isFirstUpdate;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -178,6 +180,8 @@ enum
     
     isPaused = NO;
     _hammerAbilityButton.hidden = YES;
+    
+    isFirstUpdate = YES;
     
     [self setupGL];
 }
@@ -817,6 +821,13 @@ enum
 
 - (void)update
 {
+    if(isFirstUpdate)
+    {
+        [self displayTurn];
+        [self displayGoal];
+        isFirstUpdate = NO;
+    }
+    
     lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.003f, 0, 0, 1), lightPos);
     glUniform3f(uniforms[UNIFORM_LIGHT_POSITION], lightPos.x, lightPos.y, lightPos.z);
     
@@ -1426,35 +1437,7 @@ enum
 - (void)endTurn
 {
     [_game switchTurn];
-    
-    if([_game whoseTurn] == VIKINGS)
-    {
-        [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
-        [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
-    }
-    else if([_game whoseTurn] == ALIENS)
-    {
-        [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
-        [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
-    }
-    
-    [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _turnImage.hidden = NO;
-        endTurnPressed = YES;
-        ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _turnImage.hidden = YES;
-                endTurnPressed = NO;
-            } completion:nil];
-        }];
-    }];
-    
-    if(_game.state == SELECTION)
-        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+    [self displayTurn];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1484,5 +1467,70 @@ enum
         _pausedView.hidden = YES;
     }];
     
+}
+
+- (void) displayTurn
+{
+    if([_game whoseTurn] == VIKINGS)
+    {
+        [_turnImage setImage:[UIImage imageNamed:@"vikingsturn.png"]];
+        [_turnMarker setImage:[UIImage imageNamed:@"VikingPortrait.png"]];
+    }
+    else if([_game whoseTurn] == ALIENS)
+    {
+        [_turnImage setImage:[UIImage imageNamed:@"graysturn.png"]];
+        [_turnMarker setImage:[UIImage imageNamed:@"GrayPortrait.png"]];
+    }
+    
+    [UIView animateWithDuration:0.5 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _turnImage.hidden = NO;
+        endTurnPressed = YES;
+        ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(2.0,2.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIView*)_turnImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _turnImage.hidden = YES;
+                endTurnPressed = NO;
+            } completion:nil];
+        }];
+    }];
+    
+    if(_game.state == SELECTION)
+        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+}
+
+- (void)displayGoal
+{
+    if(_game.state == SELECTION)
+    {
+        [_goalImage setImage:[UIImage imageNamed:@"PlaceUnits.png"]];
+    }
+    else if(_game.state == FLAG_PLACEMENT)
+    {
+        [_goalImage setImage:[UIImage imageNamed:@"PlaceFlags.png"]];
+    }
+    else if(_game.state == PLAYING)
+    {
+        if(_game.mode == CTF)
+            [_goalImage setImage:[UIImage imageNamed:@"Go.png"]];
+        else
+            [_goalImage setImage:[UIImage imageNamed:@"Fight.png"]];
+    }
+    
+    [UIView animateWithDuration:10.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _goalImage.hidden = NO;
+        ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(1.0,1.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:5.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _goalImage.hidden = YES;
+                ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(1.0,1.0);
+            } completion:nil];
+        }];
+    }];
 }
 @end

@@ -375,6 +375,7 @@
     if(self.selectionSwitchCount >= 2)
     {
         self.state = FLAG_PLACEMENT;
+        [self.gameVC displayGoal];
         self.selectedUnit = nil;
     }
 }
@@ -387,6 +388,7 @@
     if(_graysFlagHidingLocation != nil && _vikingFlagHidingLocation != nil)
     {
         self.state = PLAYING;
+        [self.gameVC displayGoal];
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ggk-1W-3bd">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -722,6 +722,13 @@
                                     <constraint firstAttribute="width" constant="240" id="so4-VC-GQh"/>
                                 </constraints>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceUnits.png" translatesAutoresizingMaskIntoConstraints="NO" id="3E1-vC-Dci">
+                                <rect key="frame" x="225" y="10" width="150" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="IFt-3D-b5J"/>
+                                    <constraint firstAttribute="width" constant="150" id="u2k-jb-9PO"/>
+                                </constraints>
+                            </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AP:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HY2-oi-nSS">
                                 <rect key="frame" x="174" y="541" width="54" height="49"/>
                                 <constraints>
@@ -815,6 +822,8 @@
                             <constraint firstAttribute="centerY" secondItem="f2f-cL-rMQ" secondAttribute="centerY" id="LUe-tz-Qf3"/>
                             <constraint firstItem="1Jv-Ch-006" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="topMargin" constant="10" id="M0i-PD-Xkt"/>
                             <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="whP-zb-phm" secondAttribute="bottom" constant="50" id="MTK-aF-aZL"/>
+                            <constraint firstItem="3E1-vC-Dci" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="topMargin" constant="10" id="Ngm-bo-0W7"/>
+                            <constraint firstAttribute="centerX" secondItem="3E1-vC-Dci" secondAttribute="centerX" id="OAd-eg-tkl"/>
                             <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="pNP-9q-ygh" secondAttribute="bottom" constant="10" id="PqD-hd-RLv"/>
                             <constraint firstItem="WyU-sd-vxG" firstAttribute="leading" secondItem="1Jv-Ch-006" secondAttribute="trailing" constant="14" id="Rui-Tn-hjB"/>
                             <constraint firstItem="Yk2-oP-Nn5" firstAttribute="height" secondItem="3se-qz-xqx" secondAttribute="height" id="SHp-up-T2D"/>
@@ -847,6 +856,7 @@
                         <outlet property="apLabel" destination="HY2-oi-nSS" id="1cZ-0y-Ei1"/>
                         <outlet property="attackAbilityButton" destination="AvC-70-yNN" id="iep-M0-h45"/>
                         <outlet property="attackLabel" destination="5E5-nm-V9Q" id="NA4-zh-z2H"/>
+                        <outlet property="goalImage" destination="3E1-vC-Dci" id="H0t-7g-07u"/>
                         <outlet property="hammerAbilityButton" destination="W6v-i7-0K4" id="vNZ-ol-JEp"/>
                         <outlet property="healAbilityButton" destination="whP-zb-phm" id="25N-Sr-hGy"/>
                         <outlet property="moveAbilityButton" destination="97V-E6-jp5" id="dM4-KI-JLj"/>
@@ -1003,6 +1013,7 @@
         <image name="EndTurnPressed.png" width="512" height="512"/>
         <image name="Pause.png" width="512" height="512"/>
         <image name="PausePressed.png" width="512" height="512"/>
+        <image name="PlaceUnits.png" width="512" height="256"/>
         <image name="Spaaaace.jpg" width="4096" height="4096"/>
         <image name="Stats.png" width="819" height="1024"/>
         <image name="Title_resized.png" width="1536" height="1536"/>

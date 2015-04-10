@@ -43,6 +43,8 @@
 - (IBAction)resumeButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIView *pausedView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *goalImage;
+
 /**
  * Notifies the game that the given faction has won.
  * @param winner The winning faction.
@@ -59,4 +61,13 @@
  */
 -(void)unitHealthChangedAtX: (float)x andY: (float)y andZ: (float)z withChange: (float)change andIsDamage: (bool) isDamage;
 
+/**
+ * Displays the current goal, eg. fight, place flages, etc
+ */
+- (void)displayGoal;
+
+/**
+ * Displays the current turn.
+ */
+- (void)displayTurn;
 @end
