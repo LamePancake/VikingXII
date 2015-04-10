@@ -68,8 +68,8 @@ enum
     GLuint _vertexGrayItemBuffer[3];
     
     // Environment vertices and normals
-    GLuint _vertexEnvironmentArray[1];
-    GLuint _vertexEnvironmentBuffer[1];
+    GLuint _vertexEnvironmentArray[3];
+    GLuint _vertexEnvironmentBuffer[3];
 
     Camera *_camera;
     
@@ -416,12 +416,46 @@ enum
 - (void) setupEnvironment
 {
     // Item: Asteroid
-    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID]);
-    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID]);
+    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR0]);
+    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR0]);
     
-    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID]);
-    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID] * sizeof(float) * 8, environmentModels[ENV_ASTEROID], GL_STATIC_DRAW);
+    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR0]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR0]);
+    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR0] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR0], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Item: Asteroid Cluster 1
+    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR1]);
+    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR1]);
+    
+    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR1]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR1]);
+    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR1] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR1], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // Item: Asteroid Cluster 2
+    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR2]);
+    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR2]);
+    
+    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR2]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR2]);
+    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR2] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR2], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -871,7 +905,7 @@ enum
             {
                 for (EnvironmentEntity* entity in _game.environmentEntities)
                 {
-                    if (entity.active && entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 && _game.selectedUnit.stats->actionPool > 0)
+                    if (entity.active && entity.type <= ENV_ASTEROID_VAR2 && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 && _game.selectedUnit.stats->actionPool > 0)
                     {
                         [entity.hex setColour:ASTEROID_COLOUR];
                     }
@@ -882,7 +916,7 @@ enum
                 if (_game.selectedUnit.shipClass == HEAVY) {
                     for (EnvironmentEntity* entity in _game.environmentEntities)
                     {
-                        if (entity.type == ENV_ASTEROID && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 &&
+                        if (entity.type <= ENV_ASTEROID_VAR2 && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 &&
                             [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] <= _game.selectedUnit.stats->attackRange)
                         {
                             [entity.hex setColour:ATTACKABLE_COLOUR];
@@ -1236,7 +1270,7 @@ enum
         
         GLKMatrix4 _transMat;
         GLKMatrix4 _scaleMat;
-        glBindVertexArrayOES(vertices[ENV_ASTEROID]);
+        glBindVertexArrayOES(vertices[curEntity.type]);
         glUseProgram(program);
         
         //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
@@ -1256,7 +1290,7 @@ enum
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
-        glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[ENV_ASTEROID]);
+        glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[curEntity.type]);
     }
 }
 

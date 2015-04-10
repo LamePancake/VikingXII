@@ -158,7 +158,7 @@
     
     for (Hex* hex in hexagons)
     {
-        EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
+        EnvironmentEntity *entity = [[EnvironmentEntity alloc] initWithType: ENV_ASTEROID_VAR2 atPosition:GLKVector3Make(0, 0, 0.1) withRotation:GLKVector3Make(0, 0, 0) andScale:GLKVector3Make(0.005, 0.005, 0.005) onHex:hex];
         
         [environment addObject:entity];
     }

@@ -415,6 +415,8 @@
 			isa = PBXGroup;
 			children = (
 				A50862AD1ABDF1BB00D1925A /* asteroid.txt */,
+				A50E729B1AC8BE7200FECBE6 /* asteroidcluster1.txt */,
+				A50E729C1AC8BE7200FECBE6 /* asteroidcluster2.txt */,
 				A50862AE1ABDF1BB00D1925A /* cannonball.txt */,
 				A50862AF1ABDF1BB00D1925A /* flag.txt */,
 				A5A20A2E1AC720EE00E89B41 /* grayVertsHeavy.txt */,
@@ -424,8 +426,6 @@
 				A5A20A321AC720EE00E89B41 /* vikingVertsHeavy.txt */,
 				A5A20A331AC720EE00E89B41 /* vikingVertsLight.txt */,
 				A5A20A341AC720EE00E89B41 /* vikingVertsMedium.txt */,
-				A50E729B1AC8BE7200FECBE6 /* asteroidcluster1.txt */,
-				A50E729C1AC8BE7200FECBE6 /* asteroidcluster2.txt */,
 				A50E729D1AC8BE7200FECBE6 /* h_cannonball.txt */,
 				A50E729E1AC8BE7200FECBE6 /* h_laser.txt */,
 				A50E729F1AC8BE7200FECBE6 /* l_cannonball.txt */,
