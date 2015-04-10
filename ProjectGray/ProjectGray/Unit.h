@@ -26,6 +26,7 @@ extern const float UNIT_HEIGHT;
 
 @property (nonatomic) int shipClass;
 @property (nonatomic) int faction;
+@property (nonatomic) int powerUp;
 @property (nonatomic) GLKVector3 initRotation;
 @property (nonatomic) Hex* hex;//Current hex that unit inhabits
 

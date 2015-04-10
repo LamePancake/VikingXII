@@ -195,6 +195,8 @@ static NSMutableArray* currentPath;
         damage = attacker.stats->damage * (1.0f - target.stats->hull);
         float critRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if the hit is critical
         
+        NSLog(@"CritChance: %f", attacker.stats->critChance);
+        
         if (critRandom <= attacker.stats->critChance)
         {
             damage *= attacker.stats->critModifier; //critical hit! booYa!

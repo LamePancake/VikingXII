@@ -13,6 +13,8 @@
 typedef enum PowerUpType
 {
     ACTION_HERO,
+    LUCKY_CHARM,
+    VAMPIRISM,
     NOPOWERUP
 } PowerUpType;
 

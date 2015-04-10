@@ -24,12 +24,10 @@
 
 - (void) applyPowerUp
 {
-    NSLog(@"Applied");
 }
 
 - (void) endPowerUp
 {
-    NSLog(@"Ended");
 }
 
 @end

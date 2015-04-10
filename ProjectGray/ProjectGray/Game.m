@@ -12,6 +12,7 @@
 #import "Game.h"
 #import "GameViewController.h"
 #import "ActionHero.h"
+#import "LuckyCharm.h"
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
@@ -66,21 +67,24 @@ static Game* _game = nil;
     return self;
 }
 
-- (void) updatePowerUps
+- (void) updatePowerUpsForUnitFaction:(Faction)faction
 {
     NSMutableArray* powerUpsToDiscard = [[NSMutableArray alloc] init];
     
     for (PowerUp* powerUp in _activePowerUps)
     {
-        if (powerUp.numOfRounds <= 0)
+        if (faction == powerUp.affectedUnit.faction )
         {
-            [powerUpsToDiscard addObject:powerUp];
-            [powerUp endPowerUp];
-        }
-        else
-        {
-            powerUp.numOfRounds--;
-            [powerUp applyPowerUp];
+            if (powerUp.numOfRounds <= 0)
+            {
+                [powerUpsToDiscard addObject:powerUp];
+                [powerUp endPowerUp];
+            }
+            else
+            {
+                powerUp.numOfRounds--;
+                [powerUp applyPowerUp];
+            }
         }
     }
     
@@ -94,13 +98,15 @@ static Game* _game = nil;
     switch (type) {
         case ACTION_HERO:
             powerUp = [[ActionHero alloc] initPowerUpForUnit:unit];
-            [_activePowerUps addObject:powerUp];
             break;
-            
+        case LUCKY_CHARM:
+            powerUp = [[LuckyCharm alloc] initPowerUpForUnit:unit];
+            break;
         default:
             return;
     }
     
+    [_activePowerUps addObject:powerUp];
     [powerUp applyPowerUp];
 }
 
@@ -234,6 +240,8 @@ static Game* _game = nil;
     _selectedUnit = nil;
     _selectedUnitAbility = NOABILITY;
 
+    [self updatePowerUpsForUnitFaction:_whoseTurn];
+    
     NSMutableArray* unitList;
     // Reset the action points of the faction who just finished their turn
     unitList = _whoseTurn == _p1Faction ? _p1Units : _p2Units;

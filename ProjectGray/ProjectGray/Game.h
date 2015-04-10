@@ -96,7 +96,7 @@ typedef enum UnitAbilities
 
 -(EnvironmentEntity *) getEnvironmentEntityOnHex: (Hex *)hex;
 
-- (void) updatePowerUps;
+- (void) updatePowerUpsForUnitFaction:(Faction)faction;
 
 - (void) activatePowerUp:(PowerUpType) type forUnit:(Unit*)unit;
 

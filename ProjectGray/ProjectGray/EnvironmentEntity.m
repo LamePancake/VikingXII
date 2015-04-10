@@ -40,7 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
-        _powerUp = ACTION_HERO;
+        _powerUp = LUCKY_CHARM;
     }
     return self;
 
