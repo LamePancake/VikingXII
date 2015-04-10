@@ -23,6 +23,8 @@
     HexCells* _map;
 }
 
+@property (nonatomic, strong) UIPopoverController *unitDescriptionPopover;
+
 @end
 
 @implementation UnitSelectionViewController
@@ -330,5 +332,56 @@
         
         [sender setImage:[UIImage imageNamed:@"Back.png"] forState:UIControlStateNormal];
     }];
+}
+
+- (IBAction)showUnitDescription:(id)sender
+{
+    NSString* desc = @"";
+    switch ([sender tag])
+    {
+        case 0:
+        {
+            desc = @"Viking Scout";
+            break;
+        }
+        case 1:
+        {
+            desc = @"Viking Medic";
+            break;
+        }
+        case 2:
+        {
+            desc = @"Viking Tank";
+            break;
+        }
+        case 3:
+        {
+            desc = @"Alien Scout";
+            break;
+        }
+        case 4:
+        {
+            desc = @"Alien Medic";
+            break;
+        }
+        case 5:
+        {
+            desc = @"Alien Tank";
+            break;
+        }
+    }
+    
+    UnitPopoverViewController *unitpopoverViewController = [[UnitPopoverViewController alloc] initWithNibName:@"UnitPopoverViewController" bundle:nil];
+    unitpopoverViewController.delegate = self;
+    
+    self.unitDescriptionPopover = [[UIPopoverController alloc] initWithContentViewController:unitpopoverViewController];
+    self.unitDescriptionPopover.popoverContentSize = CGSizeMake(320.0, 400.0);
+    [self.unitDescriptionPopover presentPopoverFromRect:[(UIButton *)sender frame]
+                                          inView:self.view
+                        permittedArrowDirections:UIPopoverArrowDirectionAny
+                                        animated:YES];
+    
+    [unitpopoverViewController updateUnitDescription:desc];
+    
 }
 @end

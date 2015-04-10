@@ -11,8 +11,9 @@
 #import "UnitStats.h"
 #import "SkirmishGameMode.h"
 #import "CTFGameMode.h"
+#import "UnitPopoverViewController.h"
 
-@interface UnitSelectionViewController : UIViewController
+@interface UnitSelectionViewController : UIViewController <UIActionSheetDelegate, UnitPopoverViewControllerDelegate>
 
 @property (strong, nonatomic) Settings* settings;
 
@@ -32,4 +33,5 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *unitCountLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)backPressed:(id)sender;
+- (IBAction)showUnitDescription:(id)sender;
 @end

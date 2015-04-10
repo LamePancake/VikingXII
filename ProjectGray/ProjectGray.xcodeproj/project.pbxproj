@@ -73,6 +73,8 @@
 		35B08CBE1AD86487005102D4 /* ScoutPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CB21AD86487005102D4 /* ScoutPressed.png */; };
 		35B08CBF1AD86487005102D4 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CB31AD86487005102D4 /* Search.png */; };
 		35B08CC01AD86487005102D4 /* SearchPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CB41AD86487005102D4 /* SearchPressed.png */; };
+		35B08CC41AD873CD005102D4 /* UnitPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */; };
+		35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CC31AD873CD005102D4 /* UnitPopoverViewController.xib */; };
 		35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0A91ABDF18400E902F3 /* vikingsturn.png */; };
 		35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0AA1ABDF18400E902F3 /* graysturn.png */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
@@ -230,6 +232,9 @@
 		35B08CB21AD86487005102D4 /* ScoutPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScoutPressed.png; sourceTree = "<group>"; };
 		35B08CB31AD86487005102D4 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		35B08CB41AD86487005102D4 /* SearchPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SearchPressed.png; sourceTree = "<group>"; };
+		35B08CC11AD873CD005102D4 /* UnitPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPopoverViewController.h; sourceTree = "<group>"; };
+		35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPopoverViewController.m; sourceTree = "<group>"; };
+		35B08CC31AD873CD005102D4 /* UnitPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnitPopoverViewController.xib; sourceTree = "<group>"; };
 		35B2F0A91ABDF18400E902F3 /* vikingsturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vikingsturn.png; sourceTree = "<group>"; };
 		35B2F0AA1ABDF18400E902F3 /* graysturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graysturn.png; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
@@ -549,6 +554,8 @@
 				70C47C301ABE161C0030664E /* UnitSelectionViewController.m */,
 				351D533A1AC9D40D0021FE40 /* StatsViewController.h */,
 				351D533B1AC9D40D0021FE40 /* StatsViewController.m */,
+				35B08CC11AD873CD005102D4 /* UnitPopoverViewController.h */,
+				35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -556,6 +563,7 @@
 		709DA0A51A898F0D007D63C1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35B08CC31AD873CD005102D4 /* UnitPopoverViewController.xib */,
 				A57298031A7C1F30001934F9 /* AppDelegate.h */,
 				A57298041A7C1F30001934F9 /* AppDelegate.m */,
 				A572980D1A7C1F30001934F9 /* Main.storyboard */,
@@ -778,6 +786,7 @@
 				A50E72A51AC8BE7200FECBE6 /* h_cannonball.txt in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
 				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
+				35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */,
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
 				A5A20A3A1AC720EE00E89B41 /* vikingVertsLight.txt in Resources */,
 				351C142A1ACB1A4500D6C15D /* Fight.png in Resources */,
@@ -865,6 +874,7 @@
 				303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
 				70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */,
+				35B08CC41AD873CD005102D4 /* UnitPopoverViewController.m in Sources */,
 				F29BB5081A98151D0000745E /* Game.m in Sources */,
 				307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */,
 				A572980C1A7C1F30001934F9 /* GameViewController.mm in Sources */,
