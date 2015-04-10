@@ -10,8 +10,6 @@
 
 @protocol UnitPopoverViewControllerDelegate
 
--(void)userDataChangedWithDecription:(NSString *)desc;
-
 @end
 
 @interface UnitPopoverViewController : UIViewController
@@ -19,7 +17,9 @@
 @property (nonatomic, strong) id<UnitPopoverViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UILabel *unitDescription;
+@property (strong, nonatomic) IBOutlet UIImageView *unitImage;
+@property (strong, nonatomic) IBOutlet UILabel *unitTitle;
 
-- (void) updateUnitDescription: desc;
+- (void) updateUnitDescription:(NSString*) desc Title:(NSString*) title Image: (NSString*) image;
 
 @end

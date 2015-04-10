@@ -337,36 +337,51 @@
 - (IBAction)showUnitDescription:(id)sender
 {
     NSString* desc = @"";
+    NSString* title = @"";
+    NSString* image = @"";
+    
     switch ([sender tag])
     {
         case 0:
         {
-            desc = @"Viking Scout";
+            title = @"Vör’s Vengeance";
+            image = @"l_viking.png";
+            desc = @"The sleek, speedy, lightly armoured Viking combat ship designed for quick striking. Named after the Norse goddess of wisdom and this ship is perfect for reconnaissance and quick response. Inspired by the Viking longships of old, the Viking Raider gains additional style points for dual rocket boosters.\r\rBest sailed with beard-braids, drunken bare-chestedness and sea shanties.\r\rSpecial Ability: Scout ";
             break;
         }
         case 1:
         {
-            desc = @"Viking Medic";
+            title = @"EIR XII";
+            image = @"m_viking.png";
+            desc = @"Named after the Norse goddess of healing, Eir XII has been equipped with disposable cannonball dwarves dedicated to repair and revive ally units. Though it does not pack a heavy punch on its own, it can turn the tide of battle by ensuring ally units laugh off enemy attacks.\r\rWhy should death ever be an option?\r\rSpecial Ability: Repair and Revive";
             break;
         }
         case 2:
         {
-            desc = @"Viking Tank";
+            title = @"Angry Týr";
+            image = @"h_viking.png";
+            desc = @"With the Norse god of war and the skies as its namesake this slow moving, heavily armoured ship stops for no one. Its short attack range is offset by the idea that no amount of firing power is too much firing power. With an overload of weapons, Angry Týr shreds all obstacles be it enemies, asteroids, or obese elephants.\r\rThe ideal debt collector.\r\rSpecial Ability: Path Clearing";
             break;
         }
         case 3:
         {
-            desc = @"Alien Scout";
+            title = @"Classic Sauce";
+            image = @"l_gray.png";
+            desc = @"Inspiring conspiracy theories for decades, this gray alien classic combines maneuverability, scouting ability, and orifice probes. Ideal for information gathering and fast travel, this alien ship gives residents around the universe reasons to put on tinfoil hats at night.\r\rShiny. Metal. Saucer-shaped.\r\rSpecial Ability: Scout";
             break;
         }
         case 4:
         {
-            desc = @"Alien Medic";
+            title = @"Snail Mail";
+            image = @"m_gray.png";
+            desc = @"Taking inspiration from a human viral video of a rocket propelled snail, this alien healer ship offers more than just stylish antennas. Packed with super high tech nano quantum polymer magic, this ship ensures other alien crafts can endure many a mean stare by repairing and reviving them. This craft is not slow by any means despite its form inspirations.\r\rSpace travelling snail, minus all the gooey ooziness.\r\rSpecial Ability: Repair and Revive";
             break;
         }
         case 5:
         {
-            desc = @"Alien Tank";
+            title = @"Phoenix Special";
+            image = @"h_gray.png";
+            desc = @"Commonly referred to as the Phoenix triangles by the humans since the sightings in the late 1990’s, these pizza shaped alien ships are the enforcers of the alien fleet. Equipped with more than just flashing lights, this ship has more lasers than all the raves of the world combined. This slow moving ship is all business with its heavy armour and firepower.\r\rYou don’t take a bite out of this pizza, it takes a bite out of you.\r\rSpecial Ability: Path Clearing";
             break;
         }
     }
@@ -375,13 +390,13 @@
     unitpopoverViewController.delegate = self;
     
     self.unitDescriptionPopover = [[UIPopoverController alloc] initWithContentViewController:unitpopoverViewController];
-    self.unitDescriptionPopover.popoverContentSize = CGSizeMake(320.0, 400.0);
+    self.unitDescriptionPopover.popoverContentSize = CGSizeMake(400.0, 600.0);
     [self.unitDescriptionPopover presentPopoverFromRect:[(UIButton *)sender frame]
                                           inView:self.view
                         permittedArrowDirections:UIPopoverArrowDirectionAny
                                         animated:YES];
     
-    [unitpopoverViewController updateUnitDescription:desc];
+    [unitpopoverViewController updateUnitDescription:desc Title:title Image:image];
     
 }
 @end

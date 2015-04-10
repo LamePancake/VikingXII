@@ -32,9 +32,11 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void) updateUnitDescription: desc
+- (void)  updateUnitDescription:(NSString*) desc Title:(NSString*) title Image: (NSString*) image;
 {
     [_unitDescription setText:desc];
+    [_unitTitle setText:title];
+    [_unitImage setImage:[UIImage imageNamed:image]];
 }
 
 @end
