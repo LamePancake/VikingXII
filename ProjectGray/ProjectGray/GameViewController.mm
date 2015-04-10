@@ -104,6 +104,9 @@ enum
     bool isPaused;
     
     bool isFirstUpdate;
+    
+    NSString* abilityImagesPressed[6];
+    NSString* abilityImages[6];
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -182,6 +185,20 @@ enum
     _hammerAbilityButton.hidden = YES;
     
     isFirstUpdate = YES;
+    
+    abilityImagesPressed[0] = @"AttackPressed.png";
+    abilityImagesPressed[1] = @"MovementPressed.png";
+    abilityImagesPressed[2] = @"HealPressed.png";
+    abilityImagesPressed[3] = @"SearchPressed.png";
+    abilityImagesPressed[4] = @"ScoutPressed.png";
+    abilityImagesPressed[5] = @"HammerPressed.png";
+    
+    abilityImages[0] = @"Attack.png";
+    abilityImages[1] = @"Movement.png";
+    abilityImages[2] = @"Heal.png";
+    abilityImages[3] = @"Search.png";
+    abilityImages[4] = @"Scout.png";
+    abilityImages[5] = @"Hammer.png";
     
     [self setupGL];
 }
@@ -701,27 +718,32 @@ enum
 
 - (IBAction)scoutAbilitySelected:(id)sender
 {
-    _game.selectedUnitAbility = SCOUT;        
+    _game.selectedUnitAbility = SCOUT;
+    [self updateAbility];
 }
 
 - (IBAction)attackAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = ATTACK;
+    [self updateAbility];
 }
 
 - (IBAction)moveAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = MOVE;
+    [self updateAbility];
 }
 
 - (IBAction)healAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = HEAL;
+    [self updateAbility];
 }
 
 - (IBAction)searchAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = SEARCH;
+    [self updateAbility];
 }
 
 - (IBAction)endTurnPressed:(id)sender
@@ -1602,4 +1624,18 @@ enum
         }];
     }];
 }
+
+- (void) updateAbility
+{
+    for(int i = 0; i < _abilityButtons.count; i++)
+    {
+        [((UIButton*)_abilityButtons[i]) setImage:[UIImage imageNamed:abilityImages[i]] forState:UIControlStateNormal];
+        
+        if(_game.selectedUnitAbility == i)
+        {
+            [((UIButton*)_abilityButtons[i]) setImage:[UIImage imageNamed:abilityImagesPressed[i]] forState:UIControlStateNormal];
+        }
+    }
+}
+
 @end

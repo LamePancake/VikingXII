@@ -118,6 +118,7 @@
         }
     }
     
+    [self.gameVC updateAbility];
 }
 
 /**
@@ -303,6 +304,7 @@
     int winner = [self checkForFlagCapture];
     if(winner != -1) [self.gameVC factionDidWin: winner];
     
+    [self.gameVC updateAbility];
 }
 
 - (NSMutableArray*) generateEnvironment

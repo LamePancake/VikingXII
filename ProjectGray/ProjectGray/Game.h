@@ -30,6 +30,7 @@ typedef enum UnitAbilities
     HEAL,
     SEARCH,
     SCOUT,
+    HAMMER,
     NOABILITY
 } UnitAbilities;
 

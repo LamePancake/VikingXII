@@ -44,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UIView *pausedView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *goalImage;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *abilityButtons;
 
 /**
  * Notifies the game that the given faction has won.
@@ -70,4 +71,10 @@
  * Displays the current turn.
  */
 - (void)displayTurn;
+
+/**
+ * Updates the current ability image.
+ */
+- (void)updateAbility;
+
 @end

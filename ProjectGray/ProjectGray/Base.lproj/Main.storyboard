@@ -565,13 +565,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6v-i7-0K4" userLabel="Hammer">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6v-i7-0K4" userLabel="Hammer">
                                 <rect key="frame" x="380" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="IJK-1l-q6V"/>
                                     <constraint firstAttribute="height" constant="50" id="MC8-lZ-61v"/>
                                 </constraints>
-                                <state key="normal" title="Hammer">
+                                <state key="normal" title="Hammer" image="Hammer.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -607,8 +607,8 @@
                                     <action selector="pausePresssed:" destination="BV1-FR-VrT" eventType="touchDown" id="KZG-X8-hPa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-ba-NOp">
-                                <rect key="frame" x="354" y="87" width="220" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSk-ba-NOp">
+                                <rect key="frame" x="354" y="87" width="220" height="22"/>
                                 <attributedString key="attributedText">
                                     <fragment content=" ">
                                         <attributes>
@@ -622,44 +622,43 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20P-zN-uWy">
-                                <rect key="frame" x="104" y="45" width="218" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvC-70-yNN" userLabel="Attack">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvC-70-yNN" userLabel="Attack">
                                 <rect key="frame" x="240" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7OH-04-v4N"/>
                                     <constraint firstAttribute="width" constant="50" id="I7Y-Ov-2SU"/>
                                 </constraints>
-                                <state key="normal" title="Attack">
+                                <state key="normal" title="Attack" image="Attack.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="attackAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="UCv-NL-LpN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97V-E6-jp5">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97V-E6-jp5">
                                 <rect key="frame" x="170" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="G91-au-odG"/>
                                     <constraint firstAttribute="height" constant="50" id="bCK-1F-5sa"/>
                                 </constraints>
-                                <state key="normal" title="Move">
+                                <state key="normal" title="Move" image="Movement.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="moveAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="U9w-to-Azg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="May-KN-Jeo">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="May-KN-Jeo">
                                 <rect key="frame" x="310" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Ezw-Y7-4eB"/>
                                     <constraint firstAttribute="width" constant="50" id="Sqc-qP-zrt"/>
                                 </constraints>
-                                <state key="normal" title="Search">
+                                <state key="normal" title="Search" image="Search.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -667,7 +666,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Attack Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5E5-nm-V9Q">
-                                <rect key="frame" x="344" y="328" width="218" height="21"/>
+                                <rect key="frame" x="0.0" y="0.0" width="83" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -689,26 +688,26 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwo-S9-AYp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwo-S9-AYp">
                                 <rect key="frame" x="380" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Efc-lf-Lt7"/>
                                     <constraint firstAttribute="width" constant="50" id="YRu-mu-8ZC"/>
                                 </constraints>
-                                <state key="normal" title="Scout">
+                                <state key="normal" title="Scout" image="Scout.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="scoutAbilitySelected:" destination="BV1-FR-VrT" eventType="touchUpInside" id="m2m-Vk-fRR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whP-zb-phm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whP-zb-phm">
                                 <rect key="frame" x="380" y="500" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="p9c-NZ-v96"/>
                                     <constraint firstAttribute="width" constant="50" id="xu8-8Z-ZMz"/>
                                 </constraints>
-                                <state key="normal" title="Heal">
+                                <state key="normal" title="Heal" image="Heal.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -870,6 +869,12 @@
                         <outlet property="turnImage" destination="f2f-cL-rMQ" id="Cy6-nd-ZwG"/>
                         <outlet property="turnMarker" destination="WyU-sd-vxG" id="X3q-xi-NHJ"/>
                         <outlet property="winLabel" destination="20P-zN-uWy" id="SwU-cl-K1J"/>
+                        <outletCollection property="abilityButtons" destination="AvC-70-yNN" id="gVi-ad-hWW"/>
+                        <outletCollection property="abilityButtons" destination="97V-E6-jp5" id="CcI-uu-GzI"/>
+                        <outletCollection property="abilityButtons" destination="whP-zb-phm" id="cCM-Pd-bSB"/>
+                        <outletCollection property="abilityButtons" destination="May-KN-Jeo" id="ggK-eO-MRm"/>
+                        <outletCollection property="abilityButtons" destination="Pwo-S9-AYp" id="POP-gR-gEa"/>
+                        <outletCollection property="abilityButtons" destination="W6v-i7-0K4" id="wr2-Un-MaH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -1008,12 +1013,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Attack.png" width="512" height="512"/>
         <image name="Back.png" width="512" height="512"/>
         <image name="EndTurn.png" width="512" height="512"/>
         <image name="EndTurnPressed.png" width="512" height="512"/>
+        <image name="Hammer.png" width="512" height="512"/>
+        <image name="Heal.png" width="512" height="512"/>
+        <image name="Movement.png" width="512" height="512"/>
         <image name="Pause.png" width="512" height="512"/>
         <image name="PausePressed.png" width="512" height="512"/>
         <image name="PlaceUnits.png" width="512" height="256"/>
+        <image name="Scout.png" width="512" height="512"/>
+        <image name="Search.png" width="512" height="512"/>
         <image name="Spaaaace.jpg" width="4096" height="4096"/>
         <image name="Stats.png" width="819" height="1024"/>
         <image name="Title_resized.png" width="1536" height="1536"/>

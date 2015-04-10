@@ -70,6 +70,8 @@
         if(unitOnTile.faction == self.whoseTurn)
             self.selectedUnit = unitOnTile;
     }
+    
+    [self.gameVC updateAbility];
 }
 
 
@@ -164,6 +166,8 @@
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;
     }
+    
+    [self.gameVC updateAbility];
 }
 
 - (NSMutableArray*) generateEnvironment
