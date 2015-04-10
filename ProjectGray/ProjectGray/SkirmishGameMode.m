@@ -141,6 +141,21 @@
         {
             self.selectedScoutedUnit = [self.actions scoutThis:unitOnTile with:self.selectedUnit];
         }
+        else if (self.selectedUnitAbility == SEARCH &&
+                 self.selectedUnit.stats->actionPool > 0 &&
+                 [HexCells distanceFrom:tile toHex:self.selectedUnit.hex] == 1)
+        {
+            if (tile.hexType == ASTEROID)
+            {
+                EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
+                if ([self.actions searchThisForPowerUps:entity byThis:self.selectedUnit])
+                {
+                    NSLog(@"PoweredUp!");
+                    [self activatePowerUp:entity.powerUp forUnit:self.selectedUnit];
+                    entity.powerUp = NOPOWERUP;
+                }
+            }
+        }
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that

@@ -40,7 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
-        _powerUp = [[ActionHero alloc] initPowerUpForUnit:nil];
+        _powerUp = ACTION_HERO;
     }
     return self;
 

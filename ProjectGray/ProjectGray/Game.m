@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import "Game.h"
 #import "GameViewController.h"
-#import "PowerUp.h"
+#import "ActionHero.h"
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
@@ -47,7 +47,7 @@ static Game* _game = nil;
         _currentRound = 1;
         _state = SELECTION;
         _selectionSwitchCount = 0;
-        _selectedUnitAbility = NONE;
+        _selectedUnitAbility = NOABILITY;
         _p1RespawnUnits = [[NSMutableArray alloc] init];
         _p2RespawnUnits = [[NSMutableArray alloc] init];
         _activePowerUps = [[NSMutableArray alloc] init];
@@ -64,6 +64,44 @@ static Game* _game = nil;
     [self readTextFile];
     self.totalGames++;
     return self;
+}
+
+- (void) updatePowerUps
+{
+    NSMutableArray* powerUpsToDiscard = [[NSMutableArray alloc] init];
+    
+    for (PowerUp* powerUp in _activePowerUps)
+    {
+        if (powerUp.numOfRounds <= 0)
+        {
+            [powerUpsToDiscard addObject:powerUp];
+            [powerUp endPowerUp];
+        }
+        else
+        {
+            powerUp.numOfRounds--;
+            [powerUp applyPowerUp];
+        }
+    }
+    
+    [_activePowerUps removeObjectsInArray:powerUpsToDiscard];
+}
+
+- (void) activatePowerUp:(PowerUpType) type forUnit:(Unit*)unit
+{
+    PowerUp* powerUp;
+    
+    switch (type) {
+        case ACTION_HERO:
+            powerUp = [[ActionHero alloc] initPowerUpForUnit:unit];
+            [_activePowerUps addObject:powerUp];
+            break;
+            
+        default:
+            return;
+    }
+    
+    [powerUp applyPowerUp];
 }
 
 - (NSMutableArray*) generateEnvironment
@@ -194,7 +232,7 @@ static Game* _game = nil;
     // Determine whose turn it should be
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
-    _selectedUnitAbility = NONE;
+    _selectedUnitAbility = NOABILITY;
 
     NSMutableArray* unitList;
     // Reset the action points of the faction who just finished their turn

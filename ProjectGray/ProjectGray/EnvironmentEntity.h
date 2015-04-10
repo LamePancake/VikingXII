@@ -21,7 +21,7 @@
 @property (nonatomic) Hex* hex;
 @property (nonatomic) EnvironmentClasses type;
 @property (nonatomic) float percentSearched;
-@property PowerUp* powerUp;
+@property PowerUpType powerUp;
 
 -(instancetype) initWithType: (EnvironmentClasses) type atPosition:(GLKVector3)pos withRotation:(GLKVector3)rot andScale: (GLKVector3)scl onHex:(Hex*)hex;
 

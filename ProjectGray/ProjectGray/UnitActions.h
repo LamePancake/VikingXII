@@ -71,8 +71,8 @@ static NSString *attackInfo;
  * @param vikingAsteroid The asteroid containing the vikings' flag.
  * @param graysAsteroid  The asteroid containing the grays' flag.
  */
--(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid;
--(BOOL)searchThis:(EnvironmentEntity*)target byThis:(Unit*)searcher forPowerUps:(NSMutableArray*)activePowerUps;
+-(BOOL)searchThisForPowerUps:(EnvironmentEntity*)target byThis:(Unit*)searcher forVikingFlagLocation: (EnvironmentEntity*) vikingAsteroid orGraysFlagLocation:(EnvironmentEntity*) graysAsteroid;
+-(BOOL)searchThisForPowerUps:(EnvironmentEntity*)target byThis:(Unit*)searcher;
 /**
  * Displays the target unit's stats.
  * @param target  The unit whose stats should be displayed.

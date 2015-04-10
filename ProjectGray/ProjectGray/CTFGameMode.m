@@ -236,8 +236,14 @@
             if (tile.hexType == ASTEROID)
             {
                 EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
-                if ([self.actions searchThis:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
+                if ([self.actions searchThisForPowerUps:entity byThis:self.selectedUnit forVikingFlagLocation:_vikingFlagHidingLocation orGraysFlagLocation: _graysFlagHidingLocation])
                 {
+                    if (entity.powerUp != NOPOWERUP)
+                    {
+                        NSLog(@"PoweredUp!");
+                        [self activatePowerUp:entity.powerUp forUnit:self.selectedUnit];
+                        entity.powerUp = NOPOWERUP;
+                    }
                     
                     if (self.selectedUnit.faction == VIKINGS)
                     {

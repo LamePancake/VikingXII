@@ -10,6 +10,12 @@
 #define ProjectGray_PowerUp_h
 #import "Unit.h"
 
+typedef enum PowerUpType
+{
+    ACTION_HERO,
+    NOPOWERUP
+} PowerUpType;
+
 @interface PowerUp : NSObject
 
 @property (weak, nonatomic) Unit* affectedUnit;

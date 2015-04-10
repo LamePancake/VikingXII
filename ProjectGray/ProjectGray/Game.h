@@ -30,7 +30,7 @@ typedef enum UnitAbilities
     HEAL,
     SEARCH,
     SCOUT,
-    NONE
+    NOABILITY
 } UnitAbilities;
 
 @interface Game : NSObject
@@ -91,9 +91,13 @@ typedef enum UnitAbilities
  * @param hex The hex cell to check.
  * @return The unit for @a player on @a hex if there is one or nil.
  */
--(Unit *)getUnitOnHex: (Hex *)hex;
+-(Unit *) getUnitOnHex: (Hex *)hex;
 
 -(EnvironmentEntity *) getEnvironmentEntityOnHex: (Hex *)hex;
+
+- (void) updatePowerUps;
+
+- (void) activatePowerUp:(PowerUpType) type forUnit:(Unit*)unit;
 
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
