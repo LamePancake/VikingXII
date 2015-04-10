@@ -213,8 +213,6 @@ static NSMutableArray* currentPath;
     attacker.projectile.position = attacker.position;
     attacker.projectile.rotation = attacker.rotation;
     attacker.projectile.active = YES;
-    firingMove = [[MovementTask alloc] initWithGameObject:attacker.projectile fromInitial:attacker.position toDestination:target.position andNextTask:nil];
-    [[Game taskManager] addTask:firingMove];
     
     // Create the callback to show damage
     NSMethodSignature* methodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
@@ -222,6 +220,13 @@ static NSMutableArray* currentPath;
     GLKVector3 unitPos = target.position; // Can't pass property to the invocation (or union, as it turns out)
     BOOL isDamage = YES;
     float actualDamage = roundf(damage);
+    
+    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setActive:)];
+    NSInvocation* rotCompletion = [NSInvocation invocationWithMethodSignature:signature];
+    bool willBeActive = true;
+    rotCompletion.target = attacker;
+    rotCompletion.selector = @selector(setTaskAvailable:);
+    [rotCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
     
     completion.target = _game.gameVC;
     completion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
@@ -231,11 +236,20 @@ static NSMutableArray* currentPath;
     [completion setArgument:&actualDamage atIndex:5];
     [completion setArgument:&isDamage atIndex:6];
     
+    GLKVector3 finalAngle;
+    finalAngle = GLKVector3Subtract(target.position, attacker.position);
+    finalAngle.z = atan2f(finalAngle.y, finalAngle.x);
+    
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
     StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:attacker.projectile andTarget:target andGame:_game withSound:@"explosion-metallic.wav"
                                                     andNextTask:nil andCompletion:completion];
+    firingMove = [[MovementTask alloc] initWithGameObject:attacker.projectile fromInitial:attacker.position toDestination:target.position andNextTask:strike];
+    RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:attacker toAngle:finalAngle andNextTask:firingMove];
     
-    firingMove.nextTask = strike;
+    strike.completionHandler = completion;
+    rotTask.completionHandler = rotCompletion;
+    [[Game taskManager] addTask:rotTask];
+    
 }
 
 - (void)refillAPFor:(Unit *)thisObject {
