@@ -17,10 +17,12 @@
  * Medium units have both moderate move range and attack damage/range.
  * Heavy units can't move far, but they can deal significant damage.
  */
-#define ITEM_CLASSES 3 /// The number of of classes. Must be updated when factions are added/deleted.
+#define ITEM_CLASSES 4 /// The number of of classes. Must be updated when factions are added/deleted.
 typedef enum _ItemClasses {
-    PROJECTILE = 0,
-    FLAG = 1
+    L_PROJECTILE = 0,
+    M_PROJECTILE = 1,
+    H_PROJECTILE = 2,
+    FLAG = 3
 } ItemClasses;
 
 #endif

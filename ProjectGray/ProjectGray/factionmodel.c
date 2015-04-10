@@ -8,8 +8,16 @@
 
 #include "factionmodel.h"
 
-const float cannonBallShot[] = {
-#include "cannonball.txt"
+const float lCannonBall[] = {
+#include "l_cannonball.txt"
+};
+
+const float mCannonBall[] = {
+#include "m_cannonball.txt"
+};
+
+const float hCannonBall[] = {
+#include "h_cannonball.txt"
 };
 
 const float vikingFlag[] = {
@@ -18,8 +26,17 @@ const float vikingFlag[] = {
 
 
 
-const float laserShot[] = {
-#include "laser.txt"
+const float lLaser[] = {
+#include "l_laser.txt"
+};
+
+
+const float mLaser[] = {
+#include "m_laser.txt"
+};
+
+const float hLaser[] = {
+#include "h_laser.txt"
 };
 
 const float grayFlag[] = {
@@ -31,12 +48,16 @@ const float grayFlag[] = {
 const float *factionModels[NUM_FACTIONS][ITEM_CLASSES] = {
     // Viking data
     {
-        &(cannonBallShot[0]),
+        &(lCannonBall[0]),
+        &(mCannonBall[0]),
+        &(hCannonBall[0]),
         &(vikingFlag[0]) // Currently, viking light is also the model for medium
     },
     // Alien data; for now, uses the viking data since we have no other stuff
     {
-        &(laserShot[0]),
+        &(lLaser[0]),
+        &(mLaser[0]),
+        &(hLaser[0]),
         &(grayFlag[0])
     }
 };
@@ -44,12 +65,16 @@ const float *factionModels[NUM_FACTIONS][ITEM_CLASSES] = {
 const unsigned int factionVertexCounts[NUM_FACTIONS][ITEM_CLASSES] = {
     // Viking data
     {
-        sizeof(cannonBallShot) / VERTEX_SIZE,
+        sizeof(lCannonBall) / VERTEX_SIZE,
+        sizeof(mCannonBall) / VERTEX_SIZE,
+        sizeof(hCannonBall) / VERTEX_SIZE,
         sizeof(vikingFlag) / VERTEX_SIZE
     },
     // Alien data
     {
-        sizeof(laserShot) / VERTEX_SIZE,
+        sizeof(lLaser) / VERTEX_SIZE,
+        sizeof(mLaser) / VERTEX_SIZE,
+        sizeof(hLaser) / VERTEX_SIZE,
         sizeof(grayFlag) / VERTEX_SIZE
     }
 };

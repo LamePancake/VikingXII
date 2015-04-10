@@ -18,6 +18,7 @@
 
 extern const float ITEM_SCALE;
 extern const float ITEM_HEIGHT;
+extern const float PROJECTILE_SCALE;
 @interface Item : NSObject <GameObject>
 
 @property (nonatomic) int itemClass;

@@ -62,10 +62,10 @@ enum
     VertexAttribute _modelVertexSpecification[3];
     
     // Item vertices and normals
-    GLuint _vertexVikingItemArray[3];
-    GLuint _vertexVikingItemBuffer[3];
-    GLuint _vertexGrayItemArray[3];
-    GLuint _vertexGrayItemBuffer[3];
+    GLuint _vertexVikingItemArray[4];
+    GLuint _vertexVikingItemBuffer[4];
+    GLuint _vertexGrayItemArray[4];
+    GLuint _vertexGrayItemBuffer[4];
     
     // Environment vertices and normals
     GLuint _vertexEnvironmentArray[3];
@@ -349,12 +349,29 @@ enum
 - (void)setupItems
 {
     // Item: cannonball
-    glGenVertexArraysOES(1, &_vertexVikingItemArray[PROJECTILE]);
-    glBindVertexArrayOES(_vertexVikingItemArray[PROJECTILE]);
+    glGenVertexArraysOES(1, &_vertexVikingItemArray[L_PROJECTILE]);
+    glBindVertexArrayOES(_vertexVikingItemArray[L_PROJECTILE]);
     
-    glGenBuffers(1, &_vertexVikingItemBuffer[PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][PROJECTILE], GL_STATIC_DRAW);
+    glGenBuffers(1, &_vertexVikingItemBuffer[L_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[L_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][L_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][L_PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+
+    // ITEM: MEDIUM CANNONBALL
+    glGenVertexArraysOES(1, &_vertexVikingItemArray[M_PROJECTILE]);
+    glBindVertexArrayOES(_vertexVikingItemArray[M_PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexVikingItemBuffer[M_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[M_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][M_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][M_PROJECTILE], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -365,13 +382,65 @@ enum
     
     glBindVertexArrayOES(0);
     
-    // Item: laser
-    glGenVertexArraysOES(1, &_vertexGrayItemArray[PROJECTILE]);
-    glBindVertexArrayOES(_vertexGrayItemArray[PROJECTILE]);
+    // ITEM: HEAVY CANNONBALL
+    glGenVertexArraysOES(1, &_vertexVikingItemArray[H_PROJECTILE]);
+    glBindVertexArrayOES(_vertexVikingItemArray[H_PROJECTILE]);
     
-    glGenBuffers(1, &_vertexGrayItemBuffer[PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][PROJECTILE], GL_STATIC_DRAW);
+    glGenBuffers(1, &_vertexVikingItemBuffer[H_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[H_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][H_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][H_PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    
+    // Item: light laser
+    glGenVertexArraysOES(1, &_vertexGrayItemArray[L_PROJECTILE]);
+    glBindVertexArrayOES(_vertexGrayItemArray[L_PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexGrayItemBuffer[L_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[L_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][L_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][L_PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // ITEM: MEDIUM LASER
+    glGenVertexArraysOES(1, &_vertexGrayItemArray[M_PROJECTILE]);
+    glBindVertexArrayOES(_vertexGrayItemArray[M_PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexGrayItemBuffer[M_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[M_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][M_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][M_PROJECTILE], GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
+    
+    glBindVertexArrayOES(0);
+    
+    // ITEM: HEAVY LASER
+    glGenVertexArraysOES(1, &_vertexGrayItemArray[H_PROJECTILE]);
+    glBindVertexArrayOES(_vertexGrayItemArray[H_PROJECTILE]);
+    
+    glGenBuffers(1, &_vertexGrayItemBuffer[H_PROJECTILE]);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[H_PROJECTILE]);
+    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][H_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][H_PROJECTILE], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
@@ -1237,7 +1306,7 @@ enum
             continue;
         
         // projectile
-        glBindVertexArrayOES(vertices[PROJECTILE]);
+        glBindVertexArrayOES(vertices[curUnit.shipClass]);
         glUseProgram(program);
         
         //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
@@ -1261,7 +1330,7 @@ enum
         glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
         glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
         
-        glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][PROJECTILE]);
+        glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][curUnit.shipClass]);
     }
 }
 

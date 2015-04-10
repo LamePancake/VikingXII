@@ -10,6 +10,7 @@
 
 const float ITEM_SCALE = 0.01f;
 const float ITEM_HEIGHT = 0.04f;
+const float PROJECTILE_SCALE = 0.0075f;
 
 @interface Item ()
 {
