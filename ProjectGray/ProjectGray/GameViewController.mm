@@ -182,7 +182,6 @@ enum
     endTurnPressed = NO;
     
     isPaused = NO;
-    _hammerAbilityButton.hidden = YES;
     
     isFirstUpdate = YES;
     
@@ -713,6 +712,15 @@ enum
         _scoutAbilityButton.hidden = true;
     }
     
+    if (_game.selectedUnit.shipClass == HEAVY)
+    {
+        _hammerAbilityButton.hidden = false;
+    }
+    else
+    {
+        _hammerAbilityButton.hidden = true;
+    }
+    
     [[SoundManager sharedManager] playSound:@"select.wav" looping:NO];
 }
 
@@ -743,6 +751,12 @@ enum
 - (IBAction)searchAbilitySelected:(id)sender
 {
     _game.selectedUnitAbility = SEARCH;
+    [self updateAbility];
+}
+
+- (IBAction)hammerAbilitySelected:(id)sender
+{
+    _game.selectedUnitAbility = HAMMER;
     [self updateAbility];
 }
 
@@ -1013,19 +1027,19 @@ enum
                     }
                 }
             }
-            else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
+            else if (_game.selectedUnitAbility == HAMMER && [_game.selectedUnit ableToAttack])
             {
-                if (_game.selectedUnit.shipClass == HEAVY) {
-                    for (EnvironmentEntity* entity in _game.environmentEntities)
+                for (EnvironmentEntity* entity in _game.environmentEntities)
+                {
+                    if (entity.type <= ENV_ASTEROID_VAR2 && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 &&
+                        [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] <= _game.selectedUnit.stats->attackRange)
                     {
-                        if (entity.type <= ENV_ASTEROID_VAR2 && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 &&
-                            [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] <= _game.selectedUnit.stats->attackRange)
-                        {
-                            [entity.hex setColour:ATTACKABLE_COLOUR];
-                        }
+                        [entity.hex setColour:ATTACKABLE_COLOUR];
                     }
                 }
-                
+            }
+            else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
+            {                
                 if(_game.whoseTurn == _game.p1Faction)
                 {
                     for(Unit* unit in _game.p2Units)

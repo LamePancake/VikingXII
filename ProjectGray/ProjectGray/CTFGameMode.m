@@ -147,7 +147,7 @@
         {
             self.selectedUnit = nil;
         }
-        else if (self.selectedUnitAbility == ATTACK &&
+        else if (self.selectedUnitAbility == HAMMER &&
                  self.selectedUnit.shipClass == HEAVY &&
                  tile.hexType == ASTEROID)
         {
