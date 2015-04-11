@@ -77,7 +77,7 @@ static NSMutableArray* currentPath;
     id<Task> nextTask = nil;
     
     // Sets the completion handler to make the unit active again after movement
-    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setActive:)];
+    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setTaskAvailable:)];
     NSInvocation* moveCompletion = [NSInvocation invocationWithMethodSignature:signature];
     bool willBeActive = true;
     moveCompletion.target = mover;
@@ -114,9 +114,6 @@ static NSMutableArray* currentPath;
             currentMove.completionHandler = @[moveCompletion];
         }
     }
-    
-    
-    
     return nextTask;
 }
 

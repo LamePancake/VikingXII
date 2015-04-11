@@ -79,20 +79,6 @@
 
 - (IBAction)unwindToTitle:(UIStoryboardSegue *)unwindSegue
 {
-    UIViewController* sourceViewController = unwindSegue.sourceViewController;
-    
-    if ([sourceViewController isKindOfClass:[GameViewController class]])
-    {
-        NSLog(@"Coming from Game!");
-    }
-    else if ([sourceViewController isKindOfClass:[UnitSelectionViewController class]])
-    {
-        NSLog(@"Coming from Unit!");
-    }
-    else if ([sourceViewController isKindOfClass:[StatsViewController class]])
-    {
-        NSLog(@"Coming from Stats!");
-    }
 }
 
 @end

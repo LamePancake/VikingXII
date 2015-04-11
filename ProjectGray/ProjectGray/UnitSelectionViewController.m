@@ -10,7 +10,7 @@
 #import "GameViewController.h"
 #import "HexCells.h"
 
-#define MAX_UNITS 6
+#define MAX_UNITS 3
 
 @interface UnitSelectionViewController ()
 {
@@ -315,11 +315,6 @@
 - (IBAction)unwindToUnitSelection:(UIStoryboardSegue *)unwindSegue
 {
     
-}
-
--(void)dealloc
-{
-    NSLog(@"Dealloced bitch");
 }
 
 - (IBAction)backPressed:(id)sender

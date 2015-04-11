@@ -953,6 +953,7 @@ enum
             _winLabel.text = @"";
         }
     }
+    [self displayWinScreenWithWinner:winner];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
@@ -1556,6 +1557,20 @@ enum
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [[SoundManager sharedManager] stopMusic];
+}
+
+- (void)displayWinScreenWithWinner: (Faction)winner
+{
+    UIImage* winImage = winner == _game.p1Faction ? [UIImage imageNamed:@"VikingWin.png"] : [UIImage imageNamed:@"GrayWin.png"];
+    
+    _winView.hidden = NO;
+    _winImageView.image = winImage;
+    
+    isPaused = YES;
+
+    [UIView animateWithDuration:4.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _winView.alpha = 1;
+    } completion:nil];
 }
 
 - (IBAction)resumeButtonPressed:(id)sender

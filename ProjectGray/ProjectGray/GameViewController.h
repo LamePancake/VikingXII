@@ -45,6 +45,8 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *goalImage;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *abilityButtons;
+@property (weak, nonatomic) IBOutlet UIView *winView;
+@property (weak, nonatomic) IBOutlet UIImageView *winImageView;
 
 /**
  * Notifies the game that the given faction has won.

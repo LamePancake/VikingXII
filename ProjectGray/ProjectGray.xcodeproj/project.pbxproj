@@ -102,6 +102,8 @@
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
 		70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */; };
+		70D9640E1AD8F72A003E0F0D /* GrayWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640C1AD8F72A003E0F0D /* GrayWin.png */; };
+		70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640D1AD8F72A003E0F0D /* VikingWin.png */; };
 		A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AD1ABDF1BB00D1925A /* asteroid.txt */; };
 		A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AE1ABDF1BB00D1925A /* cannonball.txt */; };
 		A50862B31ABDF1BB00D1925A /* flag.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AF1ABDF1BB00D1925A /* flag.txt */; };
@@ -292,6 +294,8 @@
 		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
 		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
 		70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "epic-orchestra.mp3"; sourceTree = "<group>"; };
+		70D9640C1AD8F72A003E0F0D /* GrayWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayWin.png; sourceTree = "<group>"; };
+		70D9640D1AD8F72A003E0F0D /* VikingWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingWin.png; sourceTree = "<group>"; };
 		A50862AD1ABDF1BB00D1925A /* asteroid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = asteroid.txt; sourceTree = "<group>"; };
 		A50862AE1ABDF1BB00D1925A /* cannonball.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cannonball.txt; sourceTree = "<group>"; };
 		A50862AF1ABDF1BB00D1925A /* flag.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.txt; sourceTree = "<group>"; };
@@ -445,6 +449,8 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				70D9640C1AD8F72A003E0F0D /* GrayWin.png */,
+				70D9640D1AD8F72A003E0F0D /* VikingWin.png */,
 				35B08CC61AD8E8A7005102D4 /* Tutorial */,
 				351C14221ACB1A4500D6C15D /* Back.png */,
 				351C14231ACB1A4500D6C15D /* BackPressed.png */,
@@ -860,6 +866,7 @@
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
 				A5A20A3A1AC720EE00E89B41 /* vikingVertsLight.txt in Resources */,
 				351C142A1ACB1A4500D6C15D /* Fight.png in Resources */,
+				70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */,
 				351C14291ACB1A4500D6C15D /* BackPressed.png in Resources */,
 				A50E72991AC8BCFC00FECBE6 /* environment.png in Resources */,
 				A5A20A391AC720EE00E89B41 /* vikingVertsHeavy.txt in Resources */,
@@ -880,6 +887,7 @@
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
 				35B08CD31AD8E8C6005102D4 /* tutorial-2.png in Resources */,
 				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
+				70D9640E1AD8F72A003E0F0D /* GrayWin.png in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
 				351C14281ACB1A4500D6C15D /* Back.png in Resources */,
