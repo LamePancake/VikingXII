@@ -12,6 +12,7 @@
 #import "CTFMode.h"
 #import "Settings.h"
 #import "factionmodel.h"
+#import "PowerUp.h"
 
 @class Game;
 
@@ -63,6 +64,8 @@
  * @param isDamage Whether the change was damage, healing or a missed attack.
  */
 -(void)unitHealthChangedAtX: (float)x andY: (float)y andZ: (float)z withChange: (float)change andIsDamage: (bool) isDamage;
+
+-(void)asteroidSearchedPercent:(float)percent atX:(float)x andY: (float)y andZ: (float)z foundFlag:(BOOL)flagFound foundPowerUp:(PowerUpType)powerUp;
 
 /**
  * Displays the current goal, eg. fight, place flages, etc

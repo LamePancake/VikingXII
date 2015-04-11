@@ -934,6 +934,85 @@ enum
     }];
 }
 
+-(void)asteroidSearchedPercent:(float)percent atX:(float)x andY: (float)y andZ: (float)z foundFlag:(BOOL)flagFound foundPowerUp:(PowerUpType)powerUp
+{
+    UILabel* searchLabel = [[UILabel alloc] init];
+    GLKVector3 pos = GLKVector3Make(x, y, z);
+    pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, pos);
+    int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
+    int winY = (int) round((( 1 - pos.y ) / 2.0) * self.view.frame.size.height );
+    
+    [searchLabel setFrame:CGRectMake(winX, winY, 100, 20)];
+    searchLabel.backgroundColor=[UIColor clearColor];
+    
+    searchLabel.userInteractionEnabled = NO;
+    [self.view addSubview:searchLabel];
+    
+    if(percent < 100)
+    {
+        searchLabel.textColor=[UIColor blueColor];
+        searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched...", percent, '%'];    }
+    else
+    {
+        if (flagFound)
+        {
+            searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched! Flag Found", percent, '%'];
+        }
+        else
+        {
+            searchLabel.textColor=[UIColor greenColor];
+            
+            switch (powerUp)
+            {
+                case ACTION_HERO:
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Action Hero", percent, '%'];
+                    break;
+                case LUCKY_CHARM:
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Lucky Charm", percent, '%'];
+                    break;
+                case VAMPIRISM:
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Vampirism", percent, '%'];
+                    break;
+                case KABLAM:
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! KaBlam", percent, '%'];
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched! Nothing Found", percent, '%'];
+    }
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:24]};
+    
+    CGRect rect = [searchLabel.text boundingRectWithSize:CGSizeMake(0, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:attributes
+                                                 context:nil];
+    
+    CGRect currentLabelFrame = searchLabel.frame;
+    
+    currentLabelFrame.size.width = rect.size.width;
+    
+    searchLabel.frame = currentLabelFrame;
+    
+    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UILabel *)searchLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UILabel *)searchLabel).transform = CGAffineTransformMakeScale(1,1);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UILabel *)searchLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
+            } completion:^(BOOL finished) {
+                searchLabel.text = @"";
+            }];
+        }];
+    }];
+}
+
+
 -(void) factionDidWin: (Faction)winner
 {
     switch(winner)

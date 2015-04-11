@@ -311,11 +311,12 @@ static NSMutableArray* currentPath;
             
             if (target.powerUp != NOPOWERUP)
             {
+                [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:NO foundPowerUp:target.powerUp];
                 return true;
             }
         }
     }
-    
+    [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:NO foundPowerUp:target.powerUp];
     return false;
 }
 
@@ -331,12 +332,26 @@ static NSMutableArray* currentPath;
         {
             target.percentSearched = 100.0f;
             
-            if (target == graysAsteroid || target == vikingAsteroid || target.powerUp != NOPOWERUP)
+            if (target == graysAsteroid)
             {
+                [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:YES foundPowerUp:target.powerUp];
+                return true;
+            }
+            
+            if (target == vikingAsteroid) {
+                [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:YES foundPowerUp:target.powerUp];
+                return true;
+            }
+            
+            if (target.powerUp != NOPOWERUP)
+            {
+                [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:NO foundPowerUp:target.powerUp];
                 return true;
             }
         }
     }
+    
+    [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:NO foundPowerUp:target.powerUp];
     
     return false;
 }
