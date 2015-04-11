@@ -406,6 +406,8 @@
     {
         if (hex == _graysFlagCarrier.hex && _graysFlagCarrier.faction == self.p1Faction)
         {
+            self.winsCTFp1++;
+            [self writeToTextFile];
             return VIKINGS;
         }
     }
@@ -414,6 +416,8 @@
     {
         if (hex == _vikingFlagCarrier.hex && _vikingFlagCarrier.faction == self.p2Faction)
         {
+            self.winsCTFp2++;
+            [self writeToTextFile];
             return ALIENS;
         }
     }

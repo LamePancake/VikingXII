@@ -211,13 +211,14 @@
         return -1;
     else if(playerOneAlive && !playerTwoAlive) {
         self.winsP1++;
+        [self writeToTextFile];
         return ((Unit*)p1Units[0]).faction;
     }
     else if(!playerOneAlive && playerTwoAlive) {
         self.winsP2++;
+        [self writeToTextFile];
         return ((Unit*)p2Units[0]).faction;
     }
-    [self writeToTextFile];
     return -1;
 }
 

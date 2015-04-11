@@ -32,7 +32,6 @@ static Game* _game = nil;
                    andGameVC: (GameViewController*) gameVC
 {
     if(_game) return nil;
-    //Matts a fagget
     if((self = [super init]))
     {
         _mode = mode;
@@ -61,7 +60,7 @@ static Game* _game = nil;
 
         _actions = [[UnitActions alloc] initWithGame:self];
     }
-    //[self resetFiles]; //Reset the textfile if we need to
+//    [self resetFiles]; //Reset the textfile if we need to
     [self readTextFile];
     self.totalGames++;
     return self;
@@ -288,9 +287,10 @@ static Game* _game = nil;
     
     //make a file name to write the data to using the documents directory:
     NSString *fileName = [NSString stringWithFormat:@"%@/textfile.txt", documentsDirectory];
-    //create content - four lines of text
-    NSString *content = [NSString stringWithFormat:@"%i<data>%i<data>%i<data>%i<data>%i"
-                         , self.unitsKilledp1, self.unitsKilledp2, self.winsP1, self.winsP2, self.totalGames];
+    //create content - four lines of text           p1kills p2kills p1wins p2wins   total   ctfp1   ctfp2  sound    music  skipScene
+    NSString *content = [NSString stringWithFormat:@"%i<data>%i<data>%i<data>%i<data>%i<data>%i<data>%i"
+                         , self.unitsKilledp1, self.unitsKilledp2, self.winsP1, self.winsP2, self.totalGames
+                         , self.winsCTFp1, self.winsCTFp2];
     //save content to the documents directory
     [content writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
 }
@@ -305,18 +305,29 @@ static Game* _game = nil;
     NSString *fileName = [NSString stringWithFormat:@"%@/textfile.txt", documentsDirectory];
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     NSArray *dataSegments = [content componentsSeparatedByString:@"<data>"];
-    if(dataSegments.count == 5) {
+    //Hard coded
+    if(dataSegments.count == 10) {
         self.unitsKilledp1 = ((NSString*)dataSegments[0]).intValue;
         self.unitsKilledp2 = ((NSString*)dataSegments[1]).intValue;
         self.winsP1 = ((NSString*)dataSegments[2]).intValue;
         self.winsP2 = ((NSString*)dataSegments[3]).intValue;
         self.totalGames = ((NSString*)dataSegments[4]).intValue;
+        self.winsCTFp1 = ((NSString*)dataSegments[5]).intValue;
+        self.winsCTFp2 = ((NSString*)dataSegments[6]).intValue;
+//        self.volumeSound = ((NSString*)dataSegments[7]).intValue;
+//        self.volumeMusic = ((NSString*)dataSegments[8]).intValue;
+//        self.skipScene = ((NSString*)dataSegments[9]).intValue;
     } else {
         self.unitsKilledp1 = 0;
         self.unitsKilledp2 = 0;
         self.winsP1 = 0;
         self.winsP2 = 0;
         self.totalGames = 0;
+        self.winsCTFp1 = 0;
+        self.winsCTFp2 = 0;
+//        self.volumeSound = 0;
+//        self.volumeMusic = 0;
+//        self.skipScene = 0;
     }
     //printf("%s", [content UTF8String]);
     //use simple alert from my library (see previous post for details)

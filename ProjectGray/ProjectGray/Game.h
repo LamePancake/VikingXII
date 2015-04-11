@@ -81,7 +81,7 @@ typedef enum UnitAbilities
 @property (nonatomic) UnitAbilities selectedUnitAbility;
 
 //Saved Stats
-@property (nonatomic) int unitsKilledp1, unitsKilledp2, winsP1, winsP2, totalGames;
+@property (nonatomic) int unitsKilledp1, unitsKilledp2, winsP1, winsP2, totalGames, winsCTFp1, winsCTFp2;
 
 -(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
                    andGameVC: (GameViewController*)gameVC;

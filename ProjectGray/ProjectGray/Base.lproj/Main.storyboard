@@ -553,6 +553,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaaaace.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Cm6-9a-AFr">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gray CTF Wins: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwZ-d1-xf3" userLabel="Viking CTF Wins">
+                                <rect key="frame" x="182" y="344" width="314" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Viking CTF Wins: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z1-ui-mSO" userLabel="Gray CTF Wins">
+                                <rect key="frame" x="182" y="297" width="314" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gray Wins: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkp-cI-8rK" userLabel="Gray Wins">
                                 <rect key="frame" x="218" y="203" width="314" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -607,6 +619,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh0-Sg-9B4">
+                                <rect key="frame" x="16" y="15" width="40" height="30"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButton:" destination="9Ng-S0-XWu" eventType="touchUpInside" id="qMt-YU-0r4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -631,9 +652,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="grayCTF" destination="6z1-ui-mSO" id="aC8-Du-bau"/>
                         <outlet property="grayKill" destination="ioC-qQ-QYX" id="QJy-UX-rdp"/>
                         <outlet property="grayWin" destination="Rkp-cI-8rK" id="vl8-3c-aCj"/>
                         <outlet property="totalGame" destination="6iS-hd-iQC" id="4a0-qu-7Q5"/>
+                        <outlet property="vikingCTF" destination="CwZ-d1-xf3" id="RCh-8J-2XA"/>
                         <outlet property="vikingKill" destination="FlI-vG-zuM" id="ECh-cs-5s4"/>
                         <outlet property="vikingWin" destination="Inl-C7-8Fa" id="AKS-d6-Edk"/>
                     </connections>
@@ -1074,6 +1097,15 @@
                                     <segue destination="9Ng-S0-XWu" kind="presentation" id="MpO-AB-tSx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK4-y4-2yc">
+                                <rect key="frame" x="277" y="468" width="54" height="30"/>
+                                <state key="normal" title="Options">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Gyw-gy-ijI" kind="presentation" id="Vjc-eF-ue3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1103,6 +1135,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bk9-LB-moE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-656" y="185"/>
+        </scene>
+        <!--Options Controller-->
+        <scene sceneID="Too-Uh-OuL">
+            <objects>
+                <viewController id="Gyw-gy-ijI" userLabel="Options Controller" customClass="OptionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rT7-5J-aDu"/>
+                        <viewControllerLayoutGuide type="bottom" id="7tH-MS-HkO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ioV-SJ-8S8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Options" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47F-Cd-8Da">
+                                <rect key="frame" x="230" y="74" width="61" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sound Volume" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-Wr-6mW">
+                                <rect key="frame" x="239" y="117" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Music Volume" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6w7-rh-o2d">
+                                <rect key="frame" x="230" y="146" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Skip Scenes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8m-wJ-aGJ">
+                                <rect key="frame" x="236" y="190" width="96" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVX-wo-R5S" userLabel="Skip Scene button">
+                                <rect key="frame" x="372" y="186" width="30" height="30"/>
+                                <state key="normal" title="On">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="skipSceneButton:" destination="Gyw-gy-ijI" eventType="touchUpInside" id="bxU-hk-KxL"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FRX-Ko-3n8" userLabel="Music Volume">
+                                <rect key="frame" x="358" y="142" width="118" height="31"/>
+                                <connections>
+                                    <action selector="musicVolume:" destination="Gyw-gy-ijI" eventType="valueChanged" id="dxJ-ws-aaH"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="t1h-FV-xku" userLabel="Sound Volume">
+                                <rect key="frame" x="370" y="117" width="118" height="31"/>
+                                <connections>
+                                    <action selector="soundVolume:" destination="Gyw-gy-ijI" eventType="valueChanged" id="67A-D8-YrZ"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCC-r1-xmO">
+                                <rect key="frame" x="522" y="20" width="35" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="vIK-Se-4aD" kind="unwind" unwindAction="unwindToTitle:" id="HYA-3O-pts"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="musicVolume" destination="FRX-Ko-3n8" id="aoZ-TS-cWr"/>
+                        <outlet property="skipSceneButton" destination="EVX-wo-R5S" id="Omc-mc-LLR"/>
+                        <outlet property="soundVolume" destination="t1h-FV-xku" id="b3t-mC-PPe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zDZ-VK-zW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="vIK-Se-4aD" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-973" y="861"/>
         </scene>
     </scenes>
     <resources>

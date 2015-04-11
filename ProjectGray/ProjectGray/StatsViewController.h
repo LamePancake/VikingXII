@@ -16,5 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *vikingKill;
 @property (strong, nonatomic) IBOutlet UILabel *grayWin;
 @property (strong, nonatomic) IBOutlet UILabel *grayKill;
+@property (strong, nonatomic) IBOutlet UILabel *vikingCTF;
+@property (strong, nonatomic) IBOutlet UILabel *grayCTF;
 
 @end

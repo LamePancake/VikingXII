@@ -137,6 +137,7 @@
 		A5E12FA51A9D08B4007A8C63 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA41A9D08B4007A8C63 /* white.png */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
 		F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F211F5A81ABE1F8A00B16426 /* RotationTask.m */; };
+		F2963F251AD8C5E400138742 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2963F241AD8C5E400138742 /* OptionViewController.m */; };
 		F29BB5051A9811A70000745E /* UnitActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5041A9811A70000745E /* UnitActions.m */; };
 		F29BB5081A98151D0000745E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5071A98151D0000745E /* Game.m */; };
 /* End PBXBuildFile section */
@@ -327,6 +328,8 @@
 		F211F5A71ABE1F7300B16426 /* RotationTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationTask.h; sourceTree = "<group>"; };
 		F211F5A81ABE1F8A00B16426 /* RotationTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationTask.m; sourceTree = "<group>"; };
 		F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitStats.h; sourceTree = "<group>"; };
+		F2963F231AD8C5E400138742 /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
+		F2963F241AD8C5E400138742 /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
 		F29BB5031A9811940000745E /* UnitActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitActions.h; sourceTree = "<group>"; };
 		F29BB5041A9811A70000745E /* UnitActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitActions.m; sourceTree = "<group>"; };
 		F29BB5061A98150E0000745E /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
@@ -566,6 +569,8 @@
 				351D533B1AC9D40D0021FE40 /* StatsViewController.m */,
 				35B08CC11AD873CD005102D4 /* UnitPopoverViewController.h */,
 				35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */,
+				F2963F231AD8C5E400138742 /* OptionViewController.h */,
+				F2963F241AD8C5E400138742 /* OptionViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 				3003CEF61A97D51F00CDBF26 /* NSMutableArray+QueueAdditions.m in Sources */,
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
 				305AD0261AD895FF00B86614 /* Vampirism.m in Sources */,
+				F2963F251AD8C5E400138742 /* OptionViewController.m in Sources */,
 				3016F6881ACDCC1F0036E908 /* ActionHero.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
