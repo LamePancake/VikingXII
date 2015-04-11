@@ -1193,7 +1193,7 @@ enum
         }
     }
     
-    [[Game taskManager] runTasksWithCurrentTime: [NSDate timeIntervalSinceReferenceDate]];
+    [_game.taskManager runTasksWithCurrentTime: [NSDate timeIntervalSinceReferenceDate]];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

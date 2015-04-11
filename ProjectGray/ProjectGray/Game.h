@@ -67,7 +67,7 @@ typedef enum UnitAbilities
 /// The faction who has the current turn.
 @property (nonatomic) Faction whoseTurn;
 
-@property (strong, nonatomic, readonly) TaskManager* taskManager;
+@property (strong, nonatomic) TaskManager* taskManager;
 @property (strong, nonatomic, readonly) UnitActions* actions;
 
 @property (nonatomic) int currentRound;
@@ -156,8 +156,4 @@ typedef enum UnitAbilities
  */
 -(void) unitKilledBy:(Faction)thisFaction;
 
-/**
- * If there is a game running, gets the task manager instance associated with the game. Otherwise, returns nil.
- */
-+(TaskManager *)taskManager;
 @end

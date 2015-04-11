@@ -16,8 +16,6 @@
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
-static Game* _game = nil;
-
 @interface Game ()
 {
     NSMutableArray* _p1SelectableRange;
@@ -31,7 +29,6 @@ static Game* _game = nil;
 -(instancetype) initGameMode: (GameMode) mode withPlayer1Units: (NSMutableArray*)p1Units andPlayer2Units: (NSMutableArray*)p2Units andMap: (HexCells *)map
                    andGameVC: (GameViewController*) gameVC
 {
-    if(_game) return nil;
     if((self = [super init]))
     {
         _mode = mode;
@@ -40,10 +37,8 @@ static Game* _game = nil;
         _map = map;
         _p1Faction = ((Unit *)[p1Units firstObject]).faction;
         _p2Faction = ((Unit *)[p2Units firstObject]).faction;
-        
         _selectedUnit = p1Units[0];
         _taskManager = [[TaskManager alloc] init];
-        _game = self;
         _currentRound = 1;
         _state = SELECTION;
         _selectionSwitchCount = 0;
@@ -250,10 +245,6 @@ static Game* _game = nil;
     {
         [unit resetAP];
     }
-}
-
-+(TaskManager *) taskManager {
-    return _game ? _game.taskManager : nil;
 }
 
 -(void) gameUpdate {

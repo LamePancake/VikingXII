@@ -212,7 +212,7 @@
                 currentTask.nextTask = pickupFlag;
             }
             
-            [[Game taskManager] addTask:tasks];
+            [self.taskManager addTask:tasks];
         }
         // Heal a member of your faction
         else if (self.selectedUnitAbility == HEAL &&

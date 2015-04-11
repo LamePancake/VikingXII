@@ -250,7 +250,7 @@ static NSMutableArray* currentPath;
     
     strike.completionHandler = completion;
     rotTask.completionHandler = rotCompletion;
-    [[Game taskManager] addTask:rotTask];
+    [_game.taskManager addTask:rotTask];
     
 }
 
