@@ -69,7 +69,7 @@
 
 - (IBAction)nextPressed:(id)sender
 {
-    /*[sender setImage:[UIImage imageNamed:@"NextPressed.png"] forState:UIControlStateHighlighted];
+    [sender setImage:[UIImage imageNamed:@"NextPressed.png"] forState:UIControlStateHighlighted];
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [sender setImage:[UIImage imageNamed:@"NextPressed.png"] forState:UIControlStateNormal];
@@ -80,7 +80,7 @@
         } completion:nil];
         
         [sender setImage:[UIImage imageNamed:@"Next.png"] forState:UIControlStateNormal];
-    }];*/
+    }];
 
     counter++;
     if(counter > 10)

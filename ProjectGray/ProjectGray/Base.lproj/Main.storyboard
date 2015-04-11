@@ -681,13 +681,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="oWA-AC-zrI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6q-RB-sCc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6q-RB-sCc">
                                 <rect key="frame" x="529" y="530" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="7DX-fE-I1R"/>
                                     <constraint firstAttribute="height" constant="50" id="or9-lS-HCf"/>
                                 </constraints>
-                                <state key="normal" title="Next">
+                                <state key="normal" title="Next" image="Next.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1196,18 +1196,30 @@
                                     <segue destination="9Ng-S0-XWu" kind="presentation" id="MpO-AB-tSx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK4-y4-2yc">
-                                <rect key="frame" x="277" y="468" width="54" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK4-y4-2yc">
+                                <rect key="frame" x="246" y="470" width="108" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="108" id="9us-iK-4tv"/>
+                                    <constraint firstAttribute="height" constant="37" id="t7w-sZ-K84"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Options">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="Gyw-gy-ijI" kind="presentation" id="Vjc-eF-ue3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyk-lZ-3Yy">
-                                <rect key="frame" x="281" y="506" width="50" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyk-lZ-3Yy">
+                                <rect key="frame" x="245" y="517" width="111" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="111" id="BLK-7c-uXE"/>
+                                    <constraint firstAttribute="height" constant="45" id="dic-cF-Csc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Tutorial">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1217,6 +1229,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="nyk-lZ-3Yy" secondAttribute="centerX" id="1hv-mf-KIM"/>
                             <constraint firstItem="9fZ-Kl-Lqo" firstAttribute="centerX" secondItem="8O7-WS-Nhr" secondAttribute="centerX" id="2fJ-YB-xPG"/>
                             <constraint firstItem="9fZ-Kl-Lqo" firstAttribute="top" secondItem="8O7-WS-Nhr" secondAttribute="centerY" id="Hbo-92-6Yo"/>
                             <constraint firstAttribute="centerX" secondItem="oY5-3b-BhV" secondAttribute="centerX" id="Jh7-lQ-IOW"/>
@@ -1227,8 +1240,11 @@
                             <constraint firstAttribute="centerX" secondItem="b2L-ii-DJd" secondAttribute="centerX" id="Wjm-Yd-7xn"/>
                             <constraint firstItem="oY5-3b-BhV" firstAttribute="height" secondItem="8O7-WS-Nhr" secondAttribute="height" multiplier="0.625" id="beI-Vc-nj9"/>
                             <constraint firstItem="b2L-ii-DJd" firstAttribute="top" secondItem="tj3-g2-dYI" secondAttribute="bottom" constant="10" id="cmB-tL-59R"/>
+                            <constraint firstAttribute="centerX" secondItem="LK4-y4-2yc" secondAttribute="centerX" id="eOG-GF-vZ6"/>
                             <constraint firstItem="BQ0-qG-FW5" firstAttribute="leading" secondItem="8O7-WS-Nhr" secondAttribute="leading" id="foM-kN-Ctb"/>
+                            <constraint firstItem="nyk-lZ-3Yy" firstAttribute="top" secondItem="LK4-y4-2yc" secondAttribute="bottom" constant="10" id="gAc-iY-zCJ"/>
                             <constraint firstItem="BQ0-qG-FW5" firstAttribute="top" secondItem="8O7-WS-Nhr" secondAttribute="top" id="inl-zs-oTc"/>
+                            <constraint firstItem="LK4-y4-2yc" firstAttribute="top" secondItem="b2L-ii-DJd" secondAttribute="bottom" constant="10" id="kFR-hN-6wT"/>
                             <constraint firstAttribute="centerX" secondItem="tj3-g2-dYI" secondAttribute="centerX" id="lLW-j2-vfU"/>
                             <constraint firstItem="oY5-3b-BhV" firstAttribute="width" secondItem="8O7-WS-Nhr" secondAttribute="width" id="o8l-ys-Wse"/>
                             <constraint firstAttribute="bottom" secondItem="BQ0-qG-FW5" secondAttribute="bottom" id="qke-c9-KoB"/>
@@ -1333,6 +1349,7 @@
         <image name="Hammer.png" width="512" height="512"/>
         <image name="Heal.png" width="512" height="512"/>
         <image name="Movement.png" width="512" height="512"/>
+        <image name="Next.png" width="512" height="512"/>
         <image name="Pause.png" width="512" height="512"/>
         <image name="PausePressed.png" width="512" height="512"/>
         <image name="PlaceUnits.png" width="512" height="256"/>
