@@ -32,36 +32,51 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
     //make a file name to write the data to using the documents directory:
-    NSString *fileName = [NSString stringWithFormat:@"%@/optionFile.txt", documentsDirectory];
+    NSString *fileName = [NSString stringWithFormat:@"%@/optionsFile.txt", documentsDirectory];
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     NSArray *dataSegments = [content componentsSeparatedByString:@"<data>"];
     if(dataSegments.count == 3) {
-        self.soundVolume.value = ((NSString*)dataSegments[0]).intValue;
-        self.musicVolume.value = ((NSString*)dataSegments[1]).intValue;
-        if(((NSString*)dataSegments[1]).intValue > 0) {
+        self.soundSlider.value = ((NSString*)dataSegments[0]).intValue * 0.01f;
+        self.volumeSound = self.soundSlider.value;
+        self.musicSlider.value = ((NSString*)dataSegments[1]).intValue * 0.01f;
+        self.volumeMusic = self.musicSlider.value;
+        if(((NSString*)dataSegments[2]).intValue > 0) {
             [self.skipSceneButton setTitle:@"On" forState:UIControlStateNormal];
+            self.skipScene = 1;
         }else {
             [self.skipSceneButton setTitle:@"Off" forState:UIControlStateNormal];
+            self.skipScene = 0;
         }
     }
     else {
-        self.soundVolume.value = 100;
-        self.musicVolume.value = 100;
+        self.soundSlider.value = 100;
+        self.volumeSound = self.soundSlider.value;
+        self.musicSlider.value = 100;
+        self.volumeMusic = self.musicSlider.value;
         [self.skipSceneButton setTitle:@"Off" forState:UIControlStateNormal];
+        [self writeToTextFile];
     }
 }
 
-- (IBAction)soundVolume:(id)sender {
-    self.volumeSound = self.soundVolume.value;
+- (IBAction)soundVolume:(UISlider*)slider {
+    self.volumeSound = slider.value * 100;
     [self writeToTextFile];
 }
 
-- (IBAction)musicVolume:(id)sender {
-    self.volumeMusic = self.musicVolume.value;
+- (IBAction)musicVolume:(UISlider*)slider {
+    self.volumeMusic = slider.value * 100;
+    [self writeToTextFile];
 }
 
-- (IBAction)skipSceneButton:(id)sender {
-    
+- (IBAction)skipSceneButton:(UIButton*)button {
+    if(self.skipScene > 0) {
+        [button setTitle:@"Off" forState:UIControlStateNormal];
+        self.skipScene = 0;
+    }else {
+        [button setTitle:@"On" forState:UIControlStateNormal];
+        self.skipScene = 1;
+    }
+    [self writeToTextFile];
 }
 
 

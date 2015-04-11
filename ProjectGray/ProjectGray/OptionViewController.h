@@ -12,8 +12,8 @@
 
 //Saved Options
 @property (nonatomic) int volumeSound, volumeMusic, skipScene;
-@property (strong, nonatomic) IBOutlet UISlider *musicVolume;
-@property (strong, nonatomic) IBOutlet UISlider *soundVolume;
+@property (strong, nonatomic) IBOutlet UISlider *musicSlider;
+@property (strong, nonatomic) IBOutlet UISlider *soundSlider;
 @property (strong, nonatomic) IBOutlet UIButton *skipSceneButton;
 
 /**
