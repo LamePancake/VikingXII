@@ -11,6 +11,11 @@
 
 @implementation PowerUp
 
+static int actionHeroChance = 12;
+static int luckyCharmChance = 6;
+static int vampirismChance = 6;
+static int kaBlamChance = 3;
+
 - (instancetype) initPowerUpForUnit:(Unit*)unit forThisManyRounds:(int)num
 {
     self = [super init];
@@ -28,6 +33,26 @@
 
 - (void) endPowerUp
 {
+}
+
++ (int) getActionHeroChance
+{
+    return actionHeroChance;
+}
+
++ (int) getLuckyCharmChance
+{
+    return luckyCharmChance;
+}
+
++ (int) getVampirismChance
+{
+    return  vampirismChance;
+}
+
++ (int) getKaBlamChance
+{
+    return kaBlamChance;
 }
 
 @end

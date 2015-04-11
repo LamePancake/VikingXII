@@ -26,7 +26,10 @@ typedef enum PowerUpType
 - (instancetype) initPowerUpForUnit:(Unit*)unit forThisManyRounds:(int)num;
 - (void) applyPowerUp;
 - (void) endPowerUp;
-
++ (int) getActionHeroChance;
++ (int) getLuckyCharmChance;
++ (int) getVampirismChance;
++ (int) getKaBlamChance;
 @end
 
 #endif

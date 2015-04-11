@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EnvironmentEntity.h"
-#import "ActionHero.h"
+#import "PowerUp.h"
 
 @interface EnvironmentEntity ()
 {
@@ -40,7 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
-        _powerUp = KABLAM;
+        _powerUp = [self selectPowerUpType];
     }
     return self;
 
@@ -60,6 +60,30 @@
     }
     
     return ENV_ASTEROID_VAR0;
+}
+
+- (PowerUpType) selectPowerUpType
+{
+    int value = arc4random()%100 +1;
+    
+    if (value <= [PowerUp getActionHeroChance])
+    {
+        return ACTION_HERO;
+    }
+    else if (value <= [PowerUp getActionHeroChance] + [PowerUp getKaBlamChance])
+    {
+        return KABLAM;
+    }
+    else if (value <= [PowerUp getActionHeroChance] + [PowerUp getKaBlamChance] + [PowerUp getLuckyCharmChance])
+    {
+        return LUCKY_CHARM;
+    }
+    else if (value <= [PowerUp getActionHeroChance] + [PowerUp getKaBlamChance] + [PowerUp getLuckyCharmChance] + [PowerUp getVampirismChance])
+    {
+        return VAMPIRISM;
+    }
+    
+    return NOPOWERUP;
 }
 
 
