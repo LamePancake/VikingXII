@@ -23,7 +23,7 @@
 @property (nonatomic) float percentSearched;
 @property PowerUpType powerUp;
 
--(instancetype) initWithType: (EnvironmentClasses) type atPosition:(GLKVector3)pos withRotation:(GLKVector3)rot andScale: (GLKVector3)scl onHex:(Hex*)hex;
+-(instancetype) initAtPosition:(GLKVector3)pos withRotation:(GLKVector3)rot andScale: (GLKVector3)scl onHex:(Hex*)hex;
 
 @end
 
