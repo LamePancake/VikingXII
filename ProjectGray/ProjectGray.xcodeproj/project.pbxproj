@@ -77,6 +77,18 @@
 		35B08CC01AD86487005102D4 /* SearchPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CB41AD86487005102D4 /* SearchPressed.png */; };
 		35B08CC41AD873CD005102D4 /* UnitPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */; };
 		35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CC31AD873CD005102D4 /* UnitPopoverViewController.xib */; };
+		35B08CD21AD8E8C6005102D4 /* tutorial-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CC71AD8E8C6005102D4 /* tutorial-1.png */; };
+		35B08CD31AD8E8C6005102D4 /* tutorial-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CC81AD8E8C6005102D4 /* tutorial-2.png */; };
+		35B08CD41AD8E8C6005102D4 /* tutorial-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CC91AD8E8C6005102D4 /* tutorial-3.png */; };
+		35B08CD51AD8E8C6005102D4 /* tutorial-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCA1AD8E8C6005102D4 /* tutorial-4.png */; };
+		35B08CD61AD8E8C6005102D4 /* tutorial-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCB1AD8E8C6005102D4 /* tutorial-5.png */; };
+		35B08CD71AD8E8C6005102D4 /* tutorial-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCC1AD8E8C6005102D4 /* tutorial-6.png */; };
+		35B08CD81AD8E8C6005102D4 /* tutorial-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCD1AD8E8C6005102D4 /* tutorial-7.png */; };
+		35B08CD91AD8E8C6005102D4 /* tutorial-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCE1AD8E8C6005102D4 /* tutorial-8.png */; };
+		35B08CDA1AD8E8C6005102D4 /* tutorial-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CCF1AD8E8C6005102D4 /* tutorial-9.png */; };
+		35B08CDB1AD8E8C6005102D4 /* tutorial-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CD01AD8E8C6005102D4 /* tutorial-10.png */; };
+		35B08CDC1AD8E8C6005102D4 /* tutorial-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CD11AD8E8C6005102D4 /* tutorial-11.png */; };
+		35B08CDF1AD8E960005102D4 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B08CDE1AD8E960005102D4 /* TutorialViewController.m */; };
 		35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0A91ABDF18400E902F3 /* vikingsturn.png */; };
 		35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B2F0AA1ABDF18400E902F3 /* graysturn.png */; };
 		701E580D1A9C41050023A55A /* UnitStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 701E580C1A9C41050023A55A /* UnitStats.c */; };
@@ -242,6 +254,19 @@
 		35B08CC11AD873CD005102D4 /* UnitPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitPopoverViewController.h; sourceTree = "<group>"; };
 		35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitPopoverViewController.m; sourceTree = "<group>"; };
 		35B08CC31AD873CD005102D4 /* UnitPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnitPopoverViewController.xib; sourceTree = "<group>"; };
+		35B08CC71AD8E8C6005102D4 /* tutorial-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-1.png"; sourceTree = "<group>"; };
+		35B08CC81AD8E8C6005102D4 /* tutorial-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-2.png"; sourceTree = "<group>"; };
+		35B08CC91AD8E8C6005102D4 /* tutorial-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-3.png"; sourceTree = "<group>"; };
+		35B08CCA1AD8E8C6005102D4 /* tutorial-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-4.png"; sourceTree = "<group>"; };
+		35B08CCB1AD8E8C6005102D4 /* tutorial-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-5.png"; sourceTree = "<group>"; };
+		35B08CCC1AD8E8C6005102D4 /* tutorial-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-6.png"; sourceTree = "<group>"; };
+		35B08CCD1AD8E8C6005102D4 /* tutorial-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-7.png"; sourceTree = "<group>"; };
+		35B08CCE1AD8E8C6005102D4 /* tutorial-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-8.png"; sourceTree = "<group>"; };
+		35B08CCF1AD8E8C6005102D4 /* tutorial-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-9.png"; sourceTree = "<group>"; };
+		35B08CD01AD8E8C6005102D4 /* tutorial-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-10.png"; sourceTree = "<group>"; };
+		35B08CD11AD8E8C6005102D4 /* tutorial-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-11.png"; sourceTree = "<group>"; };
+		35B08CDD1AD8E960005102D4 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		35B08CDE1AD8E960005102D4 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		35B2F0A91ABDF18400E902F3 /* vikingsturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vikingsturn.png; sourceTree = "<group>"; };
 		35B2F0AA1ABDF18400E902F3 /* graysturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graysturn.png; sourceTree = "<group>"; };
 		35FB177D1A99129200A5ECF8 /* h_vikingVertices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h_vikingVertices.h; sourceTree = "<group>"; };
@@ -415,6 +440,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				35B08CC61AD8E8A7005102D4 /* Tutorial */,
 				351C14221ACB1A4500D6C15D /* Back.png */,
 				351C14231ACB1A4500D6C15D /* BackPressed.png */,
 				351C14241ACB1A4500D6C15D /* Fight.png */,
@@ -463,6 +489,24 @@
 				A5E12FA41A9D08B4007A8C63 /* white.png */,
 			);
 			name = Textures;
+			sourceTree = "<group>";
+		};
+		35B08CC61AD8E8A7005102D4 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				35B08CC71AD8E8C6005102D4 /* tutorial-1.png */,
+				35B08CC81AD8E8C6005102D4 /* tutorial-2.png */,
+				35B08CC91AD8E8C6005102D4 /* tutorial-3.png */,
+				35B08CCA1AD8E8C6005102D4 /* tutorial-4.png */,
+				35B08CCB1AD8E8C6005102D4 /* tutorial-5.png */,
+				35B08CCC1AD8E8C6005102D4 /* tutorial-6.png */,
+				35B08CCD1AD8E8C6005102D4 /* tutorial-7.png */,
+				35B08CCE1AD8E8C6005102D4 /* tutorial-8.png */,
+				35B08CCF1AD8E8C6005102D4 /* tutorial-9.png */,
+				35B08CD01AD8E8C6005102D4 /* tutorial-10.png */,
+				35B08CD11AD8E8C6005102D4 /* tutorial-11.png */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 		701D5CFE1A8EDAC1009A22CC /* Models */ = {
@@ -571,6 +615,8 @@
 				35B08CC21AD873CD005102D4 /* UnitPopoverViewController.m */,
 				F2963F231AD8C5E400138742 /* OptionViewController.h */,
 				F2963F241AD8C5E400138742 /* OptionViewController.m */,
+				35B08CDD1AD8E960005102D4 /* TutorialViewController.h */,
+				35B08CDE1AD8E960005102D4 /* TutorialViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -765,6 +811,7 @@
 				A55AAB241ACA016D004D89A4 /* brokenViking.png in Resources */,
 				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
 				30D6583B1A99629C00DE1F63 /* cannon4.aiff in Resources */,
+				35B08CDB1AD8E8C6005102D4 /* tutorial-10.png in Resources */,
 				30D6583D1A99629C00DE1F63 /* cannon6.aiff in Resources */,
 				A5877B2B1ACB2C3F00CCDD8A /* brokenGray.png in Resources */,
 				35B08CC01AD86487005102D4 /* SearchPressed.png in Resources */,
@@ -778,6 +825,7 @@
 				35B08CB71AD86487005102D4 /* Hammer.png in Resources */,
 				A50E72A31AC8BE7200FECBE6 /* asteroidcluster1.txt in Resources */,
 				35B08CBC1AD86487005102D4 /* MovementPressed.png in Resources */,
+				35B08CD81AD8E8C6005102D4 /* tutorial-7.png in Resources */,
 				3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */,
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
 				A5A20A371AC720EE00E89B41 /* grayVertsMedium.txt in Resources */,
@@ -789,6 +837,7 @@
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				A5A20A411AC7247B00E89B41 /* GrayDiff.png in Resources */,
+				35B08CDA1AD8E8C6005102D4 /* tutorial-9.png in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5A20A361AC720EE00E89B41 /* grayVertsLight.txt in Resources */,
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
@@ -799,6 +848,7 @@
 				3547EEC51AC72F6F00F94B35 /* GrayPortrait.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				A50E72A51AC8BE7200FECBE6 /* h_cannonball.txt in Resources */,
+				35B08CD61AD8E8C6005102D4 /* tutorial-5.png in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
 				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
 				35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */,
@@ -811,6 +861,7 @@
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				A50E72A81AC8BE7200FECBE6 /* l_laser.txt in Resources */,
 				30EF3FC91ACB7577006C53A8 /* laser2.wav in Resources */,
+				35B08CD51AD8E8C6005102D4 /* tutorial-4.png in Resources */,
 				35B08CBB1AD86487005102D4 /* Movement.png in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
 				30D6583E1A99629C00DE1F63 /* cello-loop.wav in Resources */,
@@ -822,12 +873,15 @@
 				70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */,
 				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
+				35B08CD31AD8E8C6005102D4 /* tutorial-2.png in Resources */,
 				3516E2501AC1D983008A815C /* h_gray.png in Resources */,
 				A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */,
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
 				351C14281ACB1A4500D6C15D /* Back.png in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
 				30EF3FCF1ACB7683006C53A8 /* explosion-metallic.wav in Resources */,
+				35B08CD91AD8E8C6005102D4 /* tutorial-8.png in Resources */,
+				35B08CDC1AD8E8C6005102D4 /* tutorial-11.png in Resources */,
 				A50E72A41AC8BE7200FECBE6 /* asteroidcluster2.txt in Resources */,
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
 				A50E72A61AC8BE7200FECBE6 /* h_laser.txt in Resources */,
@@ -839,14 +893,17 @@
 				35B08CB81AD86487005102D4 /* HammerPressed.png in Resources */,
 				35B08CB61AD86487005102D4 /* AttackPressed.png in Resources */,
 				A57298071A7C1F30001934F9 /* Shader.fsh in Resources */,
+				35B08CD71AD8E8C6005102D4 /* tutorial-6.png in Resources */,
 				30EF3FCA1ACB7577006C53A8 /* laser3.wav in Resources */,
 				A50E729A1AC8BCFC00FECBE6 /* factionitem.png in Resources */,
 				35B08CBA1AD86487005102D4 /* HealPressed.png in Resources */,
 				3516E2511AC1D983008A815C /* h_viking.png in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				3516E2541AC1D983008A815C /* m_gray.png in Resources */,
+				35B08CD41AD8E8C6005102D4 /* tutorial-3.png in Resources */,
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */,
+				35B08CD21AD8E8C6005102D4 /* tutorial-1.png in Resources */,
 				A5A20A351AC720EE00E89B41 /* grayVertsHeavy.txt in Resources */,
 				35B08CBE1AD86487005102D4 /* ScoutPressed.png in Resources */,
 			);
@@ -876,6 +933,7 @@
 				301F0A221A993BBD00C552B2 /* SoundManager.m in Sources */,
 				305AD0261AD895FF00B86614 /* Vampirism.m in Sources */,
 				F2963F251AD8C5E400138742 /* OptionViewController.m in Sources */,
+				35B08CDF1AD8E960005102D4 /* TutorialViewController.m in Sources */,
 				3016F6881ACDCC1F0036E908 /* ActionHero.m in Sources */,
 				70C7612E1A980F83005F0311 /* MovementTask.m in Sources */,
 				701E580D1A9C41050023A55A /* UnitStats.c in Sources */,
