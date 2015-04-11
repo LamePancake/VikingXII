@@ -1619,35 +1619,32 @@ enum
 
 - (void)displayGoal
 {
+    UIImage * toImage;
+    _goalImage.hidden = NO;
+    
     if(_game.state == SELECTION)
     {
-        [_goalImage setImage:[UIImage imageNamed:@"PlaceUnits.png"]];
+        toImage = [UIImage imageNamed:@"PlaceUnits.png"];
     }
     else if(_game.state == FLAG_PLACEMENT)
     {
-        [_goalImage setImage:[UIImage imageNamed:@"PlaceFlags.png"]];
+        toImage = [UIImage imageNamed:@"PlaceFlags.png"];
     }
     else if(_game.state == PLAYING)
     {
         if(_game.mode == CTF)
-            [_goalImage setImage:[UIImage imageNamed:@"Go.png"]];
+            toImage = [UIImage imageNamed:@"Go.png"];
         else
-            [_goalImage setImage:[UIImage imageNamed:@"Fight.png"]];
+            toImage = [UIImage imageNamed:@"Fight.png"];
     }
     
-    [UIView animateWithDuration:10.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _goalImage.hidden = NO;
-        ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(1.0,1.0);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:5.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(0.0001,0.001);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _goalImage.hidden = YES;
-                ((UIView*)_goalImage).transform = CGAffineTransformMakeScale(1.0,1.0);
-            } completion:nil];
-        }];
-    }];
+    [UIView transitionWithView:_goalImage
+                      duration:0.5f
+                       options: UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        _goalImage.image = toImage;
+                    } completion:nil];
+    
 }
 
 - (void) updateAbility
