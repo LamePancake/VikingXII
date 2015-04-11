@@ -39,7 +39,6 @@ static NSMutableArray* currentPath;
     if(!mover.active)
     {
         // Notify GameViewController
-        NSLog(@"Unit is dead!");
         return nil;
     }
     
@@ -50,7 +49,6 @@ static NSMutableArray* currentPath;
     if (requiredAP > [mover moveRange])
     {
         // Notify GameViewController
-        NSLog(@"Not enough action points! needed: %d, in pool: %d", requiredAP, mover.stats->actionPool);
         return nil;
     }
     
@@ -111,7 +109,7 @@ static NSMutableArray* currentPath;
         if(i == 0)
         {
             // Add a completion handler
-            currentMove.completionHandler = @[moveCompletion];
+            [currentMove.completionHandler addObject:moveCompletion];
         }
     }
     return nextTask;
@@ -139,13 +137,11 @@ static NSMutableArray* currentPath;
     MovementTask *firingMove = nil;
     if(!target.active)
     {
-        NSLog(@"Target is dead!");
         return;
     }
     
     if(!attacker.active)
     {
-        NSLog(@"attacker is dead!");
         return;
     }
     
@@ -192,8 +188,6 @@ static NSMutableArray* currentPath;
         damage = attacker.stats->damage * (1.0f - target.stats->hull);
         float critRandom = ((double)arc4random() / ARC4RANDOM_MAX); //random float between 0 and 1 - determines if the hit is critical
         
-        NSLog(@"CritChance: %f", attacker.stats->critChance);
-        
         if (critRandom <= attacker.stats->critChance)
         {
             damage *= attacker.stats->critModifier; //critical hit! booYa!
@@ -203,7 +197,6 @@ static NSMutableArray* currentPath;
         if(target.stats->shipHealth <= 0)
         {
             target.stats->shipHealth = 0;
-            target.active = false;
             [_game unitKilledBy:attacker.faction];
             [_game writeToTextFile];
         }
@@ -261,14 +254,26 @@ static NSMutableArray* currentPath;
         [healCompletion setArgument:&actualDamage atIndex:5];
         [healCompletion setArgument:&damaging atIndex:6];
         
-        strike.completionHandler = @[attackCompletion, healCompletion];
+        [strike.completionHandler addObjectsFromArray:@[attackCompletion, healCompletion]];
     }
     else
     {
-        strike.completionHandler = @[attackCompletion];
+        [strike.completionHandler addObject:attackCompletion];
+
     }
     
-    rotTask.completionHandler = @[rotCompletion];
+    if (target.stats->shipHealth <= 0)
+    {
+        NSMethodSignature* killMethodSig = [Unit instanceMethodSignatureForSelector: @selector(setActive:)];
+        NSInvocation* killCompletion = [NSInvocation invocationWithMethodSignature:killMethodSig];
+        BOOL isActive = false;
+        killCompletion.target = target;
+        killCompletion.selector = @selector(setActive:);
+        [killCompletion setArgument:&isActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+        [strike.completionHandler addObject:killCompletion];
+    }
+    
+    [rotTask.completionHandler addObject:rotCompletion];
     [_game.taskManager addTask:rotTask];
     
 }
@@ -284,11 +289,9 @@ static NSMutableArray* currentPath;
     
     if (!target.active) {
         target.active = true;
-        NSLog(@"Revived buddy!");
     }
     
     target.stats->shipHealth += 20;
-    NSLog(@"Added health to buddy.");
     
     // Notify the game view controller that one of the units was healed
     GLKVector3 pos = target.position;
@@ -308,13 +311,10 @@ static NSMutableArray* currentPath;
             
             if (target.powerUp != NOPOWERUP)
             {
-                NSLog(@"Has PowerUp!: %f", target.percentSearched);
                 return true;
             }
         }
     }
-    
-    NSLog(@"Percent Searched: %f", target.percentSearched);
     
     return false;
 }
@@ -338,8 +338,6 @@ static NSMutableArray* currentPath;
         }
     }
     
-    NSLog(@"Percent Searched: %f", target.percentSearched);
-    
     return false;
 }
 
@@ -349,13 +347,11 @@ static NSMutableArray* currentPath;
 
     if(!target.active)
     {
-        NSLog(@"Target is dead!");
         return target;
     }
     
     if(!scouter.active)
     {
-        NSLog(@"attacker is dead!");
         return target;
     }
     

@@ -81,6 +81,11 @@
     BOOL healedUnit = NO;
     Unit* unitOnTile = [self getUnitOnHex:tile];
     
+    if(unitOnTile != nil && !unitOnTile.active && self.selectedUnitAbility != HEAL)
+    {
+        return;
+    }
+    
     if(self.selectedUnit && self.selectedUnit.taskAvailable)
     {
         // If they tapped the tile that the selected unit was on, unselect it
@@ -149,7 +154,6 @@
                 EnvironmentEntity* entity = [self getEnvironmentEntityOnHex:tile];
                 if ([self.actions searchThisForPowerUps:entity byThis:self.selectedUnit])
                 {
-                    NSLog(@"PoweredUp!");
                     [self activatePowerUp:entity.powerUp forUnit:self.selectedUnit];
                     entity.powerUp = NOPOWERUP;
                 }
@@ -158,7 +162,7 @@
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn && unitOnTile.active)
+    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn)
     {
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;

@@ -134,13 +134,17 @@
     BOOL healedUnit = NO;
     Unit* unitOnTile = [self getUnitOnHex:tile];
     
+    if(unitOnTile != nil && !unitOnTile.active && self.selectedUnitAbility != HEAL && self.selectedUnitAbility != SEARCH)
+    {
+        return;
+    }
+    
     if(self.selectedUnit && self.selectedUnit.taskAvailable)
     {
         // If they tapped the tile that the selected unit was on, unselect it
         if(self.selectedUnit == unitOnTile)
         {
             self.selectedUnit = nil;
-            return;
         }
         else if (self.selectedUnitAbility == HAMMER &&
                  self.selectedUnit.shipClass == HEAVY &&
@@ -242,7 +246,6 @@
                 {
                     if (entity.powerUp != NOPOWERUP)
                     {
-                        NSLog(@"PoweredUp!");
                         [self activatePowerUp:entity.powerUp forUnit:self.selectedUnit];
                         entity.powerUp = NOPOWERUP;
                     }
@@ -252,12 +255,10 @@
                         if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
                             _graysFlagCarrier = self.selectedUnit;
                             _graysFlagState = TAKEN;
-                            NSLog(@"Gray flag picked up!");
                         }
                         else if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
                             _vikingFlagCarrier = self.selectedUnit;
                             _vikingFlagState = TAKEN;
-                            NSLog(@"Viking flag picked up!");
                         }
                     }
                     else
@@ -265,12 +266,10 @@
                         if (entity == _vikingFlagHidingLocation && _vikingFlagState == HIDDEN) {
                             _vikingFlagCarrier = self.selectedUnit;
                             _vikingFlagState = TAKEN;
-                            NSLog(@"Viking flag picked up!");
                         }
                         else if (entity == _graysFlagHidingLocation && _graysFlagState == HIDDEN) {
                             _graysFlagCarrier = self.selectedUnit;
                             _graysFlagState = TAKEN;
-                            NSLog(@"Gray flag picked up!");
                         }
                     }
                 }
@@ -282,12 +281,10 @@
                     if (_graysFlagCarrier == unitOnTile)
                     {
                         _graysFlagCarrier = self.selectedUnit;
-                        NSLog(@"Gray flag picked up!");
                     }
                     else if (_vikingFlagCarrier == unitOnTile)
                     {
                         _vikingFlagCarrier = self.selectedUnit;
-                        NSLog(@"Viking flag picked up!");
                     }
                 }
             }
@@ -295,7 +292,7 @@
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn && unitOnTile.active)
+    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn)
     {
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;

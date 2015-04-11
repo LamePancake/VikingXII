@@ -12,7 +12,7 @@
 @interface StrikeTask()
 {
     id<Task> _nextTask;
-    NSArray* _completion;
+    NSMutableArray* _completion;
     BOOL _isFinished;
     
     id<GameObject> _projectile;
@@ -45,7 +45,7 @@
     if((self = [super init]))
     {
         _nextTask = task;
-        _completion = completion;
+        _completion = [[NSMutableArray alloc] initWithObjects:completion, nil];
         _isFinished = NO;
         
         _projectile = projectile;

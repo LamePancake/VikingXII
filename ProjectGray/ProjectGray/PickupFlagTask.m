@@ -21,7 +21,7 @@
     
     BOOL _isFinished;
     id<Task> _next;
-    NSArray* _completion;
+    NSMutableArray* _completion;
 }
 @end
 
@@ -44,6 +44,7 @@
         graysFlag = gFlag;
         graysFlagCarrier = gCarrier;
         _isFinished = false;
+        _completion = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -55,23 +56,19 @@
     {
         if (unit.hex == graysFlag.hex && *graysFlagState == DROPPED) {
             *graysFlagState = TAKEN;
-            NSLog(@"Gray flag picked up!");
         }
         else if (unit.hex == vikingFlag.hex && *vikingFlagState == DROPPED) {
             vikingFlagCarrier = unit;
             *vikingFlagState = TAKEN;
-            NSLog(@"Viking flag picked up!");
         }
     }
     else
     {
         if (unit.hex == vikingFlag.hex && *vikingFlagState == DROPPED) {
             *vikingFlagState = TAKEN;
-            NSLog(@"Viking flag picked up!");
         }
         else if (unit.hex == graysFlag.hex && *graysFlagState == DROPPED) {
             *graysFlagState = TAKEN;
-            NSLog(@"Gray flag picked up!");
         }
     }
     _isFinished = true;

@@ -21,7 +21,7 @@
     BOOL _isFinished;
     id<Task> _next;
     double _speed;
-    NSArray* _completion;
+    NSMutableArray* _completion;
 }
 @end
 
@@ -46,6 +46,7 @@
         _speed = 3;
         _obj.taskAvailable = false;
         _endAngle = [RotationTask clampRotation:_endAngle];
+        _completion = [[NSMutableArray alloc] init];
         
         float rotationOffset = 0;
         

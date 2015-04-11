@@ -25,7 +25,7 @@ const double MOVETASK_EPSILON = 0.001;
     BOOL _isFinished;
     id<Task> _next;
     double _speed;
-    NSArray* _completion;
+    NSMutableArray* _completion;
 }
 @end
 
@@ -50,6 +50,7 @@ const double MOVETASK_EPSILON = 0.001;
         _next = next;
         _speed = speed * 0.2; // The scale of the hex cells; TODO: not hardcode this
         _obj.taskAvailable = false;
+        _completion = [[NSMutableArray alloc] init];
     }
     return self;
 }
