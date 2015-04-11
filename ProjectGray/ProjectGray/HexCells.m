@@ -193,8 +193,6 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
             ++instanceVertexIndex;
         }
     }
-    
-    NSLog(@"num: %d", instanceVertexIndex);
 }
 
 - (Hex*) closestHexToWorldPosition:(GLKVector2)position WithinHexagon:(BOOL)limit
@@ -566,7 +564,6 @@ const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.5f, 0.5f, 1, 0.8f};
 -(BOOL)probabilityPercentOf:(float)percent
 {
     int baseValue = arc4random()%100 +1;
-    NSLog(@"%d", baseValue);
     if (baseValue <= percent)
         return true;
     return false;

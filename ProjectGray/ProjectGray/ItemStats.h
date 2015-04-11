@@ -22,7 +22,8 @@ typedef enum _ItemClasses {
     L_PROJECTILE = 0,
     M_PROJECTILE = 1,
     H_PROJECTILE = 2,
-    FLAG = 3
+    FLAG = 3,
+    NUM_ITEMS
 } ItemClasses;
 
 #endif

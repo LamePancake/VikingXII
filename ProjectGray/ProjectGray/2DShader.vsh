@@ -26,5 +26,5 @@ void main()
     texCoordOut = texCoordIn;
 
     
-    gl_Position = translationMatrix * position;
+    gl_Position = modelViewProjectionMatrix * position;
 }

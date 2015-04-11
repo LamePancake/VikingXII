@@ -299,7 +299,6 @@ enum
         0, 4, 5,
         0, 5, 6,
         0, 6, 7,
-        
     };
     
     glGenBuffers(1, &_vertexHexBuffer);
@@ -359,7 +358,7 @@ enum
            withNumVertices:bgNumVerts
           usingDrawingMode:GL_STATIC_DRAW
       withVertexAttributes:_modelVertexSpecification
-          andNumAttributes:3];
+          andNumAttributes: 3];
     
     _vikingTexture = [GLProgramUtils setupTexture:@"VikingDiff.png"];
     _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
@@ -422,7 +421,6 @@ enum
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
-    
     
     // Item: light laser
     glGenVertexArraysOES(1, &_vertexGrayItemArray[L_PROJECTILE]);
@@ -571,25 +569,31 @@ enum
 - (void)tearDownGL
 {
     [EAGLContext setCurrentContext:self.context];
-    
-    for(int i = 0; i < NUM_CLASSES; i++)
-    {
-//        glDeleteBuffers(1, &_vertexVikingBuffer[i]);
-//        glDeleteBuffers(1, &_vertexGrayBuffer[i]);
-//        
-//        glDeleteBuffers(1, &_normalVikingBuffer[i]);
-//        glDeleteBuffers(1, &_normalGrayBuffer[i]);
-//        
-//        glDeleteVertexArraysOES(1, &_vertexVikingArray[i]);
-//        glDeleteVertexArraysOES(1, &_vertexGrayArray[i]);
-    }
+ 
+    // Tear down the faction-related OpenGL stuff
+    [self tearDownFaction:_game.p1Faction];
+    [self tearDownFaction:_game.p2Faction];
     
     _camera = nil;
     _game = nil;
     
+    // Delete the background's stuff
     glDeleteBuffers(1, &_vertexBGBuffer);
     glDeleteVertexArraysOES(1, &_vertexHexArray);
+    glDeleteTextures(1, &_bgTexture);
     
+    // Delete all environment entities (asteroids, basically)
+    glDeleteBuffers(NUM_ENV_CLASSES, _vertexEnvironmentBuffer);
+    glDeleteVertexArraysOES(NUM_ENV_CLASSES, _vertexEnvironmentArray);
+    glDeleteTextures(1, &_evironmentTexture);
+    
+    // Delete hex grid stuff
+    glDeleteBuffers(1, &_vertexHexBuffer);
+    glDeleteVertexArraysOES(1, &_vertexHexArray);
+    
+    // Delete the item textures (projectiles and flags)
+    glDeleteTextures(1, &_itemTexture);
+
     if (_program) {
         glDeleteProgram(_program);
         _program = 0;
@@ -602,6 +606,29 @@ enum
         glDeleteProgram(_2DProgram);
         _2DProgram = 0;
     }
+}
+
+/**
+ * Tears down the OpenGL objects associated with the given faction.
+ */
+-(void)tearDownFaction: (Faction)faction
+{
+    GLuint* itemVAOs = faction == _game.p1Faction ? _vertexVikingItemArray : _vertexGrayItemArray;
+    GLuint* itemVBOs = faction == _game.p1Faction ? _vertexVikingItemBuffer : _vertexGrayItemBuffer;
+    GLuint texture = faction == _game.p1Faction ? _vikingTexture : _grayTexture;
+    GLuint brokenTexture = faction == _game.p1Faction ? _vikingBrokenTexture : _grayBrokenTexture;
+    
+    // Delete the ship vertex buffers for this faction
+    glDeleteBuffers(NUM_CLASSES, _shipVertexBuffer[faction]);
+    glDeleteVertexArraysOES(NUM_CLASSES, _shipVertexArray[faction]);
+    
+    // Delete the item buffers for this faction
+    glDeleteBuffers(NUM_ITEMS, itemVBOs);
+    glDeleteVertexArraysOES(NUM_ITEMS, itemVAOs);
+    
+    // Delete the ship textures
+    glDeleteTextures(1, &texture);
+    glDeleteTextures(1, &brokenTexture);
 }
 
 #pragma mark - View targets
@@ -1222,9 +1249,6 @@ enum
         }
     }
     glDisable(GL_BLEND);
-    
-    
-
 
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
@@ -1262,6 +1286,32 @@ enum
     }
 }
 
+-(void) drawGameObject: (id<GameObject>)object withVertexArray: (GLuint)vertexArrayName withNumVertices: (int)numVertices usingProgram: (GLuint)program
+    withMVPMatrixIndex: (GLuint) mvpIdx andNormalMatrixIndex: (GLuint)normIndex
+{
+    GLKMatrix4 _transMat;
+    GLKMatrix4 _scaleMat;
+    GLKMatrix4 _rotMat;
+    GLKMatrix4 modelViewMatrix;
+    
+    glBindVertexArrayOES(vertexArrayName);
+    glUseProgram(program);
+    
+    _rotMat = GLKMatrix4MakeZRotation(object.rotation.z);
+    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, object.position.x, object.position.y, object.position.z);
+    _scaleMat = GLKMatrix4MakeScale(object.scale.x, object.scale.y, object.scale.z);
+    
+    modelViewMatrix = GLKMatrix4Multiply(_rotMat, _scaleMat);
+    modelViewMatrix = GLKMatrix4Multiply(_transMat, modelViewMatrix);
+    
+    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(modelViewMatrix, 0));
+    
+    glUniformMatrix4fv(mvpIdx, 1, 0, GLKMatrix4Multiply(_camera.projectionMatrix, modelViewMatrix).m);
+    glUniformMatrix3fv(normIndex, 1, 0, tempNorm.m);
+    
+    glDrawArrays(GL_TRIANGLES, 0, numVertices);
+}
+
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
 {
     GLKMatrix4 _transMat;
@@ -1271,10 +1321,7 @@ enum
     glUseProgram(program);
     
     bgRotation += 0.0003f;
-    if(bgRotation >= 360)
-        bgRotation = 0;
     glUniform4f(uniforms[UNIFORM_2D_TINT], bgTint.r, bgTint.g, bgTint.b, bgTint.a);
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     _rotMat = GLKMatrix4MakeRotation(-bgRotation, 0, 0, 1);
     _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, bgPos.x, bgPos.y, bgPos.z);
     _scaleMat = GLKMatrix4MakeScale(5, 5, 5);
@@ -1290,12 +1337,11 @@ enum
     _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
     
     GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-    
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+
+    glUniformMatrix4fv(uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
+    glUniformMatrix3fv(uniforms[UNIFORM_2D_NORMAL_MATRIX], 1, 0, tempNorm.m);
     
     glDrawArrays(GL_TRIANGLES, 0, numVerts);
-
 }
 
 - (void) drawUnits: (NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram: (GLuint)program andIsAlive:(bool) isAlive
@@ -1312,26 +1358,12 @@ enum
         
         if(curUnit.active == isAlive)
         {
-            GLKMatrix4 _transMat;
-            GLKMatrix4 _scaleMat;
-            GLKMatrix4 _rotMat;
-            GLKMatrix4 modelViewMatrix;
-            glBindVertexArrayOES(vertices[((Unit*)curUnit).shipClass]);
-            glUseProgram(program);
-            
-            _rotMat = GLKMatrix4MakeZRotation(curUnit.rotation.z);
-            _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.position.x, curUnit.position.y, curUnit.position.z);
-            _scaleMat = GLKMatrix4MakeScale(curUnit.scale.x, curUnit.scale.y, curUnit.scale.z);
-            
-            modelViewMatrix = GLKMatrix4Multiply(_rotMat, _scaleMat);
-            modelViewMatrix = GLKMatrix4Multiply(_transMat, modelViewMatrix);
-            
-            GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(modelViewMatrix, 0));
-            
-            glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, GLKMatrix4Multiply(_camera.projectionMatrix, modelViewMatrix).m);
-            glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-            
-            glDrawArrays(GL_TRIANGLES, 0, shipVertexCounts[curUnit.faction][curUnit.shipClass]);
+            [self drawGameObject: curUnit
+                 withVertexArray: vertices[((Unit*)curUnit).shipClass]
+                 withNumVertices: shipVertexCounts[curUnit.faction][curUnit.shipClass]
+                    usingProgram: program
+              withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
+            andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
         }
     }
 }
@@ -1342,48 +1374,22 @@ enum
     
     for(unsigned int i = 0; i < numProjectiles; i++)
     {
-        GLKMatrix4 _transMat;
-        GLKMatrix4 _scaleMat;
-        GLKMatrix4 _rotMat;
-        
         Unit* curUnit = (Unit*)units[i];
-        
         if(!curUnit.attacking || !curUnit.projectile.active)
             continue;
         
-        // projectile
-        glBindVertexArrayOES(vertices[curUnit.shipClass]);
-        glUseProgram(program);
-        
-        //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-        
-        _rotMat = GLKMatrix4MakeZRotation(curUnit.projectile.rotation.z);
-        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z);
-        _scaleMat = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
-        
-        _rotMat = GLKMatrix4Multiply(_rotMat, _scaleMat);
-        _transMat = GLKMatrix4Multiply(_transMat, _rotMat);
-        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-        
-        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curUnit.projectile.scale.x, curUnit.projectile.scale.y, curUnit.projectile.scale.z);
-        GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curUnit.rotation.z);
-        _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
-        _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curUnit.projectile.position.x, curUnit.projectile.position.y, curUnit.projectile.position.z));
-        _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
-        
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-        
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
-        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-        
-        glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[curUnit.faction][curUnit.shipClass]);
+        [self drawGameObject: curUnit.projectile
+             withVertexArray: vertices[curUnit.shipClass]
+             withNumVertices: factionVertexCounts[curUnit.faction][curUnit.shipClass]
+                usingProgram: program
+          withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
+        andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
     }
 }
 
 - (void) drawEnvironment: (NSMutableArray *)environment withVertices: (GLuint*)vertices usingProgram:(GLuint)program
 {
     NSUInteger numEntities = [environment count];
-    
     for(unsigned int i = 0; i < numEntities; i++)
     {
         EnvironmentEntity* curEntity = (EnvironmentEntity*)environment[i];
@@ -1394,29 +1400,12 @@ enum
             if(curEntity.hex == nil)
                 continue;
         
-        GLKMatrix4 _transMat;
-        GLKMatrix4 _scaleMat;
-        glBindVertexArrayOES(vertices[curEntity.type]);
-        glUseProgram(program);
-        
-        //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-        _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, curEntity.position.x, curEntity.position.y, curEntity.position.z);
-        _scaleMat = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
-        _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
-        _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-        
-        GLKMatrix4 _transNorm = GLKMatrix4MakeScale(curEntity.scale.x, curEntity.scale.y, curEntity.scale.z);
-        GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(curEntity.rotation.z);
-        _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
-        _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(curEntity.position.x, curEntity.position.y, curEntity.position.z));
-        _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
-        
-        GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-        
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
-        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
-        
-        glDrawArrays(GL_TRIANGLES, 0, environmentVertexCounts[curEntity.type]);
+        [self drawGameObject: curEntity
+             withVertexArray: vertices[curEntity.type]
+             withNumVertices: environmentVertexCounts[curEntity.type]
+                usingProgram: program
+          withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
+        andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
     }
 }
 
@@ -1425,37 +1414,23 @@ enum
     if(_game.state == SELECTION)
             return;
     
-    GLKMatrix4 _transMat;
-    GLKMatrix4 _scaleMat;
-    glBindVertexArrayOES(vertices[FLAG]);
-    glUseProgram(program);
+    glUseProgram(_2DProgram);
     
-    //glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
-    _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, flag.position.x, flag.position.y, flag.position.z);
-    _scaleMat = GLKMatrix4MakeScale(flag.scale.x, flag.scale.y, flag.scale.z);
-    _transMat = GLKMatrix4Multiply(_transMat, _scaleMat);
-    _transMat = GLKMatrix4Multiply(_camera.projectionMatrix, _transMat);
-    
-    GLKMatrix4 _transNorm = GLKMatrix4MakeScale(flag.scale.x, flag.scale.y, flag.scale.z);
-    _transNorm = GLKMatrix4Multiply(_transNorm, GLKMatrix4MakeTranslation(flag.position.x, flag.position.y, flag.position.z));
-    _transNorm = GLKMatrix4Multiply(_camera.modelViewMatrix, _transNorm);
-    
-    GLKMatrix3 tempNorm = GLKMatrix4GetMatrix3(GLKMatrix4InvertAndTranspose(_transNorm, 0));
-    GLKMatrix4 _rotNorm = GLKMatrix4MakeZRotation(flag.rotation.z);
-    _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
     if (faction == VIKINGS)
     {
         glUniform4f(uniforms[UNIFORM_2D_TINT], vikingTint.r, vikingTint.g, vikingTint.b, vikingTint.a);
     }
     else if(faction == ALIENS)
     {
-        glUniform4f(uniforms[UNIFORM_2D_TINT], alienTint.r, alienTint.g, alienTint.b, alienTint.a);
+        glUniform4fv(uniforms[UNIFORM_2D_TINT], 1, alienTint.v);
     }
-    
-    glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[faction][FLAG]);
 
+    [self drawGameObject: flag
+         withVertexArray: vertices[FLAG]
+         withNumVertices: factionVertexCounts[faction][FLAG]
+            usingProgram: program
+      withMVPMatrixIndex:uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX]
+    andNormalMatrixIndex:uniforms[UNIFORM_2D_NORMAL_MATRIX]];
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -1497,7 +1472,6 @@ enum
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
-    //uniforms[UNIFORM_TRANSLATION_MATRIX] = glGetUniformLocation(_program, "translationMatrix");
     uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
     uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");
@@ -1578,7 +1552,12 @@ enum
 
 - (IBAction)unwindToGame:(UIStoryboardSegue *)unwindSegue
 {
-    
+
+}
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [[SoundManager sharedManager] stopMusic];
 }
 
 - (IBAction)resumeButtonPressed:(id)sender

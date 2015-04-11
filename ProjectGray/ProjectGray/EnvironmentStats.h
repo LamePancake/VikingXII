@@ -14,7 +14,8 @@ typedef enum EnvironmentClasses
 {
     ENV_ASTEROID_VAR0 = 0,
     ENV_ASTEROID_VAR1 = 1,
-    ENV_ASTEROID_VAR2 = 2
+    ENV_ASTEROID_VAR2 = 2,
+    NUM_ENV_CLASSES
 } EnvironmentClasses;
 
 #endif

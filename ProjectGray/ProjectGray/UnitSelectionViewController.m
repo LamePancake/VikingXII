@@ -317,6 +317,11 @@
     
 }
 
+-(void)dealloc
+{
+    NSLog(@"Dealloced bitch");
+}
+
 - (IBAction)backPressed:(id)sender
 {
     

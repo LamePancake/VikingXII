@@ -78,8 +78,6 @@
 -(void)selectTile:(Hex *)tile
 {
     if (!tile) return;
-    
-    NSLog(@"Tile: %d, %d",tile.q,tile.r);
     BOOL healedUnit = NO;
     Unit* unitOnTile = [self getUnitOnHex:tile];
     

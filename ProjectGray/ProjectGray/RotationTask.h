@@ -13,14 +13,14 @@
 @interface RotationTask : NSObject <Task>
 
 /**
- * Initialises a task to rotate the unit to a new angle.
+ * Initialises a task to rotate the unit to a new Euler (XYZ) angle.
  * @param obj         The GameObject to be rotated.
  * @param toAngle     The new rotation of the unit.
  */
 -(instancetype) initWithGameObject: (id<GameObject>)obj toAngle: (GLKVector3)toRot;
 
 /**
- * Initialises a task to rotate the unit to a new angle and to execute specified task on completion.
+ * Initialises a task to rotate the unit to a new Euler (XYZ) angle and to execute specified task on completion.
  * @param obj         The GameObject to be rotated.
  * @param toAngle     The new rotation of the unit.
  * @param next        The next task to be executed.
