@@ -28,17 +28,17 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fAT-6C-ddI">
-                    <rect key="frame" x="238" y="85" width="150" height="150"/>
+                    <rect key="frame" x="225" y="85" width="150" height="150"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="Z7e-Ot-Ilr"/>
                         <constraint firstAttribute="height" constant="150" id="u7z-N3-10d"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUc-G9-J0l">
-                    <rect key="frame" x="113" y="243" width="375" height="280"/>
+                    <rect key="frame" x="113" y="243" width="375" height="325"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="375" id="9Gw-Cd-Xu6"/>
-                        <constraint firstAttribute="height" constant="280" id="Ykl-p7-YlG"/>
+                        <constraint firstAttribute="height" constant="325" id="Ykl-p7-YlG"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
                     <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
             <constraints>
                 <constraint firstItem="zTH-TZ-T1m" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="0aZ-50-T42"/>
                 <constraint firstItem="fAT-6C-ddI" firstAttribute="top" secondItem="zTH-TZ-T1m" secondAttribute="bottom" constant="10" id="23f-PU-z43"/>
-                <constraint firstAttribute="centerX" secondItem="fAT-6C-ddI" secondAttribute="centerX" constant="-13" id="57j-cB-hcx"/>
+                <constraint firstAttribute="centerX" secondItem="fAT-6C-ddI" secondAttribute="centerX" id="57j-cB-hcx"/>
                 <constraint firstAttribute="centerX" secondItem="bUc-G9-J0l" secondAttribute="centerX" id="9Eq-yo-f8z"/>
                 <constraint firstAttribute="centerX" secondItem="zTH-TZ-T1m" secondAttribute="centerX" id="d8K-ph-yzE"/>
                 <constraint firstItem="bUc-G9-J0l" firstAttribute="top" secondItem="fAT-6C-ddI" secondAttribute="bottom" constant="8" id="mlQ-2C-R7R"/>
