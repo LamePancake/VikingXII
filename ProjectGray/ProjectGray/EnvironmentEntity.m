@@ -40,7 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
-        _powerUp = LUCKY_CHARM;
+        _powerUp = VAMPIRISM;
     }
     return self;
 

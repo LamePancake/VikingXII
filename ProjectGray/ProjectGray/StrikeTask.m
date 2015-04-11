@@ -12,7 +12,7 @@
 @interface StrikeTask()
 {
     id<Task> _nextTask;
-    NSInvocation* _completion;
+    NSArray* _completion;
     BOOL _isFinished;
     
     id<GameObject> _projectile;

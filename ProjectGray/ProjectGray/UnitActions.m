@@ -111,7 +111,7 @@ static NSMutableArray* currentPath;
         if(i == 0)
         {
             // Add a completion handler
-            currentMove.completionHandler = moveCompletion;
+            currentMove.completionHandler = @[moveCompletion];
         }
     }
     
@@ -218,8 +218,8 @@ static NSMutableArray* currentPath;
     
     // Create the callback to show damage
     NSMethodSignature* methodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
-    NSInvocation* completion = [NSInvocation invocationWithMethodSignature:methodSig];
-    GLKVector3 unitPos = target.position; // Can't pass property to the invocation (or union, as it turns out)
+    NSInvocation* attackCompletion = [NSInvocation invocationWithMethodSignature:methodSig];
+    GLKVector3 targetUnitPos = target.position; // Can't pass property to the invocation (or union, as it turns out)
     BOOL isDamage = YES;
     float actualDamage = roundf(damage);
     
@@ -230,13 +230,13 @@ static NSMutableArray* currentPath;
     rotCompletion.selector = @selector(setTaskAvailable:);
     [rotCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
     
-    completion.target = _game.gameVC;
-    completion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
-    [completion setArgument:&unitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
-    [completion setArgument:&unitPos.y atIndex:3];
-    [completion setArgument:&unitPos.z atIndex:4];
-    [completion setArgument:&actualDamage atIndex:5];
-    [completion setArgument:&isDamage atIndex:6];
+    attackCompletion.target = _game.gameVC;
+    attackCompletion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
+    [attackCompletion setArgument:&targetUnitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+    [attackCompletion setArgument:&targetUnitPos.y atIndex:3];
+    [attackCompletion setArgument:&targetUnitPos.z atIndex:4];
+    [attackCompletion setArgument:&actualDamage atIndex:5];
+    [attackCompletion setArgument:&isDamage atIndex:6];
     
     GLKVector3 finalAngle;
     finalAngle = GLKVector3Subtract(target.position, attacker.position);
@@ -244,12 +244,34 @@ static NSMutableArray* currentPath;
     
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
     StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:attacker.projectile andTarget:target andGame:_game withSound:@"explosion-metallic.wav"
-                                                    andNextTask:nil andCompletion:completion];
+                                                    andNextTask:nil andCompletion:attackCompletion];
     firingMove = [[MovementTask alloc] initWithGameObject:attacker.projectile fromInitial:attacker.position toDestination:target.position andNextTask:strike];
     RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:attacker toAngle:finalAngle andNextTask:firingMove];
     
-    strike.completionHandler = completion;
-    rotTask.completionHandler = rotCompletion;
+    if (attacker.powerUp == VAMPIRISM)
+    {
+        attacker.stats->shipHealth += damage;
+        
+        NSMethodSignature* healMethodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
+        NSInvocation* healCompletion = [NSInvocation invocationWithMethodSignature:healMethodSig];
+        BOOL damaging = NO;
+        GLKVector3 attackerUnitPos = attacker.position;
+        healCompletion.target = _game.gameVC;
+        healCompletion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
+        [healCompletion setArgument:&attackerUnitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+        [healCompletion setArgument:&attackerUnitPos.y atIndex:3];
+        [healCompletion setArgument:&attackerUnitPos.z atIndex:4];
+        [healCompletion setArgument:&actualDamage atIndex:5];
+        [healCompletion setArgument:&damaging atIndex:6];
+        
+        strike.completionHandler = @[attackCompletion, healCompletion];
+    }
+    else
+    {
+        strike.completionHandler = @[attackCompletion];
+    }
+    
+    rotTask.completionHandler = @[rotCompletion];
     [_game.taskManager addTask:rotTask];
     
 }

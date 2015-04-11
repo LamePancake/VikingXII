@@ -95,8 +95,6 @@ enum
     NSMutableArray* grayCaptureRange;
     NSMutableArray* vikingsCaptureRange;
     
-    UILabel *hitLabel;
-    
     GLKVector3 lightPos;
     GLKVector3 bgPos;
     float bgRotation;
@@ -186,7 +184,6 @@ enum
     
     [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
     
-    hitLabel = [[UILabel alloc] init];
     endTurnPressed = NO;
     
     isPaused = NO;
@@ -894,6 +891,7 @@ enum
 #pragma mark - Model targets
 -(void)unitHealthChangedAtX: (float)x andY: (float)y andZ: (float)z withChange: (float)change andIsDamage: (bool) isDamage
 {
+    UILabel* hitLabel = [[UILabel alloc] init];
     GLKVector3 pos = GLKVector3Make(x, y, z);
     pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, pos);
     int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
@@ -912,13 +910,13 @@ enum
     hitLabel.userInteractionEnabled = NO;
     [self.view addSubview:hitLabel];
     
-    if(isDamage)
-        if(change == 0)
-            hitLabel.text = [NSString stringWithFormat:@"MISS"];
-        else
-            hitLabel.text = [NSString stringWithFormat:@"-%.2f", change];
-        else
-            hitLabel.text = [NSString stringWithFormat:@"+%.2f", change];
+    
+    if(change == 0)
+        hitLabel.text = [NSString stringWithFormat:@"MISS"];
+    else if(isDamage)
+        hitLabel.text = [NSString stringWithFormat:@"-%.2f", change];
+    else
+        hitLabel.text = [NSString stringWithFormat:@"+%.2f", change];
     
     
     [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{

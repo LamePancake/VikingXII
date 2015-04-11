@@ -46,9 +46,13 @@
         
         // Replace the current task with the next one in the list (if it exists)
         // and invoke its completion handler if it has one
-        if(curTask.isFinished) {
+        if(curTask.isFinished)
+        {
             // Invoke the completion handler, if any
-            [curTask.completionHandler invoke];
+            for (NSInvocation* handler in curTask.completionHandler)
+            {
+                [handler invoke];
+            }
             id<Task>next = curTask.nextTask;
             
             if(next) _taskList[i] = next;

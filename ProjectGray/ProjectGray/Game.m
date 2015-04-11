@@ -13,6 +13,7 @@
 #import "GameViewController.h"
 #import "ActionHero.h"
 #import "LuckyCharm.h"
+#import "Vampirism.h"
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
@@ -95,6 +96,9 @@
             break;
         case LUCKY_CHARM:
             powerUp = [[LuckyCharm alloc] initPowerUpForUnit:unit];
+            break;
+        case VAMPIRISM:
+            powerUp = [[Vampirism alloc] initPowerUpForUnit:unit];
             break;
         default:
             return;

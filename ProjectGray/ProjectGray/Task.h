@@ -18,7 +18,7 @@
 /**
  * If specified, this completion handler will be run when the task finishes.
  */
-@property (strong, nonatomic) NSInvocation* completionHandler;
+@property (strong, nonatomic) NSArray* completionHandler;
 
 /**
  * Whether this task is finished.

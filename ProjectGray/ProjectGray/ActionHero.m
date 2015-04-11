@@ -14,11 +14,12 @@
 - (void) applyPowerUp
 {
     self.affectedUnit.stats->actionPool += _actionPointBoost;
+    self.affectedUnit.powerUp = ACTION_HERO;
 }
 
 - (void) endPowerUp
 {
-    
+    self.affectedUnit.powerUp = NOPOWERUP;
 }
 
 

@@ -14,11 +14,13 @@
 - (void) applyPowerUp
 {
     self.affectedUnit.stats->critChance = 100;
+    self.affectedUnit.powerUp = LUCKY_CHARM;
 }
 
 - (void) endPowerUp
 {
     self.affectedUnit.stats->critChance = self.unitsPreviousCritChance;
+    self.affectedUnit.powerUp = NOPOWERUP;
 }
 
 - (id) initPowerUpForUnit:(Unit*)unit

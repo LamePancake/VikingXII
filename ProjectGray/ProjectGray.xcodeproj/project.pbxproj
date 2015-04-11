@@ -18,6 +18,7 @@
 		3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */; };
 		305AD0231AD8705A00B86614 /* LuckyCharm.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0221AD8705A00B86614 /* LuckyCharm.m */; };
 		305AD0261AD895FF00B86614 /* Vampirism.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0251AD895FF00B86614 /* Vampirism.m */; };
+		305AD0291AD9AB9800B86614 /* KaBlam.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0281AD9AB9800B86614 /* KaBlam.m */; };
 		307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 307076811AC8D37500A63A55 /* PickupFlagTask.m */; };
 		307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5C1AC5D2560055F326 /* environmentmodel.c */; };
 		307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */; };
@@ -185,6 +186,8 @@
 		305AD0221AD8705A00B86614 /* LuckyCharm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuckyCharm.m; sourceTree = "<group>"; };
 		305AD0241AD895EE00B86614 /* Vampirism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vampirism.h; sourceTree = "<group>"; };
 		305AD0251AD895FF00B86614 /* Vampirism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vampirism.m; sourceTree = "<group>"; };
+		305AD0271AD9AB8300B86614 /* KaBlam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaBlam.h; sourceTree = "<group>"; };
+		305AD0281AD9AB9800B86614 /* KaBlam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KaBlam.m; sourceTree = "<group>"; };
 		307076801AC8D37500A63A55 /* PickupFlagTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupFlagTask.h; sourceTree = "<group>"; };
 		307076811AC8D37500A63A55 /* PickupFlagTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupFlagTask.m; sourceTree = "<group>"; };
 		307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStats.h; sourceTree = "<group>"; };
@@ -401,6 +404,8 @@
 				305AD0221AD8705A00B86614 /* LuckyCharm.m */,
 				305AD0241AD895EE00B86614 /* Vampirism.h */,
 				305AD0251AD895FF00B86614 /* Vampirism.m */,
+				305AD0271AD9AB8300B86614 /* KaBlam.h */,
+				305AD0281AD9AB9800B86614 /* KaBlam.m */,
 			);
 			name = PowerUps;
 			sourceTree = "<group>";
@@ -958,6 +963,7 @@
 				70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */,
 				706C83281A9864D900305C66 /* GLProgramUtils.m in Sources */,
 				F29BB5051A9811A70000745E /* UnitActions.m in Sources */,
+				305AD0291AD9AB9800B86614 /* KaBlam.m in Sources */,
 				A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */,
 				35117B811A9BF087007E56CD /* background.c in Sources */,
 				307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */,

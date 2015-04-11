@@ -21,7 +21,7 @@
     
     BOOL _isFinished;
     id<Task> _next;
-    NSInvocation* _completion;
+    NSArray* _completion;
 }
 @end
 
