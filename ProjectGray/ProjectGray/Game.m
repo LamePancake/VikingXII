@@ -14,6 +14,7 @@
 #import "ActionHero.h"
 #import "LuckyCharm.h"
 #import "Vampirism.h"
+#import "KaBlam.h"
 #import "MovementTask.h"
 #include "NSMutableArray_Shuffling.h"
 
@@ -86,6 +87,23 @@
     [_activePowerUps removeObjectsInArray:powerUpsToDiscard];
 }
 
+- (void) removePowerUpFromUnit:(Unit*)unit
+{
+    PowerUp* powerUpToRemove;
+    
+    for (PowerUp* powerUp in _activePowerUps)
+    {
+        if (powerUp.affectedUnit == unit)
+        {
+            powerUpToRemove = powerUp;
+            break;
+        }
+    }
+    
+    [powerUpToRemove endPowerUp];
+    [_activePowerUps removeObject:powerUpToRemove];
+}
+
 - (void) activatePowerUp:(PowerUpType) type forUnit:(Unit*)unit
 {
     PowerUp* powerUp;
@@ -99,6 +117,9 @@
             break;
         case VAMPIRISM:
             powerUp = [[Vampirism alloc] initPowerUpForUnit:unit];
+            break;
+        case KABLAM:
+            powerUp = [[KaBlam alloc] initPowerUpForUnit:unit];
             break;
         default:
             return;

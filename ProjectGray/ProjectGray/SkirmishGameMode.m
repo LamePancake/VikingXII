@@ -113,6 +113,11 @@
         {
             [self.actions attackThis:unitOnTile with:self.selectedUnit];
             
+            if (self.selectedUnit.powerUp == KABLAM)
+            {
+                [self removePowerUpFromUnit:self.selectedUnit];
+            }
+            
             // After attack, check if either set of units is something
             int winner = [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
             if(winner != -1) [self.gameVC factionDidWin:winner];

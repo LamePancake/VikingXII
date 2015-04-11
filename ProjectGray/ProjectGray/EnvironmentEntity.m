@@ -40,7 +40,7 @@
         _scale = scl;
         _hex = hex;
         _active = true;
-        _powerUp = VAMPIRISM;
+        _powerUp = KABLAM;
     }
     return self;
 

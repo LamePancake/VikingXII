@@ -100,6 +100,8 @@ typedef enum UnitAbilities
 
 - (void) activatePowerUp:(PowerUpType) type forUnit:(Unit*)unit;
 
+- (void) removePowerUpFromUnit:(Unit*)unit;
+
 /**
  * Handles all logic dealing with the selection of a given tile given the current game state. Moves units,
  * attacks, schedules tasks, etc.

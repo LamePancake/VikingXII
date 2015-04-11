@@ -182,6 +182,12 @@
                 unitOnTile.faction != self.selectedUnit.faction && [HexCells distanceFrom:unitOnTile.hex toHex:self.selectedUnit.hex] <= self.selectedUnit.stats->attackRange)
         {
             [self.actions attackThis:unitOnTile with:self.selectedUnit];
+            
+            if (self.selectedUnit.powerUp == KABLAM)
+            {
+                [self removePowerUpFromUnit:self.selectedUnit];
+            }
+            
             [self addToRespawnList:unitOnTile];
         }
         // Move to another tile
