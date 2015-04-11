@@ -64,22 +64,22 @@
     NSArray *dataSegments = [content componentsSeparatedByString:@"<data>"];
     if(dataSegments.count == 7) {
         self.vikingKill.text = [NSString stringWithFormat:@"Viking Kills: %@", (NSString*)dataSegments[0]];
-        self.grayKill.text = [NSString stringWithFormat:@"Gray Kills: %@", (NSString*)dataSegments[1]];
+        self.grayKill.text = [NSString stringWithFormat:@"Graylien Kills: %@", (NSString*)dataSegments[1]];
         self.vikingWin.text = [NSString stringWithFormat:@"Viking Wins: %@", (NSString*)dataSegments[2]];
-        self.grayWin.text = [NSString stringWithFormat:@"Gray Wins: %@", (NSString*)dataSegments[3]];
+        self.grayWin.text = [NSString stringWithFormat:@"Graylien Wins: %@", (NSString*)dataSegments[3]];
         self.totalGame.text = [NSString stringWithFormat:@"Total Games: %@", (NSString*)dataSegments[4]];
         self.vikingCTF.text = [NSString stringWithFormat:@"Viking CTF Wins: %@", (NSString*)dataSegments[5]];
-        self.grayCTF.text = [NSString stringWithFormat:@"Gray CTF Wins: %@", (NSString*)dataSegments[6]];
+        self.grayCTF.text = [NSString stringWithFormat:@"Graylien CTF Wins: %@", (NSString*)dataSegments[6]];
     }
     else {
         int empty = 0;
         self.vikingKill.text = [NSString stringWithFormat:@"Viking Kills: %i", empty];
-        self.grayKill.text = [NSString stringWithFormat:@"Gray Kills: %i", empty];
+        self.grayKill.text = [NSString stringWithFormat:@"Graylien Kills: %i", empty];
         self.vikingWin.text = [NSString stringWithFormat:@"Viking Wins: %i", empty];
-        self.grayWin.text = [NSString stringWithFormat:@"Gray Wins: %i", empty];
+        self.grayWin.text = [NSString stringWithFormat:@"Graylien Wins: %i", empty];
         self.totalGame.text = [NSString stringWithFormat:@"Total Games: %i", empty];
         self.vikingCTF.text = [NSString stringWithFormat:@"Viking CTF Wins: %i", empty];
-        self.grayCTF.text = [NSString stringWithFormat:@"Gray CTF Wins: %i", empty];
+        self.grayCTF.text = [NSString stringWithFormat:@"Graylien CTF Wins: %i", empty];
     }
 }
 
