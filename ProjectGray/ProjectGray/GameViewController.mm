@@ -36,6 +36,7 @@ enum
     UNIFORM_2D_UNIT_TEXTURE,
     UNIFORM_2D_TRANSLATION_MATRIX,
     UNIFORM_LIGHT_POSITION,
+    UNIFORM_2D_TINT,
     NUM_UNIFORMS,
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -107,6 +108,10 @@ enum
     
     NSString* abilityImagesPressed[6];
     NSString* abilityImages[6];
+    
+    GLKVector4 vikingTint;
+    GLKVector4 alienTint;
+    GLKVector4 bgTint;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -131,6 +136,9 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    vikingTint = GLKVector4Make(0.0, 1.0, 0.0, 1.0);
+    alienTint = GLKVector4Make(1.0, 0.0, 0.0, 1.0);
+    bgTint = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
     
     // Add the sound manager and start playing the main game theme
     [[SoundManager sharedManager] setMusicVolume:0.3f];
@@ -1039,7 +1047,7 @@ enum
                 }
             }
             else if (_game.selectedUnitAbility == ATTACK && [_game.selectedUnit ableToAttack])
-            {                
+            {
                 if(_game.whoseTurn == _game.p1Faction)
                 {
                     for(Unit* unit in _game.p2Units)
@@ -1216,14 +1224,7 @@ enum
     glDisable(GL_BLEND);
     
     
-    if (_game.mode == CTF)
-    {
-        CTFGameMode* game = (CTFGameMode*)_game;
-        if (game.vikingFlagState != HIDDEN)
-            [self drawFlag:game.vikingFlag ofFaction:VIKINGS withVertices:_vertexVikingItemArray usingProgram:_program];
-        if (game.graysFlagState != HIDDEN)
-            [self drawFlag:game.graysFlag ofFaction:ALIENS withVertices:_vertexGrayItemArray usingProgram:_program];
-    }
+
 
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(uniforms[UNIFORM_UNIT_TEXTURE], 0);
@@ -1250,6 +1251,15 @@ enum
     glBindTexture(GL_TEXTURE_2D, _itemTexture);
     [self drawProjectile:_game.p1Units withVertices:_vertexVikingItemArray usingProgram:_program];
     [self drawProjectile:_game.p2Units withVertices:_vertexGrayItemArray usingProgram:_program];
+    
+    if (_game.mode == CTF)
+    {
+        CTFGameMode* game = (CTFGameMode*)_game;
+        if (game.vikingFlagState != HIDDEN)
+            [self drawFlag:game.vikingFlag ofFaction:VIKINGS withVertices:_vertexVikingItemArray usingProgram:_2DProgram];
+        if (game.graysFlagState != HIDDEN)
+            [self drawFlag:game.graysFlag ofFaction:ALIENS withVertices:_vertexGrayItemArray usingProgram:_2DProgram];
+    }
 }
 
 - (void) draw:(float) numVerts withVertices: (GLuint)vertices usingProgram: (GLuint)program
@@ -1263,7 +1273,7 @@ enum
     bgRotation += 0.0003f;
     if(bgRotation >= 360)
         bgRotation = 0;
-    
+    glUniform4f(uniforms[UNIFORM_2D_TINT], bgTint.r, bgTint.g, bgTint.b, bgTint.a);
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _camera.modelViewProjectionMatrix.m);
     _rotMat = GLKMatrix4MakeRotation(-bgRotation, 0, 0, 1);
     _transMat = GLKMatrix4Translate(_camera.modelViewMatrix, bgPos.x, bgPos.y, bgPos.z);
@@ -1435,6 +1445,14 @@ enum
     _transNorm = GLKMatrix4Multiply(_transNorm, _rotNorm);
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _transMat.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, tempNorm.m);
+    if (faction == VIKINGS)
+    {
+        glUniform4f(uniforms[UNIFORM_2D_TINT], vikingTint.r, vikingTint.g, vikingTint.b, vikingTint.a);
+    }
+    else if(faction == ALIENS)
+    {
+        glUniform4f(uniforms[UNIFORM_2D_TINT], alienTint.r, alienTint.g, alienTint.b, alienTint.a);
+    }
     
     glDrawArrays(GL_TRIANGLES, 0, factionVertexCounts[faction][FLAG]);
 
@@ -1483,6 +1501,7 @@ enum
     uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_2DProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_2D_NORMAL_MATRIX] = glGetUniformLocation(_2DProgram, "normalMatrix");
     uniforms[UNIFORM_2D_TRANSLATION_MATRIX] = glGetUniformLocation(_2DProgram, "translationMatrix");
+    uniforms[UNIFORM_2D_TINT] = glGetUniformLocation(_2DProgram, "tint");
     uniforms[UNIFORM_HEX_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_hexProgram, "modelViewProjectionMatrix");
     uniforms[UNIFORM_HEX_COLOUR] = glGetUniformLocation(_hexProgram, "color");
     uniforms[UNIFORM_UNIT_TEXTURE] = glGetUniformLocation(_program, "texture");

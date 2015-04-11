@@ -16,6 +16,7 @@ uniform mat3 normalMatrix;
 uniform mat4 projectimMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 translationMatrix;
+uniform vec4 tint; //0 for background, 1 for viking flag, 2 for alien flag
 
 attribute vec2 texCoordIn;
 varying vec2 texCoordOut;
