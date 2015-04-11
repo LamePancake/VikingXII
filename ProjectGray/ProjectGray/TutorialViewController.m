@@ -36,14 +36,13 @@
 
 - (IBAction)backPressed:(id)sender
 {
-    
     [sender setImage:[UIImage imageNamed:@"BackPressed.png"] forState:UIControlStateHighlighted];
     
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [sender setImage:[UIImage imageNamed:@"BackPressed.png"] forState:UIControlStateNormal];
         ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
         } completion:nil];
         
@@ -57,7 +56,13 @@
     }
     else
     {
-        [_tutorialView setImage:[UIImage imageNamed:images[counter]]];
+        UIImage * toImage = [UIImage imageNamed:images[counter]];
+        [UIView transitionWithView:_tutorialView
+                          duration:0.5f
+                           options: UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            _tutorialView.image = toImage;
+                        } completion:nil];
     }
 
 }
@@ -84,7 +89,13 @@
     }
     else
     {
-        [_tutorialView setImage:[UIImage imageNamed:images[counter]]];
+        UIImage * toImage = [UIImage imageNamed:images[counter]];
+        [UIView transitionWithView:_tutorialView
+                          duration:0.5f
+                           options: UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            _tutorialView.image = toImage;
+                        } completion:nil];
     }
 }
 
