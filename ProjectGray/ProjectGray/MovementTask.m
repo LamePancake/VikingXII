@@ -19,6 +19,7 @@ const double MOVETASK_EPSILON = 0.001;
 @interface MovementTask()
 {
     GLKVector2 _direction;
+    int _directionSigns[2];
     GLKVector3 _destination;
     GLKVector3 _initial;
     BOOL _isFinished;
@@ -48,6 +49,8 @@ const double MOVETASK_EPSILON = 0.001;
         _initial = initPos;
         _destination = GLKVector3Make(destination.x, destination.y, initPos.z);
         _direction = GLKVector2Normalize(GLKVector2Make(_destination.x - initPos.x, _destination.y - initPos.y));
+        _directionSigns[0] = _direction.x / fabs(_direction.x);
+        _directionSigns[1] = _direction.y / fabs(_direction.y);
         _isFinished = NO;
         _next = next;
         _speed = speed * 0.2; // The scale of the hex cells; TODO: not hardcode this
@@ -71,10 +74,12 @@ const double MOVETASK_EPSILON = 0.001;
     
     // Check that we won't pass the requested position
     
-    double length = GLKVector2Length(GLKVector2Make(_destination.x - newPos.x, _destination.y - newPos.y));
+    GLKVector2 curDirection = GLKVector2Make(_destination.x - newPos.x, _destination.y - newPos.y);
+    int curSigns[2] = {curDirection.x / fabs(curDirection.x), curDirection.y / fabs(curDirection.y)};
     
-    // Also don't want to hard code this if possible
-    if(length <= 0.03f) {
+    // Check whether x and y still point in the same direction as when we first calculated the direction
+    // If either of them doesn't match, then we've gone past the objective (or hit it) and need to stop
+    if(curSigns[0] != _directionSigns[0] || curSigns[1] != _directionSigns[1]) {
         _isFinished = YES;
         newPos.x = _destination.x;
         newPos.y = _destination.y;
