@@ -253,7 +253,6 @@ static NSMutableArray* currentPath;
         [healCompletion setArgument:&attackerUnitPos.z atIndex:4];
         [healCompletion setArgument:&actualDamage atIndex:5];
         [healCompletion setArgument:&damaging atIndex:6];
-        
         [strike.completionHandler addObjectsFromArray:@[attackCompletion, healCompletion]];
     }
     else
