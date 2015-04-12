@@ -244,6 +244,7 @@ static NSMutableArray* currentPath;
                                         withRotation:GLKVector3Make(attacker.rotation.x, attacker.rotation.y, finalAngle.z)
                                             andScale:GLKVector3Make(PROJECTILE_SCALE, PROJECTILE_SCALE, PROJECTILE_SCALE)
                                                onHex:nil];
+    projectile.active = NO;
     [attacker.projectiles addObject:projectile];
     
     // Create the callback to show damage
