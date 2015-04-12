@@ -7,6 +7,7 @@
 //
 
 #import "OptionViewController.h"
+#import "SoundManager.h"
 
 @interface OptionViewController ()
 
@@ -60,11 +61,13 @@
 
 - (IBAction)soundVolume:(UISlider*)slider {
     self.volumeSound = slider.value * 100;
+    [[SoundManager sharedManager] setSoundVolume:slider.value];
     [self writeToTextFile];
 }
 
 - (IBAction)musicVolume:(UISlider*)slider {
     self.volumeMusic = slider.value * 100;
+    [[SoundManager sharedManager] setMusicVolume:slider.value];
     [self writeToTextFile];
 }
 
@@ -130,6 +133,8 @@
     //use simple alert from my library (see previous post for details)
     //    [ASFunctions alert:content];
     //    [content release];
+    [[SoundManager sharedManager] setMusicVolume:((float)self.volumeMusic/100.0f)];
+    [[SoundManager sharedManager] setSoundVolume:((float)self.volumeSound/100.0f)];
 }
 
 //writes empty file

@@ -18,14 +18,14 @@ const GLKVector4 HEAL_COLOUR = {0.23f, 0.23f, 0.73f, 0.6f};
 const GLKVector4 MOVEABLE_COLOUR = {1, 1, 0.5f, 0.6f};
 const GLKVector4 ASTEROID_COLOUR = {1, 0.5f, 0.5f, 0.6f};
 const GLKVector4 ASTEROID_SEARCHED_COLOUR = {0.5f, 0.5f, 0.5f, 0.6f};
-const GLKVector4 SELECTED_GRAY_COLOUR = {0.55f, 1, 0.55f, 0.95};
-const GLKVector4 SELECTED_VIKING_COLOUR = {0.35f, 0.35f, 1, 0.95};
-const GLKVector4 GRAY_PLACEMENT_COLOUR = {0.5f, 1, 0.5f, 0.6f};
-const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.3f, 0.3f, 1, 0.6f};
-const GLKVector4 GRAY_CAPTURE_ZONE_COLOUR = {0.5f, 1, 0.5f, 0.6f};
-const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.3f, 0.3f, 1, 0.6f};
-const GLKVector4 GRAYS_COLOUR = {0.5f, 1, 0.5f, 0.6f};
-const GLKVector4 VIKING_COLOUR = {0.3f, 0.3f, 1, 0.6f};
+const GLKVector4 SELECTED_GRAY_COLOUR = {0.85f, 0.9f, 0.85, 0.45};
+const GLKVector4 SELECTED_VIKING_COLOUR = {0.85f, 0.85f, 0.9, 0.45};
+const GLKVector4 GRAY_PLACEMENT_COLOUR = {0.4f, 1, 0.4f, 0.6f};
+const GLKVector4 VIKING_PLACEMENT_COLOUR = {0.4f, 0.4f, 1, 0.6f};
+const GLKVector4 GRAY_CAPTURE_ZONE_COLOUR = {0.4f, 1, 0.4f, 0.6f};
+const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR = {0.4f, 0.4f, 1, 0.6f};
+const GLKVector4 GRAYS_COLOUR = {0.4f, 1, 0.4f, 0.6f};
+const GLKVector4 VIKING_COLOUR = {0.4f, 0.4f, 1, 0.6f};
 
 @implementation HexCells
 {

@@ -139,7 +139,6 @@ enum
     bgTint = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
     
     // Add the sound manager and start playing the main game theme
-    [[SoundManager sharedManager] setMusicVolume:0.3f];
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
     [[SoundManager sharedManager] playMusic:@"epic-orchestra.mp3" looping:YES];
@@ -1120,7 +1119,7 @@ enum
         
         for (Unit* unit in _game.p1Units)
         {
-            if (unit.stats->actionPool > 0)
+            if (unit.stats->actionPool > 0 && unit.active)
             {
                 [unit.hex setColour:VIKING_COLOUR];
             }
@@ -1128,7 +1127,7 @@ enum
         
         for (Unit* unit in _game.p2Units)
         {
-            if (unit.stats->actionPool > 0)
+            if (unit.stats->actionPool > 0 && unit.active)
             {
                 [unit.hex setColour:GRAYS_COLOUR];
             }

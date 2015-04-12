@@ -263,7 +263,7 @@
     
     NSMutableArray* unitList;
     // Reset the action points of the faction who just finished their turn
-    unitList = _whoseTurn == _p1Faction ? _p1Units : _p2Units;
+    unitList = _whoseTurn == _p2Faction ? _p1Units : _p2Units;
     
     
     for (Unit *unit in unitList)
