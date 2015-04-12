@@ -129,6 +129,50 @@ static NSMutableArray* currentPath;
     asteroid.active = false;
 }
 
+-(NSString*)vikingAttackSound
+{
+    int numberOfSounds = 6;
+    int value = arc4random()%numberOfSounds + 1;
+    
+    switch(value)
+    {
+        case 1:
+            return @"cannon1.aiff";
+        case 2:
+            return @"cannon2.aiff";
+        case 3:
+            return @"cannon3.aiff";
+        case 4:
+            return @"cannon4.aiff";
+        case 5:
+            return @"cannon5.aiff";
+        case 6:
+            return @"cannon6.aiff";
+        default:
+            return @"cannon1.aiff";
+    }
+}
+
+-(NSString*)alienAttackSound
+{
+    int numberOfSounds = 4;
+    int value = arc4random()%numberOfSounds + 1;
+    
+    switch(value)
+    {
+        case 1:
+            return @"laser1.wav";
+        case 2:
+            return @"laser2.wav";
+        case 3:
+            return @"laser3.wav";
+        case 4:
+            return @"laser4.wav";
+        default:
+            return @"laser1.wav";
+    }
+}
+
 // Calculates the damage and returns whether the attack missed
 -(BOOL)calculateDamage: (float*)damageOut forAttackOnTarget: (Unit*)target byAttacker: (Unit*)attacker
 {
@@ -164,7 +208,7 @@ static NSMutableArray* currentPath;
         }
         *damageOut = damage;
     }
-
+    
     return missed;
 }
 
@@ -287,7 +331,7 @@ static NSMutableArray* currentPath;
     [showProjectile setArgument:&willBeActive atIndex:2];
     
     // Create one file completion handler to play the sound when the ship is finished rotating
-    NSString* soundFile = attacker.faction == _game.p1Faction ? @"cannon1.aiff" : @"laser4.wav";
+    NSString* soundFile = attacker.faction == _game.p1Faction ? [self vikingAttackSound] : [self alienAttackSound];
     BOOL soundShouldLoop = NO;
     NSMethodSignature* playSoundSig = [SoundManager instanceMethodSignatureForSelector:@selector(playSound:looping:)];
     NSInvocation* playFireSound = [NSInvocation invocationWithMethodSignature:playSoundSig];

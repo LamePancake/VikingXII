@@ -11,10 +11,10 @@
 
 @implementation PowerUp
 
-static int actionHeroChance = 12;
-static int luckyCharmChance = 6;
-static int vampirismChance = 6;
-static int kaBlamChance = 3;
+static int actionHeroChance = 30;
+static int luckyCharmChance = 15;
+static int vampirismChance = 15;
+static int kaBlamChance = 10;
 
 - (instancetype) initPowerUpForUnit:(Unit*)unit forThisManyRounds:(int)num
 {

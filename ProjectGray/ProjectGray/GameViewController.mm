@@ -948,7 +948,7 @@ enum
     searchLabel.userInteractionEnabled = NO;
     [self.view addSubview:searchLabel];
     
-    if(percent < 100)
+    if(percent < 99)
     {
         searchLabel.textColor=[UIColor blueColor];
         searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched...", percent, '%'];    }
@@ -977,11 +977,11 @@ enum
                     searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! KaBlam  PowerUp Found", percent, '%'];
                     break;
                 default:
+                    searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched! Nothing Found", percent, '%'];
                     break;
             }
         }
         
-        searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched! Nothing Found", percent, '%'];
     }
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:24]};
@@ -1118,6 +1118,22 @@ enum
             }
         }
         
+        for (Unit* unit in _game.p1Units)
+        {
+            if (unit.stats->actionPool > 0)
+            {
+                [unit.hex setColour:VIKING_COLOUR];
+            }
+        }
+        
+        for (Unit* unit in _game.p2Units)
+        {
+            if (unit.stats->actionPool > 0)
+            {
+                [unit.hex setColour:GRAYS_COLOUR];
+            }
+        }
+        
         if (_game.selectedUnit)
         {
             if (_game.selectedUnitAbility == MOVE)
@@ -1134,9 +1150,19 @@ enum
             {
                 for (EnvironmentEntity* entity in _game.environmentEntities)
                 {
-                    if (entity.active && entity.type <= ENV_ASTEROID_VAR2 && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1 && _game.selectedUnit.stats->actionPool > 0)
+                    if (entity.active
+                        && entity.type <= ENV_ASTEROID_VAR2
+                        && [HexCells distanceFrom:_game.selectedUnit.hex toHex:entity.hex] == 1
+                        && _game.selectedUnit.stats->actionPool > 0)
                     {
-                        [entity.hex setColour:ASTEROID_COLOUR];
+                        if (entity.percentSearched < 100)
+                        {
+                            [entity.hex setColour:ASTEROID_COLOUR];
+                        }
+                        else
+                        {
+                            [entity.hex setColour:ASTEROID_SEARCHED_COLOUR];
+                        }
                     }
                 }
             }

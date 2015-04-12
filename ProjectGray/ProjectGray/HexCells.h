@@ -21,10 +21,13 @@ extern const GLKVector4 MOVEABLE_COLOUR;
 extern const GLKVector4 SELECTED_GRAY_COLOUR;
 extern const GLKVector4 SELECTED_VIKING_COLOUR;
 extern const GLKVector4 ASTEROID_COLOUR;
+extern const GLKVector4 ASTEROID_SEARCHED_COLOUR;
 extern const GLKVector4 GRAY_PLACEMENT_COLOUR;
 extern const GLKVector4 VIKING_PLACEMENT_COLOUR;
 extern const GLKVector4 GRAY_CAPTURE_ZONE_COLOUR;
 extern const GLKVector4 VIKING_CAPTURE_ZONE_COLOUR;
+extern const GLKVector4 GRAYS_COLOUR;
+extern const GLKVector4 VIKING_COLOUR;
 
 @interface HexCells : NSObject
 
