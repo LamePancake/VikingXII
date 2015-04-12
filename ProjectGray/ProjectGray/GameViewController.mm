@@ -965,16 +965,16 @@ enum
             switch (powerUp)
             {
                 case ACTION_HERO:
-                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Action Hero", percent, '%'];
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Action Hero PowerUp Found", percent, '%'];
                     break;
                 case LUCKY_CHARM:
-                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Lucky Charm", percent, '%'];
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Lucky Charm  PowerUp Found", percent, '%'];
                     break;
                 case VAMPIRISM:
-                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Vampirism", percent, '%'];
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! Vampirism  PowerUp Found", percent, '%'];
                     break;
                 case KABLAM:
-                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! KaBlam", percent, '%'];
+                    searchLabel.text = [NSString stringWithFormat:@"%.1f%c Searched! KaBlam  PowerUp Found", percent, '%'];
                     break;
                 default:
                     break;
