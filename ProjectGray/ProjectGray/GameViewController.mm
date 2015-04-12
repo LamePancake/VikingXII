@@ -1453,15 +1453,17 @@ enum
     for(unsigned int i = 0; i < numProjectiles; i++)
     {
         Unit* curUnit = (Unit*)units[i];
-        if(!curUnit.attacking || !curUnit.projectile.active)
-            continue;
-        
-        [self drawGameObject: curUnit.projectile
-             withVertexArray: vertices[curUnit.shipClass]
-             withNumVertices: factionVertexCounts[curUnit.faction][curUnit.shipClass]
-                usingProgram: program
-          withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
-        andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
+
+        for(Item* projectile in curUnit.projectiles)
+        {
+            if(!projectile.active) continue;
+            [self drawGameObject: projectile
+                 withVertexArray: vertices[curUnit.shipClass]
+                 withNumVertices: factionVertexCounts[curUnit.faction][curUnit.shipClass]
+                    usingProgram: program
+              withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
+            andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
+        }
     }
 }
 

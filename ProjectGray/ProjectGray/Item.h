@@ -19,7 +19,7 @@
 extern const float ITEM_SCALE;
 extern const float ITEM_HEIGHT;
 extern const float PROJECTILE_SCALE;
-@interface Item : NSObject <GameObject>
+@interface Item : NSObject <GameObject, NSCopying>
 
 @property (nonatomic) int itemClass;
 @property (nonatomic) int faction;

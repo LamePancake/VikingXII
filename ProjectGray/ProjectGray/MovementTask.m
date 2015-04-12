@@ -19,7 +19,6 @@ const double MOVETASK_EPSILON = 0.001;
 @interface MovementTask()
 {
     GLKVector2 _direction;
-    id<GameObject> _obj;
     GLKVector3 _destination;
     GLKVector3 _initial;
     BOOL _isFinished;
@@ -27,6 +26,9 @@ const double MOVETASK_EPSILON = 0.001;
     double _speed;
     NSMutableArray* _completion;
 }
+
+@property (strong, nonatomic) id<GameObject> obj;
+
 @end
 
 @implementation MovementTask

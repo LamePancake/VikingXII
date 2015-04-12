@@ -47,8 +47,8 @@ const float UNIT_HEIGHT = 0.04f;
         _active = true;
         _taskAvailable = true;
         _powerUp = NOPOWERUP;
+        _projectiles = [[NSMutableArray alloc] init];
     }
-    _projectile = [[Item alloc] initWithFaction:_faction andClass:_shipClass atPosition:_position withRotation:_rotation andScale:GLKVector3Make(PROJECTILE_SCALE, PROJECTILE_SCALE, PROJECTILE_SCALE) onHex:_hex];
     return self;
 }
 

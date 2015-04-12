@@ -50,4 +50,11 @@ const float PROJECTILE_SCALE = 0.0075f;
     return self;
 }
 
+-(instancetype)copyWithZone:(NSZone *)zone
+{
+    Item* copy = [[Item alloc] initWithFaction:_faction andClass:_itemClass atPosition:_position withRotation:_rotation andScale:_scale onHex:_hex];
+    copy.active = false;
+    return copy;
+}
+
 @end

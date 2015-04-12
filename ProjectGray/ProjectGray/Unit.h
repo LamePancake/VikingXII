@@ -37,7 +37,7 @@ extern const float UNIT_HEIGHT;
 @property (nonatomic) const float *modelData;
 @property (nonatomic) unsigned int modelArrSize;
 @property (nonatomic) unsigned int numModelVerts;
-@property (nonatomic) Item* projectile;
+@property (nonatomic) NSMutableArray* projectiles;
 @property (nonatomic) bool attacking;
 
 //Task related
