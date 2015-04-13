@@ -138,7 +138,7 @@ const ShipStats factionShipStats[NUM_FACTIONS][NUM_CLASSES] = {
             2,          // Action points per heal
             1,          // Action points per scout            
             1,          // Moves (tiles) per action point
-            2,          // Action point pool (number at the beginning of each turn)
+            3,          // Action point pool (number at the beginning of each turn)
             0.70f,      // Accuracy
             0.20f,      // Critical hit chance
             1.25f,       // Critical hit modifier
