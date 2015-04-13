@@ -83,6 +83,16 @@ static int roundsBeforeRespawn = 1;
     return (_shipStats.actionPool / _shipStats.movesPerActionPoint);
 }
 
+-(BOOL) hasPowerUp:(int)powerUp
+{
+    if ((_powerUp & powerUp) != 0)
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 +(int) getRoundsBeforeRespawn
 {
     return roundsBeforeRespawn;

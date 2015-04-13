@@ -13,12 +13,12 @@
 
 - (void) applyPowerUp
 {
-    self.affectedUnit.powerUp = VAMPIRISM;
+    self.affectedUnit.powerUp |= VAMPIRISM;
 }
 
 - (void) endPowerUp
 {
-    self.affectedUnit.powerUp = NOPOWERUP;
+    self.affectedUnit.powerUp ^= VAMPIRISM;
 }
 
 - (id) initPowerUpForUnit:(Unit*)unit

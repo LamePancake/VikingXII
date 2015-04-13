@@ -12,11 +12,11 @@
 
 typedef enum PowerUpType
 {
-    ACTION_HERO,
-    LUCKY_CHARM,
-    VAMPIRISM,
-    KABLAM,
-    NOPOWERUP
+    ACTION_HERO = 1 << 0,
+    LUCKY_CHARM = 1 << 1,
+    VAMPIRISM = 1 << 2,
+    KABLAM = 1 << 3,
+    NOPOWERUP = 0
 } PowerUpType;
 
 @interface PowerUp : NSObject

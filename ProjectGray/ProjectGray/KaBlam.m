@@ -17,7 +17,7 @@
     self.affectedUnit.stats->accuracy = 1.0f;
     self.affectedUnit.stats->attackRange = 42;
     self.affectedUnit.stats->actionPointsPerAttack = -1;
-    self.affectedUnit.powerUp = KABLAM;
+    self.affectedUnit.powerUp |= KABLAM;
 }
 
 - (void) endPowerUp
@@ -26,7 +26,7 @@
     self.affectedUnit.stats->damage = self.unitsPreviousDamage;
     self.affectedUnit.stats->attackRange = self.unitsPreviousAttackRange;
     self.affectedUnit.stats->actionPointsPerAttack = self.unitsPreviousActionPointAttackCost;
-    self.affectedUnit.powerUp = NOPOWERUP;
+    self.affectedUnit.powerUp ^= KABLAM;
 }
 
 - (id) initPowerUpForUnit:(Unit*)unit

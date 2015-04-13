@@ -275,7 +275,7 @@ static NSMutableArray* currentPath;
     firingMove = [[MovementTask alloc] initWithGameObject:projectile fromInitial:attacker.position toDestination:target.position andNextTask:strike];
     
     // If the attacker has the vampirism powerup, create an additional callback to display the amount of health they gained
-    if (attacker.powerUp == VAMPIRISM)
+    if ([attacker hasPowerUp:VAMPIRISM])
     {
         attacker.stats->shipHealth += damage;
         GLKVector3 attackerUnitPos = attacker.position;

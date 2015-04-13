@@ -51,6 +51,7 @@ extern const float UNIT_HEIGHT;
 -(BOOL) ableToHeal;
 -(BOOL) ableToScout;
 -(int) moveRange;
+-(BOOL) hasPowerUp:(int)powerUp;
 +(int) getRoundsBeforeRespawn;
 @end
 #endif

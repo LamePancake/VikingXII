@@ -186,7 +186,7 @@
         {
             [self.actions attackThis:unitOnTile with:self.selectedUnit];
             
-            if (self.selectedUnit.powerUp == KABLAM)
+            if ([self.selectedUnit hasPowerUp:KABLAM])
             {
                 [self removePowerUpFromUnit:self.selectedUnit];
             }
