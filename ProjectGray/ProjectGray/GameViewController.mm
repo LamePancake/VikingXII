@@ -1502,8 +1502,8 @@ enum
     
     //Draw items
     glBindTexture(GL_TEXTURE_2D, _itemTexture);
-    [self drawProjectile:_game.p1Units withVertices:_vertexVikingItemArray usingProgram:_program];
-    [self drawProjectile:_game.p2Units withVertices:_vertexGrayItemArray usingProgram:_program];
+    [self drawProjectile:_game.p1Units withVertices:_vertexVikingItemArray usingProgram:_2DProgram];
+    [self drawProjectile:_game.p2Units withVertices:_vertexGrayItemArray usingProgram:_2DProgram];
     
     if (_game.mode == CTF)
     {
@@ -1600,6 +1600,8 @@ enum
 -(void) drawProjectile:(NSMutableArray *)units withVertices: (GLuint*)vertices usingProgram:(GLuint)program
 {
     NSUInteger numProjectiles = [units count];
+    GLKVector4 tint = ((Unit*)[units firstObject]).faction == VIKINGS ? vikingTint : alienTint;
+    glUniform4fv(uniforms[UNIFORM_2D_TINT], 1, tint.v);
     
     for(unsigned int i = 0; i < numProjectiles; i++)
     {
@@ -1612,8 +1614,8 @@ enum
                  withVertexArray: vertices[curUnit.shipClass]
                  withNumVertices: factionVertexCounts[curUnit.faction][curUnit.shipClass]
                     usingProgram: program
-              withMVPMatrixIndex:uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX]
-            andNormalMatrixIndex:uniforms[UNIFORM_NORMAL_MATRIX]];
+              withMVPMatrixIndex:uniforms[UNIFORM_2D_MODELVIEWPROJECTION_MATRIX]
+            andNormalMatrixIndex:uniforms[UNIFORM_2D_NORMAL_MATRIX]];
         }
     }
 }

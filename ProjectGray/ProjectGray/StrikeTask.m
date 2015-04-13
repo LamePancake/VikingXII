@@ -30,22 +30,23 @@
 
 -(instancetype) initWithProjectile: (id<GameObject>)projectile andTarget: (id<GameObject>)target andGame: (Game*) game withSound: (NSString*)soundFile
 {
-    return [self initWithProjectile:projectile andTarget:target andGame:game withSound:soundFile andNextTask:nil andCompletion:nil];
+    return [self initWithProjectile:projectile andTarget:target andGame:game withSound:soundFile andNextTask:nil andCompletionHandlers:nil];
 }
 
 -(instancetype) initWithProjectile: (id<GameObject>)projectile andTarget:(id<GameObject>)target andGame:(Game *)game withSound:(NSString *)soundFile
                        andNextTask: (id<Task>)task
 {
-    return [self initWithProjectile:projectile andTarget:target andGame:game withSound:soundFile andNextTask:task andCompletion:nil];
+    return [self initWithProjectile:projectile andTarget:target andGame:game withSound:soundFile andNextTask:task andCompletionHandlers:nil];
 }
 
 -(instancetype) initWithProjectile:(id<GameObject>)projectile andTarget:(id<GameObject>)target andGame:(Game *)game withSound:(NSString *)soundFile
-                       andNextTask:(id<Task>)task andCompletion: (NSInvocation*)completion
+                       andNextTask:(id<Task>)task andCompletionHandlers: (NSMutableArray*)completionHandlers
 {
     if((self = [super init]))
     {
         _nextTask = task;
-        _completion = [[NSMutableArray alloc] initWithObjects:completion, nil];
+        _completion = [[NSMutableArray alloc] init];
+        [_completion addObjectsFromArray:completionHandlers];
         _isFinished = NO;
         
         _projectile = projectile;

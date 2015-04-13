@@ -75,15 +75,7 @@ static NSMutableArray* currentPath;
     // We want to want to add goal->goal - 1, goal - 1 -> goal - 2, ... goal - n -> start
     // Should end up with [path count - 1] iterations of our loop
     id<Task> nextTask = nil;
-    
-    // Sets the completion handler to make the unit active again after movement
-//    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setTaskAvailable:)];
-//    NSInvocation* moveCompletion = [NSInvocation invocationWithMethodSignature:signature];
-//    bool willBeActive = true;
-//    moveCompletion.target = mover;
-//    moveCompletion.selector = @selector(setTaskAvailable:);
-//    [moveCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
-    
+
     void (^moveCompletion)(void) =
     ^(void) {
         mover.taskAvailable = YES;
@@ -99,12 +91,12 @@ static NSMutableArray* currentPath;
         
         // Determine the angle which the ship must face before traveling to the next hex
         // Note: Hex coordinates are reflected on the r axis
-        if(destHex.q == initHex.q + 1 && destHex.r == initHex.r)          finalAngle = GLKVector3Make(0, 0, M_PI / 6);
-        else if(destHex.q == initHex.q && destHex.r == initHex.r + 1)     finalAngle = GLKVector3Make(0, 0, 3 * M_PI / 6);
-        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r + 1) finalAngle = GLKVector3Make(0, 0, 5 * M_PI / 6);
-        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r)     finalAngle = GLKVector3Make(0, 0, 7 * M_PI / 6);
-        else if(destHex.q == initHex.q && destHex.r == initHex.r - 1)     finalAngle = GLKVector3Make(0, 0, 9 * M_PI / 6);
-        else if(destHex.q == initHex.q + 1 && destHex.r == initHex.r - 1) finalAngle = GLKVector3Make(0, 0, 11 * M_PI / 6);
+        if(destHex.q == initHex.q + 1 && destHex.r == initHex.r)          finalAngle = GLKVector3Make(0, 0, M_PI / 6 + UNIT_ZROT_OFF);
+        else if(destHex.q == initHex.q && destHex.r == initHex.r + 1)     finalAngle = GLKVector3Make(0, 0, 3 * M_PI / 6 + UNIT_ZROT_OFF);
+        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r + 1) finalAngle = GLKVector3Make(0, 0, 5 * M_PI / 6 + UNIT_ZROT_OFF);
+        else if(destHex.q == initHex.q - 1 && destHex.r == initHex.r)     finalAngle = GLKVector3Make(0, 0, 7 * M_PI / 6 + UNIT_ZROT_OFF);
+        else if(destHex.q == initHex.q && destHex.r == initHex.r - 1)     finalAngle = GLKVector3Make(0, 0, 9 * M_PI / 6 + UNIT_ZROT_OFF);
+        else if(destHex.q == initHex.q + 1 && destHex.r == initHex.r - 1) finalAngle = GLKVector3Make(0, 0, 11 * M_PI / 6 + UNIT_ZROT_OFF);
         
         GLKVector3 initPos = GLKVector3Make(initHex.worldPosition.x, initHex.worldPosition.y, mover.position.z);
         GLKVector3 destPos = GLKVector3Make(destHex.worldPosition.x, destHex.worldPosition.y, mover.position.z);
@@ -240,14 +232,13 @@ static NSMutableArray* currentPath;
     attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
     if(!missed) newHealth -= damage;
     
-    GLKVector3 finalAngle;
-    finalAngle = GLKVector3Subtract(target.position, attacker.position);
+    GLKVector3 finalAngle = GLKVector3Subtract(target.position, attacker.position);
     finalAngle.z = atan2f(finalAngle.y, finalAngle.x);
     
     Item* projectile = [[Item alloc] initWithFaction:attacker.faction
                                             andClass:(ItemClasses)attacker.shipClass
                                           atPosition:attacker.position
-                                        withRotation:GLKVector3Make(attacker.rotation.x, attacker.rotation.y, finalAngle.z)
+                                        withRotation:GLKVector3Make(0, 0, finalAngle.z + (3 * M_PI / 2))
                                             andScale:GLKVector3Make(PROJECTILE_SCALE, PROJECTILE_SCALE, PROJECTILE_SCALE)
                                                onHex:nil];
     projectile.active = NO;
@@ -271,7 +262,7 @@ static NSMutableArray* currentPath;
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
     // Set it to be the next task invoked after the firing movement task completes
     StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:projectile andTarget:target andGame:_game withSound:@"explosion-metallic.wav"
-                                                    andNextTask:nil andCompletion:attackCompletion];
+                                                    andNextTask:nil andCompletionHandlers:nil];
     firingMove = [[MovementTask alloc] initWithGameObject:projectile fromInitial:attacker.position toDestination:target.position andNextTask:strike];
     
     // If the attacker has the vampirism powerup, create an additional callback to display the amount of health they gained
@@ -309,6 +300,7 @@ static NSMutableArray* currentPath;
         [[SoundManager sharedManager] playSound:soundFile looping:NO];
     };
 
+    finalAngle.z += UNIT_ZROT_OFF;
     RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:attacker toAngle:finalAngle andNextTask:firingMove];
     [rotTask.completionHandler addObject: [rotationCompletion copy]];
     [_game.taskManager addTask:rotTask];
@@ -390,27 +382,13 @@ static NSMutableArray* currentPath;
     
     [_game.gameVC asteroidSearchedPercent:target.percentSearched atX:target.position.x andY:target.position.y  andZ:target.position.z foundFlag:NO foundPowerUp:target.powerUp];
     
+    
     return false;
 }
 
 -(Unit*)scoutThis:(Unit*)target with:(Unit*)scouter
 {
     if(![scouter ableToScout]) return scouter;
-
-    if(!target.active)
-    {
-        return target;
-    }
-    
-    if(!scouter.active)
-    {
-        return target;
-    }
-    
-    if (![scouter ableToScout])
-    {
-        return scouter;
-    }
     
     scouter.stats->actionPool -= scouter.stats->actionPointsPerScout;
     return target;

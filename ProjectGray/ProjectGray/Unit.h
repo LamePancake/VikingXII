@@ -9,6 +9,9 @@
 #ifndef ProjectGray_Unit_h
 #define ProjectGray_Unit_h
 
+// Units start facing 90 degrees
+#define UNIT_ZROT_OFF -(M_PI / 2)
+
 #import <Foundation/Foundation.h>
 #import "GLKit/GLKit.h"
 #import "shipmodel.h"

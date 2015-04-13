@@ -21,5 +21,5 @@
 -(instancetype) initWithProjectile: (id<GameObject>)projectile andTarget:(id<GameObject>)target andGame:(Game *)game withSound:(NSString *)soundFile
                        andNextTask: (id<Task>)task;
 -(instancetype) initWithProjectile:(id<GameObject>)projectile andTarget:(id<GameObject>)target andGame:(Game *)game withSound:(NSString *)soundFile
-                       andNextTask:(id<Task>)task andCompletion: (NSInvocation*)completion;
+                       andNextTask:(id<Task>)task andCompletionHandlers: (NSMutableArray*)completionHandlers;
 @end
