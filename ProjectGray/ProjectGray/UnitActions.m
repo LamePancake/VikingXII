@@ -294,6 +294,7 @@ static NSMutableArray* currentPath;
     if(newHealth <= 0)
     {
         target.active = false;
+        target.roundsToRespawn =  [Unit getRoundsBeforeRespawn];
         [_game unitKilledBy:attacker.faction];
         [_game writeToTextFile];
         if(_game.mode == CTF) [(CTFGameMode*)_game addToRespawnList: target];

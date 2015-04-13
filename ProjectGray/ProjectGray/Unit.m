@@ -22,6 +22,8 @@ const float UNIT_HEIGHT = 0.04f;
 
 @implementation Unit
 
+static int roundsBeforeRespawn = 1;
+
 @synthesize position = _position;
 @synthesize rotation = _rotation;
 @synthesize scale = _scale;
@@ -48,6 +50,7 @@ const float UNIT_HEIGHT = 0.04f;
         _taskAvailable = true;
         _powerUp = NOPOWERUP;
         _projectiles = [[NSMutableArray alloc] init];
+        _roundsToRespawn = roundsBeforeRespawn;
     }
     return self;
 }
@@ -79,4 +82,10 @@ const float UNIT_HEIGHT = 0.04f;
 {
     return (_shipStats.actionPool / _shipStats.movesPerActionPoint);
 }
+
++(int) getRoundsBeforeRespawn
+{
+    return roundsBeforeRespawn;
+}
+
 @end

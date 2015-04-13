@@ -37,6 +37,8 @@
                                       withRotation:GLKVector3Make(0, 0, 0)
                                           andScale:GLKVector3Make(0.01, 0.01, 0.01)
                                              onHex:nil];
+        _graysFlagState = NOTPLACED;
+        _vikingFlagState = NOTPLACED;
         
         self.environmentEntities = [self generateEnvironment];
         
@@ -58,6 +60,7 @@
                 
                 if (self.whoseTurn == VIKINGS)
                 {
+                    [self.gameVC flagPlacedAtX:entity.position.x andY:entity.position.y andZ:entity.position.z forFaction:VIKINGS];
                     _vikingFlagHidingLocation = entity;
                     _vikingFlag.position = entity.position;
                     _vikingFlagState = HIDDEN;
@@ -65,6 +68,7 @@
                 }
                 else
                 {
+                    [self.gameVC flagPlacedAtX:entity.position.x andY:entity.position.y andZ:entity.position.z forFaction:ALIENS];
                     _graysFlagHidingLocation = entity;
                     _graysFlag.position = entity.position;
                     _graysFlagState = HIDDEN;

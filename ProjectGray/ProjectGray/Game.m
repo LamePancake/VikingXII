@@ -188,10 +188,18 @@
 
 -(void)respawnUnits
 {
+    NSMutableArray *unitsToRespawn = [[NSMutableArray alloc] init];
+    
     if(_whoseTurn == VIKINGS)
     {
         for(Unit *unit in _p1RespawnUnits)
         {
+            if (unit.roundsToRespawn > 0)
+            {
+                unit.roundsToRespawn--;
+                break;
+            }
+            
             unit.active = true;
             unit.stats->shipHealth += 100;
             
@@ -208,7 +216,7 @@
                     break;
                 }
             }
-            [_p1RespawnUnits removeObject:unit];
+            [unitsToRespawn addObject:unit];
         }
     }
     else
@@ -231,9 +239,11 @@
                     break;
                 }
             }
-            [_p2RespawnUnits removeObject:unit];
+            [unitsToRespawn addObject:unit];
         }
     }
+    
+    [_p2RespawnUnits removeObjectsInArray:unitsToRespawn];
 }
 
 -(void)switchTurnSelecting

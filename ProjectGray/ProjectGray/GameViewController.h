@@ -67,6 +67,8 @@
 
 -(void)asteroidSearchedPercent:(float)percent atX:(float)x andY: (float)y andZ: (float)z foundFlag:(BOOL)flagFound foundPowerUp:(PowerUpType)powerUp;
 
+-(void)flagPlacedAtX: (float)x andY: (float)y andZ: (float)z forFaction:(Faction)faction;
+
 /**
  * Displays the current goal, eg. fight, place flages, etc
  */

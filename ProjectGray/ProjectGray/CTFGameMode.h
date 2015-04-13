@@ -18,6 +18,7 @@ typedef enum FlagState
     HIDDEN,
     DROPPED,
     TAKEN,
+    NOTPLACED
 } FlagState;
 
 @interface CTFGameMode : Game

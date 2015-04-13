@@ -917,6 +917,18 @@ enum
     else
         hitLabel.text = [NSString stringWithFormat:@"+%.2f", change];
     
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:24]};
+    
+    CGRect rect = [hitLabel.text boundingRectWithSize:CGSizeMake(0, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:attributes
+                                               context:nil];
+    
+    CGRect currentLabelFrame = hitLabel.frame;
+    
+    currentLabelFrame.size.width = rect.size.width;
+    
+    hitLabel.frame = currentLabelFrame;
     
     [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
@@ -928,6 +940,61 @@ enum
                 ((UILabel *)hitLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
             } completion:^(BOOL finished) {
                 hitLabel.text = @"";
+            }];
+        }];
+    }];
+}
+
+-(void)flagPlacedAtX: (float)x andY: (float)y andZ: (float)z forFaction:(Faction)faction
+{
+    UILabel* flagLabel = [[UILabel alloc] init];
+    GLKVector3 pos = GLKVector3Make(x, y, z);
+    pos = GLKMatrix4MultiplyAndProjectVector3(_camera.modelViewProjectionMatrix, pos);
+    int winX = (int) round((( pos.x + 1 ) / 2.0) * self.view.frame.size.width );
+    int winY = (int) round((( 1 - pos.y ) / 2.0) * self.view.frame.size.height );
+    
+    [flagLabel setFrame:CGRectMake(winX, winY, 100, 20)];
+    flagLabel.backgroundColor=[UIColor clearColor];
+    
+    if(faction == VIKINGS)
+    {
+        flagLabel.textColor=[UIColor colorWithRed:VIKING_COLOUR.r green:VIKING_COLOUR.g blue:VIKING_COLOUR.b alpha:1];
+        flagLabel.text = [NSString stringWithFormat:@"Viking Flag Placed!"];
+    }
+    else
+    {
+        flagLabel.textColor=[UIColor colorWithRed:GRAYS_COLOUR.r green:GRAYS_COLOUR.g blue:GRAYS_COLOUR.b alpha:1];
+        flagLabel.text = [NSString stringWithFormat:@"Graylien Flag Placed!"];
+    }
+    
+    flagLabel.userInteractionEnabled = NO;
+    [self.view addSubview:flagLabel];
+    
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:24]};
+    
+    CGRect rect = [flagLabel.text boundingRectWithSize:CGSizeMake(0, CGFLOAT_MAX)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:attributes
+                                                 context:nil];
+    
+    CGRect currentLabelFrame = flagLabel.frame;
+    
+    currentLabelFrame.size.width = rect.size.width;
+    
+    flagLabel.frame = currentLabelFrame;
+
+    
+    [UIView animateWithDuration:0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        ((UILabel *)flagLabel).transform = CGAffineTransformMakeScale(0.0,0.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UILabel *)flagLabel).transform = CGAffineTransformMakeScale(1,1);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                ((UILabel *)flagLabel).transform = CGAffineTransformMakeScale(0.95,0.95);
+            } completion:^(BOOL finished) {
+                flagLabel.text = @"";
             }];
         }];
     }];
@@ -949,7 +1016,7 @@ enum
     
     if(percent < 99)
     {
-        searchLabel.textColor=[UIColor blueColor];
+        searchLabel.textColor=[UIColor lightGrayColor];
         searchLabel.text = [NSString stringWithFormat:@"%.2f%c Searched...", percent, '%'];    }
     else
     {
@@ -1382,9 +1449,9 @@ enum
     if (_game.mode == CTF)
     {
         CTFGameMode* game = (CTFGameMode*)_game;
-        if (game.vikingFlagState != HIDDEN)
+        if ((_game.state == PLAYING && game.vikingFlagState != HIDDEN) || (_game.state == FLAG_PLACEMENT && game.vikingFlagState == HIDDEN && _game.whoseTurn == VIKINGS))
             [self drawFlag:game.vikingFlag ofFaction:VIKINGS withVertices:_vertexVikingItemArray usingProgram:_2DProgram];
-        if (game.graysFlagState != HIDDEN)
+        if ((_game.state == PLAYING && game.graysFlagState != HIDDEN) || (_game.state == FLAG_PLACEMENT && game.graysFlagState == HIDDEN  && _game.whoseTurn == ALIENS))
             [self drawFlag:game.graysFlag ofFaction:ALIENS withVertices:_vertexGrayItemArray usingProgram:_2DProgram];
     }
 }
