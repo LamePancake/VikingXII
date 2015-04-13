@@ -110,6 +110,8 @@ enum
     GLKVector4 vikingTint;
     GLKVector4 alienTint;
     GLKVector4 bgTint;
+    
+    NSString* shipNamesStrings[2][3];
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -181,8 +183,6 @@ enum
     _modelVertexSpecification[1] = {GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, 12};
     _modelVertexSpecification[2] = {GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, 24};
     
-    [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
-    
     endTurnPressed = NO;
     
     isPaused = NO;
@@ -202,6 +202,15 @@ enum
     abilityImages[3] = @"Search.png";
     abilityImages[4] = @"Scout.png";
     abilityImages[5] = @"Hammer.png";
+    
+    shipNamesStrings[0][0] = @"Vör’s Vengeance";
+    shipNamesStrings[0][1] = @"EIR XII";
+    shipNamesStrings[0][2] = @"Angry Týr";
+    
+    shipNamesStrings[1][0] = @"Classic Sauce";
+    shipNamesStrings[1][1] = @"Snail Mail";
+    shipNamesStrings[1][2] = @"Phoenix Special";
+    
     
     [self setupGL];
 }
@@ -1117,55 +1126,61 @@ enum
     
     if(_game.selectedUnit == nil)
     {
-        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
-        _apLabel.hidden = YES;
+        [_shipImage setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
+        _shipAP.hidden = YES;
+        [_shipStats setText:@""];
+        [_shipName setText:@""];
+        for(int i = 0; i < _shipPowerups.count; i++)
+        {
+            [((UIImageView*)_shipPowerups[i])setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
+        }
     }
     else
     {
-        [_selectedUnitVIew setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
-        _apLabel.hidden = NO;
-        [_apLabel setText:[NSString stringWithFormat:@"AP: %d", _game.selectedUnit.stats->actionPool]];
+        if(_game.selectedUnitAbility == SCOUT && _game.selectedScoutedUnit != nil)
+        {
+            [_shipImage setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedScoutedUnit.faction][_game.selectedScoutedUnit.shipClass]]]];
+            _shipAP.hidden = NO;
+            [_shipAP setText:[NSString stringWithFormat:@"%d", _game.selectedScoutedUnit.stats->actionPool]];
+            
+            NSString *stats = [NSString stringWithFormat:@"HP: %d\rATK: %d\rDEF: %d\rMOVE: %d\rCRIT: %d%%\rACC: %d%%",
+                               _game.selectedScoutedUnit.stats->shipHealth,
+                               (int)_game.selectedScoutedUnit.stats->damage,
+                               (int)(_game.selectedScoutedUnit.stats->hull * 100),
+                               _game.selectedScoutedUnit.moveRange,
+                               (int)(_game.selectedScoutedUnit.stats->critChance * 100),
+                               (int)(_game.selectedScoutedUnit.stats->accuracy * 100)];
+            _shipStats.text = stats;
+            
+            [_shipName setText:shipNamesStrings[_game.selectedScoutedUnit.faction][_game.selectedScoutedUnit.shipClass]];
+            
+            //process power up images here
+        }
+        else
+        {
+            [_shipImage setImage:[UIImage imageNamed:[NSString stringWithUTF8String:shipImages[_game.selectedUnit.faction][_game.selectedUnit.shipClass]]]];
+            _shipAP.hidden = NO;
+            [_shipAP setText:[NSString stringWithFormat:@"%d", _game.selectedUnit.stats->actionPool]];
+            
+            NSString *stats = [NSString stringWithFormat:@"HP: %d\rATK: %d\rDEF: %d\rMOVE: %d\rCRIT: %d%%\rACC: %d%%",
+                               _game.selectedUnit.stats->shipHealth,
+                               (int)_game.selectedUnit.stats->damage,
+                               (int)(_game.selectedUnit.stats->hull * 100),
+                               _game.selectedUnit.moveRange,
+                               (int)(_game.selectedUnit.stats->critChance * 100),
+                               (int)(_game.selectedUnit.stats->accuracy * 100)];
+            _shipStats.text = stats;
+
+            [_shipName setText:shipNamesStrings[_game.selectedUnit.faction][_game.selectedUnit.shipClass]];
+            
+             //process power up images here
+        }
     }
     
     [_camera UpdateWithWidth:self.view.frame.size.width AndHeight: self.view.frame.size.height];
     [_game update];
     
     _attackLabel.text = @"";
-    
-    if(_game.selectedUnit)
-    {
-        _statsBackground.hidden = NO;
-        Unit* seld = _game.selectedUnit;
-        if(_game.selectedUnitAbility == SCOUT && _game.selectedScoutedUnit != nil)
-        {
-            Unit* sctd = _game.selectedScoutedUnit;
-            NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
-                               sctd.stats->hull,
-                               sctd.stats->attackRange,
-                               sctd.stats->damage,
-                               sctd.moveRange,
-                               sctd.stats->accuracy,
-                               sctd.stats->shipHealth];
-            _statsLabel.text = stats;
-        }
-        else
-        {
-            NSString *stats = [NSString stringWithFormat:@"Hull: %f\rAttack Range: %d\rDamage: %f\rMovement Range: %d\rAccuracy: %.2f\rShip Health: %d",
-                               seld.stats->hull,
-                               seld.stats->attackRange,
-                               seld.stats->damage,
-                               seld.moveRange,
-                               seld.stats->accuracy,
-                               seld.stats->shipHealth];
-            _statsLabel.text = stats;
-        }
-
-    }
-    else
-    {
-        _statsBackground.hidden = YES;
-        _statsLabel.text = @"";
-    }
     
     [_game.map clearColours];
     

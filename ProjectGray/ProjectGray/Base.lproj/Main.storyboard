@@ -1050,7 +1050,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Nl-Sv-FFt">
-                                        <rect key="frame" x="111" y="201" width="99" height="51"/>
+                                        <rect key="frame" x="111" y="191" width="99" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="9EK-Ia-8EF"/>
                                             <constraint firstAttribute="width" constant="99" id="Vec-vl-fuB"/>
@@ -1075,7 +1075,7 @@
                                     <constraint firstItem="DXp-Xl-Qi0" firstAttribute="top" secondItem="351-a1-n6F" secondAttribute="bottom" constant="8" id="SQY-N7-BHW"/>
                                     <constraint firstAttribute="centerX" secondItem="fe8-xn-tv8" secondAttribute="centerX" id="StU-1k-3mX"/>
                                     <constraint firstItem="fe8-xn-tv8" firstAttribute="centerX" secondItem="f1P-fL-Ixg" secondAttribute="centerX" constant="26" id="WYE-vr-JVB"/>
-                                    <constraint firstItem="1Nl-Sv-FFt" firstAttribute="top" secondItem="Mga-Nw-Mn6" secondAttribute="bottom" constant="5" id="X3Y-JW-dVY"/>
+                                    <constraint firstItem="1Nl-Sv-FFt" firstAttribute="top" secondItem="Mga-Nw-Mn6" secondAttribute="bottom" constant="-5" id="X3Y-JW-dVY"/>
                                     <constraint firstItem="vsp-at-wdg" firstAttribute="leading" secondItem="Fjh-YV-Qfc" secondAttribute="trailing" constant="4" id="chy-TV-f6E"/>
                                     <constraint firstAttribute="trailing" secondItem="1Nl-Sv-FFt" secondAttribute="trailing" constant="10" id="hRO-dY-K4N"/>
                                     <constraint firstAttribute="bottom" secondItem="vsp-at-wdg" secondAttribute="bottom" id="jGu-sp-dck"/>

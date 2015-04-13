@@ -259,6 +259,7 @@
         _state = PLAYING;
         [_gameVC displayGoal];
         _selectedUnit = nil;
+        _selectedScoutedUnit = nil;
     }
 }
 
@@ -268,6 +269,7 @@
     _whoseTurn = _whoseTurn == _p1Faction ? _p2Faction : _p1Faction;
     _selectedUnit = nil;
     _selectedUnitAbility = NOABILITY;
+    _selectedScoutedUnit = nil;
 
     [self updatePowerUpsForUnitFaction:_whoseTurn];
     

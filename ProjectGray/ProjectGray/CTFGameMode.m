@@ -387,6 +387,7 @@
         self.state = FLAG_PLACEMENT;
         [self.gameVC displayGoal];
         self.selectedUnit = nil;
+        self.selectedScoutedUnit = nil;
     }
 }
 
@@ -394,6 +395,7 @@
 {
     self.whoseTurn = self.whoseTurn == VIKINGS ? ALIENS : VIKINGS;
     self.selectedUnit = nil;
+    self.selectedScoutedUnit = nil;
     
     if(_graysFlagHidingLocation != nil && _vikingFlagHidingLocation != nil)
     {
