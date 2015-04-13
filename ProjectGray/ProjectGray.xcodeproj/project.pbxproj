@@ -58,6 +58,10 @@
 		351C142B1ACB1A4500D6C15D /* Go.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14251ACB1A4500D6C15D /* Go.png */; };
 		351C142C1ACB1A4500D6C15D /* PlaceFlags.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14261ACB1A4500D6C15D /* PlaceFlags.png */; };
 		351C142D1ACB1A4500D6C15D /* PlaceUnits.png in Resources */ = {isa = PBXBuildFile; fileRef = 351C14271ACB1A4500D6C15D /* PlaceUnits.png */; };
+		351CB8561ADC36C1002D8F31 /* ActionHero.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8521ADC36C1002D8F31 /* ActionHero.png */; };
+		351CB8571ADC36C1002D8F31 /* KaBlam.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8531ADC36C1002D8F31 /* KaBlam.png */; };
+		351CB8581ADC36C1002D8F31 /* LuckyCharm.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8541ADC36C1002D8F31 /* LuckyCharm.png */; };
+		351CB8591ADC36C1002D8F31 /* Vampirism.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8551ADC36C1002D8F31 /* Vampirism.png */; };
 		351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D533B1AC9D40D0021FE40 /* StatsViewController.m */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -238,6 +242,10 @@
 		351C14251ACB1A4500D6C15D /* Go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Go.png; sourceTree = "<group>"; };
 		351C14261ACB1A4500D6C15D /* PlaceFlags.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceFlags.png; sourceTree = "<group>"; };
 		351C14271ACB1A4500D6C15D /* PlaceUnits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceUnits.png; sourceTree = "<group>"; };
+		351CB8521ADC36C1002D8F31 /* ActionHero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionHero.png; sourceTree = "<group>"; };
+		351CB8531ADC36C1002D8F31 /* KaBlam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KaBlam.png; sourceTree = "<group>"; };
+		351CB8541ADC36C1002D8F31 /* LuckyCharm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LuckyCharm.png; sourceTree = "<group>"; };
+		351CB8551ADC36C1002D8F31 /* Vampirism.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Vampirism.png; sourceTree = "<group>"; };
 		351D533A1AC9D40D0021FE40 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
 		351D533B1AC9D40D0021FE40 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
@@ -454,6 +462,10 @@
 			isa = PBXGroup;
 			children = (
 				35B08CC61AD8E8A7005102D4 /* Tutorial */,
+				351CB8521ADC36C1002D8F31 /* ActionHero.png */,
+				351CB8531ADC36C1002D8F31 /* KaBlam.png */,
+				351CB8541ADC36C1002D8F31 /* LuckyCharm.png */,
+				351CB8551ADC36C1002D8F31 /* Vampirism.png */,
 				70D9640C1AD8F72A003E0F0D /* GrayWin.png */,
 				70D9640D1AD8F72A003E0F0D /* VikingWin.png */,
 				351C14221ACB1A4500D6C15D /* Back.png */,
@@ -847,16 +859,19 @@
 				A57298141A7C1F30001934F9 /* LaunchScreen.xib in Resources */,
 				A5A20A371AC720EE00E89B41 /* grayVertsMedium.txt in Resources */,
 				35B08CB51AD86487005102D4 /* Attack.png in Resources */,
+				351CB8571ADC36C1002D8F31 /* KaBlam.png in Resources */,
 				3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */,
 				A50E72A71AC8BE7200FECBE6 /* l_cannonball.txt in Resources */,
 				30D658381A99629C00DE1F63 /* cannon1.aiff in Resources */,
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
+				351CB8581ADC36C1002D8F31 /* LuckyCharm.png in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				A5A20A411AC7247B00E89B41 /* GrayDiff.png in Resources */,
 				35B08CDA1AD8E8C6005102D4 /* tutorial-9.png in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5A20A361AC720EE00E89B41 /* grayVertsLight.txt in Resources */,
+				351CB8561ADC36C1002D8F31 /* ActionHero.png in Resources */,
 				A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */,
 				3516CB1C1AD9C0D3005BEE25 /* NextPressed.png in Resources */,
 				35B08CBD1AD86487005102D4 /* Scout.png in Resources */,
@@ -921,6 +936,7 @@
 				3516E2511AC1D983008A815C /* h_viking.png in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				3516E2541AC1D983008A815C /* m_gray.png in Resources */,
+				351CB8591ADC36C1002D8F31 /* Vampirism.png in Resources */,
 				35B08CD41AD8E8C6005102D4 /* tutorial-3.png in Resources */,
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */,
