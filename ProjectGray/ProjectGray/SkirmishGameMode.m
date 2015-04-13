@@ -165,7 +165,7 @@
     }
     
     // If they selected a tile with a friendly unit, set the current selection to that
-    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn)
+    if(!healedUnit && unitOnTile && unitOnTile.faction == self.whoseTurn && unitOnTile.active)
     {
         self.selectedUnit = unitOnTile;
         self.selectedUnitAbility = MOVE;
