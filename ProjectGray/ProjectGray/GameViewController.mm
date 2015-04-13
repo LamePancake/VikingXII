@@ -112,6 +112,8 @@ enum
     GLKVector4 bgTint;
     
     NSString* shipNamesStrings[2][3];
+    
+    bool statsMinimized;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -157,6 +159,11 @@ enum
     fingerDrag.maximumNumberOfTouches = 1;
     fingerDrag.minimumNumberOfTouches = 1;
     [self.view addGestureRecognizer:fingerDrag];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(statsTap:)];
+    singleTap.numberOfTapsRequired = 1;
+    _statsView.userInteractionEnabled = YES;
+    [_statsView addGestureRecognizer:singleTap];
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
@@ -211,6 +218,7 @@ enum
     shipNamesStrings[1][1] = @"Snail Mail";
     shipNamesStrings[1][2] = @"Phoenix Special";
     
+    statsMinimized = NO;
     
     [self setupGL];
 }
@@ -667,6 +675,30 @@ enum
     float y = translation.y/recognizer.view.frame.size.height;
     
     [_camera PanDidBegin:didBegin X:x Y:y];
+}
+
+-(IBAction)statsTap:(UITapGestureRecognizer *)recognizer
+{
+    if(_game.selectedUnit == nil && statsMinimized)
+        return;
+    
+    if(!statsMinimized)
+    {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _statsView.transform = CGAffineTransformMakeTranslation(0, 252);
+        } completion:^(BOOL finished){
+            statsMinimized = YES;
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _statsView.transform = CGAffineTransformMakeTranslation(0, 0);
+        } completion:^(BOOL finished){
+            statsMinimized = NO;
+        }];
+    }
+    
 }
 
 /*!
@@ -1129,7 +1161,11 @@ enum
         [_shipImage setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
         _shipAP.hidden = YES;
         [_shipStats setText:@""];
-        [_shipName setText:@""];
+        [_shipName setText:@"No Selected Unit"];
+        
+        if(!statsMinimized)
+            [self statsTap:nil];
+        
         for(int i = 0; i < _shipPowerups.count; i++)
         {
             [((UIImageView*)_shipPowerups[i])setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];

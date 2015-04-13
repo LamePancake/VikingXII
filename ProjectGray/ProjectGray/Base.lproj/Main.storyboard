@@ -1228,6 +1228,7 @@
                         <outlet property="shipImage" destination="sEc-Lt-nxp" id="fZv-Ee-XaC"/>
                         <outlet property="shipName" destination="1Ec-e9-q8C" id="SCz-LM-SJV"/>
                         <outlet property="shipStats" destination="Q9V-Dz-XBY" id="4uT-YJ-JSo"/>
+                        <outlet property="statsView" destination="kOS-m1-lGF" id="Fog-eH-Zz8"/>
                         <outlet property="turnImage" destination="f2f-cL-rMQ" id="Cy6-nd-ZwG"/>
                         <outlet property="turnMarker" destination="WyU-sd-vxG" id="X3q-xi-NHJ"/>
                         <outlet property="winImageView" destination="RxL-LM-rsB" id="Xb2-2D-qe2"/>

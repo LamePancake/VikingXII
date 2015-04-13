@@ -54,6 +54,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *shipAP;
 @property (strong, nonatomic) IBOutlet UILabel *shipStats;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *shipPowerups;
+@property (strong, nonatomic) IBOutlet UIView *statsView;
 
 /**
  * Notifies the game that the given faction has won.
