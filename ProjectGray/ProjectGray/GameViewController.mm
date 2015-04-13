@@ -1459,7 +1459,7 @@ enum
             if(curUnit.hex == nil)
                 continue;
         
-        if(curUnit.active == isAlive)
+        if((curUnit.stats->shipHealth != 0) == isAlive)
         {
             [self drawGameObject: curUnit
                  withVertexArray: vertices[((Unit*)curUnit).shipClass]

@@ -49,9 +49,9 @@
         if(curTask.isFinished)
         {
             // Invoke the completion handler, if any
-            for (NSInvocation* handler in curTask.completionHandler)
+            for (void (^completionHanlder)(void) in curTask.completionHandler)
             {
-                [handler invoke];
+                completionHanlder();
             }
             id<Task>next = curTask.nextTask;
             

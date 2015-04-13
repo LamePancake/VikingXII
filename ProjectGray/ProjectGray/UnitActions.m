@@ -77,12 +77,17 @@ static NSMutableArray* currentPath;
     id<Task> nextTask = nil;
     
     // Sets the completion handler to make the unit active again after movement
-    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setTaskAvailable:)];
-    NSInvocation* moveCompletion = [NSInvocation invocationWithMethodSignature:signature];
-    bool willBeActive = true;
-    moveCompletion.target = mover;
-    moveCompletion.selector = @selector(setTaskAvailable:);
-    [moveCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+//    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setTaskAvailable:)];
+//    NSInvocation* moveCompletion = [NSInvocation invocationWithMethodSignature:signature];
+//    bool willBeActive = true;
+//    moveCompletion.target = mover;
+//    moveCompletion.selector = @selector(setTaskAvailable:);
+//    [moveCompletion setArgument:&willBeActive atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
+    
+    void (^moveCompletion)(void) =
+    ^(void) {
+        mover.taskAvailable = YES;
+    };
     
     NSUInteger count = [path count] - 1;
     for (NSUInteger i = 0; i < count; i++)
@@ -111,7 +116,7 @@ static NSMutableArray* currentPath;
         if(i == 0)
         {
             // Add a completion handler
-            [currentMove.completionHandler addObject:moveCompletion];
+            [currentMove.completionHandler addObject:[moveCompletion copy]];
         }
     }
     return nextTask;
@@ -217,6 +222,7 @@ static NSMutableArray* currentPath;
 {
     float damage = 0.0f;
     BOOL missed = NO;
+    float newHealth = target.stats->shipHealth;
     attacker.attacking = YES;
     
     MovementTask *firingMove = nil;
@@ -232,8 +238,7 @@ static NSMutableArray* currentPath;
 
     missed = [self calculateDamage:&damage forAttackOnTarget:target byAttacker:attacker];
     attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
-    if(!missed) target.stats->shipHealth -= damage;
-
+    if(!missed) newHealth -= damage;
     
     GLKVector3 finalAngle;
     finalAngle = GLKVector3Subtract(target.position, attacker.position);
@@ -248,27 +253,20 @@ static NSMutableArray* currentPath;
     projectile.active = NO;
     [attacker.projectiles addObject:projectile];
     
-    // Create the callback to show damage
-    NSMethodSignature* methodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
-    NSInvocation* attackCompletion = [NSInvocation invocationWithMethodSignature:methodSig];
+    // Create a block that will call the unitHealthChangedAtX... method on the GameViewController
     GLKVector3 targetUnitPos = target.position; // Can't pass property to the invocation (or union, as it turns out)
-    BOOL isDamage = YES;
     float actualDamage = roundf(damage);
-    
-    attackCompletion.target = _game.gameVC;
-    attackCompletion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
-    [attackCompletion setArgument:&targetUnitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
-    [attackCompletion setArgument:&targetUnitPos.y atIndex:3];
-    [attackCompletion setArgument:&targetUnitPos.z atIndex:4];
-    [attackCompletion setArgument:&actualDamage atIndex:5];
-    [attackCompletion setArgument:&isDamage atIndex:6];
+    void (^attackCompletion)(void) =
+    ^(void) {
+        [_game.gameVC unitHealthChangedAtX:targetUnitPos.x andY:targetUnitPos.y andZ:targetUnitPos.z withChange:actualDamage andIsDamage:YES];
+        target.stats->shipHealth = newHealth <= 0 ? 0 : newHealth;
+    };
     
     // Add a completion handler to remove the projectile from the attacker's projectile array once it has struck the enemy
-    NSMethodSignature* removeObjSig = [NSMutableArray instanceMethodSignatureForSelector:@selector(removeObject:)];
-    NSInvocation* removeProjectileCompletion = [NSInvocation invocationWithMethodSignature:removeObjSig];
-    removeProjectileCompletion.target = attacker.projectiles;
-    removeProjectileCompletion.selector = @selector(removeObject:);
-    [removeProjectileCompletion setArgument:&projectile atIndex:2];
+    void (^removeProjectileCompletion)(void) =
+    ^(void) {
+        [attacker.projectiles removeObject:projectile];
+    };
     
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
     // Set it to be the next task invoked after the firing movement task completes
@@ -280,81 +278,38 @@ static NSMutableArray* currentPath;
     if (attacker.powerUp == VAMPIRISM)
     {
         attacker.stats->shipHealth += damage;
-        
-        NSMethodSignature* healMethodSig = [GameViewController instanceMethodSignatureForSelector: @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:)];
-        NSInvocation* healCompletion = [NSInvocation invocationWithMethodSignature:healMethodSig];
-        BOOL damaging = NO;
         GLKVector3 attackerUnitPos = attacker.position;
-        healCompletion.target = _game.gameVC;
-        healCompletion.selector = @selector(unitHealthChangedAtX:andY:andZ:withChange:andIsDamage:);
-        [healCompletion setArgument:&attackerUnitPos.x atIndex:2]; // Index 2 because 0 is target and 1 is _cmd (the selector being sent to the object)
-        [healCompletion setArgument:&attackerUnitPos.y atIndex:3];
-        [healCompletion setArgument:&attackerUnitPos.z atIndex:4];
-        [healCompletion setArgument:&actualDamage atIndex:5];
-        [healCompletion setArgument:&damaging atIndex:6];
-        [strike.completionHandler addObjectsFromArray:@[attackCompletion, healCompletion, removeProjectileCompletion]];
+        void (^healCompletion)(void) =
+        ^(void) {
+            [_game.gameVC unitHealthChangedAtX:attackerUnitPos.x andY:attackerUnitPos.y andZ:attackerUnitPos.z withChange:actualDamage andIsDamage:NO];
+        };
+        [strike.completionHandler addObjectsFromArray:@[[attackCompletion copy], [healCompletion copy], [removeProjectileCompletion copy]]];
     }
     else
     {
-        [strike.completionHandler addObjectsFromArray:@[attackCompletion, removeProjectileCompletion]];
+        [strike.completionHandler addObjectsFromArray:@[[attackCompletion copy], [removeProjectileCompletion copy]]];
     }
 
     // If the attack killed the target, add a task to set it to inactive after all animations have finished
-    if(target.stats->shipHealth <= 0)
+    if(newHealth <= 0)
     {
-        NSMethodSignature* activeSig = [Item instanceMethodSignatureForSelector:@selector(setActive:)];
-        NSInvocation* hideShip = [NSInvocation invocationWithMethodSignature:activeSig];
-        bool willBeActive = false;
-        hideShip.target = target;
-        hideShip.selector = @selector(setActive:);
-        [hideShip setArgument:&willBeActive atIndex:2];
-        
-        target.stats->shipHealth = 0;
+        target.active = false;
         [_game unitKilledBy:attacker.faction];
         [_game writeToTextFile];
-        
-        [strike.completionHandler addObject:hideShip];
-        
-        // If we're playing CTF, add this unit to the respawn list so that it will respawn after death
-        if(_game.mode == CTF)
-        {
-            NSMethodSignature* respawnSig = [CTFGameMode instanceMethodSignatureForSelector:@selector(addToRespawnList:)];
-            NSInvocation* respawnUnitCompletion = [NSInvocation invocationWithMethodSignature:respawnSig];
-            respawnUnitCompletion.target = _game;
-            respawnUnitCompletion.selector = @selector(addToRespawnList:);
-            [respawnUnitCompletion setArgument:&target atIndex:2];
-            [strike.completionHandler addObject:respawnUnitCompletion];
-        }
+        if(_game.mode == CTF) [(CTFGameMode*)_game addToRespawnList: target];
     }
     
-    // Create a completion handler to re-enable the unit after the attack is complete
-    NSMethodSignature* signature = [Unit instanceMethodSignatureForSelector:@selector(setTaskAvailable:)];
-    NSInvocation* reEnableAttacker = [NSInvocation invocationWithMethodSignature:signature];
-    bool willBeActive = true;
-    reEnableAttacker.target = attacker;
-    reEnableAttacker.selector = @selector(setTaskAvailable:);
-    [reEnableAttacker setArgument:&willBeActive atIndex:2];
-    
-    // Create another completion handler to show the projectile when the ship has finished rotating
-    // Don't need to retain the projCopy since the fireMovement task already has a strong reference to it
-    NSMethodSignature* activeSig = [Item instanceMethodSignatureForSelector:@selector(setActive:)];
-    NSInvocation* showProjectile = [NSInvocation invocationWithMethodSignature:activeSig];
-    showProjectile.target = projectile;
-    showProjectile.selector = @selector(setActive:);
-    [showProjectile setArgument:&willBeActive atIndex:2];
-    
-    // Create one file completion handler to play the sound when the ship is finished rotating
+    // Allow the attacker to be used again, show the projectile and play the firing souns
     NSString* soundFile = attacker.faction == _game.p1Faction ? [self vikingAttackSound] : [self alienAttackSound];
-    BOOL soundShouldLoop = NO;
-    NSMethodSignature* playSoundSig = [SoundManager instanceMethodSignatureForSelector:@selector(playSound:looping:)];
-    NSInvocation* playFireSound = [NSInvocation invocationWithMethodSignature:playSoundSig];
-    playFireSound.target = [SoundManager sharedManager];
-    playFireSound.selector = @selector(playSound:looping:);
-    [playFireSound setArgument:&soundFile atIndex:2];
-    [playFireSound setArgument:&soundShouldLoop atIndex:3];
-    
+    void (^rotationCompletion)(void) =
+    ^(void) {
+        attacker.taskAvailable = YES;
+        projectile.active = YES;
+        [[SoundManager sharedManager] playSound:soundFile looping:NO];
+    };
+
     RotationTask* rotTask = [[RotationTask alloc] initWithGameObject:attacker toAngle:finalAngle andNextTask:firingMove];
-    [rotTask.completionHandler addObjectsFromArray: @[reEnableAttacker, showProjectile, playFireSound]];
+    [rotTask.completionHandler addObject: [rotationCompletion copy]];
     [_game.taskManager addTask:rotTask];
     
 }
