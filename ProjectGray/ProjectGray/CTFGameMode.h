@@ -46,7 +46,7 @@ typedef enum FlagState
 
 - (NSMutableArray*) generateEnvironment;
 
--(void)addToRespawnList: (Unit*)units from: (Faction*)whoseturn;
+-(void)addToRespawnList: (Unit*)units;
 
 -(void)switchTurnSelecting;
 

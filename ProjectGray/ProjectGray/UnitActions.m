@@ -13,6 +13,7 @@
 #import "SoundManager.h"
 #import "GameViewController.h"
 #import "Game.h"
+#import "CTFGameMode.h"
 #import "ItemStats.h"
 
 static NSMutableArray* currentPath;
@@ -313,6 +314,17 @@ static NSMutableArray* currentPath;
         [_game writeToTextFile];
         
         [strike.completionHandler addObject:hideShip];
+        
+        // If we're playing CTF, add this unit to the respawn list so that it will respawn after death
+        if(_game.mode == CTF)
+        {
+            NSMethodSignature* respawnSig = [CTFGameMode instanceMethodSignatureForSelector:@selector(addToRespawnList:)];
+            NSInvocation* respawnUnitCompletion = [NSInvocation invocationWithMethodSignature:respawnSig];
+            respawnUnitCompletion.target = _game;
+            respawnUnitCompletion.selector = @selector(addToRespawnList:);
+            [respawnUnitCompletion setArgument:&target atIndex:2];
+            [strike.completionHandler addObject:respawnUnitCompletion];
+        }
     }
     
     // Create a completion handler to re-enable the unit after the attack is complete
