@@ -68,8 +68,6 @@
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
 		35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A831A9541FB00D835E3 /* EndTurnPressed.png */; };
 		35471A861A95421100D835E3 /* TrayPlayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 35471A851A95421100D835E3 /* TrayPlayer.png */; };
-		3547EEC51AC72F6F00F94B35 /* GrayPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */; };
-		3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */; };
 		359216AE1A8952A300327F76 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 359216AD1A8952A300327F76 /* Camera.m */; };
 		35B08CB51AD86487005102D4 /* Attack.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CA91AD86487005102D4 /* Attack.png */; };
 		35B08CB61AD86487005102D4 /* AttackPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 35B08CAA1AD86487005102D4 /* AttackPressed.png */; };
@@ -157,6 +155,8 @@
 		A5E12FA11A9CFB44007A8C63 /* MainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA01A9CFB44007A8C63 /* MainMenu.png */; };
 		A5E12FA31A9D0087007A8C63 /* MainMenuResized.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */; };
 		A5E12FA51A9D08B4007A8C63 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E12FA41A9D08B4007A8C63 /* white.png */; };
+		A5E80E791ADC5C2A00DE6A4E /* GrayPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E80E771ADC5C2A00DE6A4E /* GrayPortrait.png */; };
+		A5E80E7A1ADC5C2A00DE6A4E /* VikingPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E80E781ADC5C2A00DE6A4E /* VikingPortrait.png */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
 		F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F211F5A81ABE1F8A00B16426 /* RotationTask.m */; };
 		F2963F251AD8C5E400138742 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2963F241AD8C5E400138742 /* OptionViewController.m */; };
@@ -254,8 +254,6 @@
 		3521E7A71A9131FD00D481B4 /* GUIShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.fsh; sourceTree = "<group>"; };
 		35471A831A9541FB00D835E3 /* EndTurnPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EndTurnPressed.png; sourceTree = "<group>"; };
 		35471A851A95421100D835E3 /* TrayPlayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrayPlayer.png; sourceTree = "<group>"; };
-		3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayPortrait.png; sourceTree = "<group>"; };
-		3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingPortrait.png; sourceTree = "<group>"; };
 		359216AC1A8952A300327F76 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		359216AD1A8952A300327F76 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		35B08CA91AD86487005102D4 /* Attack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attack.png; sourceTree = "<group>"; };
@@ -368,6 +366,8 @@
 		A5E12FA01A9CFB44007A8C63 /* MainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenu.png; sourceTree = "<group>"; };
 		A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenuResized.png; sourceTree = "<group>"; };
 		A5E12FA41A9D08B4007A8C63 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
+		A5E80E771ADC5C2A00DE6A4E /* GrayPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayPortrait.png; sourceTree = "<group>"; };
+		A5E80E781ADC5C2A00DE6A4E /* VikingPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingPortrait.png; sourceTree = "<group>"; };
 		A5FE71BE1A9189A0008D9C1F /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		A5FE71BF1A9189A0008D9C1F /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
 		F211F5A61ABE1B3100B16426 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -465,6 +465,8 @@
 			children = (
 				35B08CC61AD8E8A7005102D4 /* Tutorial */,
 				351CB8521ADC36C1002D8F31 /* ActionHero.png */,
+				A5E80E771ADC5C2A00DE6A4E /* GrayPortrait.png */,
+				A5E80E781ADC5C2A00DE6A4E /* VikingPortrait.png */,
 				351CB8531ADC36C1002D8F31 /* KaBlam.png */,
 				351CB85A1ADC3F00002D8F31 /* tutorialBackground.png */,
 				351CB8541ADC36C1002D8F31 /* LuckyCharm.png */,
@@ -479,8 +481,6 @@
 				351C14251ACB1A4500D6C15D /* Go.png */,
 				351C14261ACB1A4500D6C15D /* PlaceFlags.png */,
 				351C14271ACB1A4500D6C15D /* PlaceUnits.png */,
-				3547EEC31AC72F6F00F94B35 /* GrayPortrait.png */,
-				3547EEC41AC72F6F00F94B35 /* VikingPortrait.png */,
 				3516E24A1AC1D983008A815C /* h_gray.png */,
 				A55AAB231ACA016D004D89A4 /* brokenViking.png */,
 				A5877B2A1ACB2C3F00CCDD8A /* brokenGray.png */,
@@ -881,11 +881,11 @@
 				35B08CB91AD86487005102D4 /* Heal.png in Resources */,
 				A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */,
 				A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */,
-				3547EEC51AC72F6F00F94B35 /* GrayPortrait.png in Resources */,
 				35471A861A95421100D835E3 /* TrayPlayer.png in Resources */,
 				A50E72A51AC8BE7200FECBE6 /* h_cannonball.txt in Resources */,
 				35B08CD61AD8E8C6005102D4 /* tutorial-5.png in Resources */,
 				3516CB1B1AD9C0D3005BEE25 /* Next.png in Resources */,
+				A5E80E7A1ADC5C2A00DE6A4E /* VikingPortrait.png in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
 				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
 				35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */,
@@ -918,6 +918,7 @@
 				A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */,
 				351C14281ACB1A4500D6C15D /* Back.png in Resources */,
 				35B2F0AC1ABDF18400E902F3 /* graysturn.png in Resources */,
+				A5E80E791ADC5C2A00DE6A4E /* GrayPortrait.png in Resources */,
 				30EF3FCF1ACB7683006C53A8 /* explosion-metallic.wav in Resources */,
 				35B08CD91AD8E8C6005102D4 /* tutorial-8.png in Resources */,
 				35B08CDC1AD8E8C6005102D4 /* tutorial-11.png in Resources */,

@@ -119,7 +119,10 @@
             
             // After attack, check if either set of units is something
             int winner = [self checkForWinWithPlayerOneUnits:self.p1Units andPlayerTwoUnits:self.p2Units];
-            if(winner != -1) [self.gameVC factionDidWin:winner];
+            if(winner != -1)
+            {
+                [self.gameVC factionDidWin:winner];
+            }
         }
         // Move to another tile
         else if(self.selectedUnitAbility == MOVE &&

@@ -134,8 +134,8 @@ enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    vikingTint = GLKVector4Make(0.0, 1.0, 0.0, 1.0);
-    alienTint = GLKVector4Make(1.0, 0.0, 0.0, 1.0);
+    vikingTint = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
+    alienTint = GLKVector4Make(0.0, 1.0, 0.0, 1.0);
     bgTint = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
     
     // Add the sound manager and start playing the main game theme
