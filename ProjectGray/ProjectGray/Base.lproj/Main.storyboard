@@ -829,10 +829,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6v-i7-0K4" userLabel="Hammer">
-                                <rect key="frame" x="380" y="500" width="50" height="50"/>
+                                <rect key="frame" x="405" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="IJK-1l-q6V"/>
-                                    <constraint firstAttribute="height" constant="50" id="MC8-lZ-61v"/>
+                                    <constraint firstAttribute="width" constant="75" id="IJK-1l-q6V"/>
+                                    <constraint firstAttribute="height" constant="75" id="MC8-lZ-61v"/>
                                 </constraints>
                                 <state key="normal" title="Hammer" image="Hammer.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -873,10 +873,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvC-70-yNN" userLabel="Attack">
-                                <rect key="frame" x="240" y="500" width="50" height="50"/>
+                                <rect key="frame" x="215" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="7OH-04-v4N"/>
-                                    <constraint firstAttribute="width" constant="50" id="I7Y-Ov-2SU"/>
+                                    <constraint firstAttribute="height" constant="75" id="7OH-04-v4N"/>
+                                    <constraint firstAttribute="width" constant="75" id="I7Y-Ov-2SU"/>
                                 </constraints>
                                 <state key="normal" title="Attack" image="Attack.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -886,10 +886,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97V-E6-jp5">
-                                <rect key="frame" x="170" y="500" width="50" height="50"/>
+                                <rect key="frame" x="120" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="G91-au-odG"/>
-                                    <constraint firstAttribute="height" constant="50" id="bCK-1F-5sa"/>
+                                    <constraint firstAttribute="width" constant="75" id="G91-au-odG"/>
+                                    <constraint firstAttribute="height" constant="75" id="bCK-1F-5sa"/>
                                 </constraints>
                                 <state key="normal" title="Move" image="Movement.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -899,10 +899,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="May-KN-Jeo">
-                                <rect key="frame" x="310" y="500" width="50" height="50"/>
+                                <rect key="frame" x="310" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ezw-Y7-4eB"/>
-                                    <constraint firstAttribute="width" constant="50" id="Sqc-qP-zrt"/>
+                                    <constraint firstAttribute="height" constant="75" id="Ezw-Y7-4eB"/>
+                                    <constraint firstAttribute="width" constant="75" id="Sqc-qP-zrt"/>
                                 </constraints>
                                 <state key="normal" title="Search" image="Search.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -918,10 +918,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pwo-S9-AYp">
-                                <rect key="frame" x="380" y="500" width="50" height="50"/>
+                                <rect key="frame" x="405" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Efc-lf-Lt7"/>
-                                    <constraint firstAttribute="width" constant="50" id="YRu-mu-8ZC"/>
+                                    <constraint firstAttribute="height" constant="75" id="Efc-lf-Lt7"/>
+                                    <constraint firstAttribute="width" constant="75" id="YRu-mu-8ZC"/>
                                 </constraints>
                                 <state key="normal" title="Scout" image="Scout.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -931,10 +931,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whP-zb-phm">
-                                <rect key="frame" x="380" y="500" width="50" height="50"/>
+                                <rect key="frame" x="405" y="475" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="p9c-NZ-v96"/>
-                                    <constraint firstAttribute="width" constant="50" id="xu8-8Z-ZMz"/>
+                                    <constraint firstAttribute="height" constant="75" id="p9c-NZ-v96"/>
+                                    <constraint firstAttribute="width" constant="75" id="xu8-8Z-ZMz"/>
                                 </constraints>
                                 <state key="normal" title="Heal" image="Heal.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
