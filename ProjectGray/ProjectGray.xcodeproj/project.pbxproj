@@ -62,6 +62,7 @@
 		351CB8571ADC36C1002D8F31 /* KaBlam.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8531ADC36C1002D8F31 /* KaBlam.png */; };
 		351CB8581ADC36C1002D8F31 /* LuckyCharm.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8541ADC36C1002D8F31 /* LuckyCharm.png */; };
 		351CB8591ADC36C1002D8F31 /* Vampirism.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB8551ADC36C1002D8F31 /* Vampirism.png */; };
+		351CB85B1ADC3F00002D8F31 /* tutorialBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 351CB85A1ADC3F00002D8F31 /* tutorialBackground.png */; };
 		351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351D533B1AC9D40D0021FE40 /* StatsViewController.m */; };
 		3521E7A61A9131E600D481B4 /* GUIShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A51A9131E600D481B4 /* GUIShader.vsh */; };
 		3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3521E7A71A9131FD00D481B4 /* GUIShader.fsh */; };
@@ -246,6 +247,7 @@
 		351CB8531ADC36C1002D8F31 /* KaBlam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KaBlam.png; sourceTree = "<group>"; };
 		351CB8541ADC36C1002D8F31 /* LuckyCharm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LuckyCharm.png; sourceTree = "<group>"; };
 		351CB8551ADC36C1002D8F31 /* Vampirism.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Vampirism.png; sourceTree = "<group>"; };
+		351CB85A1ADC3F00002D8F31 /* tutorialBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialBackground.png; sourceTree = "<group>"; };
 		351D533A1AC9D40D0021FE40 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
 		351D533B1AC9D40D0021FE40 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
 		3521E7A51A9131E600D481B4 /* GUIShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GUIShader.vsh; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				35B08CC61AD8E8A7005102D4 /* Tutorial */,
 				351CB8521ADC36C1002D8F31 /* ActionHero.png */,
 				351CB8531ADC36C1002D8F31 /* KaBlam.png */,
+				351CB85A1ADC3F00002D8F31 /* tutorialBackground.png */,
 				351CB8541ADC36C1002D8F31 /* LuckyCharm.png */,
 				351CB8551ADC36C1002D8F31 /* Vampirism.png */,
 				70D9640C1AD8F72A003E0F0D /* GrayWin.png */,
@@ -941,6 +944,7 @@
 				A5E12F9F1A9CFB34007A8C63 /* Title.png in Resources */,
 				A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */,
 				35B08CD21AD8E8C6005102D4 /* tutorial-1.png in Resources */,
+				351CB85B1ADC3F00002D8F31 /* tutorialBackground.png in Resources */,
 				A5A20A351AC720EE00E89B41 /* grayVertsHeavy.txt in Resources */,
 				35B08CBE1AD86487005102D4 /* ScoutPressed.png in Resources */,
 			);

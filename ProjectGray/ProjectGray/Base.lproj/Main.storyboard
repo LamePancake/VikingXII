@@ -758,30 +758,37 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial-1.png" translatesAutoresizingMaskIntoConstraints="NO" id="oWA-AC-zrI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6q-RB-sCc">
-                                <rect key="frame" x="529" y="530" width="50" height="50"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorialBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="TES-aL-SUX">
+                                <rect key="frame" x="175" y="5" width="250" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="7DX-fE-I1R"/>
-                                    <constraint firstAttribute="height" constant="50" id="or9-lS-HCf"/>
+                                    <constraint firstAttribute="height" constant="60" id="mwP-2P-eXs"/>
+                                    <constraint firstAttribute="width" constant="250" id="tT4-E5-8vl"/>
                                 </constraints>
-                                <state key="normal" title="Next" image="Next.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextPressed:" destination="Env-Hb-gCu" eventType="touchUpInside" id="Vif-Vz-HBW"/>
-                                </connections>
-                            </button>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2f-sp-6Uw" userLabel="Back">
-                                <rect key="frame" x="529" y="30" width="50" height="50"/>
+                                <rect key="frame" x="185" y="10" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="nrB-nt-drL"/>
-                                    <constraint firstAttribute="width" constant="50" id="y42-s7-PBc"/>
+                                    <constraint firstAttribute="height" constant="50" id="Cxg-X9-hRs"/>
+                                    <constraint firstAttribute="width" constant="50" id="gVC-aq-RZu"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="Back.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="backPressed:" destination="Env-Hb-gCu" eventType="touchUpInside" id="cSY-nC-x0C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6q-RB-sCc">
+                                <rect key="frame" x="365" y="10" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="HkH-ua-sOC"/>
+                                    <constraint firstAttribute="width" constant="50" id="LTq-le-x36"/>
+                                </constraints>
+                                <state key="normal" title="Next" image="Next.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextPressed:" destination="Env-Hb-gCu" eventType="touchUpInside" id="Vif-Vz-HBW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -791,10 +798,12 @@
                             <constraint firstItem="oWA-AC-zrI" firstAttribute="width" secondItem="eWK-ci-93A" secondAttribute="width" id="2BF-8P-7Eo"/>
                             <constraint firstAttribute="centerY" secondItem="oWA-AC-zrI" secondAttribute="centerY" id="38I-EP-eCb"/>
                             <constraint firstItem="oWA-AC-zrI" firstAttribute="height" secondItem="eWK-ci-93A" secondAttribute="height" id="DmN-9P-Tfb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="u6q-RB-sCc" secondAttribute="trailing" constant="5" id="Qw9-wL-vaA"/>
-                            <constraint firstItem="F2f-sp-6Uw" firstAttribute="top" secondItem="md6-cu-S2z" secondAttribute="bottom" constant="10" id="UJE-u4-gB6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="F2f-sp-6Uw" secondAttribute="trailing" constant="5" id="ZAw-yv-0sF"/>
-                            <constraint firstItem="Ztn-iH-r48" firstAttribute="top" secondItem="u6q-RB-sCc" secondAttribute="bottom" constant="20" id="xCS-Ng-QHd"/>
+                            <constraint firstItem="TES-aL-SUX" firstAttribute="leading" secondItem="F2f-sp-6Uw" secondAttribute="trailing" constant="-60" id="FGu-iH-mCU"/>
+                            <constraint firstItem="TES-aL-SUX" firstAttribute="centerY" secondItem="F2f-sp-6Uw" secondAttribute="centerY" id="VzF-Gk-735"/>
+                            <constraint firstItem="TES-aL-SUX" firstAttribute="top" secondItem="eWK-ci-93A" secondAttribute="topMargin" constant="5" id="h2w-t9-e2h"/>
+                            <constraint firstItem="TES-aL-SUX" firstAttribute="centerY" secondItem="u6q-RB-sCc" secondAttribute="centerY" id="jlb-xV-xhl"/>
+                            <constraint firstAttribute="centerX" secondItem="TES-aL-SUX" secondAttribute="centerX" id="rWY-9I-RhZ"/>
+                            <constraint firstItem="u6q-RB-sCc" firstAttribute="leading" secondItem="TES-aL-SUX" secondAttribute="trailing" constant="-60" id="x95-Pc-pS0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -805,7 +814,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i84-tC-5xI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="5sc-E1-SeN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="298" y="950"/>
+            <point key="canvasLocation" x="297" y="961"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -1468,7 +1477,7 @@
         <image name="PlaceUnits.png" width="512" height="256"/>
         <image name="Scout.png" width="512" height="512"/>
         <image name="Search.png" width="512" height="512"/>
-        <image name="Spaaaace.jpg" width="4096" height="4096"/>
+        <image name="Spaaaace.jpg" width="2048" height="2048"/>
         <image name="Stats.png" width="819" height="1024"/>
         <image name="Title_resized.png" width="1536" height="1536"/>
         <image name="VikingPortrait.png" width="512" height="512"/>
@@ -1479,6 +1488,7 @@
         <image name="m_gray.png" width="512" height="512"/>
         <image name="m_viking.png" width="512" height="512"/>
         <image name="tutorial-1.png" width="2048" height="1536"/>
+        <image name="tutorialBackground.png" width="817" height="177"/>
         <image name="vikingsturn.png" width="512" height="256"/>
     </resources>
 </document>
