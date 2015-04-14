@@ -83,9 +83,27 @@
     }
 }
 
-- (IBAction)resetButton:(id)sender {
-    [self resetFiles];
-    [self loadStats];
+- (IBAction)resetButton:(id)sender
+{
+    [sender setImage:[UIImage imageNamed:@"ResetPressed.png"] forState:UIControlStateHighlighted];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [sender setImage:[UIImage imageNamed:@"ResetPressed.png"] forState:UIControlStateNormal];
+        ((UIButton*)sender).transform = CGAffineTransformMakeScale(0.8,0.8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            ((UIButton*)sender).transform = CGAffineTransformMakeScale(1,1);
+        } completion:nil];
+        
+        [sender setImage:[UIImage imageNamed:@"Reset.png"] forState:UIControlStateNormal];
+    }];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reset"
+                                                    message:@"Are you sure you want to reset your stats?"
+                                                   delegate: self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
 }
 
 //writes empty file
@@ -103,4 +121,16 @@
     [content writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch(buttonIndex) {
+        case 0: //"No" pressed
+            break;
+        case 1: //"Yes" pressed
+            [self.navigationController popViewControllerAnimated:YES];
+            [self resetFiles];
+            [self loadStats];
+            break;
+    }
+}
 @end

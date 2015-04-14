@@ -683,9 +683,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh0-Sg-9B4">
-                                <rect key="frame" x="16" y="15" width="40" height="30"/>
-                                <state key="normal" title="Reset">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh0-Sg-9B4">
+                                <rect key="frame" x="16" y="15" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="VFX-ZB-WM4"/>
+                                    <constraint firstAttribute="height" constant="50" id="ibZ-K8-VdS"/>
+                                </constraints>
+                                <state key="normal" title="Reset" image="Reset.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1546,6 +1550,7 @@
         <image name="Pause.png" width="512" height="512"/>
         <image name="PausePressed.png" width="512" height="512"/>
         <image name="PlaceUnits.png" width="512" height="256"/>
+        <image name="Reset.png" width="500" height="500"/>
         <image name="Scout.png" width="512" height="512"/>
         <image name="Search.png" width="512" height="512"/>
         <image name="Spaaaace.jpg" width="2048" height="2048"/>

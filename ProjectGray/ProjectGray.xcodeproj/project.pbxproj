@@ -47,6 +47,8 @@
 		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
 		350DA20C1ADD9DB2006B254A /* tutorial-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20A1ADD9DB2006B254A /* tutorial-12.png */; };
 		350DA20D1ADD9DB2006B254A /* tutorial-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20B1ADD9DB2006B254A /* tutorial-13.png */; };
+		350DA2101ADDA7FD006B254A /* Reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20E1ADDA7FD006B254A /* Reset.png */; };
+		350DA2111ADDA7FD006B254A /* ResetPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20F1ADDA7FD006B254A /* ResetPressed.png */; };
 		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
 		35117B831A9BF284007E56CD /* Stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 35117B821A9BF284007E56CD /* Stats.png */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
@@ -242,6 +244,8 @@
 		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
 		350DA20A1ADD9DB2006B254A /* tutorial-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-12.png"; sourceTree = "<group>"; };
 		350DA20B1ADD9DB2006B254A /* tutorial-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-13.png"; sourceTree = "<group>"; };
+		350DA20E1ADDA7FD006B254A /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reset.png; sourceTree = "<group>"; };
+		350DA20F1ADDA7FD006B254A /* ResetPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResetPressed.png; sourceTree = "<group>"; };
 		35117B7F1A9BF011007E56CD /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
 		35117B801A9BF087007E56CD /* background.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = background.c; sourceTree = "<group>"; };
 		35117B821A9BF284007E56CD /* Stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stats.png; sourceTree = "<group>"; };
@@ -518,6 +522,8 @@
 				35B08CAC1AD86487005102D4 /* HammerPressed.png */,
 				35B08CAD1AD86487005102D4 /* Heal.png */,
 				35B08CAE1AD86487005102D4 /* HealPressed.png */,
+				350DA20E1ADDA7FD006B254A /* Reset.png */,
+				350DA20F1ADDA7FD006B254A /* ResetPressed.png */,
 				35B08CAF1AD86487005102D4 /* Movement.png */,
 				35B08CB01AD86487005102D4 /* MovementPressed.png */,
 				35B08CB11AD86487005102D4 /* Scout.png */,
@@ -926,6 +932,7 @@
 				3516CB1B1AD9C0D3005BEE25 /* Next.png in Resources */,
 				A5E80E7A1ADC5C2A00DE6A4E /* VikingPortrait.png in Resources */,
 				A5A20A3F1AC7227A00E89B41 /* VikingDiff.png in Resources */,
+				350DA2111ADDA7FD006B254A /* ResetPressed.png in Resources */,
 				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
 				35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */,
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
@@ -941,6 +948,7 @@
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				A50E72A81AC8BE7200FECBE6 /* l_laser.txt in Resources */,
 				30EF3FC91ACB7577006C53A8 /* laser2.wav in Resources */,
+				350DA2101ADDA7FD006B254A /* Reset.png in Resources */,
 				35B08CD51AD8E8C6005102D4 /* tutorial-4.png in Resources */,
 				35B08CBB1AD86487005102D4 /* Movement.png in Resources */,
 				350A000A1A97BB1100602053 /* PausePressed.png in Resources */,
