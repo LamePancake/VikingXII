@@ -169,6 +169,7 @@
 		A5E80E7A1ADC5C2A00DE6A4E /* VikingPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = A5E80E781ADC5C2A00DE6A4E /* VikingPortrait.png */; };
 		A5FE71C01A9189A0008D9C1F /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FE71BF1A9189A0008D9C1F /* Unit.m */; };
 		F211F5A91ABE1F8A00B16426 /* RotationTask.m in Sources */ = {isa = PBXBuildFile; fileRef = F211F5A81ABE1F8A00B16426 /* RotationTask.m */; };
+		F26F3DFA1ADD98C80005AFEF /* resetbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = F26F3DF91ADD98C80005AFEF /* resetbutton.png */; };
 		F2963F251AD8C5E400138742 /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2963F241AD8C5E400138742 /* OptionViewController.m */; };
 		F29BB5051A9811A70000745E /* UnitActions.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5041A9811A70000745E /* UnitActions.m */; };
 		F29BB5081A98151D0000745E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F29BB5071A98151D0000745E /* Game.m */; };
@@ -394,6 +395,7 @@
 		F211F5A71ABE1F7300B16426 /* RotationTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotationTask.h; sourceTree = "<group>"; };
 		F211F5A81ABE1F8A00B16426 /* RotationTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationTask.m; sourceTree = "<group>"; };
 		F219C9AF1A9BFE4B00B9C4EA /* UnitStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitStats.h; sourceTree = "<group>"; };
+		F26F3DF91ADD98C80005AFEF /* resetbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resetbutton.png; sourceTree = "<group>"; };
 		F2963F231AD8C5E400138742 /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
 		F2963F241AD8C5E400138742 /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
 		F29BB5031A9811940000745E /* UnitActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnitActions.h; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 		3521E7A91A913A8200D481B4 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				F26F3DF91ADD98C80005AFEF /* resetbutton.png */,
 				35B08CC61AD8E8A7005102D4 /* Tutorial */,
 				351CB8521ADC36C1002D8F31 /* ActionHero.png */,
 				A5E80E771ADC5C2A00DE6A4E /* GrayPortrait.png */,
@@ -906,6 +909,7 @@
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				A5A20A411AC7247B00E89B41 /* GrayDiff.png in Resources */,
+				F26F3DFA1ADD98C80005AFEF /* resetbutton.png in Resources */,
 				35B08CDA1AD8E8C6005102D4 /* tutorial-9.png in Resources */,
 				30D6583F1A99629C00DE1F63 /* select.wav in Resources */,
 				A5A20A361AC720EE00E89B41 /* grayVertsLight.txt in Resources */,
