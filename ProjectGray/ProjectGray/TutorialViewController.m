@@ -10,7 +10,7 @@
 
 @interface TutorialViewController ()
 {
-    NSString* images[11];
+    NSString* images[13];
     int counter;
 }
 
@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     counter = 0;
-    for(int i = 1; i < 12; i++)
+    for(int i = 1; i < 14; i++)
     {
         images[i - 1] = [NSString stringWithFormat:@"tutorial-%d.png",i];
     }
@@ -91,7 +91,7 @@
     }];
 
     counter++;
-    if(counter > 10)
+    if(counter > 12)
     {
         [self performSegueWithIdentifier:@"ToTitleFromTutorial" sender:self];
     }

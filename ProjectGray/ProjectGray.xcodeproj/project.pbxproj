@@ -45,6 +45,8 @@
 		30EF3FCF1ACB7683006C53A8 /* explosion-metallic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */; };
 		350A00091A97BB1100602053 /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00071A97BB1100602053 /* Pause.png */; };
 		350A000A1A97BB1100602053 /* PausePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 350A00081A97BB1100602053 /* PausePressed.png */; };
+		350DA20C1ADD9DB2006B254A /* tutorial-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20A1ADD9DB2006B254A /* tutorial-12.png */; };
+		350DA20D1ADD9DB2006B254A /* tutorial-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 350DA20B1ADD9DB2006B254A /* tutorial-13.png */; };
 		35117B811A9BF087007E56CD /* background.c in Sources */ = {isa = PBXBuildFile; fileRef = 35117B801A9BF087007E56CD /* background.c */; };
 		35117B831A9BF284007E56CD /* Stats.png in Resources */ = {isa = PBXBuildFile; fileRef = 35117B821A9BF284007E56CD /* Stats.png */; };
 		3514AA481A93C733002FB00C /* EndTurn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3514AA471A93C733002FB00C /* EndTurn.png */; };
@@ -237,6 +239,8 @@
 		30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "explosion-metallic.wav"; sourceTree = "<group>"; };
 		350A00071A97BB1100602053 /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		350A00081A97BB1100602053 /* PausePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PausePressed.png; sourceTree = "<group>"; };
+		350DA20A1ADD9DB2006B254A /* tutorial-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-12.png"; sourceTree = "<group>"; };
+		350DA20B1ADD9DB2006B254A /* tutorial-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial-13.png"; sourceTree = "<group>"; };
 		35117B7F1A9BF011007E56CD /* background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = background.h; sourceTree = "<group>"; };
 		35117B801A9BF087007E56CD /* background.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = background.c; sourceTree = "<group>"; };
 		35117B821A9BF284007E56CD /* Stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stats.png; sourceTree = "<group>"; };
@@ -561,6 +565,8 @@
 				35B08CCF1AD8E8C6005102D4 /* tutorial-9.png */,
 				35B08CD01AD8E8C6005102D4 /* tutorial-10.png */,
 				35B08CD11AD8E8C6005102D4 /* tutorial-11.png */,
+				350DA20A1ADD9DB2006B254A /* tutorial-12.png */,
+				350DA20B1ADD9DB2006B254A /* tutorial-13.png */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -922,9 +928,11 @@
 				70ED68371AF8211A00625883 /* dreamy-ambience.mp3 in Resources */,
 				A5A20A3A1AC720EE00E89B41 /* vikingVertsLight.txt in Resources */,
 				351C142A1ACB1A4500D6C15D /* Fight.png in Resources */,
+				350DA20D1ADD9DB2006B254A /* tutorial-13.png in Resources */,
 				70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */,
 				351C14291ACB1A4500D6C15D /* BackPressed.png in Resources */,
 				A50E72991AC8BCFC00FECBE6 /* environment.png in Resources */,
+				350DA20C1ADD9DB2006B254A /* tutorial-12.png in Resources */,
 				A5A20A391AC720EE00E89B41 /* vikingVertsHeavy.txt in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
 				A50E72A81AC8BE7200FECBE6 /* l_laser.txt in Resources */,
