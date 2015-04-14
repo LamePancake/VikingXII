@@ -24,6 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (![[SoundManager sharedManager] isPlayingMusic])
+    {
+        [[SoundManager sharedManager] prepareToPlay];
+        [[SoundManager sharedManager] playMusic:@"epic-orchestra.wav" looping:YES];
+    }
+    
     // Initialise the game settings object
     _gameSettings = [[ Settings alloc] init];
     [self updateModeText];

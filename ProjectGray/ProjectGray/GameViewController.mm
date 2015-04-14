@@ -1821,13 +1821,15 @@ enum
 {
     UIImage* winImage = winner == _game.p1Faction ? [UIImage imageNamed:@"VikingWin.png"] : [UIImage imageNamed:@"GrayWin.png"];
     
+    [[SoundManager sharedManager] stopMusic:YES];
+    
     if (winner == VIKINGS)
     {
         [[SoundManager sharedManager] playSound:@"rowrow.mp3" looping:NO];
     }
     else
     {
-        [[SoundManager sharedManager] playSound:@"ascending-ufo.mp3" looping:NO];
+        [[SoundManager sharedManager] playSound:@"ascending-ufo.wav" looping:NO];
     }
     
     _winView.hidden = NO;

@@ -16,12 +16,15 @@
 		303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 303F79411AAE3D23009207DF /* PriorityQueue.mm */; };
 		3042D4F61AC399DD00E8EC48 /* CTFGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */; };
 		3042D4F91AC39C1900E8EC48 /* SkirmishGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */; };
+		305174991ADDC5EE0037DE17 /* ascending-ufo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 305174981ADDC5EE0037DE17 /* ascending-ufo.wav */; };
+		3051749D1ADDCD800037DE17 /* mandrill-striking-rock1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3051749A1ADDCD800037DE17 /* mandrill-striking-rock1.wav */; };
+		3051749E1ADDCD800037DE17 /* ping.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3051749B1ADDCD800037DE17 /* ping.wav */; };
+		3051749F1ADDCD800037DE17 /* screwdriver1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3051749C1ADDCD800037DE17 /* screwdriver1.wav */; };
 		305AD0231AD8705A00B86614 /* LuckyCharm.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0221AD8705A00B86614 /* LuckyCharm.m */; };
 		305AD0261AD895FF00B86614 /* Vampirism.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0251AD895FF00B86614 /* Vampirism.m */; };
 		305AD0291AD9AB9800B86614 /* KaBlam.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0281AD9AB9800B86614 /* KaBlam.m */; };
 		306268EF1ADD8F2400F1924B /* rowrow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268ED1ADD8F2400F1924B /* rowrow.mp3 */; };
 		306268F11ADD911E00F1924B /* death-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 306268F01ADD911E00F1924B /* death-explosion.wav */; };
-		306268F31ADD926A00F1924B /* ascending-ufo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268F21ADD926A00F1924B /* ascending-ufo.mp3 */; };
 		307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 307076811AC8D37500A63A55 /* PickupFlagTask.m */; };
 		307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5C1AC5D2560055F326 /* environmentmodel.c */; };
 		307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */; };
@@ -203,6 +206,10 @@
 		3042D4F51AC399DD00E8EC48 /* CTFGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTFGameMode.m; sourceTree = "<group>"; };
 		3042D4F71AC39BD500E8EC48 /* SkirmishGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkirmishGameMode.h; sourceTree = "<group>"; };
 		3042D4F81AC39C1900E8EC48 /* SkirmishGameMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkirmishGameMode.m; sourceTree = "<group>"; };
+		305174981ADDC5EE0037DE17 /* ascending-ufo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ascending-ufo.wav"; sourceTree = "<group>"; };
+		3051749A1ADDCD800037DE17 /* mandrill-striking-rock1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "mandrill-striking-rock1.wav"; sourceTree = "<group>"; };
+		3051749B1ADDCD800037DE17 /* ping.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ping.wav; sourceTree = "<group>"; };
+		3051749C1ADDCD800037DE17 /* screwdriver1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = screwdriver1.wav; sourceTree = "<group>"; };
 		305AD0211AD8704700B86614 /* LuckyCharm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuckyCharm.h; sourceTree = "<group>"; };
 		305AD0221AD8705A00B86614 /* LuckyCharm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuckyCharm.m; sourceTree = "<group>"; };
 		305AD0241AD895EE00B86614 /* Vampirism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vampirism.h; sourceTree = "<group>"; };
@@ -211,7 +218,6 @@
 		305AD0281AD9AB9800B86614 /* KaBlam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KaBlam.m; sourceTree = "<group>"; };
 		306268ED1ADD8F2400F1924B /* rowrow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rowrow.mp3; sourceTree = "<group>"; };
 		306268F01ADD911E00F1924B /* death-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "death-explosion.wav"; sourceTree = "<group>"; };
-		306268F21ADD926A00F1924B /* ascending-ufo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ascending-ufo.mp3"; sourceTree = "<group>"; };
 		307076801AC8D37500A63A55 /* PickupFlagTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupFlagTask.h; sourceTree = "<group>"; };
 		307076811AC8D37500A63A55 /* PickupFlagTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupFlagTask.m; sourceTree = "<group>"; };
 		307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStats.h; sourceTree = "<group>"; };
@@ -467,6 +473,10 @@
 				70ED68361AF8211A00625883 /* dreamy-ambience.mp3 */,
 				70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */,
 				306268F21ADD926A00F1924B /* ascending-ufo.mp3 */,
+				3051749A1ADDCD800037DE17 /* mandrill-striking-rock1.wav */,
+				3051749B1ADDCD800037DE17 /* ping.wav */,
+				3051749C1ADDCD800037DE17 /* screwdriver1.wav */,
+				305174981ADDC5EE0037DE17 /* ascending-ufo.wav */,
 				306268F01ADD911E00F1924B /* death-explosion.wav */,
 				306268ED1ADD8F2400F1924B /* rowrow.mp3 */,
 				30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */,
@@ -877,7 +887,6 @@
 				351C142C1ACB1A4500D6C15D /* PlaceFlags.png in Resources */,
 				301F0A261A993D5C00C552B2 /* sound1.caf in Resources */,
 				A55AAB241ACA016D004D89A4 /* brokenViking.png in Resources */,
-				306268F31ADD926A00F1924B /* ascending-ufo.mp3 in Resources */,
 				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
 				30D6583B1A99629C00DE1F63 /* cannon4.aiff in Resources */,
 				35B08CDB1AD8E8C6005102D4 /* tutorial-10.png in Resources */,
@@ -893,6 +902,7 @@
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
 				306268EF1ADD8F2400F1924B /* rowrow.mp3 in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
+				305174991ADDC5EE0037DE17 /* ascending-ufo.wav in Resources */,
 				35B08CB71AD86487005102D4 /* Hammer.png in Resources */,
 				A50E72A31AC8BE7200FECBE6 /* asteroidcluster1.txt in Resources */,
 				35B08CBC1AD86487005102D4 /* MovementPressed.png in Resources */,
@@ -909,6 +919,7 @@
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
 				351CB8581ADC36C1002D8F31 /* LuckyCharm.png in Resources */,
 				A52B51FB1ADD967F00DD1BB8 /* Space3.jpg in Resources */,
+				3051749F1ADDCD800037DE17 /* screwdriver1.wav in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				A5A20A411AC7247B00E89B41 /* GrayDiff.png in Resources */,
@@ -943,6 +954,7 @@
 				350DA20C1ADD9DB2006B254A /* tutorial-12.png in Resources */,
 				A5A20A391AC720EE00E89B41 /* vikingVertsHeavy.txt in Resources */,
 				35B2F0AB1ABDF18400E902F3 /* vikingsturn.png in Resources */,
+				3051749D1ADDCD800037DE17 /* mandrill-striking-rock1.wav in Resources */,
 				A50E72A81AC8BE7200FECBE6 /* l_laser.txt in Resources */,
 				30EF3FC91ACB7577006C53A8 /* laser2.wav in Resources */,
 				350DA2101ADDA7FD006B254A /* Reset.png in Resources */,
@@ -985,6 +997,7 @@
 				A50E729A1AC8BCFC00FECBE6 /* factionitem.png in Resources */,
 				35B08CBA1AD86487005102D4 /* HealPressed.png in Resources */,
 				3516E2511AC1D983008A815C /* h_viking.png in Resources */,
+				3051749E1ADDCD800037DE17 /* ping.wav in Resources */,
 				3514AA481A93C733002FB00C /* EndTurn.png in Resources */,
 				3516E2541AC1D983008A815C /* m_gray.png in Resources */,
 				351CB8591ADC36C1002D8F31 /* Vampirism.png in Resources */,

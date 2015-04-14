@@ -122,6 +122,8 @@ static NSMutableArray* currentPath;
         return;
     }
     
+    [[SoundManager sharedManager] playSound:@"mandrill-striking-rock1.wav" looping:NO];
+    
     attacker.stats->actionPool -= attacker.stats->actionPointsPerAttack;
     asteroid.hex.hexType = EMPTY;
     asteroid.active = false;
@@ -331,6 +333,8 @@ static NSMutableArray* currentPath;
         target.active = true;
     }
     
+    [[SoundManager sharedManager] playSound:@"screwdriver1.wav" looping:NO];
+    
     target.stats->shipHealth += 20;
     
     // Notify the game view controller that one of the units was healed
@@ -400,6 +404,8 @@ static NSMutableArray* currentPath;
 -(Unit*)scoutThis:(Unit*)target with:(Unit*)scouter
 {
     if(![scouter ableToScout]) return scouter;
+    
+    [[SoundManager sharedManager] playSound:@"ping.wav" looping:NO];
     
     scouter.stats->actionPool -= scouter.stats->actionPointsPerScout;
     return target;
