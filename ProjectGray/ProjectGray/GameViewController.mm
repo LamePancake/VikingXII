@@ -1202,8 +1202,15 @@ enum
             _shipStats.text = stats;
             
             [_shipName setText:shipNamesStrings[_game.selectedScoutedUnit.faction][_game.selectedScoutedUnit.shipClass]];
-            
-            //process power up images here
+
+            if([_game.selectedScoutedUnit hasPowerUp:(ACTION_HERO)])
+                ((UIImageView*)_shipPowerups[0]).alpha = 1.0f;
+            if([_game.selectedScoutedUnit hasPowerUp:(VAMPIRISM)])
+                ((UIImageView*)_shipPowerups[1]).alpha = 1.0f;
+            if([_game.selectedScoutedUnit hasPowerUp:(LUCKY_CHARM)])
+                ((UIImageView*)_shipPowerups[2]).alpha = 1.0f;
+            if([_game.selectedScoutedUnit hasPowerUp:(KABLAM)])
+                ((UIImageView*)_shipPowerups[3]).alpha = 1.0f;
         }
         else
         {
@@ -1222,7 +1229,14 @@ enum
 
             [_shipName setText:shipNamesStrings[_game.selectedUnit.faction][_game.selectedUnit.shipClass]];
             
-             //process power up images here
+            if([_game.selectedUnit hasPowerUp:(ACTION_HERO)])
+                ((UIImageView*)_shipPowerups[0]).alpha = 1.0f;
+            if([_game.selectedUnit hasPowerUp:(VAMPIRISM)])
+                ((UIImageView*)_shipPowerups[1]).alpha = 1.0f;
+            if([_game.selectedUnit hasPowerUp:(LUCKY_CHARM)])
+                ((UIImageView*)_shipPowerups[2]).alpha = 1.0f;
+            if([_game.selectedUnit hasPowerUp:(KABLAM)])
+                ((UIImageView*)_shipPowerups[3]).alpha = 1.0f;
         }
     }
     
