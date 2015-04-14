@@ -393,7 +393,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
         _soundVolume = 1.0f;
         _musicVolume = 1.0f;
         _soundFadeDuration = 1.0;
-        _musicFadeDuration = 1.0;
+        _musicFadeDuration = 4.0;
         _currentSounds = [[NSMutableArray alloc] init];
     }
     return self;

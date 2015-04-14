@@ -11,6 +11,7 @@
 #import "UnitSelectionViewController.h"
 #import "StatsViewController.h"
 #import "Settings.h"
+#import "SoundManager.h"
 
 @interface MainViewController ()
 
@@ -79,6 +80,11 @@
 
 - (IBAction)unwindToTitle:(UIStoryboardSegue *)unwindSegue
 {
+    if (![[SoundManager sharedManager] isPlayingMusic])
+    {
+        [[SoundManager sharedManager] prepareToPlay];
+        [[SoundManager sharedManager] playMusic:@"epic-orchestra.mp3" looping:YES];
+    }
 }
 
 @end

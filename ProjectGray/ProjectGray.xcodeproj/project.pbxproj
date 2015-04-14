@@ -19,7 +19,6 @@
 		305AD0231AD8705A00B86614 /* LuckyCharm.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0221AD8705A00B86614 /* LuckyCharm.m */; };
 		305AD0261AD895FF00B86614 /* Vampirism.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0251AD895FF00B86614 /* Vampirism.m */; };
 		305AD0291AD9AB9800B86614 /* KaBlam.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0281AD9AB9800B86614 /* KaBlam.m */; };
-		306268EE1ADD8F2400F1924B /* dreamy-ambience.wav in Resources */ = {isa = PBXBuildFile; fileRef = 306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */; };
 		306268EF1ADD8F2400F1924B /* rowrow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268ED1ADD8F2400F1924B /* rowrow.mp3 */; };
 		306268F11ADD911E00F1924B /* death-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 306268F01ADD911E00F1924B /* death-explosion.wav */; };
 		306268F31ADD926A00F1924B /* ascending-ufo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268F21ADD926A00F1924B /* ascending-ufo.mp3 */; };
@@ -210,7 +209,6 @@
 		305AD0251AD895FF00B86614 /* Vampirism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vampirism.m; sourceTree = "<group>"; };
 		305AD0271AD9AB8300B86614 /* KaBlam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaBlam.h; sourceTree = "<group>"; };
 		305AD0281AD9AB9800B86614 /* KaBlam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KaBlam.m; sourceTree = "<group>"; };
-		306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "dreamy-ambience.wav"; sourceTree = "<group>"; };
 		306268ED1ADD8F2400F1924B /* rowrow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rowrow.mp3; sourceTree = "<group>"; };
 		306268F01ADD911E00F1924B /* death-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "death-explosion.wav"; sourceTree = "<group>"; };
 		306268F21ADD926A00F1924B /* ascending-ufo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ascending-ufo.mp3"; sourceTree = "<group>"; };
@@ -470,7 +468,6 @@
 				70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */,
 				306268F21ADD926A00F1924B /* ascending-ufo.mp3 */,
 				306268F01ADD911E00F1924B /* death-explosion.wav */,
-				306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */,
 				306268ED1ADD8F2400F1924B /* rowrow.mp3 */,
 				30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */,
 				30EF3FC41ACB7577006C53A8 /* laser1.wav */,
@@ -976,7 +973,6 @@
 				A52B51F91ADD967F00DD1BB8 /* Space2.jpg in Resources */,
 				A50E72A61AC8BE7200FECBE6 /* h_laser.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
-				306268EE1ADD8F2400F1924B /* dreamy-ambience.wav in Resources */,
 				30EF3FC81ACB7577006C53A8 /* laser1.wav in Resources */,
 				35B08CBF1AD86487005102D4 /* Search.png in Resources */,
 				30EF3FCB1ACB7577006C53A8 /* laser4.wav in Resources */,

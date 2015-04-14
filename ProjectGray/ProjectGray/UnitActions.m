@@ -253,6 +253,16 @@ static NSMutableArray* currentPath;
         target.stats->shipHealth = newHealth <= 0 ? 0 : newHealth;
     };
     
+    NSString *strikeSoundFile;
+    if(newHealth <= 0)
+    {
+        strikeSoundFile = @"death-explosion.wav";
+    }
+    else
+    {
+        strikeSoundFile = @"explosion-metallic.wav";
+    }
+    
     // Add a completion handler to remove the projectile from the attacker's projectile array once it has struck the enemy
     void (^removeProjectileCompletion)(void) =
     ^(void) {
@@ -261,7 +271,7 @@ static NSMutableArray* currentPath;
     
     // Create a strike task that removes the projectile from the scene, displays the damage label and plays the strike sound
     // Set it to be the next task invoked after the firing movement task completes
-    StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:projectile andTarget:target andGame:_game withSound:@"explosion-metallic.wav"
+    StrikeTask* strike = [[StrikeTask alloc] initWithProjectile:projectile andTarget:target andGame:_game withSound:strikeSoundFile
                                                     andNextTask:nil andCompletionHandlers:nil];
     firingMove = [[MovementTask alloc] initWithGameObject:projectile fromInitial:attacker.position toDestination:target.position andNextTask:strike];
     
@@ -307,7 +317,8 @@ static NSMutableArray* currentPath;
     
 }
 
-- (void)refillAPFor:(Unit *)thisObject {
+- (void)refillAPFor:(Unit *)thisObject
+{
 
 }
 

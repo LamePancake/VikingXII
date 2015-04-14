@@ -9,6 +9,7 @@
 #import "UnitSelectionViewController.h"
 #import "GameViewController.h"
 #import "HexCells.h"
+#import "SoundManager.h"
 
 #define MAX_UNITS 6
 
@@ -250,6 +251,8 @@
     
     if ([[segue identifier] isEqualToString:@"ToGame"])
     {
+        [[SoundManager sharedManager] stopMusic:YES];
+        
         Game* game;
         
         // Pass the settings object to the game view controller for further use

@@ -145,7 +145,7 @@ enum
     // Add the sound manager and start playing the main game theme
     [SoundManager sharedManager].allowsBackgroundMusic = YES;
     [[SoundManager sharedManager] prepareToPlay];
-    [[SoundManager sharedManager] playMusic:@"epic-orchestra.mp3" looping:YES];
+    [[SoundManager sharedManager] playMusic:@"dreamy-ambience.mp3" looping:YES];
     
     lightPos = GLKVector3Make(0.0, 5.0, -5.0);
     bgPos = GLKVector3Make(0.0, 0, -6.0);
@@ -386,9 +386,8 @@ enum
     _vikingBrokenTexture = [GLProgramUtils setupTexture:@"brokenViking.png"];
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"brokenGray.png"];
     
-    int lowerBound = 0;
-    int upperBound = 4;
-    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    int upperBound = 3;
+    int rndValue = arc4random() % upperBound + 1;
     NSMutableString *bgTextureName = [NSMutableString stringWithFormat:@"Space%d", rndValue];
     [bgTextureName appendString:@".jpg"];
     _bgTexture = [GLProgramUtils setupTexture:bgTextureName];
@@ -1821,6 +1820,15 @@ enum
 - (void)displayWinScreenWithWinner: (Faction)winner
 {
     UIImage* winImage = winner == _game.p1Faction ? [UIImage imageNamed:@"VikingWin.png"] : [UIImage imageNamed:@"GrayWin.png"];
+    
+    if (winner == VIKINGS)
+    {
+        [[SoundManager sharedManager] playSound:@"rowrow.mp3" looping:NO];
+    }
+    else
+    {
+        [[SoundManager sharedManager] playSound:@"ascending-ufo.mp3" looping:NO];
+    }
     
     _winView.hidden = NO;
     _winImageView.image = winImage;
