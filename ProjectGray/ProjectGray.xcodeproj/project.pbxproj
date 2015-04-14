@@ -126,6 +126,9 @@
 		A50E72AA1AC8BE7200FECBE6 /* m_laser.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50E72A21AC8BE7200FECBE6 /* m_laser.txt */; };
 		A51CA42B1AC0BC6D001F9D4E /* 2DShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */; };
 		A51CA42D1AC0BC88001F9D4E /* 2DShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */; };
+		A52B51F91ADD967F00DD1BB8 /* Space2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A52B51F31ADD967F00DD1BB8 /* Space2.jpg */; };
+		A52B51FB1ADD967F00DD1BB8 /* Space3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A52B51F51ADD967F00DD1BB8 /* Space3.jpg */; };
+		A52B51FE1ADD967F00DD1BB8 /* Space1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A52B51F81ADD967F00DD1BB8 /* Space1.jpg */; };
 		A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = A54C285B1AC5D55F0003F0C2 /* Item.m */; };
 		A54E61121A9935A0002A6A3B /* h_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61111A9935A0002A6A3B /* h_vikingVertices.c */; };
 		A54E61141A9935D2002A6A3B /* l_vikingVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = A54E61131A9935D2002A6A3B /* l_vikingVertices.c */; };
@@ -329,6 +332,9 @@
 		A50E72A21AC8BE7200FECBE6 /* m_laser.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_laser.txt; sourceTree = "<group>"; };
 		A51CA42A1AC0BC6D001F9D4E /* 2DShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.vsh; sourceTree = "<group>"; };
 		A51CA42C1AC0BC88001F9D4E /* 2DShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = 2DShader.fsh; sourceTree = "<group>"; };
+		A52B51F31ADD967F00DD1BB8 /* Space2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Space2.jpg; sourceTree = "<group>"; };
+		A52B51F51ADD967F00DD1BB8 /* Space3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Space3.jpg; sourceTree = "<group>"; };
+		A52B51F81ADD967F00DD1BB8 /* Space1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Space1.jpg; sourceTree = "<group>"; };
 		A54C285B1AC5D55F0003F0C2 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		A54C285D1AC5D56E0003F0C2 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		A54E61111A9935A0002A6A3B /* h_vikingVertices.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = h_vikingVertices.c; sourceTree = "<group>"; };
@@ -519,6 +525,9 @@
 				3514AA471A93C733002FB00C /* EndTurn.png */,
 				A5E12FA21A9D0087007A8C63 /* MainMenuResized.png */,
 				A5E12FA41A9D08B4007A8C63 /* white.png */,
+				A52B51F31ADD967F00DD1BB8 /* Space2.jpg */,
+				A52B51F51ADD967F00DD1BB8 /* Space3.jpg */,
+				A52B51F81ADD967F00DD1BB8 /* Space1.jpg */,
 			);
 			name = Textures;
 			sourceTree = "<group>";
@@ -863,11 +872,13 @@
 				A5A20A371AC720EE00E89B41 /* grayVertsMedium.txt in Resources */,
 				35B08CB51AD86487005102D4 /* Attack.png in Resources */,
 				351CB8571ADC36C1002D8F31 /* KaBlam.png in Resources */,
+				A52B51FE1ADD967F00DD1BB8 /* Space1.jpg in Resources */,
 				3521E7A81A9131FD00D481B4 /* GUIShader.fsh in Resources */,
 				A50E72A71AC8BE7200FECBE6 /* l_cannonball.txt in Resources */,
 				30D658381A99629C00DE1F63 /* cannon1.aiff in Resources */,
 				A572980F1A7C1F30001934F9 /* Main.storyboard in Resources */,
 				351CB8581ADC36C1002D8F31 /* LuckyCharm.png in Resources */,
+				A52B51FB1ADD967F00DD1BB8 /* Space3.jpg in Resources */,
 				A57298111A7C1F30001934F9 /* Images.xcassets in Resources */,
 				A57DA1D81A9A677000B02654 /* Spaaaace.jpg in Resources */,
 				A5A20A411AC7247B00E89B41 /* GrayDiff.png in Resources */,
@@ -924,6 +935,7 @@
 				35B08CDC1AD8E8C6005102D4 /* tutorial-11.png in Resources */,
 				A50E72A41AC8BE7200FECBE6 /* asteroidcluster2.txt in Resources */,
 				A50862B31ABDF1BB00D1925A /* flag.txt in Resources */,
+				A52B51F91ADD967F00DD1BB8 /* Space2.jpg in Resources */,
 				A50E72A61AC8BE7200FECBE6 /* h_laser.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
 				30EF3FC81ACB7577006C53A8 /* laser1.wav in Resources */,

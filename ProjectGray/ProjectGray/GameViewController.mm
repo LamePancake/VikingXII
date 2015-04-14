@@ -385,7 +385,13 @@ enum
     _grayTexture = [GLProgramUtils setupTexture:@"GrayDiff.png"];
     _vikingBrokenTexture = [GLProgramUtils setupTexture:@"brokenViking.png"];
     _grayBrokenTexture = [GLProgramUtils setupTexture:@"brokenGray.png"];
-    _bgTexture = [GLProgramUtils setupTexture:@"Spaaaace.jpg"];
+    
+    int lowerBound = 0;
+    int upperBound = 4;
+    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    NSMutableString *bgTextureName = [NSMutableString stringWithFormat:@"Space%d", rndValue];
+    [bgTextureName appendString:@".jpg"];
+    _bgTexture = [GLProgramUtils setupTexture:bgTextureName];
     _itemTexture = [GLProgramUtils setupTexture:@"factionitem.png"];
     _evironmentTexture = [GLProgramUtils setupTexture:@"environment.png"];
 }
