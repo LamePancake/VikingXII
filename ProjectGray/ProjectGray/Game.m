@@ -60,6 +60,7 @@
 //    [self resetFiles]; //Reset the textfile if we need to
     [self readTextFile];
     self.totalGames++;
+    [self writeToTextFile];
     return self;
 }
 
@@ -334,7 +335,7 @@
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     NSArray *dataSegments = [content componentsSeparatedByString:@"<data>"];
     //Hard coded
-    if(dataSegments.count == 10) {
+    if(dataSegments.count == 7) {
         self.unitsKilledp1 = ((NSString*)dataSegments[0]).intValue;
         self.unitsKilledp2 = ((NSString*)dataSegments[1]).intValue;
         self.winsP1 = ((NSString*)dataSegments[2]).intValue;
