@@ -19,6 +19,10 @@
 		305AD0231AD8705A00B86614 /* LuckyCharm.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0221AD8705A00B86614 /* LuckyCharm.m */; };
 		305AD0261AD895FF00B86614 /* Vampirism.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0251AD895FF00B86614 /* Vampirism.m */; };
 		305AD0291AD9AB9800B86614 /* KaBlam.m in Sources */ = {isa = PBXBuildFile; fileRef = 305AD0281AD9AB9800B86614 /* KaBlam.m */; };
+		306268EE1ADD8F2400F1924B /* dreamy-ambience.wav in Resources */ = {isa = PBXBuildFile; fileRef = 306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */; };
+		306268EF1ADD8F2400F1924B /* rowrow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268ED1ADD8F2400F1924B /* rowrow.mp3 */; };
+		306268F11ADD911E00F1924B /* death-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 306268F01ADD911E00F1924B /* death-explosion.wav */; };
+		306268F31ADD926A00F1924B /* ascending-ufo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 306268F21ADD926A00F1924B /* ascending-ufo.mp3 */; };
 		307076821AC8D37500A63A55 /* PickupFlagTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 307076811AC8D37500A63A55 /* PickupFlagTask.m */; };
 		307D4A5D1AC5D2560055F326 /* environmentmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5C1AC5D2560055F326 /* environmentmodel.c */; };
 		307D4A5F1AC5DF140055F326 /* EnvironmentEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 307D4A5E1AC5DF140055F326 /* EnvironmentEntity.m */; };
@@ -106,9 +110,10 @@
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
-		70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */; };
 		70D9640E1AD8F72A003E0F0D /* GrayWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640C1AD8F72A003E0F0D /* GrayWin.png */; };
 		70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640D1AD8F72A003E0F0D /* VikingWin.png */; };
+		70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */; };
+		70ED68371AF8211A00625883 /* dreamy-ambience.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 70ED68361AF8211A00625883 /* dreamy-ambience.mp3 */; };
 		A50862B11ABDF1BB00D1925A /* asteroid.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AD1ABDF1BB00D1925A /* asteroid.txt */; };
 		A50862B21ABDF1BB00D1925A /* cannonball.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AE1ABDF1BB00D1925A /* cannonball.txt */; };
 		A50862B31ABDF1BB00D1925A /* flag.txt in Resources */ = {isa = PBXBuildFile; fileRef = A50862AF1ABDF1BB00D1925A /* flag.txt */; };
@@ -200,6 +205,10 @@
 		305AD0251AD895FF00B86614 /* Vampirism.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vampirism.m; sourceTree = "<group>"; };
 		305AD0271AD9AB8300B86614 /* KaBlam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaBlam.h; sourceTree = "<group>"; };
 		305AD0281AD9AB9800B86614 /* KaBlam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KaBlam.m; sourceTree = "<group>"; };
+		306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "dreamy-ambience.wav"; sourceTree = "<group>"; };
+		306268ED1ADD8F2400F1924B /* rowrow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rowrow.mp3; sourceTree = "<group>"; };
+		306268F01ADD911E00F1924B /* death-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "death-explosion.wav"; sourceTree = "<group>"; };
+		306268F21ADD926A00F1924B /* ascending-ufo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ascending-ufo.mp3"; sourceTree = "<group>"; };
 		307076801AC8D37500A63A55 /* PickupFlagTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupFlagTask.h; sourceTree = "<group>"; };
 		307076811AC8D37500A63A55 /* PickupFlagTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupFlagTask.m; sourceTree = "<group>"; };
 		307D4A5A1AC5CF6C0055F326 /* EnvironmentStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvironmentStats.h; sourceTree = "<group>"; };
@@ -308,9 +317,10 @@
 		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
 		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
 		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
-		70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "epic-orchestra.mp3"; sourceTree = "<group>"; };
 		70D9640C1AD8F72A003E0F0D /* GrayWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayWin.png; sourceTree = "<group>"; };
 		70D9640D1AD8F72A003E0F0D /* VikingWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VikingWin.png; sourceTree = "<group>"; };
+		70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "epic-orchestra.mp3"; sourceTree = "<group>"; };
+		70ED68361AF8211A00625883 /* dreamy-ambience.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "dreamy-ambience.mp3"; sourceTree = "<group>"; };
 		A50862AD1ABDF1BB00D1925A /* asteroid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = asteroid.txt; sourceTree = "<group>"; };
 		A50862AE1ABDF1BB00D1925A /* cannonball.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cannonball.txt; sourceTree = "<group>"; };
 		A50862AF1ABDF1BB00D1925A /* flag.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = flag.txt; sourceTree = "<group>"; };
@@ -446,7 +456,12 @@
 		301F0A231A993BD700C552B2 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				70ED68361AF8211A00625883 /* dreamy-ambience.mp3 */,
 				70ED68301AF81A7C00625883 /* epic-orchestra.mp3 */,
+				306268F21ADD926A00F1924B /* ascending-ufo.mp3 */,
+				306268F01ADD911E00F1924B /* death-explosion.wav */,
+				306268EC1ADD8F2400F1924B /* dreamy-ambience.wav */,
+				306268ED1ADD8F2400F1924B /* rowrow.mp3 */,
 				30EF3FCE1ACB7683006C53A8 /* explosion-metallic.wav */,
 				30EF3FC41ACB7577006C53A8 /* laser1.wav */,
 				30EF3FC51ACB7577006C53A8 /* laser2.wav */,
@@ -850,6 +865,7 @@
 				351C142C1ACB1A4500D6C15D /* PlaceFlags.png in Resources */,
 				301F0A261A993D5C00C552B2 /* sound1.caf in Resources */,
 				A55AAB241ACA016D004D89A4 /* brokenViking.png in Resources */,
+				306268F31ADD926A00F1924B /* ascending-ufo.mp3 in Resources */,
 				3082EA101A8D697000A54360 /* HexShader.fsh in Resources */,
 				30D6583B1A99629C00DE1F63 /* cannon4.aiff in Resources */,
 				35B08CDB1AD8E8C6005102D4 /* tutorial-10.png in Resources */,
@@ -857,11 +873,13 @@
 				A5877B2B1ACB2C3F00CCDD8A /* brokenGray.png in Resources */,
 				35B08CC01AD86487005102D4 /* SearchPressed.png in Resources */,
 				A5A20A3B1AC720EE00E89B41 /* vikingVertsMedium.txt in Resources */,
+				306268F11ADD911E00F1924B /* death-explosion.wav in Resources */,
 				A50E72AA1AC8BE7200FECBE6 /* m_laser.txt in Resources */,
 				A5E12FA51A9D08B4007A8C63 /* white.png in Resources */,
 				3516E2521AC1D983008A815C /* l_gray.png in Resources */,
 				30D658391A99629C00DE1F63 /* cannon2.aiff in Resources */,
 				30D6583A1A99629C00DE1F63 /* cannon3.aiff in Resources */,
+				306268EF1ADD8F2400F1924B /* rowrow.mp3 in Resources */,
 				35117B831A9BF284007E56CD /* Stats.png in Resources */,
 				35B08CB71AD86487005102D4 /* Hammer.png in Resources */,
 				A50E72A31AC8BE7200FECBE6 /* asteroidcluster1.txt in Resources */,
@@ -901,6 +919,7 @@
 				351C142B1ACB1A4500D6C15D /* Go.png in Resources */,
 				35B08CC51AD873CD005102D4 /* UnitPopoverViewController.xib in Resources */,
 				3516E2551AC1D983008A815C /* m_viking.png in Resources */,
+				70ED68371AF8211A00625883 /* dreamy-ambience.mp3 in Resources */,
 				A5A20A3A1AC720EE00E89B41 /* vikingVertsLight.txt in Resources */,
 				351C142A1ACB1A4500D6C15D /* Fight.png in Resources */,
 				70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */,
@@ -918,7 +937,6 @@
 				35471A841A9541FB00D835E3 /* EndTurnPressed.png in Resources */,
 				351C142D1ACB1A4500D6C15D /* PlaceUnits.png in Resources */,
 				350A00091A97BB1100602053 /* Pause.png in Resources */,
-				3547EEC61AC72F6F00F94B35 /* VikingPortrait.png in Resources */,
 				70ED68311AF81A7C00625883 /* epic-orchestra.mp3 in Resources */,
 				3516E2531AC1D983008A815C /* l_viking.png in Resources */,
 				3082EA121A8D698F00A54360 /* HexShader.vsh in Resources */,
@@ -938,6 +956,7 @@
 				A52B51F91ADD967F00DD1BB8 /* Space2.jpg in Resources */,
 				A50E72A61AC8BE7200FECBE6 /* h_laser.txt in Resources */,
 				704455D81A9D523E00A9B2B3 /* Title_resized.png in Resources */,
+				306268EE1ADD8F2400F1924B /* dreamy-ambience.wav in Resources */,
 				30EF3FC81ACB7577006C53A8 /* laser1.wav in Resources */,
 				35B08CBF1AD86487005102D4 /* Search.png in Resources */,
 				30EF3FCB1ACB7577006C53A8 /* laser4.wav in Resources */,
