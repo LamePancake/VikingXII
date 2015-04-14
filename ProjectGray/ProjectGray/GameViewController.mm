@@ -1159,6 +1159,11 @@ enum
         [self displayTurn];
         [self displayGoal];
         isFirstUpdate = NO;
+        
+        for(int i = 0; i < _shipPowerups.count; i++)
+        {
+            ((UIImageView*)_shipPowerups[i]).alpha = 0.4f;
+        }
     }
     
     lightPos = GLKMatrix4MultiplyVector3(GLKMatrix4MakeRotation(0.003f, 0, 0, 1), lightPos);
@@ -1176,7 +1181,7 @@ enum
         
         for(int i = 0; i < _shipPowerups.count; i++)
         {
-            [((UIImageView*)_shipPowerups[i])setImage:[UIImage imageNamed:[NSString stringWithUTF8String:""]]];
+            ((UIImageView*)_shipPowerups[i]).alpha = 0.4f;
         }
     }
     else
