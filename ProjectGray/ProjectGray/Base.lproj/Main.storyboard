@@ -1263,7 +1263,7 @@
         <!--Title-->
         <scene sceneID="7qv-TS-Uq2">
             <objects>
-                <viewController id="ggk-1W-3bd" customClass="MainViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TitleScreen" id="ggk-1W-3bd" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ROa-8D-cyV"/>
                         <viewControllerLayoutGuide type="bottom" id="4V4-x6-oJ9"/>
@@ -1417,6 +1417,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bk9-LB-moE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-656" y="185"/>
+        </scene>
+        <!--Lore View Controller-->
+        <scene sceneID="h3S-mx-PQC">
+            <objects>
+                <viewController id="iye-M1-C88" customClass="LoreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dAr-Oo-wb8"/>
+                        <viewControllerLayoutGuide type="bottom" id="I7x-wI-47a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Ej-yH-8i0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaaaace.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="PFt-v5-7nN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" " translatesAutoresizingMaskIntoConstraints="NO" id="tR7-5D-v6i">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.63" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PFt-v5-7nN" firstAttribute="width" secondItem="6Ej-yH-8i0" secondAttribute="width" id="2Ta-d6-Hhf"/>
+                            <constraint firstItem="PFt-v5-7nN" firstAttribute="leading" secondItem="6Ej-yH-8i0" secondAttribute="leading" id="93w-1C-a4w"/>
+                            <constraint firstItem="PFt-v5-7nN" firstAttribute="top" secondItem="6Ej-yH-8i0" secondAttribute="topMargin" id="IWw-kv-MQn"/>
+                            <constraint firstItem="tR7-5D-v6i" firstAttribute="height" secondItem="6Ej-yH-8i0" secondAttribute="height" id="QpW-pE-P1z"/>
+                            <constraint firstItem="tR7-5D-v6i" firstAttribute="width" secondItem="6Ej-yH-8i0" secondAttribute="width" id="TBJ-gT-E5M"/>
+                            <constraint firstItem="tR7-5D-v6i" firstAttribute="top" secondItem="6Ej-yH-8i0" secondAttribute="topMargin" id="YiS-9M-gph"/>
+                            <constraint firstAttribute="height" secondItem="PFt-v5-7nN" secondAttribute="height" id="erO-Qy-Aaq"/>
+                            <constraint firstItem="tR7-5D-v6i" firstAttribute="leading" secondItem="6Ej-yH-8i0" secondAttribute="leading" id="xzv-wa-qDA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="tR7-5D-v6i" id="3oc-aZ-K4i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rPU-nf-da6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1383" y="185"/>
         </scene>
         <!--Options Controller-->
         <scene sceneID="Too-Uh-OuL">

@@ -115,6 +115,7 @@
 		70C47C311ABE161C0030664E /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C47C301ABE161C0030664E /* UnitSelectionViewController.m */; };
 		70C7612E1A980F83005F0311 /* MovementTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7612D1A980F83005F0311 /* MovementTask.m */; };
 		70C761311A981F2B005F0311 /* TaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C761301A981F2B005F0311 /* TaskManager.m */; };
+		70C7DD861ADDF4C800FDE33B /* LoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C7DD851ADDF4C800FDE33B /* LoreViewController.m */; };
 		70CA7DBB1A9E7C3A00DC1655 /* shipmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */; };
 		70D9640E1AD8F72A003E0F0D /* GrayWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640C1AD8F72A003E0F0D /* GrayWin.png */; };
 		70D9640F1AD8F72B003E0F0D /* VikingWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D9640D1AD8F72A003E0F0D /* VikingWin.png */; };
@@ -328,6 +329,8 @@
 		70C7612D1A980F83005F0311 /* MovementTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementTask.m; sourceTree = "<group>"; };
 		70C7612F1A981F2B005F0311 /* TaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskManager.h; sourceTree = "<group>"; };
 		70C761301A981F2B005F0311 /* TaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskManager.m; sourceTree = "<group>"; };
+		70C7DD841ADDF4C800FDE33B /* LoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoreViewController.h; sourceTree = "<group>"; };
+		70C7DD851ADDF4C800FDE33B /* LoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoreViewController.m; sourceTree = "<group>"; };
 		70CA7DB91A9E7B5700DC1655 /* shipmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shipmodel.h; sourceTree = "<group>"; };
 		70CA7DBA1A9E7C3A00DC1655 /* shipmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shipmodel.c; sourceTree = "<group>"; };
 		70D9640C1AD8F72A003E0F0D /* GrayWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayWin.png; sourceTree = "<group>"; };
@@ -695,6 +698,8 @@
 				F2963F241AD8C5E400138742 /* OptionViewController.m */,
 				35B08CDD1AD8E960005102D4 /* TutorialViewController.h */,
 				35B08CDE1AD8E960005102D4 /* TutorialViewController.m */,
+				70C7DD841ADDF4C800FDE33B /* LoreViewController.h */,
+				70C7DD851ADDF4C800FDE33B /* LoreViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1048,6 +1053,7 @@
 				A54C285C1AC5D55F0003F0C2 /* Item.m in Sources */,
 				351D533C1AC9D40D0021FE40 /* StatsViewController.m in Sources */,
 				70C761311A981F2B005F0311 /* TaskManager.m in Sources */,
+				70C7DD861ADDF4C800FDE33B /* LoreViewController.m in Sources */,
 				A50862BC1ABDFCC800D1925A /* factionmodel.c in Sources */,
 				303F79421AAE3D23009207DF /* PriorityQueue.mm in Sources */,
 				359216AE1A8952A300327F76 /* Camera.m in Sources */,
