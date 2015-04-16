@@ -395,197 +395,50 @@ enum
     _evironmentTexture = [GLProgramUtils setupTexture:@"environment.png"];
 }
 
+// Creates OpenGL handles to all item models
 - (void)setupItems
 {
-    // Item: cannonball
-    glGenVertexArraysOES(1, &_vertexVikingItemArray[L_PROJECTILE]);
-    glBindVertexArrayOES(_vertexVikingItemArray[L_PROJECTILE]);
+    // Load all models for Vikings' items
+    for(int i = 0; i < NUM_ITEMS; i++)
+    {
+        [self setupVertexArray:&_vertexVikingItemArray[i]
+                    withBuffer:&_vertexVikingItemBuffer[i]
+                   andVertices:factionModels[VIKINGS][i]
+               withNumVertices:factionVertexCounts[VIKINGS][i]
+              usingDrawingMode:GL_STATIC_DRAW
+          withVertexAttributes:_modelVertexSpecification
+              andNumAttributes: 3];
+    }
     
-    glGenBuffers(1, &_vertexVikingItemBuffer[L_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[L_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][L_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][L_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-
-    // ITEM: MEDIUM CANNONBALL
-    glGenVertexArraysOES(1, &_vertexVikingItemArray[M_PROJECTILE]);
-    glBindVertexArrayOES(_vertexVikingItemArray[M_PROJECTILE]);
-    
-    glGenBuffers(1, &_vertexVikingItemBuffer[M_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[M_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][M_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][M_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // ITEM: HEAVY CANNONBALL
-    glGenVertexArraysOES(1, &_vertexVikingItemArray[H_PROJECTILE]);
-    glBindVertexArrayOES(_vertexVikingItemArray[H_PROJECTILE]);
-    
-    glGenBuffers(1, &_vertexVikingItemBuffer[H_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[H_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][H_PROJECTILE] * sizeof(float) * 8, factionModels[VIKINGS][H_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Item: light laser
-    glGenVertexArraysOES(1, &_vertexGrayItemArray[L_PROJECTILE]);
-    glBindVertexArrayOES(_vertexGrayItemArray[L_PROJECTILE]);
-    
-    glGenBuffers(1, &_vertexGrayItemBuffer[L_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[L_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][L_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][L_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // ITEM: MEDIUM LASER
-    glGenVertexArraysOES(1, &_vertexGrayItemArray[M_PROJECTILE]);
-    glBindVertexArrayOES(_vertexGrayItemArray[M_PROJECTILE]);
-    
-    glGenBuffers(1, &_vertexGrayItemBuffer[M_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[M_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][M_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][M_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // ITEM: HEAVY LASER
-    glGenVertexArraysOES(1, &_vertexGrayItemArray[H_PROJECTILE]);
-    glBindVertexArrayOES(_vertexGrayItemArray[H_PROJECTILE]);
-    
-    glGenBuffers(1, &_vertexGrayItemBuffer[H_PROJECTILE]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[H_PROJECTILE]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][H_PROJECTILE] * sizeof(float) * 8, factionModels[ALIENS][H_PROJECTILE], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Item: Viking Flag
-    glGenVertexArraysOES(1, &_vertexVikingItemArray[FLAG]);
-    glBindVertexArrayOES(_vertexVikingItemArray[FLAG]);
-    
-    glGenBuffers(1, &_vertexVikingItemBuffer[FLAG]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVikingItemBuffer[FLAG]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[VIKINGS][FLAG] * sizeof(float) * 8, factionModels[VIKINGS][FLAG], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Item: Gray Flag
-    glGenVertexArraysOES(1, &_vertexGrayItemArray[FLAG]);
-    glBindVertexArrayOES(_vertexGrayItemArray[FLAG]);
-    
-    glGenBuffers(1, &_vertexGrayItemBuffer[FLAG]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexGrayItemBuffer[FLAG]);
-    glBufferData(GL_ARRAY_BUFFER, factionVertexCounts[ALIENS][FLAG] * sizeof(float) * 8, factionModels[ALIENS][FLAG], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
+    // Load all models for Grayliens' items
+    for(int i = 0; i < NUM_ITEMS; i++)
+    {
+        [self setupVertexArray:&_vertexGrayItemArray[i]
+                    withBuffer:&_vertexGrayItemBuffer[i]
+                   andVertices:factionModels[ALIENS][i]
+               withNumVertices:factionVertexCounts[ALIENS][i]
+              usingDrawingMode:GL_STATIC_DRAW
+          withVertexAttributes:_modelVertexSpecification
+              andNumAttributes: 3];
+    }
 }
 
+/**
+ * Sets up the OpenGL state of the asteroid models.
+ */
 - (void) setupEnvironment
 {
-    // Item: Asteroid
-    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR0]);
-    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR0]);
-    
-    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR0]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR0]);
-    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR0] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR0], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Item: Asteroid Cluster 1
-    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR1]);
-    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR1]);
-    
-    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR1]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR1]);
-    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR1] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR1], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
-    
-    // Item: Asteroid Cluster 2
-    glGenVertexArraysOES(1, &_vertexEnvironmentArray[ENV_ASTEROID_VAR2]);
-    glBindVertexArrayOES(_vertexEnvironmentArray[ENV_ASTEROID_VAR2]);
-    
-    glGenBuffers(1, &_vertexEnvironmentBuffer[ENV_ASTEROID_VAR2]);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexEnvironmentBuffer[ENV_ASTEROID_VAR2]);
-    glBufferData(GL_ARRAY_BUFFER, environmentVertexCounts[ENV_ASTEROID_VAR2] * sizeof(float) * 8, environmentModels[ENV_ASTEROID_VAR2], GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
-    
-    glBindVertexArrayOES(0);
+    // Loop through the different asteroids and load them in
+    for(int i = 0; i < NUM_ENV_CLASSES; i++)
+    {
+        [self setupVertexArray:&_vertexEnvironmentArray[i]
+                    withBuffer:&_vertexEnvironmentBuffer[i]
+                   andVertices:environmentModels[i]
+               withNumVertices:environmentVertexCounts[i]
+              usingDrawingMode:GL_STATIC_DRAW
+          withVertexAttributes:_modelVertexSpecification
+              andNumAttributes: 3];
+    }
 }
 
 /**
